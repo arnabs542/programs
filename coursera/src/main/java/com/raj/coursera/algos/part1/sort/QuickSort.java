@@ -1,10 +1,8 @@
 package com.raj.coursera.algos.part1.sort;
 
-import com.raj.helper.FileReaderHelper;
 import com.raj.helper.Util;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Sweta on 1/31/2015.
@@ -34,8 +32,16 @@ public class QuickSort {
 
     }
 
+    /**
+     * Pivot is at the start of the partition
+     * i is the partition boundary
+     * j is the scan index of the array
+     * if A[j] < A[Pivot], then accommodate within partition boundary (i). increment i which denotes elems less than pivot
+     * Swap i which is the partition boundary with first elem which is pivot which rightly belongs at this place
+     */
     private static int partitionAroundPivot(Integer[] A, int startIdx, int endIdx, int pivotIdx) {
-
+        System.out.println("\nPivot = " + A[pivotIdx] + " -> ");
+        Arrays.stream(A).forEach(x -> System.out.print(x+" "));
         if (startIdx > endIdx) return startIdx;
 
         Util.runtime += (endIdx - startIdx); // number of comparisons - the pivot element is compared to each of the other m−1 elements in the subarray in this recursive call
@@ -48,10 +54,14 @@ public class QuickSort {
                 iPartitionIdx++;
                 swap(A, iPartitionIdx, j);
             }
+            System.out.println();
+            Arrays.stream(A).forEach(x -> System.out.print(x+" "));
         }
 
         // Move the pivot to it's correct final sorted position, which is at the partition boundary
         swap(A, iPartitionIdx, pivotIdx);
+        System.out.print("\nAfter Partition: ");
+        Arrays.stream(A).forEach(x -> System.out.print(x+" "));
         return iPartitionIdx;
     }
 
@@ -111,22 +121,22 @@ public class QuickSort {
     }
 
     public static void runProgram(Integer[] A) {
-        Util.startProfiling(A);
+        //Util.startProfiling(A);
         QSort(A, 0, A.length - 1);
-        Util.endProfiling(A);
+        //Util.endProfiling(A);
     }
 
     public static void main(String[] args) {
-        Integer[] inputArray = {1, 3, 5, 2, 4, 6}; //{5, 1, 2, 6, 4, 8, 7, 9}; //{1,3,5,2,4,6}; //{4,94,87,24,44,30,37,97,47,93}
+        Integer[] inputArray = {3,8,2,5,1,4,7,6}; //{5, 1, 2, 6, 4, 8, 7, 9}; //{1,3,5,2,4,6}; //{4,94,87,24,44,30,37,97,47,93}
 
         Integer[] randomArray = Util.generateRandomArray(29, 0, 100);
-        //runProgram(randomArray);
+        runProgram(inputArray);
 
-        List<Integer> integerList = FileReaderHelper.read("E:\\workspace-intellij\\algos\\coursera\\resource\\QuickSort.txt", true);
-        Integer[] inputArrayFile = new Integer[integerList.size()];
-        System.out.println("File integer count = " + integerList.size() + ", Integer array size = " + inputArrayFile.length);
+        //List<Integer> integerList = FileReaderHelper.read("E:\\workspace-intellij\\algos\\coursera\\resource\\QuickSort.txt", true);
+        //Integer[] inputArrayFile = new Integer[integerList.size()];
+        //System.out.println("File integer count = " + integerList.size() + ", Integer array size = " + inputArrayFile.length);
 
-        runProgram(integerList.toArray(inputArrayFile));
+        //runProgram(integerList.toArray(inputArrayFile));
 
     }
 

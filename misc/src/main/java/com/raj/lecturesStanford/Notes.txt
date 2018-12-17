@@ -1,0 +1,5 @@
+Stanford CS106B Julie Zelinsky Lectures:
+https://see.stanford.edu/Course/CS106B
+
+Gayle Laakmann Hacker Rank:
+QSort: https://www.youtube.com/watch?v=SLauY6PpjW4

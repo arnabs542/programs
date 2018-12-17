@@ -25,6 +25,8 @@ public class LetterCombinationPhoneNumber {
     private List<String> result = Lists.newArrayList();
 
     public LetterCombinationPhoneNumber() {
+        map.put(0, "0");
+        map.put(1, "1");
         map.put(2, "abc");
         map.put(3, "def");
         map.put(4, "ghi");
@@ -33,7 +35,6 @@ public class LetterCombinationPhoneNumber {
         map.put(7, "pqrs");
         map.put(8, "tuv");
         map.put(9, "wxyz");
-        map.put(0, "");
     }
 
     public List<String> letterCombinations(String digits) {

@@ -6,7 +6,7 @@ package com.raj.dp;
  *
  * W [10, 20, 30]       // weight
  * V [60, 100, 120]     // value
- *
+ * Allowed Weight = 50
  */
 public class Knapsack {
 
