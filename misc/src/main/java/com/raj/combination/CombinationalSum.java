@@ -1,4 +1,4 @@
-package com.raj.string;
+package com.raj.combination;
 
 /**
  * @author rshekh1

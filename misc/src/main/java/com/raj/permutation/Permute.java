@@ -1,4 +1,4 @@
-package com.raj.string;
+package com.raj.permutation;
 
 /**
  * https://www.youtube.com/watch?v=uFJhEPrbycQ

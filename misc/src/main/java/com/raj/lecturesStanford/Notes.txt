@@ -3,3 +3,7 @@ https://see.stanford.edu/Course/CS106B
 
 Gayle Laakmann Hacker Rank:
 QSort: https://www.youtube.com/watch?v=SLauY6PpjW4
+
+
+https://hackernoon.com/10-data-structure-algorithms-and-programming-courses-to-crack-any-coding-interview-e1c50b30b927
+DP: https://walmart.udemy.com/dynamic-programming/

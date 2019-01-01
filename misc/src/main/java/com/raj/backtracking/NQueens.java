@@ -38,9 +38,7 @@ public class NQueens {
     public static void main(String[] args) {
 
         for (int startAtCol = 0; startAtCol < n; startAtCol++) {  // Tries a Queen in first row at col 0 to n. This is to keep finding all solves for the board
-
             Board board = new Board(n);
-
             board.b[0][startAtCol] = true;  // set queen at 0, startAtCol
             solve(board, 1);
         }
