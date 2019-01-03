@@ -9,17 +9,6 @@ import com.raj.tree.Node;
 public class BST {
 
     static int cnt = 0; // to count iterations
-    /**
-     * Given a node, print the max sum of nodes below it
-     * <p/>
-     * Algo:
-     * - null check
-     * - calculate sum of all nodes for this node
-     * - maxSum is max of this sum or maxSum
-     * - do the same for left and right subtrees
-     * O(n2) soln
-     */
-
     int maxSum = 0;
     private Node root;
 
@@ -43,9 +32,11 @@ public class BST {
         bst1.insert(2);
 
         Node root = bst1.getRoot();
-        System.out.println(bst1.lookup(root, 5) + "\n");
+        System.out.println("Lookup 5? " + bst1.lookup(root, 5) + "\n");
 
+        System.out.println("Inorder traversal: ");
         bst1.inorder(bst1.getRoot());
+        System.out.println();
 
         System.out.println("Print paths: ");
         bst1.printPaths(root, 0, new int[10]);
@@ -59,14 +50,18 @@ public class BST {
 
         System.out.println("isBST? " + bst1.isBST(root, Integer.MIN_VALUE));
 
-        System.out.println("Delete Node from BST");
-        bst1.delete(root, 5);
+        /*System.out.println("Delete Node from BST");
+        bst1.delete(5);
         System.out.println("Print paths: ");
-        bst1.printPaths(root, 0, new int[10]);
-
-        /*System.out.println("Mirror Tree: ");
-        bst1.mirrorTree(root);
         bst1.printPaths(root, 0, new int[10]);*/
+
+        System.out.println("Mirror Tree: ");
+        //bst1.mirrorTree(root);
+        Node mirror = bst1.mirror(root);    // root will alter (same as mirror)
+        bst1.printPaths(mirror, 0, new int[10]);
+
+        System.out.println("Is Mirror Tree ? " + bst1.isMirrorTree(root, mirror));
+        System.out.println("Is Same Tree ? " + bst1.isSameTree(root, mirror));
 
         /*
               -10
@@ -86,8 +81,7 @@ public class BST {
         System.out.println("Print paths: ");
         bst1.printPaths(root1, 0, new int[10]);
 
-        System.out.println("Print max sum: " + bst1.maxSum(root1) + " total iterations=" + cnt);
-        System.out.println("Print max sum 2: " + bst1.maxSum2(root1));
+        System.out.println("Print max sum: " + bst1.maxSum2(root1));
 
         BTreeMaxSum bTreeMaxSum = new BTreeMaxSum();
         bTreeMaxSum.setRoot(root1);
@@ -98,8 +92,7 @@ public class BST {
         for (int i = 0; i <= bTreeHelper.getEndIdx(); i++)
             System.out.println(arr[i]);
         System.out.println(bTreeHelper.getMaxSum());
-        System.out.println(bst1.sameTree(root, root1));
-
+        System.out.println(bst1.isSameTree(root, root1));
     }
 
     public Node getRoot() {
@@ -128,7 +121,7 @@ public class BST {
     public void inorder(Node n) {
         if (n == null) return;
         inorder(n.left);
-        System.out.println(n.data);
+        System.out.print(n.data + " ");
         inorder(n.right);
     }
 
@@ -178,17 +171,16 @@ public class BST {
     public void printPaths(Node n, int depth, int[] arr) {
         if (n == null) return;
 
-        arr[depth] = n.data;              // process node
-        if (n.left == null && n.right == null) {
-            for (int i = 0; i <= depth; i++)
-                System.out.print(arr[i] + " ");
+        arr[depth] = n.data;                        // process node
+
+        if (n.left == null && n.right == null) {    // print array if leaf node which is a node with both left & right as null
+            for (int i = 0; i <= depth; i++) System.out.print(arr[i] + " ");
             System.out.println();
             return;
         }
 
         printPaths(n.left, depth + 1, arr);   // left subtree recurse
         printPaths(n.right, depth + 1, arr);  // right subtree recurse
-
     }
 
     /**
@@ -198,7 +190,6 @@ public class BST {
      */
     public int size(Node n) {
         if (n == null) return 0;
-
         return 1 + size(n.left) + size(n.right);
     }
 
@@ -209,7 +200,6 @@ public class BST {
      */
     public int height(Node n) {
         if (n == null) return 0;
-
         return 1 + Math.max(height(n.left), height(n.right));
     }
 
@@ -221,14 +211,14 @@ public class BST {
      * - return node's data + sum(left subtree) + sum(right subtree)
      */
     public int sum(Node n) {
-        if (n == null) return 0;
-        cnt++;
+        if (n == null) return 0;    cnt++;
         return n.data + sum(n.left) + sum(n.right);
     }
 
     /**
      * Delete a node in BST
-     * <p/>
+     * https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
+     *
      * Algo:
      * ## Cases ##
      * The node to be deleted is:
@@ -238,53 +228,30 @@ public class BST {
      * set minValue node to null.
      * - Keep tracking parent
      */
-    public void delete(Node n, int data) {
-
-        if (n == null) return;
-
-        /*if(root.data == data) {
-
-        }*/
-
-        if (n.left != null && n.left.data == data)
-            remove(n, n.left);
-        if (n.right != null && n.right.data == data)
-            remove(n, n.right);
-
-        if (data < n.data)
-            delete(n.left, data);
-        else delete(n.right, data);
+    // This method mainly calls deleteRec()
+    public void delete(int key) {
+        root = deleteRec(root, key);
     }
 
-    public void remove(Node parent, Node n) {
-        boolean isNodeLeftOfParent = false;
-        if (parent.left == n) isNodeLeftOfParent = true;
+    /* A recursive function to insert a new key in BST */
+    Node deleteRec(Node node, int key)
+    {
+        /* Base Case: If the tree is empty */
+        if (node == null) return node;
 
-        // No child, leaf case
-        if (n.left == null && n.right == null) {
-            if (isNodeLeftOfParent) parent.left = null;
-            else parent.right = null;
-            return;
+        /* Otherwise, recur down the tree */
+        if (key < node.data) node.left = deleteRec(node.left, key);
+        else if (key > node.data) node.right = deleteRec(node.right, key);
+        else {      /* node to be deleted found */
+            // case 1: node with only one child or no child
+            if (node.left == null) return node.right;
+            else if (node.right == null) return node.left;
+
+            // case 2: node with two children - Get the inorder successor (smallest in the right subtree)
+            node.data = minValue(node.right).data;
+            node.right = deleteRec(node.right, node.data);  // Delete the inorder successor
         }
-
-        // Has just one child
-        if (n.left == null) {
-            if (isNodeLeftOfParent) parent.left = n.right;
-            else parent.right = n.right;
-            return;
-        }
-
-        if (n.right == null) {
-            if (isNodeLeftOfParent) parent.left = n.left;
-            else parent.right = n.left;
-            return;
-        }
-
-        // Has both child
-        Node minNodeRight = minValue(n.right);
-        n.data = minNodeRight.data;
-        minNodeRight = null;
-
+        return node;
     }
 
     public Node minValue(Node n) {
@@ -292,24 +259,12 @@ public class BST {
         else return minValue(n.left);
     }
 
-    public int maxSum(Node n) {
-        maxSum1(n);
-        return maxSum;
-    }
-
-    private void maxSum1(Node n) {
-        if (n == null) return;
-        int sum = n.data + sum(n.left) + sum(n.right);
-        maxSum = Math.max(sum, maxSum);
-        maxSum1(n.left);
-        maxSum1(n.right);
-    }
-
     /**
-     * Better soln for above:
+     * Find maxSum node, which is maximum sum of all left & right nodes, given a node:
      * - init maxSum global var which stores max sum
      * - for a node, find sum as this node's data + sum of left subtree + sum of right subtree
      * - maxSum = max(sum, maxSum)
+     * O(n^2) soln
      */
     public int maxSum2(Node n) {
         maxSum3(n);
@@ -318,8 +273,8 @@ public class BST {
 
     private int maxSum3(Node n) {
         if (n == null) return 0;
-        int sum = n.data + maxSum3(n.left) + maxSum3(n.right);
-        maxSum = Math.max(sum, maxSum);
+        int sum = n.data + maxSum3(n.left) + maxSum3(n.right);  // this is the sum for this node
+        maxSum = Math.max(sum, maxSum);     // update maxSum before returning sum
         return sum;
     }
 
@@ -346,8 +301,7 @@ public class BST {
      */
     public void mirrorTree(Node n) {
         if (n == null) return;
-        // swap left, right
-        Node t = n.left;
+        Node t = n.left;    // swap left, right
         n.left = n.right;
         n.right = t;
         mirrorTree(n.left);
@@ -355,14 +309,38 @@ public class BST {
     }
 
     /**
+     * Mirror tree, cleaner & elegant
+     */
+    public Node mirror(Node node) {
+        if (node == null) return node;
+
+        Node t = node.left;     // save left as it would be modified
+        node.left = mirror(node.right);
+        node.right = mirror(t);
+
+        return node;
+    }
+
+    /**
      * Check if two b-trees are same
      */
-    public boolean sameTree(Node n1, Node n2) {
+    public boolean isSameTree(Node n1, Node n2) {
         if (n1 == null && n2 == null) return true;
         if (n1 == null || n2 == null) return false;
         if (n1.data != n2.data) return false;
-        return sameTree(n1.left, n2.left) && sameTree(n1.right, n2.right);
+        return isSameTree(n1.left, n2.left) && isSameTree(n1.right, n2.right);
     }
+
+    /**
+     * Check if two b-trees are mirror of each other
+     */
+    public boolean isMirrorTree(Node n1, Node n2) {
+        if (n1 == null && n2 == null) return true;
+        if (n1 == null || n2 == null) return false;
+        if (n1.data != n2.data) return false;
+        return isMirrorTree(n1.left, n2.right) && isMirrorTree(n1.right, n2.left);
+    }
+
 
     /**
      * Check if a BTree is a BST.
@@ -371,7 +349,7 @@ public class BST {
      * Algo1B: While traversing check if the previous node's value was lesser than current node's value. Best soln.
      * Algo2: While traversing, narrow min/max and a node's value should lie within this range.
      */
-    public boolean isBST(Node n, int prevData) {
+    public boolean isBST(Node n, int prevData) {    // algo 1B
         if (n == null) return true;
         // traverse left
         boolean leftAnswer = isBST(n.left, prevData);
@@ -382,7 +360,27 @@ public class BST {
         return leftAnswer && isBST(n.right, prevData);
     }
 
+    public boolean isBST2(Node n) {
+        return _isBST2(n, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    // https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+    public boolean _isBST2(Node n, int min, int max) {
+        if (n == null) return true;
+        if (n.data < min || n.data > max) return false;
+        return _isBST2(n.left, min, n.data-1)   // going left means the max value allowed will be 1 lesser than current
+                && _isBST2(n.right, n.data+1, max); // similarly going right means the min value will at least increase by 1
+    }
+
     /**
+     * https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+     * Method 1 (By Storing root to n1 and root to n2 paths):
+     * Following is simple O(n) algorithm to find LCA of n1 and n2.
+     * 1) Find path from root to n1 and store it in a vector or array.
+     * 2) Find path from root to n2 and store it in another vector or array.
+     * 3) Traverse both paths till the values in arrays are same. Return the common element just before the mismatch.
+     *
+     * Method 2
      * LCA of a BST : Easy as it is BST and we can leverage that info. Use comparison of nodes <,=,> and cover all cases
      */
     public Node LCABST(Node n, int a, int b) {
