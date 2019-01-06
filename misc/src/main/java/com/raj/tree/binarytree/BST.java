@@ -63,6 +63,10 @@ public class BST {
         System.out.println("Is Mirror Tree ? " + bst1.isMirrorTree(root, mirror));
         System.out.println("Is Same Tree ? " + bst1.isSameTree(root, mirror));
 
+        bst1.mirror(root); // revert back to original tree
+        System.out.println("LCABST of 2,8 -> " + bst1.LCABST(root, 2, 8));
+        System.out.println("LCA of 2,8 -> " + bst1.LCAAnyBTree(root, 2, 8));
+
         /*
               -10
              /  \
@@ -118,6 +122,7 @@ public class BST {
         return n;
     }
 
+    // left -> node -> right
     public void inorder(Node n) {
         if (n == null) return;
         inorder(n.left);
@@ -125,6 +130,7 @@ public class BST {
         inorder(n.right);
     }
 
+    // node -> left -> right
     public void preorder(Node n) {
         if (n == null) return;
         System.out.println(n.data);
@@ -132,6 +138,7 @@ public class BST {
         preorder(n.right);
     }
 
+    // left -> right -> node
     public void postorder(Node n) {
         if (n == null) return;
         postorder(n.left);
@@ -254,6 +261,7 @@ public class BST {
         return node;
     }
 
+    // min value in BST is deepest left node
     public Node minValue(Node n) {
         if (n.left == null) return n;
         else return minValue(n.left);
@@ -384,37 +392,49 @@ public class BST {
      * LCA of a BST : Easy as it is BST and we can leverage that info. Use comparison of nodes <,=,> and cover all cases
      */
     public Node LCABST(Node n, int a, int b) {
-        // Pre-check : both node should exist in BST, else return null
-        if (lookup(n, a) && lookup(n, b)) return LCABSTHelper(n, a, b);
-        return null;
+        if (lookup(n, a) && lookup(n, b)) return _LCABST(n, a, b);  // Pre-check : both node should exist in BST, else return null
+        else return null;
     }
 
-    private Node LCABSTHelper(Node n, int a, int b) {
+    private Node _LCABST(Node n, int a, int b) {
         if (n == null) return null;
-        if (n.data == a || n.data == b)
-            return n;    // one of the nodes is parent of other, but check if the other exists though
-        if (a < n.data && b < n.data) return LCABSTHelper(n.left, a, b);  // both a & b are smaller, recurse left
-        if (a > n.data && b > n.data) return LCABSTHelper(n.right, a, b); // both a & b are greater, recurse right
-        else return n;  // i.e. if(a < n.data && b > n.data) this node is LCA
+        if (n.data == a || n.data == b) return n;    // one of the nodes is parent of other, but check if the other exists though
+        if (a < n.data && b < n.data) return _LCABST(n.left, a, b);  // both a & b are smaller than n, LCA exists in left subtree
+        if (a > n.data && b > n.data) return _LCABST(n.right, a, b); // both a & b are greater than n, LCA exists in right subtree
+        if(a < n.data && b > n.data) return n;
+        return null;
     }
 
     /**
-     * LCA of a BT : Little tricky, but idea is the same.
+     * LCA of any Binary Tree : Little tricky, but idea is the same.
+     *
+     * The idea is to traverse the tree starting from root.
+     * # If any of the given keys (n1 and n2) matches with root, then root is LCA (assuming that both keys are present).
+     * # If root doesn’t match with any of the keys, we recur for left and right subtree. The node which has one key present in its left subtree and the other key present in right subtree is the LCA.
+     * # If both keys lie in left subtree, then left subtree has LCA also, otherwise LCA lies in right subtree.
      */
-    public Node LCA(Node n, int a, int b) {
-        // Pre-check : both node should exist in BST, else return null
-        if (lookup(n, a) && lookup(n, b)) return LCAHelper(n, a, b);
-        return null;
+    public Node LCAAnyBTree(Node n, int a, int b) {
+        if (lookupAnyBTree(n, a) && lookupAnyBTree(n, b)) return _LCAAnyBTree(n, a, b); // Pre-check : both node should exist in BST, else return null
+        else return null;
     }
 
-    private Node LCAHelper(Node n, int a, int b) {
+    private Node _LCAAnyBTree(Node n, int a, int b) {      // assuming both keys exists in the tree via checking lookup()
+
         if (n == null) return null;
-        if (n.data == a || n.data == b)
-            return n;    // one of the nodes is parent of other, but check if the other exists though
-        Node left = LCAHelper(n.left, a, b);
-        Node right = LCAHelper(n.right, a, b);
-        if (left != null) return left;
-        else return right;
+
+        // If either n1 or n2 matches with root, LCA is root
+        if (n.data == a || n.data == b) return n;
+
+        // Look for keys in left and right subtrees
+        Node left = _LCAAnyBTree(n.left, a, b);
+        Node right = _LCAAnyBTree(n.right, a, b);
+
+        // If both of the above calls return Non-NULL, then one node is present in left subtree and other is present in right,
+        // so this node is the LCA
+        if (left != null && right != null) return n;
+
+        // Otherwise check if left subtree or right subtree is LCA
+        return (left != null) ? left : right;
     }
 
 }

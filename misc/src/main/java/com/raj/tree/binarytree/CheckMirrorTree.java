@@ -5,8 +5,6 @@ package com.raj.tree.binarytree;
  */
 public class CheckMirrorTree {
 
-    Node a, b;
-
     /* Given two trees, return true if they are
        mirror of each other */
     boolean areMirror(Node a, Node b)
@@ -20,6 +18,7 @@ public class CheckMirrorTree {
         // data doesn't match
         //if (a.data != b.data) return false;
 
+        // recursively check if a's left equals b's right & a'right equals b's left
         return a.data == b.data && areMirror(a.left, b.right) && areMirror(a.right, b.left);
     }
 

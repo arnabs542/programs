@@ -9,6 +9,8 @@ public class Node {
     public int data;
     public Node left, right;
     public Node parent;
+    public Node nextRight;
+    public int depth;
     public boolean isVisited;
 
     public Node() {

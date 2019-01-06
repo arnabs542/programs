@@ -1,0 +1,10 @@
+--- Start Here ---
+(Must Watch Gayle Laakman video) : https://www.youtube.com/watch?v=P8Xa2BitN3I&t=110s
+
+https://www.geeksforgeeks.org/solve-dynamic-programming-problem/
+https://www.geeksforgeeks.org/tabulation-vs-memoizatation/
+
+Problems:
+0-1 Knapsack Problem: https://www.youtube.com/watch?v=xOlhR_2QCXY
+LCS: https://www.youtube.com/watch?v=Qf5R-uYQRPk
+

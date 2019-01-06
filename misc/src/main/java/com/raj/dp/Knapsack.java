@@ -66,7 +66,54 @@ public class Knapsack {
                     dp_W_n(n-1, weightLeft));  // don't try i
         } else dpTable[n][weightLeft] = dp_W_n(n-1, weightLeft);
 
+        //print(dpTable);
         return dpTable[n][weightLeft];
+    }
+
+    /**
+     * Trying to find the optimal substructure: https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+     */
+    public int dp_W_n0(int n) {
+        int i, w;
+        int K[][] = new int[n+1][W_total+1];
+
+        // Build table K[][] in bottom up manner
+        for (i = 0; i <= n; i++) {
+            for (w = 0; w <= W_total; w++) {
+                if (i==0 || w==0)  K[i][w] = 0;
+                else if (W[i-1] <= w) K[i][w] = Math.max(V[i-1] + K[i-1][w-W[i-1]], K[i-1][w]);
+                else K[i][w] = K[i-1][w];
+                System.out.print(K[i][w] + " ");
+            }
+            System.out.println();
+        }
+
+        return K[n][W_total];
+    }
+
+    // Returns the maximum value that can be put in a knapsack of capacity W
+    static int knapSack(int W, int wt[], int val[], int n)
+    {
+        int i, w;
+        int K[][] = new int[n+1][W+1];
+
+        // Build table K[][] in bottom up manner
+        for (i = 0; i <= n; i++)
+        {
+            for (w = 0; w <= W; w++)
+            {   comparisons ++;
+                if (i==0 || w==0)
+                    K[i][w] = 0;
+                else if (wt[i-1] <= w)
+                    K[i][w] = Math.max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
+                else
+                    K[i][w] = K[i-1][w];
+                System.out.print(K[i][w] + " ");
+            }
+            System.out.println();
+        }
+
+        return K[n][W];
     }
 
     public static void main(String[] args) {
@@ -76,6 +123,22 @@ public class Knapsack {
 
         comparisons = 0;
         System.out.println(ks.dp_W_n(W.length-1, W_total) + " , Comparisons = " + comparisons);
+
+        int val[] = new int[]{60, 100, 120};
+        int wt[] = new int[]{10, 20, 30};
+        int  W = 50;
+        int n = val.length;
+        System.out.println(knapSack(W, wt, val, n) + " , Comparisons = " + comparisons);
+        System.out.println(ks.dp_W_n0(n));
+    }
+
+    static void print(int[][] dpTable) {
+        for (int i = 0; i < dpTable.length; i++) {
+            for (int j = 0; j <= W_total; j++) {
+                System.out.print(dpTable[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
 }
