@@ -14,7 +14,8 @@ import java.util.Set;
 public class WordBreak {
 
     /*
-     Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word.
+     Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to
+     construct a sentence where each word is a valid dictionary word.
      You may assume the dictionary does not contain duplicate words. Return all such possible sentences.
 
      For example, given

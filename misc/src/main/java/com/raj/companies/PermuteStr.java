@@ -53,22 +53,23 @@ public class PermuteStr {
     }
 
     private void permute(String soFar, String rest) {
-        if (rest.isEmpty()) validateAndPrint(soFar);
-        soFar += "_";
-        int length = rest.length() < 2 ? rest.length() : 2;
-
-        for (int i = 0; i < length; i++) {
-            soFar += rest.charAt(0);
-            rest = rest.substring(1, rest.length());
-            permute(soFar, rest);
+        System.out.println("soFar=" + soFar + "  rest=" + rest);
+        if (rest.isEmpty()) {
+            validateAndPrint(soFar);
+            return;
         }
 
-        return;
+        soFar += ",";   // add separator for each new computation to separate the subresults
+
+        for (int i = 0; i < rest.length(); i++) {
+            soFar += rest.charAt(i);                // keep adding char i.e. 126 -> 1(i=0), 12(i=1), 126(i=2)
+            permute(soFar, rest.substring(i+1));    // recurse on leftover
+        }
     }
 
     private void validateAndPrint(String soFar) {
         String str = "";
-        String[] sArr = soFar.split("_");
+        String[] sArr = soFar.split(",");
         for (String s : sArr) {
             if (s == null || s.isEmpty()) continue;
             int digit = Integer.parseInt(s) + 64;
@@ -81,8 +82,8 @@ public class PermuteStr {
     public static void main(String[] args) {
         PermuteStr p = new PermuteStr();
         p.permute("126");
-        p.permute("011");
-        p.permute("246013");
+        //p.permute("011");
+        //p.permute("246013");
     }
 
 }

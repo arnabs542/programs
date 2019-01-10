@@ -14,11 +14,11 @@ public class LongestSubsequence {
     }
 
     /**
-     * LONGEST INCREASING SUBSEQUENCE (non-contiguous)
-     * https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+     * LONGEST INCREASING SUB-SEQUENCE (non-contiguous)
+     * https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/  (watch the embedded video for explanation)
      * Input : arr[] = {50, 3, 10, 7, 40, 80}
      * Output : Length of LIS = 4
-     * The longest increasing subsequence is {3, 7, 40, 80}
+     * The longest increasing sub-sequence is {3, 7, 40, 80}
      */
     static int[] LIS(int[] A) {
         int[] dp = new int[A.length];
@@ -28,10 +28,10 @@ public class LongestSubsequence {
             dp[i] = 1;
         }
 
-        for (int i = 1; i < A.length; i++) {
+        for (int i = 1; i < A.length; i++) {    // keep moving j b/w 0 -> i to find the max subseq so far
             for (int j = 0; j < i; j++) {
                 // if this i is greater, meaning it's increasing sequence
-                // also maintain only the max subsequence length in dp table
+                // also maintain only the max sub-sequence length in dp table
                 if (A[i] > A[j] && dp[i] < dp[j] + 1) {
                     dp[i] = dp[j] + 1;
                 }
@@ -40,7 +40,7 @@ public class LongestSubsequence {
         return dp;
     }
 
-    // Longest decreasing subsequence
+    // Longest decreasing sub-sequence
     static int[] LDS(int[] A) {
         int[] dp = new int[A.length];
 
@@ -52,7 +52,7 @@ public class LongestSubsequence {
         for (int i = 1; i < A.length; i++) {
             for (int j = 0; j < i; j++) {
                 // if this i is lesser, meaning it's decreasing sequence
-                // also maintain only the max subsequence length in dp table
+                // also maintain only the max sub-sequence length in dp table
                 if (A[i] < A[j] && dp[i] < dp[j] + 1) {
                     dp[i] = dp[j] + 1;
                 }
@@ -66,7 +66,7 @@ public class LongestSubsequence {
      * https://www.geeksforgeeks.org/longest-bitonic-subsequence-dp-15/
      *
      * For the given array [1 11 2 10 4 5 2 1]
-     * Longest inc then dec subsequence is [1 2 10 4 2 1]
+     * Longest inc then dec sub-sequence is [1 2 10 4 2 1]
      * Return value 6
      *
      * Algo:
