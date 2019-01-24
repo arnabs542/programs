@@ -1,4 +1,4 @@
-package com.raj.dp;
+package com.raj.dp.Knapsack;
 
 /**
  * 0-1 Knapsack problem : Maximize value of items added to a Knapsack that can only carry upto a maximum weight
@@ -72,26 +72,8 @@ public class Knapsack {
 
     /**
      * Trying to find the optimal substructure: https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+     * Returns the maximum value that can be put in a knapsack of capacity W
      */
-    public int dp_W_n0(int n) {
-        int i, w;
-        int K[][] = new int[n+1][W_total+1];
-
-        // Build table K[][] in bottom up manner
-        for (i = 0; i <= n; i++) {
-            for (w = 0; w <= W_total; w++) {
-                if (i==0 || w==0)  K[i][w] = 0;
-                else if (W[i-1] <= w) K[i][w] = Math.max(V[i-1] + K[i-1][w-W[i-1]], K[i-1][w]);
-                else K[i][w] = K[i-1][w];
-                System.out.print(K[i][w] + " ");
-            }
-            System.out.println();
-        }
-
-        return K[n][W_total];
-    }
-
-    // Returns the maximum value that can be put in a knapsack of capacity W
     static int knapSack(int W, int wt[], int val[], int n)
     {
         int i, w;
@@ -108,28 +90,56 @@ public class Knapsack {
                     K[i][w] = Math.max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
                 else
                     K[i][w] = K[i-1][w];
-                System.out.print(K[i][w] + " ");
             }
-            System.out.println();
         }
-
         return K[n][W];
+    }
+
+
+    static int tot_wt;
+    static int num_items;
+    static int[][] knapsackTable;
+
+    static int knapsack_dp(int[] W, int[] V) {
+        knapsackTable = new int[num_items+1][tot_wt+1];
+        // start from 1,1 onwards as 0th col, rows will be 0
+        for (int n = 1; n <= num_items; n++) {      // take or not take item 'n'
+            for (int w = 1; w <= tot_wt; w++) {     // allowed weight
+                int takeItem = 0;           comparisons ++;
+                int notTakeItem = knapsackTable[n-1][w];    // take whatever we computed for the last n-1th & w
+                if (W[n] <= w) {     // if weight of this item is less than allowed weight
+                    takeItem = V[n] + knapsackTable[n-1][w-W[n]];
+                }
+                knapsackTable[n][w] = Math.max(takeItem, notTakeItem);
+            }
+        }
+        showResult(W, V);
+        return knapsackTable[num_items][tot_wt];
+    }
+
+    // shows which items were included in knapsack traversing back from DP table
+    static void showResult(int[] W, int[] V) {
+        System.out.println("\nMax value of knapsack = " + knapsackTable[num_items][tot_wt] + " lbs");
+        for (int n = num_items, w = tot_wt; n > 0; n--) {
+            if (knapsackTable[n][w] != 0 && knapsackTable[n][w] != knapsackTable[n-1][w]) {
+                System.out.println("Selected item " + n + " with weight, value = " + W[n] + " lb, $" + V[n]);
+                w -= W[n];
+            }
+        }
     }
 
     public static void main(String[] args) {
         Knapsack ks = new Knapsack();
         comparisons = 0;
         System.out.println(ks.recursive_2_power_n(0, 0) + " , Comparisons = " + comparisons);
-
         comparisons = 0;
-        System.out.println(ks.dp_W_n(W.length-1, W_total) + " , Comparisons = " + comparisons);
+        System.out.println(knapSack(5, new int[]{4,2,3}, new int[]{10,4,7}, 3) + " , Comparisons = " + comparisons);
 
-        int val[] = new int[]{60, 100, 120};
-        int wt[] = new int[]{10, 20, 30};
-        int  W = 50;
-        int n = val.length;
-        System.out.println(knapSack(W, wt, val, n) + " , Comparisons = " + comparisons);
-        System.out.println(ks.dp_W_n0(n));
+        tot_wt = 5;
+        num_items = 3;
+        int V[] = new int[]{0, 10, 4, 7};  // pad 0 (no item, no weight selected) for keeping index 1 for actual values
+        int W[] = new int[]{0, 4, 2, 3};
+        knapsack_dp(W, V);
     }
 
     static void print(int[][] dpTable) {

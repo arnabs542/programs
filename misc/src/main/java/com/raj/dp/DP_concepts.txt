@@ -8,3 +8,35 @@ Problems:
 0-1 Knapsack Problem: https://www.youtube.com/watch?v=xOlhR_2QCXY
 LCS: https://www.youtube.com/watch?v=Qf5R-uYQRPk
 
+Good Collection of Programs:
+https://github.com/mission-peace/interview/wiki/Dynamic-Programming
+
+How to recognize DP Problems:
+https://www.quora.com/How-do-I-recognize-a-problem-as-a-dynamic-programming-problem
+Dynamic programming is helpful for solving optimization problems, so often, the best way to recognize a
+problem as solvable by dynamic programming is to recognize that a problem is an optimization problem.
+With optimization problems, you see terms like shortest/longest, minimized/maximized, least/most, fewest/greatest,
+biggest/smallest, etc.
+
+
+If the problem seems pretty difficult and you would have trouble coming up with the answer on your own without a
+computer or calculus, then dynamic programming is probably a good candidate.
+Dynamic programming simply takes the brute force approach, identifies repeated work, and eliminates the repetition.
+So before you even start to formulate the problem as a dynamic programming problem, think about what the brute force
+solution might look like. Could there possibly be repeated substeps in the brute force solution?  If so, try to formulate
+your problem as a dynamic programming problem.
+Make sure you can identify the parameter that you are optimizing for. Then attempt to identify the inputs. List all
+inputs that affect the answer, and worry about reducing the size of that set later. Once you have identified the inputs
+and outputs, try to identify whether the problem can be broken into smaller subproblems. If you can identify smaller
+subproblems, then you can probably apply dynamic programming to solve the problem.
+Note: just because a problem can be solved with dynamic programming does not mean there isn't a more efficient solution
+out there.  Solving a problem with dynamic programming feels like magic, but remember that dynamic programming is merely
+clever brute force.  Sometimes it pays off well, and sometimes it helps only a little.
+
+"One is that when you realize that you can divide the big problem into sub-problems, this might be a dynamic programming
+ problem. In other words, if solutions to sub-problems can be used to solve the overall problem, you can at least try
+ recursion. In order to speed it up, storing temporary results into memory is one of the most common approach.
+ In addition, it's recommended to first solve a problem with most naive approach. A lot of times we may just try brute
+ force with several for loops. If you notice that for loops won't work because you'll end up with infinite loops,
+ probably this indicates dynamic programming."
+
