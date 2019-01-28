@@ -7,3 +7,8 @@ QSort: https://www.youtube.com/watch?v=SLauY6PpjW4
 
 https://hackernoon.com/10-data-structure-algorithms-and-programming-courses-to-crack-any-coding-interview-e1c50b30b927
 DP: https://walmart.udemy.com/dynamic-programming/
+
+DP Lectures: (Holczer Balazs) https://walmart.udemy.com/algorithmic-problems-in-java
+http://www.globalsoftwaresupport.com/algorithmic-problems-java/
+Look for folder algorithmic_problems_java_Holczer Balazs in Mac storage
+
