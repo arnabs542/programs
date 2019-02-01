@@ -7,14 +7,18 @@ public class WaysToDecode {
 
     public static void main(String[] args) {
         System.out.println(countDecoding("126".toCharArray(), 3));
-        System.out.println(countDecodingDP("126".toCharArray(), 3));
+        System.out.println("126 => " + countDecodingDP("126".toCharArray(), 3));
 
         /**
          * Input: digits[] = "1234"
          * Output: 3
          * The possible decodings are "ABCD", "LCD", "AWD"
          */
-        System.out.println(countDecodingDP("1234".toCharArray(), 4));
+        System.out.println("1234 => " + countDecodingDP("1234".toCharArray(), 4));
+        System.out.println("1234 => " + countDecodingDP0("1234".toCharArray()));
+
+        System.out.println("1224 => " + countDecodingDP0("1224".toCharArray()));
+        System.out.println("127 => " + countDecodingDP0("8".toCharArray()));
     }
 
     /**
@@ -73,6 +77,22 @@ public class WaysToDecode {
             if (digits[i - 2] == '1' || (digits[i - 2] == '2' && digits[i - 1] < '7')) dp[i] += dp[i - 2];
         }
         return dp[n];
+    }
+
+    static int countDecodingDP0(char[] digits) {
+        int[] dp = new int[digits.length];  // stores the num words that can be formed at ith position
+
+        for (int i = 0; i < digits.length; i++) {
+            if (digits[i] == '0') continue;
+            dp[i] = 1;  // word with 1 digit length
+        }
+
+        for (int i = 1; i < digits.length; i++) {       // num words with more than 1 digit length
+            String num = digits[i-1] + "" + digits[i];  // try to form a letter with this & preceding digit (as 3 digit letter isn't possible)
+            if (Integer.parseInt(num) <= 26) dp[i] = dp[i-1] + 1;   // if valid letter increment from num words found before this
+            else dp[i] = dp[i-1];   // otherwise keep the num words found so far
+        }
+        return dp[digits.length-1];
     }
 
 }
