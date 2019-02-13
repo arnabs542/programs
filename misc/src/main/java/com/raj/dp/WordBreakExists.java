@@ -46,7 +46,7 @@ public class WordBreakExists {
         }
 
         for (int i = 0; i < table.length; i++) {
-            System.out.println(i + "->" + table[i]);
+            System.out.println(text.charAt(i) + "->" + table[i]);
         }
 
         System.out.println("Comparisons = " + comparisons);
@@ -98,7 +98,7 @@ public class WordBreakExists {
 
     public static void main(String[] args) {
         WordBreakExists wordBreakExists = new WordBreakExists();
-        //getInput().forEach(input -> System.out.println("Found: " + wordBreakExists.dpTable(input) + "\n"));
+        getInput().forEach(input -> System.out.println("Found: " + wordBreakExists.dpTable(input) + "\n"));
         getInput().forEach(input -> System.out.println("Found: " + wordBreakExists.dpTableDFS(input) + "\n"));
     }
 
