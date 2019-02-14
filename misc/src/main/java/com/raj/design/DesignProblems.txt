@@ -1,0 +1,9 @@
+# Design a TinyUrl like service : https://www.youtube.com/watch?v=fMZMm_0ZhK4&t=1281s
+>
+
+# WAP to find needle in haystack? Design a service for this in subsecond response times?
+> Solr / Elastic Search like inverted index (atext -> list documents containing text)
+
+# Chat / Messaging service?
+
+# Design twitter like system?

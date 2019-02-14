@@ -39,4 +39,16 @@ Git process and some other CI/CD stuff.
 
 14> DP - Min cost of cutting a rod. Knapsack problem.
 
-15>
+15> Write a function that takes a list of "ranges" and returns a list of the minimum number of "ranges" by combining overlapping "ranges".
+>>> iterate, keep extending this end as long as next start is before this end, add it to result list
+
+16> Write a function that takes a list of all available cars and returns the 10 nearest cars to a user's location.
+>>> use min heap(Priority Queue) with distance as value(pointing to each car id), thus top most is the min dist car
+>>> Keep adding, if size exceeds 10, delete/poll from heap
+>>> Finally, iterate again, poll & print car
+>>> n log 10
+
+17> Schedule tasks with dependencies. A -> [B], B -> [], C -> [A], D -> [B,C] => B,A,C,D
+>>> cycles?
+>>> O(n)
+
