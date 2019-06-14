@@ -43,7 +43,7 @@ public class TaskScheduler {
     }
 
     private static void assemble(Map<String, List<String>> tasksMap) {
-        Stack<String> depStack = new Stack<>();     // stack keeps track of dependencies as we dfs
+        Stack<String> depStack = new Stack<>();     // recursionStack keeps track of dependencies as we dfs
         for (String key : tasksMap.keySet()) {      // iterate over all parts
             depStack.add(key);
             assembleRecursively(depStack, tasksMap);
@@ -57,7 +57,7 @@ public class TaskScheduler {
         if (depStack.isEmpty()) return;         // base case
 
         String t = depStack.peek();             // take the next task
-        // if we hit end or is already completed, just print stack contents
+        // if we hit end or is already completed, just print recursionStack contents
         if (tasksMap.get(t).isEmpty() || tasksMap.get(t).get(0).isEmpty() || completed.contains(t)) {
             printStack(depStack);
         } else {
@@ -69,7 +69,7 @@ public class TaskScheduler {
     }
 
     private static void printStack(Stack<String> depStack) {
-        while (!depStack.isEmpty()) {       // print stack as this dfs is done
+        while (!depStack.isEmpty()) {       // print recursionStack as this dfs is done
             String done = depStack.pop();
             if (completed.add(done)) System.out.print(done + ", ");  // only print tasks that weren't already completed
         }
@@ -82,5 +82,8 @@ public class TaskScheduler {
         }
         depStack.add(dep);
     }
+
+
+
 
 }

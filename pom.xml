@@ -8,6 +8,7 @@
   <modules>
     <module>misc</module>
     <module>coursera</module>
+    <module>ik</module>
   </modules>
   <properties>
     <maven.javadoc.skip>true</maven.javadoc.skip>

@@ -6,18 +6,18 @@ package com.raj.stackqueues;
 public class MinStack {
 
     /**
-     * Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+     * Design a recursionStack that supports push, pop, top, and retrieving the minimum element in constant time.
 
-     push(x) – Push element x onto stack.
-     pop() – Removes the element on top of the stack.
+     push(x) – Push element x onto recursionStack.
+     pop() – Removes the element on top of the recursionStack.
      top() – Get the top element.
-     getMin() – Retrieve the minimum element in the stack.
+     getMin() – Retrieve the minimum element in the recursionStack.
      Note that all the operations have to be constant time operations.
 
      Algo:
-     Maintain 2 queues. One which stored the actual stack of element, and the other which stores the minimum of elements.
-     So when pushing new element,
-     min = min(top of minimum stack, current value) which is pushed to minimum stack.
+     Maintain 2 queues. One which stored the actual recursionStack of element, and the other which stores
+     the minimum of elements.So when pushing new element,
+     min = min(top of minimum recursionStack, current value) which is pushed to minimum recursionStack.
 
      However, this uses 2N memory.
      */

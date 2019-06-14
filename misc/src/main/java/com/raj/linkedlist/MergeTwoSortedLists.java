@@ -58,7 +58,7 @@ public class MergeTwoSortedLists {
      * Merge is one of those nice recursive problems where the recursive solution code is much cleaner than the
      * iterative code.
      * NOTE: You probably wouldn’t want to use the recursive version for production code
-     * because it will use stack space which is proportional to the length of the lists.
+     * because it will use recursionStack space which is proportional to the length of the lists.
      */
     public static Node sortedMergeRecursive(Node A, Node B) {
         // BASE Case

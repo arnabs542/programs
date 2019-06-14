@@ -8,7 +8,7 @@
 
 5> Permute 123 to ascii chars -> abc, lc, aw
 
-6> Needle in Haystack -> abcdefgh lmnopqr => def
+6> Needle in Haystack -> abcdefgh lmnopqr => def, expand it to a service with sub sec latency => Solr,ES inverted index
 
 7> Merge overlapping intervals. Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] would result in [1,2],[3,10],[12,16].
 This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. Make sure the returned intervals are also sorted.
@@ -29,8 +29,8 @@ This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. Make su
 12> Design LRU cache.
 
 13>
-How would he scale an API or span an application onto multiple machines and what problems would they cause?
-How would he store Strings for faster retrieval if they are being used in a type-ahead field?
+How would you scale an API or span an application onto multiple machines and what problems would they cause?
+How would you store Strings for faster retrieval if they are being used in a type-ahead field?
 A coding question.
 REST API method selection and usage with emphasis on idempotency.
 HashMap & Immutability.
@@ -43,12 +43,14 @@ Git process and some other CI/CD stuff.
 >>> iterate, keep extending this end as long as next start is before this end, add it to result list
 
 16> Write a function that takes a list of all available cars and returns the 10 nearest cars to a user's location.
->>> use min heap(Priority Queue) with distance as value(pointing to each car id), thus top most is the min dist car
->>> Keep adding, if size exceeds 10, delete/poll from heap
+>>> use max heap(Priority Queue) with distance as value(pointing to each car id), thus top most is the max dist car
+>>> Keep adding if dist is < heap.peek, if size exceeds 10, delete/poll from heap
 >>> Finally, iterate again, poll & print car
 >>> n log 10
 
 17> Schedule tasks with dependencies. A -> [B], B -> [], C -> [A], D -> [B,C] => B,A,C,D
 >>> cycles?
 >>> O(n)
+
+
 

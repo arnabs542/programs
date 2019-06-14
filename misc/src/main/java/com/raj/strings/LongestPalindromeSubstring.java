@@ -83,6 +83,9 @@ public class LongestPalindromeSubstring {
         System.out.println(l.lps("abacdfghdcaba"));
         System.out.println(l.lps("GEEKSFORGEEKS"));
 
+        System.out.println(l.lps_dp("cababa"));
+        System.out.println(l.lps_dp("cbbd"));
+        System.out.println(l.lps_dp("forgeeksskeegfor"));
     }
 
     /**
@@ -95,4 +98,54 @@ public class LongestPalindromeSubstring {
      we check if the substring’s indices are the same as the reversed substring’s original indices.
      If it is, then we attempt to update the longest palindrome found so far; if not, we skip this and find the next candidate.
      */
+
+    /**
+     * DP soln O(n^2) with O(n^2) space
+     *
+     * lps[i][j] denotes substring i,j is palindrome or not
+     *
+     * lps[i][j] = true, if A[i] == A[j] && lps[i+1][j-1] == true
+     *             else false
+     * Note:
+     * To evaluate lps[i..j], we need to have table computed by lengths for eg. lps[2][5] needs lps[3][4] to be computed before
+     */
+    public int lps_dp(String s) {
+        char[] A = s.toCharArray();
+        int length = s.length();
+        boolean[][] lps = new boolean[length][length];
+        int maxlen = 0, start = 0;
+
+        // 1 letter palins ?
+        for (int i = 0; i < length; i++) {
+            lps[i][i] = true;
+            maxlen = 1;
+        }
+
+        // 2 letter palins ?
+        for (int i = 0; i < length-1; i++) {
+            int j = i + 1;
+            if (A[i] == A[j]) {
+                lps[i][j] = true;
+                start = i;  // for printing the substring
+                maxlen = 2;
+            }
+        }
+
+        // 3+ letter palins ?
+        for (int len = 3; len <= length; len++) {
+            for (int i = 0; i <= length-len; i++) {
+                int j = i+len-1;
+                if (A[i] == A[j] && lps[i+1][j-1]) {
+                    lps[i][j] = true;
+                    if (len > maxlen) {
+                        start = i;
+                        maxlen = len;
+                    }
+                }
+            }
+        }
+        System.out.println(s.substring(start, start+maxlen));
+        return maxlen;
+    }
+
 }

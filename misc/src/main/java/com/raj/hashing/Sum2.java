@@ -22,4 +22,5 @@ public class Sum2 {
             map.put(target - a[i], a[i]);
         }
     }
+
 }

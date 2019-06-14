@@ -7,7 +7,6 @@ package com.raj.array;
 public class Rotate {
 
     private static void rotate(char[] arr, int d) {
-
         int srcIdx = 0, destIdx = -1;
         int pivotIdx = srcIdx;  // index from where we start swapping values
         char save, tmp = arr[0];
