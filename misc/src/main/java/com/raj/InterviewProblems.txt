@@ -52,5 +52,8 @@ Git process and some other CI/CD stuff.
 >>> cycles?
 >>> O(n)
 
+18> Evaluate Expression: (only + & * allowed, edge case - how would u take care of double digits)
+    (2 + ( (1+2)*(3+1) ) + 5) = 19
+    (1+((2*3))) = 7
 
 

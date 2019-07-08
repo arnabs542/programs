@@ -6,9 +6,9 @@
   <name>programs-parent</name>
   <packaging>pom</packaging>
   <modules>
-    <module>misc</module>
-    <module>coursera</module>
     <module>ik</module>
+    <module>coursera</module>
+    <module>misc</module>
   </modules>
   <properties>
     <maven.javadoc.skip>true</maven.javadoc.skip>
