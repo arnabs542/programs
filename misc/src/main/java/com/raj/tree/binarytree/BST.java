@@ -2,6 +2,9 @@ package com.raj.tree.binarytree;
 
 import com.raj.tree.Node;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author: sraj1
  * Date:    10/10/12
@@ -34,8 +37,12 @@ public class BST {
         Node root = bst1.getRoot();
         System.out.println("Lookup 5? " + bst1.lookup(root, 5) + "\n");
 
-        System.out.println("Inorder traversal: ");
+        System.out.println("InOrder traversal: ");
         bst1.inorder(bst1.getRoot());
+        System.out.println();
+
+        System.out.println("LevelOrder traversal: ");
+        bst1.levelOrder(bst1.getRoot());
         System.out.println();
 
         System.out.println("Print paths: ");
@@ -50,6 +57,7 @@ public class BST {
 
         System.out.println("isBST? " + bst1.isBST(root, Integer.MIN_VALUE));
 
+        System.out.println("inorder successor of 8 => " + bst1.inorderSuccessor(root, 8));
         /*System.out.println("Delete Node from BST");
         bst1.delete(5);
         System.out.println("Print paths: ");
@@ -146,6 +154,19 @@ public class BST {
         System.out.println(n.data);
     }
 
+    // level order - BFS
+    public void levelOrder(Node n) {
+        // maintain a queue to print as we traverse in FIFO order
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(n);
+        while (!queue.isEmpty()) {
+            Node cur = queue.poll();
+            System.out.print(cur.data + " ");
+            if (cur.left != null) queue.add(cur.left);
+            if (cur.right != null) queue.add(cur.right);
+        }
+    }
+
     /**
      * O(log n) complexity as it keeps excluding half subtree at each node
      */
@@ -240,23 +261,27 @@ public class BST {
         root = deleteRec(root, key);
     }
 
-    /* A recursive function to insert a new key in BST */
     Node deleteRec(Node node, int key)
     {
-        /* Base Case: If the tree is empty */
+        // Base Case: If the tree is empty
         if (node == null) return node;
 
-        /* Otherwise, recur down the tree */
-        if (key < node.data) node.left = deleteRec(node.left, key);
+        // Otherwise, recur down the tree trying to find the node to be deleted
+        if (key < node.data) node.left = deleteRec(node.left, key);     // deletion is as simple as changing the pointer
         else if (key > node.data) node.right = deleteRec(node.right, key);
-        else {      /* node to be deleted found */
-            // case 1: node with only one child or no child
+        // node to be deleted found
+        else {
+            // case 1: node with no child
+            if (node.left == null && node.right == null) return null;
+
+            // case 2: node with one child
             if (node.left == null) return node.right;
             else if (node.right == null) return node.left;
 
-            // case 2: node with two children - Get the inorder successor (smallest in the right subtree)
+            // case 3: node with two children
+            // Find the min in the right subtree or even max in left (either is fine)
             node.data = minValue(node.right).data;
-            node.right = deleteRec(node.right, node.data);  // Delete the inorder successor
+            node.right = deleteRec(node.right, node.data);  // Delete the node recursively
         }
         return node;
     }
@@ -265,6 +290,40 @@ public class BST {
     public Node minValue(Node n) {
         if (n.left == null) return n;
         else return minValue(n.left);
+    }
+
+    // find the inorder successor
+    public Node inorderSuccessor(Node n, int data) {
+        if (n == null) return null;
+
+        Node current = search(n, data);     // node for which successor needs to be found
+
+        // Case 1: Node has right subtree
+        if (current.right != null) return minValue(current.right);
+
+        // Case 2: Node has NO right subtree - traverse from root again, for each left traversal re-assign successor as it's ancestor
+            // while for each right traversal don't re-assign. Hence, we'll find successor whose left subtree has the searched node
+        else {
+            Node ancestor = n; // start with root
+            Node successor = null;
+
+            while (ancestor != current) {
+                if (data < ancestor.data) {
+                    successor = ancestor;  // save the successor for each left traversal
+                    ancestor = ancestor.left;
+                } else {
+                    ancestor = ancestor.right;
+                }
+            }
+            return successor;
+        }
+    }
+
+    public Node search(Node n, int data) {
+        if (n == null) return null;
+        if (n.data == data) return n;
+        if (data < n.data) return search(n.left, data);
+        else return search(n.right, data);
     }
 
     /**
@@ -378,6 +437,21 @@ public class BST {
         if (n.data < min || n.data > max) return false;
         return _isBST2(n.left, min, n.data-1)   // going left means the max value allowed will be 1 lesser than current
                 && _isBST2(n.right, n.data+1, max); // similarly going right means the min value will at least increase by 1
+    }
+
+    // O(n^2) solve, not very efficient
+    public boolean isBST(Node n) {
+        if (n == null) return true;
+        return isLeftSubTreeLesser(n) && isRightSubTreeGreater(n)
+        && isBST(n.left) && isBST(n.right);
+    }
+
+    private boolean isLeftSubTreeLesser(Node n) {
+        return n.data > n.left.data && isLeftSubTreeLesser(n.left) && isLeftSubTreeLesser(n.right);
+    }
+
+    private boolean isRightSubTreeGreater(Node n) {
+        return n.data < n.right.data && isLeftSubTreeLesser(n.left) && isLeftSubTreeLesser(n.right);
     }
 
     /**
