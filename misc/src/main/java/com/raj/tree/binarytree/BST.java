@@ -58,6 +58,8 @@ public class BST {
         System.out.println("isBST? " + bst1.isBST(root, Integer.MIN_VALUE));
 
         System.out.println("inorder successor of 8 => " + bst1.inorderSuccessor(root, 8));
+        System.out.println("inorder predecessor of 8 => " + bst1.inorderPredecessor(root, 8));
+
         /*System.out.println("Delete Node from BST");
         bst1.delete(5);
         System.out.println("Print paths: ");
@@ -292,11 +294,12 @@ public class BST {
         else return minValue(n.left);
     }
 
-    // find the inorder successor
+    // find the inorder successor of data, given root n
     public Node inorderSuccessor(Node n, int data) {
-        if (n == null) return null;
 
         Node current = search(n, data);     // node for which successor needs to be found
+
+        if (n == null || current == null) return null;
 
         // Case 1: Node has right subtree
         if (current.right != null) return minValue(current.right);
@@ -304,18 +307,43 @@ public class BST {
         // Case 2: Node has NO right subtree - traverse from root again, for each left traversal re-assign successor as it's ancestor
             // while for each right traversal don't re-assign. Hence, we'll find successor whose left subtree has the searched node
         else {
-            Node ancestor = n; // start with root
+            Node node = n; // start with root
             Node successor = null;
 
-            while (ancestor != current) {
-                if (data < ancestor.data) {
-                    successor = ancestor;  // save the successor for each left traversal
-                    ancestor = ancestor.left;
+            while (node != current) {
+                if (data < node.data) {
+                    successor = node;  // save the successor for each left traversal
+                    node = node.left;  // now move left, thus saving last known successor
                 } else {
-                    ancestor = ancestor.right;
+                    node = node.right;
                 }
             }
             return successor;
+        }
+    }
+
+    public Node inorderPredecessor(Node n, int data) {
+        Node current = search(n, data);     // node for which successor needs to be found
+
+        if (n == null || current == null) return null;
+
+        // Case 1: Node has left subtree - then it's immediate left is the predecessor
+        if (current.left != null) return current.left;
+
+        // Case 2: Node has NO left subtree - then it's immediate parent is the predecessor
+        else {
+            Node node = n; // start with root
+            Node predecessor = null;
+
+            while (node != current) {
+                if (data < node.data) {
+                    node = node.left;
+                } else {
+                    predecessor = node;  // save the successor for each left traversal
+                    node = node.right;
+                }
+            }
+            return predecessor;
         }
     }
 
