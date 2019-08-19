@@ -1,2 +1,23 @@
 # How to build a Max Heap using a MinHeap (Python only provide MinHeap)? Just negate the numbers and use minHeap.
 
+# When asked for kth smallest / largest distance, think of:
+    => QuickSelect with O(n) avg case, if list is already given (NON-STREAMING CONTEXT)
+    => If it's a STREAMING CONTEXT, then k sized Binary heap with O(n log k) complexity
+        -> minHeap if k largest elements as we need to peek the min of max k elems, everytime we see a new num
+        -> maxHeap if k smallest elements as we need to know the max of min k elems, everytime we see a new num
+        -> Insert into k sized min heap, if the new num is greater than min (tip of iceberg, other elems are definitely larger than top)
+
+# Find Median of streaming numbers?
+    => Median is  .......(median)....... middle element of a sorted array. We'll need to keep track of all numbers.
+    => But only peek at the median element, others can stay left or right
+    => eg. 1,2,3,4,(5,6),7,8,9,10
+        --> left elements increasing & we need to know about it's max i.e. 5 => maxHeap
+        --> right elements increasing & we need to know about it's min i.e. 6 => minHeap
+    => Keep balancing the heaps as we insert elements in either of the heaps so as to maintain at max 1 element size diff
+    => O(nlogn)
+
+# Merge k sorted lists?
+    => k sized minHeap. Insert elements, move ptr from the list this element is taken. Pop min & keep inserting.
+
+# Sort Big File of 500 GB that can't fit in memory?
+    =>     

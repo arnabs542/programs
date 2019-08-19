@@ -55,6 +55,7 @@ public class PermuteStr {
     private void permute(String soFar, String rest) {
         System.out.println("soFar=" + soFar + "  rest=" + rest);
         if (rest.isEmpty()) {
+            System.out.println(soFar);
             validateAndPrint(soFar);
             return;
         }
@@ -81,7 +82,7 @@ public class PermuteStr {
 
     public static void main(String[] args) {
         PermuteStr p = new PermuteStr();
-        p.permute("126");
+        p.permute("1234");
         //p.permute("011");
         //p.permute("246013");
     }

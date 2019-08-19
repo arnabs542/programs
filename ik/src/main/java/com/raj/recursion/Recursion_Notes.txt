@@ -1,0 +1,20 @@
+# Recursion can be solved using 2 strategies -
+ => Divide & Conquer - divide the problem into n/x sub-problems & then recurse on those
+    -> Recursive mostly, top-down approach - f(n) -> f(n-1) -> f(n-2) ....
+ => Decrease & Conquer - recurse by just decreasing size by one
+    -> Iterative mostly, bottom-up approach - 1 -> 2 -> 3 -> .... n-1 -> n
+ => Recursion Optimizations, if repeating sub-problems:
+    -> When you solve a recurrence equation top-down by caching the solutions to subproblems along the way, that is called Memoization
+    -> When you solve a recurrence equation bottom-up by caching the solutions to subproblems along the way, that is called Dynamic Programming
+
+# Arrange k items from a set of n distinct items - Exponential runtime probs (is only good for smaller n):
+# Permutation => order matters
+ => with repetition - n^k
+ => without repetition - n * n-1 * n-2 ....n-k
+
+# Combination => order doesn't matter (subset problem)
+ => Choose k combinations out of n => C(n,k) = n! / k! (n-k!)
+
+
+
+
