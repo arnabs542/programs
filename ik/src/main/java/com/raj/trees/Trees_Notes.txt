@@ -6,3 +6,10 @@
 # BST can be re-constructed from
     => Pre OR Post order (we know the root) using the fact that left node < root < right node
     => Can't from Inorder as we don't know the root
+
+# Passing object ptrs to a method is pass by value (meaning the reference is copied & passed over),
+so changing object vars will be permanent, but changing the object ptr won't be visible outside the method.
+https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
+    => This is important to remember otherwise unexpected thongs will happen like when we pass a prev Tree.Node ptr
+    and re-assign it in the helper method, it won't be visible. Hence, consider making them static if u need them to be
+    permanent or create a class for it.

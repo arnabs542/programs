@@ -527,15 +527,15 @@ public class BST {
         // If either n1 or n2 matches with root, LCA is root
         if (n.data == a || n.data == b) return n;
 
-        // Look for keys in left and right subtrees
+        // Look for keys in left and right subtrees, if a or b is present in them, then we wud get answer as non-null
         Node left = _LCAAnyBTree(n.left, a, b);
         Node right = _LCAAnyBTree(n.right, a, b);
 
-        // If both of the above calls return Non-NULL, then one node is present in left subtree and other is present in right,
+        // If both of the above calls return non-null, then one node is present in left subtree and other is present in right,
         // so this node is the LCA
         if (left != null && right != null) return n;
 
-        // Otherwise check if left subtree or right subtree is LCA
+        // Otherwise return the non-null node found, so that once we get the other node, we find the answer
         return (left != null) ? left : right;
     }
 

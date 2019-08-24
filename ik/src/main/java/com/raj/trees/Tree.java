@@ -23,7 +23,7 @@ public class Tree {
         }
     }
 
-    Node root;
+    public Node root;
 
     // Depth first traverse - root, left, right
     // Also called Pre-Order traversal
@@ -43,6 +43,7 @@ public class Tree {
             if (cur.right != null) stack.push(cur.right);
             if (cur.left != null) stack.push(cur.left);
         }
+        System.out.println();
     }
 
     // Breadth first traverse - using queue to for FIFO
@@ -57,6 +58,7 @@ public class Tree {
             if (cur.left != null) queue.add(cur.left);
             if (cur.right != null) queue.add(cur.right);
         }
+        System.out.println();
     }
 
     // Traverse (Left subtree), Root, (Right subtree) recursively
@@ -65,6 +67,60 @@ public class Tree {
         printInorder(root.left);
         System.out.print(root.val + " ");
         printInorder(root.right);
+    }
+
+    static void printAllPaths(Node root) {
+        if (root == null) return;
+        printPaths(root, "");
+    }
+
+    // do DFS, pre-order, keep adding node val as we traverse down. Print once we reach leaf node
+    static void printPaths(Node n, String soFar) {
+        soFar += n.val + " ";
+        if (n.left == null && n.right == null) {
+            System.out.println(soFar);
+            return;
+        }
+        printPaths(n.left, soFar);
+        printPaths(n.right, soFar);
+    }
+
+    static void printPaths(Node n, Stack stack) {
+        if (n.left == null && n.right == null) {
+            for (Object o : stack) System.out.print(o + " ");
+            System.out.println(n);
+            return;
+        }
+        stack.push(n);
+        printPaths(n.left, stack);
+        printPaths(n.right, stack);
+        stack.pop();
+    }
+
+    static class Result {
+        int val;
+        int count;
+    }
+
+    static int kth_smallest_element(Tree.Node root, int k) {
+        if (k < 1 || root == null) return 0;
+        // do inorder, decr k while processing node, when k == 0 return that value
+        Result res = new Result();
+        inorderKthElement(root, k, res);
+        return res.val;
+    }
+
+    static void inorderKthElement(Tree.Node n, int k, Result res) {
+        if (n == null) return ;
+
+        inorderKthElement(n.left, k, res);
+        res.count++;
+        //System.out.println("count = " + count + " , " + n.val);
+        if (res.count == k) {
+            res.val = n.val;
+            return;
+        }
+        inorderKthElement(n.right, k, res);
     }
 
     public static void main(String[] args) {
@@ -94,6 +150,11 @@ public class Tree {
         bst.root.left.left = new Node(5); bst.root.left.right = new Node(8);
         bst.root.right.left = new Node(15); bst.root.right.right = new Node(25);
         System.out.print("\nBST Inorder Traverse => "); printInorder(bst.root);
+
+        System.out.println("\nPrint all paths : ");
+        printAllPaths(tree.root);
+        //printPaths(tree.root, new Stack<>());
+        System.out.println("kth smallest node = " + kth_smallest_element(bst.root, 6    ));
     }
 
 }
