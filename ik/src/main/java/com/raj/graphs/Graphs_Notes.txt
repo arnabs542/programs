@@ -1,0 +1,23 @@
+# Degree of a node is the number of edges coming into a vertex. What's the sum of degree of all vertices?
+    => Undirected : 2|E| as each edge will be counted twice, eg. A --- B (2)
+    => Directed : In-degree Sum = Out-degree Sum = |E| as each edge will be counted once, eg. A ---> B (1,1)
+
+==== Eulerian Cycle & Paths ====
+# Hamiltonian Cycle problem & Travelling Salesman problem - NP Hard problems. No known polynomial time algo. It's mostly exponential time.
+# Eulerian Cycle : Go through each edge exactly once & come back to the starting vertex, then it's a Eulerian cycle,
+if not then it's an Eulerian Path (starts & ends at different vertices).
+    => Hamiltonian cycle is about visiting each vertex exactly once vs Eulerian which is about visiting vertex once.
+    => For a connected graph, it will always have an Eulerian cycle if -
+        -> It's undirected & has all Even degree vertices.
+        -> It's directed & in-degree = out-degree of all vertices.
+        -> We can find Eulerian cycle path by backtracking(when all edges aren't visited) & doing mini-walks from last V.
+
+# Number of odd degree vertices has to be even (can't be odd as Sum of degrees = 2|E| & odd+even = odd which contradicts it)
+
+# Number of vertices with odd degree:
+    => 0 - Eulerian Cycle
+    => 2 - Eulerian Path
+    => 4,6,8... - No Eulerian Cycle / Paths
+
+# Graph representation largely depends upon how we store edges as they can be of order of C(n choose 2)=O(n^2) in worst case.
+Hence, a simple operation like finding all neighbors of a vertex, might become O(n*m)=>O(n^3) operation eg. edge list representation.
