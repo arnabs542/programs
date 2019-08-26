@@ -22,5 +22,10 @@ if not then it's an Eulerian Path (starts & ends at different vertices).
 # Graph representation largely depends upon how we store edges as they can be of order of C(n choose 2)=O(n^2) in worst case.
 Hence, a simple operation like finding all neighbors of a vertex, might become O(n*m)=>O(n^3) operation eg. edge list representation.
 
+# Trees don't have cycles, unlike Graphs. Graphs would always need visited tracking therefore.
+# BFS Graph traversal can have exponential space complexity, if branching out factor is large, like in trees.
+# DFS Graph traversal will usually incur space complexity until recursion Stack depth which is O(max depth)
+
+# For Graph problems, both DFS & BFS incurs O(m+n) runtime & O(n) space complexity, where n=vertices & m=edges.
 
 # Algo Design Manual- Steven Skiena
