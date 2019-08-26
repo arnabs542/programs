@@ -21,3 +21,6 @@ if not then it's an Eulerian Path (starts & ends at different vertices).
 
 # Graph representation largely depends upon how we store edges as they can be of order of C(n choose 2)=O(n^2) in worst case.
 Hence, a simple operation like finding all neighbors of a vertex, might become O(n*m)=>O(n^3) operation eg. edge list representation.
+
+
+# Algo Design Manual- Steven Skiena
