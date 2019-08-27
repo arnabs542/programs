@@ -46,6 +46,7 @@ public class FindIslands {
      * # Is it a graph problem ? Yes, it talks about adjacent, connections
      * # How do we represent Graph ? 2D Grid, where finding neighbors is trivial as getting A(i+1,j) or A(i,j+1)
      * # What template do we apply ? Connected components + DFS/BFS
+     * Time = O(n+m), Space = O(n)
      */
     static Pair<Integer, Integer> findIslands(int[][] A) {   // returns num islands & max area tuple
         // for each unvisited vertex launch DFS, increment islands count, update max
@@ -54,9 +55,10 @@ public class FindIslands {
         for (int i = 0; i < A.length; i++) {
             for (int j = 0; j < A[i].length; j++) {
                 if (A[i][j] == 1) { // found an unexplored island, let's launch dfs
-                    //maxArea = Math.max(maxArea, dfs(A, i, j));
-                    maxArea = Math.max(maxArea, bfs(A, i, j));
-                    islands ++;
+                    //int area = dfs(A, i, j);
+                    int area = bfs(A, i, j);    // or bfs
+                    maxArea = Math.max(maxArea, area);
+                    islands ++; // incr components count
                 }
             }
         }

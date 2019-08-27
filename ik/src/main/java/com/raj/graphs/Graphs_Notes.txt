@@ -1,3 +1,5 @@
+# Algo Design Manual- Steven Skiena
+
 # Degree of a node is the number of edges coming into a vertex. What's the sum of degree of all vertices?
     => Undirected : 2|E| as each edge will be counted twice, eg. A --- B (2)
     => Directed : In-degree Sum = Out-degree Sum = |E| as each edge will be counted once, eg. A ---> B (1,1)
@@ -23,9 +25,12 @@ if not then it's an Eulerian Path (starts & ends at different vertices).
 Hence, a simple operation like finding all neighbors of a vertex, might become O(n*m)=>O(n^3) operation eg. edge list representation.
 
 # Trees don't have cycles, unlike Graphs. Graphs would always need visited tracking therefore.
-# BFS Graph traversal can have exponential space complexity, if branching out factor is large, like in trees.
-# DFS Graph traversal will usually incur space complexity until recursion Stack depth which is O(max depth)
+# BFS Graph traversal can have exponential space complexity O(2^h), if branching out factor is large, like in trees.
+# DFS Graph traversal will usually incur space complexity O(h) until recursion Stack depth
 
 # For Graph problems, both DFS & BFS incurs O(m+n) runtime & O(n) space complexity, where n=vertices & m=edges.
 
-# Algo Design Manual- Steven Skiena
+# A graph is Bipartite, if we can split the vertices into 2 subsets such that edges go b/w 2 sets. Graph is Bipartite if -
+    => No cycles - Yes
+    => Odd length Cycles = Cross edge in the same layer - No
+
