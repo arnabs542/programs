@@ -25,8 +25,8 @@ public class DetectCyclesDirected {
     public static void detectCycle(Graph graph) {
         System.out.println("DFS & detect cycle, if any => ");
         graph.allVertices.forEach((k,v) -> detectCycleDFS(v));
-        Graph.visited.clear();
-        Graph.recursionStack.clear();
+        /*Graph.visited.clear();
+        Graph.recursionStack.clear();*/
         System.out.println(" >>> No cycles present ...");
     }
 
