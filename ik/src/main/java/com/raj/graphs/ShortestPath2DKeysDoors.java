@@ -18,7 +18,7 @@ public class ShortestPath2DKeysDoors {
      * Cells in the grid can be described as:
      * '#' = Water.
      * '.' = Land.
-     * 'a' = Key of type 'a'. All lowercase letters are keys.
+     * 'a' = Key of type 'a'. All lowercase letters are keys. a-j only
      * 'A' = Door that opens with key 'a'. All uppercase letters are doors.
      * '@' = Starting cell.
      * '+' = Ending cell (goal).
@@ -31,107 +31,127 @@ public class ShortestPath2DKeysDoors {
      * Actual path is: 2 0 -> 1 0 -> 1 1 -> 0 1 -> 0 2 -> 0 3 -> 1 3 -> 2 3 -> 2 2
      *
      * Approach:
-     * BFS, for each neighbor mark visited, and also set the min distSoFar, plus collate keys & add cell to path
-     * Old cell ------------------> New cell
-     *           can unlock door?
-     *           if Yes, add to Queue with following -
-     *          + cell path
-     *          + update minDist
-     *          + add keys to doors
+     * Visiting a cell(x,y) can happen in multiple ways - no keys, with 1 or more keys, each should be considered as a
+     * different visited (If we just mark visited first time only, later if it led to a door, the path wud be blocked).
+     * Hence something like visited[x][y][keys] wud work. keys can be a bit representation - 101 representing c,a keys.
+     * So, [x][y][5] wud mean we came to x,y with c,a key this time which can be marked visited.
+     * To track parent, we need another array similar to above to just set which cell led us to it.
      */
     public static void main(String[] args) {
-        Maze maze = new Maze(new String[] {
+        System.out.println("Path -> " + Arrays.deepToString(find_shortest_path(new String[] {
+                "...B",
+                ".b##",
+                "@#+."
+        })));
+        System.out.println("Path -> " + Arrays.deepToString(find_shortest_path(new String[] {
                 "...B",
                 ".b#.",
                 "@#+."
-        });
-        System.out.println(Arrays.toString(maze.find_shortest_path()));
+        })));
+        System.out.println("Path -> " + Arrays.deepToString(find_shortest_path(new String[] {
+                "c..B.",
+                ".#b#.",
+                "..#..",
+                "@#+C."
+        })));
+    }
+
+    static int[][] find_shortest_path(String[] grid) {
+        Maze maze = new Maze(grid);
+        // tells if a cell is visited for x,y,keys combination.
+        // The third dimension is keys accumulated so far, 1111111111 keys combination - wud mean all a-j keys are gotten
+        maze.visited = new boolean[grid.length][grid[0].length()][1024];
+        Cell start = maze.findStartCell();
+        return maze.bfs(start);
     }
 
     static class Maze {
         String[] grid;
-        boolean[][] visited;
+        boolean[][][] visited;
+        static int validMoves = 4;
+        static int[] addRows = {-1,0,1,0};
+        static int[] addCols = {0,1,0,-1};
 
         public Maze(String[] g) {
             grid = g;
         }
 
-        public int[][] find_shortest_path() {
-            visited = new boolean[grid.length][grid[0].length()];
-            Coords start = findStartCell();
-            Cell end = bfs(start);
-            String[] arr = end.path.split(",");
-            int[][] path = new int[arr.length][2];
-            for (int i = 0; i < path.length; i++) {
-                if (arr[i].isEmpty()) continue;
-                path[i][0] = Integer.valueOf(arr[i].split(" ")[0]);
-                path[i][1] = Integer.valueOf(arr[i].split(" ")[1]);
-            }
-            return path;
-        }
+        int[][] bfs(Cell start) {
 
-        public Cell bfs(Coords start) {
-            Queue<Cell> queue = new LinkedList<>();
-            // add start cell info
-            Cell startCell = new Cell(start.i, start.j);
-            startCell.path += "," + start.i + " " + start.j;
-            queue.add(startCell);
-            visited[start.i][start.j] = true;
-            while (!queue.isEmpty()) {
-                Cell cell = queue.poll();
-                for (Coords w : getNeighbors(cell.coords.i, cell.coords.j)) {
-                    if (!visited[w.i][w.j]) {
-                        visited[w.i][w.j] = true;   // mark visited
-                        char c = grid[w.i].charAt(w.j);
-                        if (Character.isAlphabetic(c)) {    // is this a door or key?
-                            if (Character.isLowerCase(c)) cell.keysToDoor += Character.toUpperCase(c); // key found
-                            if (Character.isUpperCase(c) && !cell.keysToDoor.contains(c+"")) continue; // door found
-                        }
-                        Cell wCell = new Cell(w.i, w.j);
-                        // add discovered key / path
-                        wCell.keysToDoor = cell.keysToDoor;
-                        wCell.path = cell.path + "," + w.i + " " + w.j;
-                        if (grid[w.i].charAt(w.j) == '+') return cell; // reached goal state, return
-                        queue.add(wCell);
+            Queue<Cell> q = new LinkedList<>();
+            q.add(start);
+            visited[start.i][start.j][start.keys] = true;
+
+            while (!q.isEmpty()) {
+                Cell v = q.poll();
+
+                // reached goal ? build path and exit
+                if (grid[v.i].charAt(v.j) == '+') return buildPath(v);
+
+                // v -> w neighbors traversal
+                for (int k = 0; k < validMoves; k++) {
+                    // build neighbor(x,y) from predefined moves array
+                    int wRow = v.i + addRows[k];
+                    int wCol = v.j + addCols[k];
+                    Cell w = new Cell(wRow, wCol, v.keys, v.dist + 1, v);   // link parent for this neighbor, for build path later
+
+                    if (!isValid(w.i, w.j)) continue; // validate neighbor
+
+                    char ch = grid[w.i].charAt(w.j); // is neighbor land, water, key or door ?
+
+                    // water ?
+                    if (ch == '#') continue;
+
+                    // door ? can it be unlocked with accumulated keys ? can only be unlocked if that bit key is 1
+                    if (ch >= 'A' && ch <= 'J' && (v.keys & 1 << (ch - 'A')) == 0) continue;
+
+                    // key ? add it to w keys, eg. we had key f,g & now we found c => 1100000 + 100 = 1100100
+                    if (ch >= 'a' && ch <= 'j') w.keys = v.keys | 1 << (ch - 'a');
+
+                    // land ? or was it a door / key before ? we go ahead & add it to queue, if not visited for x,y,keys combo)
+                    if (!visited[w.i][w.j][w.keys]) {
+                        q.add(w);
+                        visited[w.i][w.j][w.keys] = true;   // mark it as visited (if not, it will double count, see graph notes)
                     }
                 }
             }
-            return null;
+            System.out.print("No solution exists !! ");
+            return null;    // no solution
         }
 
-        public Coords findStartCell() {
+        Cell findStartCell() {
             for (int i = 0; i < grid.length; i++) {
                 for (int j = 0; j < grid[0].length(); j++) {
-                    if (grid[i].charAt(j) == '@') return new Coords(i, j);
+                    if (grid[i].charAt(j) == '@') return new Cell(i, j, 0, 0, null);
                 }
             }
             return null;
         }
 
-        public List<Coords> getNeighbors(int i, int j) {
-            List<Coords> neighbors = new ArrayList<>();
-            if (i - 1 >= 0 && grid[i - 1].charAt(j) != '#') neighbors.add(new Coords(i - 1, j));
-            if (i + 1 < grid.length && grid[i + 1].charAt(j) != '#') neighbors.add(new Coords(i + 1, j));
-            if (j - 1 >= 0 && grid[i].charAt(j - 1) != '#') neighbors.add(new Coords(i, j - 1));
-            if (j + 1 < grid[i].length() && grid[i].charAt(j + 1) != '#') neighbors.add(new Coords(i, j + 1));
-            return neighbors;
+        int[][] buildPath(Cell cell) {
+            List<int[]> path = new ArrayList<>();
+            System.out.print("Steps = " + cell.dist + ", ");
+            while (cell != null) {
+                path.add(new int[]{cell.i, cell.j});
+                cell = cell.parent;
+            }
+            if (path.size() == 0) path.add(new int[]{0,0});
+            Collections.reverse(path);
+            return path.toArray(new int[path.size()][2]);
         }
+
+        boolean isValid(int row, int col) { // check bounds
+            return (0 <= row) && (row < grid.length) && (0 <= col) && (col < grid[0].length());
+        }
+
     }
 
     static class Cell {
-        Coords coords;
-        int minDist;
-        String keysToDoor = "";
-        String path = "";
-
-        public Cell(int i, int j) {
-            coords = new Coords(i, j);
+        int i, j, keys, dist;
+        Cell parent;
+        Cell(int x, int y, int k, int d, Cell p) {
+            i = x; j = y; keys = k; dist = d; parent = p;
         }
-    }
-
-    static class Coords {
-        int i, j;
-        Coords(int x, int y) { i=x; j=y; }
     }
 
 }

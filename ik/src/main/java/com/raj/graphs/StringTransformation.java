@@ -76,7 +76,7 @@ public class StringTransformation {
 
             for (Vertex w : neighbors) {
 
-                // reached goal, return
+                // reached goal, return (this check cud be after queue.poll as well)
                 if (w.word.equals(stop)) return buildWordPath(w);
 
                 // check if the new word exists in dict & has not been seen before
