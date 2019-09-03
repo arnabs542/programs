@@ -1,8 +1,6 @@
 package com.raj.graphs;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author rshekh1
@@ -100,12 +98,17 @@ public class CourseSchedule {
          * o/p => 0,1,2,3 or 0,2,1,3
          */
         prerequisites.add(new ArrayList<>(Arrays.asList(1,0)));
-        prerequisites.add(new ArrayList<>(Arrays.asList(2,0)));
+        prerequisites.add(new ArrayList<>(Arrays.asList(2,0)));  // try 2,3 for creating a cycle
         prerequisites.add(new ArrayList<>(Arrays.asList(3,1)));
         prerequisites.add(new ArrayList<>(Arrays.asList(3,2)));
-        /*prerequisites.add(new ArrayList<>(Arrays.asList(0,1)));
-        prerequisites.add(new ArrayList<>(Arrays.asList(0,2)));*/
-        System.out.println(course_schedule(4, prerequisites));
+
+        // Topo sort can only happen for a DAG, so make sure we break out if there is a loop
+
+        // Method 1 - DFS
+        System.out.println("Topo sort using DFS (Course schedule order) => " + course_schedule(4, prerequisites));
+
+        // Method 2 - Kahn's algo for Topo sort using in-degrees of vertices
+        System.out.println("Topo sort using Kahn's in-degree method => " + course_schedule_kahns(4, prerequisites));
     }
 
     static List<Integer> course_schedule(int n, List<List<Integer>> prerequisites) {
@@ -119,9 +122,51 @@ public class CourseSchedule {
             try {
                 if (g.isVisited[i] == 0) g.scheduleCourse(i);
             } catch (IllegalStateException e) {
+                System.out.println("Cycle detected, can't do Topo sort !!");
                 return new ArrayList<>(Arrays.asList(-1));
             }
         }
+        return g.schedule;
+    }
+
+    // Kahn's topo sort - idea is a DAG will always have at least one zero-indegree vertex where we start from and reduce indegrees of neighbors. We keep adding zero indegrees to queue.
+    static List<Integer> course_schedule_kahns(int n, List<List<Integer>> prerequisites) {
+        Graph g = new Graph(n);
+        for (List<Integer> p: prerequisites) {
+            g.addEdge(p.get(0), p.get(1));
+        }
+
+        // compute in-degree of each vertex, v->w => inDegree[w]++
+        int[] inDegree = new int[n];
+        Arrays.stream(g.adjList).forEach(v -> v.forEach(w -> {
+            inDegree[w]++;
+        }));
+
+        // Initialize count of visited vertices
+        int cnt = 0;
+
+        // find zero in-degree vertices (which is our starting points) add it to queue
+        Queue<Integer> queue = new LinkedList<>();
+        for (int v = 0; v < inDegree.length; v++) if (inDegree[v] == 0) queue.add(v);
+
+        // for each v->w pair, reduce in-degrees & add any new zero in-degree vertex to queue. Also, add it to output in reverse order
+        while (!queue.isEmpty()) {
+            int v = queue.poll();
+            g.schedule.add(v); // add to schedule but output will be reverse order
+            for (int w : g.adjList[v]) {
+                inDegree[w]--;
+                if (inDegree[w] == 0) {
+                    queue.add(w);
+                }
+            }
+            cnt ++;
+        }
+        // check for cycles as topo sort can only happen for a DAG
+        if (cnt != n) {
+            System.out.println("Cycle detected, can't do Topo sort !!");
+            return new ArrayList<>(Arrays.asList(-1));
+        }
+        Collections.reverse(g.schedule);
         return g.schedule;
     }
 
@@ -131,7 +176,7 @@ public class CourseSchedule {
         int[] isVisited;
         List<Integer> schedule = new ArrayList<>();
 
-        public Graph(int n) {
+        Graph(int n) {
             V = n;
             adjList = new List[n];
             for (int i = 0; i < n; i++) adjList[i] = new ArrayList<>();
@@ -139,18 +184,19 @@ public class CourseSchedule {
             isVisited = new int[n];     // 0 -> unvisited, 1 -> visited & in current DFS stack, 2 -> all children visited
         }
 
-        public void addEdge(int v, int w) {
+        void addEdge(int v, int w) {
             adjList[v].add(w);
         }
 
-        public void scheduleCourse(int v) {
+        // uses arrival / departure time template
+        void scheduleCourse(int v) {
             isVisited[v] = 1;   // mark visited only - in current dfs stack, will be useful for cycle detection
             for (int w : adjList[v]) {
                 if (isVisited[w] == 0) scheduleCourse(w);   // do dfs, if unvisited
                 else if (isVisited[w] == 1) throw new IllegalStateException("Cycle / Back Edge detected, can't schedule courses !!");
             }
             isVisited[v] = 2;   // mark all children explored & done
-            schedule.add(v);
+            schedule.add(v);    // which wud mean that this course can now be scheduled as all dependencies are met
         }
 
     }

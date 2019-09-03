@@ -114,7 +114,7 @@ class Graph {
                 v = a.getKey(); //the neighbour in this iteration
                 final int alternateDist = u.dist + a.getValue();  // compute a new greedy score
                 if (alternateDist < v.dist) { // shorter path to neighbour found
-                    q.remove(v);    // remove and update that vertex distance
+                    q.remove(v);    // remove and update that vertex distance or alternatively we cud have altered priority
                     v.dist = alternateDist;
                     v.previous = u;     // for wiring the path
                     q.add(v);   // add back to heap
