@@ -97,9 +97,10 @@ public class CourseSchedule {
          * 2  0
          * 3  1
          * 3  2
+         * o/p => 0,1,2,3 or 0,2,1,3
          */
         prerequisites.add(new ArrayList<>(Arrays.asList(1,0)));
-        prerequisites.add(new ArrayList<>(Arrays.asList(2,3)));
+        prerequisites.add(new ArrayList<>(Arrays.asList(2,0)));
         prerequisites.add(new ArrayList<>(Arrays.asList(3,1)));
         prerequisites.add(new ArrayList<>(Arrays.asList(3,2)));
         /*prerequisites.add(new ArrayList<>(Arrays.asList(0,1)));
@@ -145,7 +146,7 @@ public class CourseSchedule {
         public void scheduleCourse(int v) {
             isVisited[v] = 1;   // mark visited only - in current dfs stack, will be useful for cycle detection
             for (int w : adjList[v]) {
-                if (isVisited[w] == 0) scheduleCourse(w);   // do dfs
+                if (isVisited[w] == 0) scheduleCourse(w);   // do dfs, if unvisited
                 else if (isVisited[w] == 1) throw new IllegalStateException("Cycle / Back Edge detected, can't schedule courses !!");
             }
             isVisited[v] = 2;   // mark all children explored & done
