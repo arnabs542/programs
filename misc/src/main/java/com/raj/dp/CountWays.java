@@ -6,6 +6,7 @@ package com.raj.dp;
 public class CountWays {
 
     public static void main(String[] args) {
+        System.out.println(climbStairs(2));
         System.out.println(climbStairs(4));
     }
 
@@ -29,13 +30,18 @@ public class CountWays {
      * Output: 5
      * (1, 1, 1, 1), (1, 1, 2), (2, 1, 1), (1, 2, 1), (2, 2)
      *
+     * DP formula:
+     * You can reach ith step by taking 1 step from i-1 & 2 step from i-2 respectively
+     * You get num ways at ith step dp[i] by combining num ways from 1 & 2 step behind dp[i-1] + dp[i-2]
+     * dp[i] = dp[i-1] + dp[i-2]
      */
     public static int climbStairs(int A) {      // O(n) --> only iterate once to fill the table
-        if (A <= 2) return A;
         int[] dp = new int[A+1];
-        dp[0] = 0; dp[1] = 1; dp[2] = 2;    // fill obvious solves
-        if (A > 2)
-            for (int i=3; i<=A; i++) dp[i] = dp[i-1] + dp[i-2]; // similar solve to fibonacci
+
+        dp[0] = 0; dp[1] = 1; dp[2] = 2;    // base cases
+
+        for (int i = 3; i <= A; i++) dp[i] = dp[i-1] + dp[i-2]; // reach ith step by 1 or 2 more steps from i-1 or i-2
+
         return dp[A];
     }
 

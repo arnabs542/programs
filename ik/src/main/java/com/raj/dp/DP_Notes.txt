@@ -1,0 +1,5 @@
+# How do we know it's a DP problem? How do we solve it?
+  => Look for following words: min/max, num counts/ways, 0-sum game etc
+  => Has overlapping sub-problem property
+  => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
+  => Core of a DP problem is underlying the recurrence relation, farming the DP formula with base cases

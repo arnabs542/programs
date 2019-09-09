@@ -13,6 +13,7 @@ public class CoinChange {
     }
 
     /**
+     * In how many ways can you do coin change for amount A given coins k?
      * 123 -> {1,1,1,1}, {1,1,2}, {1,3}, {2,2}, {3,1}  note {1,3} is same as {3,1}
      * O(2^n) exponential
      */
