@@ -26,11 +26,11 @@ public class WordBreak {
      */
 
     /*
-                            catsanddog
-               /              |                \                         \
-            c,f(atsanddog)    ca,f(tsanddog)   cat,f(sanddog)             cats,f(anddog)
+                                    catsanddog
+               /              |                 \                         \
+            c,f(atsanddog)    ca,f(tsanddog)    cat,f(sanddog)             cats,f(anddog)
              |                  |                |         \     \              |
-           X(c not word)      X(ca no word)    s,f(anddog) sa.. sand,f(dog)   ...and,f(dog)
+           X(c not word)      X(ca no word)    s,f(anddog) sa..  sand,f(dog)   ...and,f(dog)
                                               /             \     |
                                              X               X   ... dog
      */
@@ -44,12 +44,12 @@ public class WordBreak {
     public void run(String text) {
         reset();
         this.recursive("", text);
-        System.out.println(found + ", comparisons=" + comparisons);
+        //System.out.println(found + ", comparisons=" + comparisons);
 
         reset();
         comparisons = 0;
         this.dpRecursive(text);
-        System.out.println(cache + ", comparisons=" + comparisons);
+        //System.out.println(cache + ", comparisons=" + comparisons);
     }
 
     /**
@@ -148,7 +148,7 @@ public class WordBreak {
     }
 
     public static List<String> getInput() {
-        return Lists.newArrayList("catsanddog", "aaaaaaaaaa");
+        return Lists.newArrayList("catsanddog", "aaaa");
     }
 
 }
