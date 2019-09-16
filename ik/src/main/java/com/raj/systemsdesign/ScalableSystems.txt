@@ -1,0 +1,85 @@
+==== Designing Scalable Systems ====
+
+# Concerns to address while designing scalable systems:
+1. Parallel Requests
+2. Geo Location
+3. Data Size
+4. Single of point failure
+5. Server Hotspot
+6. Data Hotspot
+
+# Building blocks (solves above concerns):
+A. Data Replication (entire copy): 1,2,4
+B. Data Sharding (data partitioning): 1,3,6 (some extent - if one row is hot spoting, it won't solve)
+C. Caching (app layer, serving data): 1,2,6
+
+# Design Patterns:
+1. Micro-services: collection of loosely coupled systems, able to scale them independently (see pic)
+
+# Storage Systems:
+Logical Schema:
+1. Relational
+2. Key Value Pairs
+3. Graph Model (eg. social graph)
+
+Physical Schema (Disk):
+1. Row major format (seeks all row contents on disk to even read a specific column)
+2. Column family (can access particular column, if created as sol family)
+
+Indexing:
+Based on search criteria -
+1. Hash Index (exact match)
+2. n-ary B-tree Index (not exact; range based retrieval)
+              n
+          /   |   \
+       [a-d] [e-g] [h-k]
+3. Combination = Hash + B-tree (parts exact match, others range based)
+
+# Sharding:
+1. Idea - 1 million users -> 100 shards * 10K users / shards
+2. Goals - near even distribution of data, add new shards seamlessly, shards availability
+
+  Approaches:
+  1. Simplistic - fix n shards, shard = userId % n
+     (+) Even distribution
+     (-) Add new shards (formula changes, shard allocation changes, needs downtime for re-allocation)
+     (-) Shards not available (can be solved though)
+
+  2. Consistent Hashing -
+     Say we come up with 0 to 100 hash range, we assign nodes A,B,C,D following hash ranges
+               0       25
+               A ----- B (0,25) => B takes 0,25 hash range, so any keys hashing to this range will go to this node
+               |       |
+               D ----- C
+              75       50 (25,50)
+     + Even distribution
+
+     Adding a node - is splitting a range & seeding the new node with all the data that belongs to it:
+               0       12
+               A ----- X (0,12) => new node X takes 0,12 hash range
+               |         \
+               D --- C --- B (12,25)  => B has given up on some hash range
+              75     50
+         (50,75)     (25,50)
+     + Adding new shards
+
+     Shard replicas - apart from having a primary range, a node also has a secondary hash range that it stores
+     Say, D stores not only (50,75), but also secondary for (25,50), hence we now have a replica in case of failures
+     Note all shards replicas are also active-active
+     + Shards availability
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

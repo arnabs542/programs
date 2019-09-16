@@ -3,3 +3,9 @@
   => Has overlapping sub-problem property
   => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
   => Core of a DP problem is underlying the recurrence relation, farming the DP formula with base cases
+
+# DP approaches:
+  => Both Memoization and Dynamic Programming solves individual sub-problem only once.
+  => Memoization uses RECURSION and works top-down, breaking bigger problem into smaller ones and saving results for future use.
+  => DP moves in opposite direction solving the problem bottom-up ie. solves smaller sub-problems first & builds up on them.
+    -> Will always solve all sub-problems first (may not be rquired for some problems, hence memo wud work better)

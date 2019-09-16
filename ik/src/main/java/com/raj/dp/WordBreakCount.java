@@ -42,6 +42,12 @@ public class WordBreakCount {
      *  s..sa..san.. cat,sand,f(dog)  a..an..and.. cats,and,f(dog)    ---> overlapping sub-problems (can be memoized)
      *
      *  Recurrence => f(text) = 1(valid dict word text[i,j]) + f(remaining)
+     *
+     * Time complexity:
+     * Exponential, to be precise O(2^(n-2)) : https://stackoverflow.com/questions/31370674/time-complexity-of-the-word-break-recursive-solution
+     * In each call you are calling the recursive function with length 1,2....n-1(in worst case).
+     * To do the work of length n you are recursively doing the work of all the strings of length n-1, n-2, ..... 1.
+     * So T(n) is the time complexity of your current call, you are internally doing a work of sum of T(n-1),T(n-2)....T(1)
      */
     static int rec(Set<String> dict, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
@@ -65,9 +71,9 @@ public class WordBreakCount {
 
     /**
      * Exactly same solution as recursive above, except that we memoized the solutions to sub-problems top-down
-     *
-     * Time: O(n^3 + dictionary size * max word length)
-     * Space: O(n + dictionary size * max word length)
+     * Time complexity is O(n*s) where s is the length of the largest string in the dictionary and n is the length of the given string.
+     * Space = O(n)
+     * May not be correct as per IK, its O(n^3) & O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/
      */
     static int dp(Set<String> dict, int[] dpTable, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
@@ -86,4 +92,5 @@ public class WordBreakCount {
 
         return dpTable[i];
     }
+
 }
