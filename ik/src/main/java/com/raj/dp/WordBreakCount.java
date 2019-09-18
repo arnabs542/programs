@@ -65,7 +65,7 @@ public class WordBreakCount {
 
     static int dp(Set<String> dict, String text) {
         int[] dpTable = new int[text.length()+1];
-        Arrays.fill(dpTable, -1);
+        //Arrays.fill(dpTable, -1);
         return dp(dict, dpTable, text, 0);
     }
 
@@ -73,12 +73,15 @@ public class WordBreakCount {
      * Exactly same solution as recursive above, except that we memoized the solutions to sub-problems top-down
      * Time complexity is O(n*s) where s is the length of the largest string in the dictionary and n is the length of the given string.
      * Space = O(n)
-     * May not be correct as per IK, its O(n^3) & O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/
+     * May not be correct as per IK, its O(n^3) as we require n for each substring lookup from dict (a substring's hascode has to be prepared for hashset lookup which is n)
+     * dp(n states) x num of substrings x n dict lookup = O(n^3)
+     *
+     * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/ (it will fail if a char doesn't match)
      */
     static int dp(Set<String> dict, int[] dpTable, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
 
-        if (dpTable[i] != -1) return dpTable[i]; // sub-problem was memoized before, use it
+        if (dpTable[i] != 0) return dpTable[i]; // sub-problem was memoized before, use it
 
         String soFar = "";
         int count = 0;
@@ -89,6 +92,7 @@ public class WordBreakCount {
             }
         }
         dpTable[i] = count;
+        System.out.println(Arrays.toString(dpTable));
 
         return dpTable[i];
     }

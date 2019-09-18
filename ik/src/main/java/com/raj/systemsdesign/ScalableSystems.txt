@@ -1,5 +1,21 @@
 ==== Designing Scalable Systems ====
 
+# Remember Basics
+1M Kb = 1Gb
+1B Kb = 1Tb
+
+Java Primitives sizes:
+char = 2 byte = 0 to 65K
+byte = 8 bits = 2^8 (-128 to 127)
+int = 4 byte = +-2B
+long = 8 byte = +- 19 digits
+
+Base64 encode/decode: https://en.wikipedia.org/wiki/Base64
+
+Other Concepts:
+Bloom filters: A DS to tell rapidly and memory-efficiently, whether an element is present in a set.
+https://llimllib.github.io/bloomfilter-tutorial/
+
 # Concerns to address while designing scalable systems:
 1. Parallel Requests
 2. Geo Location
@@ -67,6 +83,26 @@ Based on search criteria -
      Say, D stores not only (50,75), but also secondary for (25,50), hence we now have a replica in case of failures
      Note all shards replicas are also active-active
      + Shards availability
+
+
+# TEMPLATE For Solving SYSTEM DESIGN PROBLEMS
+1. Requirements
+2. Capacity Estimation
+3. API Design
+4. DB Schema
+5. High Level Architecture Diagram
+6. Detailed Design
+  - Sharding
+  - Replication
+  - Caching
+  - Rate Limiting
+7. Load Balancing / Router / Aggregator
+8. CDN (cache + blob storage) - Static images/videos/javascript caching on geographically distributed servers
+                                to reduce web page load latency
+9. Security / Auth - Login service, DB (userId, passwd) + cache (userId, token).
+                     Set token in session / cookie to validate subsequent client requests.
+                     OAuth ?
+10. Monitoring
 
 
 

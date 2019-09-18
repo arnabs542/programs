@@ -1,0 +1,30 @@
+=== URL Shortener ===
+# Requirements: Shorten a url & vice-versa
+
+# Capacity Estimation:
+World Population = 7 Billion (7,000,000,000)
+10% connected to internet = 700 M => ~500M users (say monthly)
+
+Storage (5 yrs) = 500,000,000 x 12 x 5 x 1KB (avg url size) = 30 x 1,000,000,000 KB = 30 TB
+
+1 CPU can handle, say 1000 read qps & 100 write qps & has 1 TB space
+DB boxes = 30
+App boxes = 500,000,000 users / (30 days x ~100,000secs) = 170 writes/sec (17K reads/sec assuming 1:100 write to read ratio)
+=> 5 boxes for write, 20 boxes for read
+
+B/W reqd => 1 Box can support upto 1Gb/s => 170 Kb/s writes, 17 Mb/s reads shud be good as well
+
+=> Use Base64 encoding for shortened url => 8 base64 digits should cover 280 Trillion combinations
+
+UUID generation =>
+1> Random
+2> md5 hash = 128bit / 6 for each base64 char (2^6 = 64) => 21 chars
+3> DB based seq number (odd/even servers for availability & some parallelism)
+4> Range based allocation - each server when asking for a sequence, pulls 10000 sequences at once so that it can
+allocate for a while without going to DB again.
+
+Sharding:
+Consistent Hashing - Choose  a high value of n say 1000 (adding a shard becomes easy, u just reassign hash ranges)
+user_id % 1000 gives the shard #
+Zookeeper holds the config of a shard holding user_id hash ranges, say shard 1 holds 0-100....
+
