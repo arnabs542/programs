@@ -104,7 +104,13 @@ Based on search criteria -
                      OAuth ?
 10. Monitoring
 
-
+# Different Distributed Services patterns
+  => Online / Realtime : Micro-services pattern
+     -> Latency < 500 ms
+  => Batch / Offline : Map Reduce pattern
+     -> Large data-set, minutes to hours processing times, w/ per hour or per day frequency
+  => In b/w or near real time : Stream Processing pattern
+     -> NRT, micro-batching
 
 
 
