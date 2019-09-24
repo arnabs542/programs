@@ -1,0 +1,21 @@
+=== Design a LinkedIn like system that figures out which level 2 members in social graph are connected ===
+
+* DB Model
+(Adjacency List of immediate connections)
+user_id -> Sorted List of connections
+u1 -> u2,u3,u4
+u2 -> u5,u8
+u3 -> u7,u8
+u5 -> u9
+
+* API
+  => isFirstLevel(u1,u2):
+    -> binary search u2 in adj connections - O(logn)
+
+  => isSecondLevel(u1,u8):
+    -> Approach 1: for each adj connection w, isFirstLevel(w,u8) - O(nlogn)
+    -> Approach 2: u2List = getAdjList(u2), u3List = getAdjList(u3) ...
+                   Just Merge k-way sorted lists - O(n)
+
+  => isThirdLevel(u1,u9):
+    -> for each adj connection w, isSecondLevel(w,u9) - O(n^2)
