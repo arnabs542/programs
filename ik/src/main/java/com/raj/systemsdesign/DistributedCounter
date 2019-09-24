@@ -1,0 +1,19 @@
+=== Distributed Counter ===
+https://drive.google.com/file/d/1itbw9WYstpJMFVYqRYdKcVQVADRGVpnQ/view
+
+* Use synchronization - will be slow & not achieve parallelism. Locks are anti-patterns in Distributed Systems.
+* Single writer w/ Queue - Updates are pushed to Queue in sequence & and a writer updates value. Still slow.
+* Use Compare And Swap - https://en.wikipedia.org/wiki/Compare-and-swap
+  -> Better, but may have a issue when a CAS is done after reading, the value was incr & decr yielding same value as value to compare
+  -> Use (counter_val,num_ops), that way if other threads update it, the expected num_ops will be different.
+  -> Still not parallel
+* Let's say each node has it's own counter. They update their value for their local counter (with CAS, if multiple threads)
+  -> get() : add up all the node's local counter values.
+  -> Broadcast each node's counter value to others. What if there is a delay & updates are stale?
+  -> Impose restriction : Only move forward, if a value is lesser, it will not be applied.
+  -> What if we also want decrements? Counter can have 2 values, one for + & another for - (now actual value is sum)
+  -> We have built an "Eventual consistent parallel counter with fault tolerance" - only one node can be alive for this to work.
+  -> This distributed DS is called "Conflict free Replicated Data Type" or CRDT
+     - all nodes converge to same value after last broadcast time + delay & hence conflict free.
+     - parallel reads + writes
+     - can be used to build more complex data types than just counters

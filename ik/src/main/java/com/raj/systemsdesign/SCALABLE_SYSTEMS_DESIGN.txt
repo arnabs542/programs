@@ -12,8 +12,7 @@ long = 8 byte = +- 19 digits
 
 >> Base64 encode/decode: https://en.wikipedia.org/wiki/Base64
 
->> Other Concepts:
-Bloom filters: A DS to tell rapidly and memory-efficiently, whether an element is present in a set.
+>> Bloom filters: A DS to tell rapidly and memory-efficiently, whether an element is present in a set.
 https://llimllib.github.io/bloomfilter-tutorial/
 
 >> Choose the right way of Client side connection with server
