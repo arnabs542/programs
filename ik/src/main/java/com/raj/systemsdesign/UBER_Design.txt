@@ -1,0 +1,73 @@
+Capacity Est:
+
+Riders - 1B Users. 10% of them looking for rides at peak = 100 M.
+
+Drivers - 1M Drivers.
+
+
+
+Microservices:
+
+Each of the Micro-services will be behind LB.
+
+DB & Caches will be sharded by using consistent hashing method:
+
+user_id % 10000 for say 100 boxes. Store hash ranges for each machine in zookeeper.
+It'll allow for easy scaling & node additions.
+DB / Caches will have replicas which will be written asynchronously.
+
+
+
+# User Registration -
+
+Generates a UUID based on random UUID + userId + ts.
+Schema - user_id, email_id, phone, password, created_ts
+Write QPS low, could be RDBMS for consistency. 1000 write qps - 5 app boxes.
+5 KB per row - 100 GB - 1 DB shard with 2 replicas
+Propagate new user data to Login Cache async via Kafka.
+
+
+# Login Service backed by Distributed Cache -
+
+100,000 read qps - 100 boxes -
+Auth using cache. Stores user_id, token, password (encrypted)
+Once logged in, a token will be sent for further requests to avoid DB lookups. UserId+Token will be cached for validating auth token.
+Use the same DB as User Registration for cache misses.
+
+
+# Similar User Registration & Login services for Drivers but at a smaller scale.
+
+
+
+# Supply Service - tracks all drivers, their locations
+
+Divide earth as grid of 2X2 mile grids. 200M sq miles of earth = 50M grids = 2KB * 50M = 100 Gb
+Driver app sends location, which is updated in the grid.
+Fast reads / writes - 500K read / write qps = NoSQL KV DB with Cache (Redis or C* + Memcache) = 50 X 50 Shards cluster for DC failure support
+500 app boxes
+DB Schema - driver_id, grid_id, location_xy, trip_id  => update driver location every 5 secs.
+Also update another table grid_id, driver_id list => for available drivers within a grid
+update_driver_loc(driver_id, location)
+reserve_driver(driver_id, trip_id) --> removes from available driver list
+
+
+# Demand Service - riders looking for rides
+
+Look for drivers within a grid & adjacent ones.
+Driver accepts the rider's request to destination, a trip_id is created & sent to supply service. Once Acked, then trip reservation is successful.
+DB Schema - user_id, trip_id, driver_id, grid_id --> update location for rider every 5 secs.
+10M qps - APIs - update_rider_location(location, user_id), reserve(user_id, trip_id, driver_id)
+1000 app boxes - 100X100 DB shards
+
+
+# Trip Service - trip details
+
+trip_id, source, destination, distance, driver_id, user_id, review
+
+
+# Post Ride Service - payments, reviews, complaints etc
+
+complete_trip(driver_id, trip_id, user_id)
+charge(trip_id, user_id)
+pay_driver(trip_id)
+review_trip(trip_id, review)

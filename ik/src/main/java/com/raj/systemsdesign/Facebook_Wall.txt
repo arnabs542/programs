@@ -1,0 +1,76 @@
+Capacity:
+
+100 M users * 1000 friends posts * 1KB / post = 100TB
+
+Sharded by user_id, consistent hashing
+
+Replicated
+
+
+
+App -> LB (Consistent Hash) -> Cache Shard
+
+       -> LB (Consistent Hash) -> DB Shard
+
+
+
+Microservices / DB Schema:
+
+* Login/User Profile - user_name, user_id, first_name, last_name, email_id
+
+	=> authenticate
+
+
+
+* Search Service - text (first name or last name or both), user_id (inverted index) - sharded on name
+
+   => findPerson(aName) - split by space, search in shards given by consistent hashing
+
+   => findFriends(aName) - getFriends()
+
+
+
+* Friends Service - user_id, list<user_id> of friends
+
+   => getFriends(), addFriend(), removeFriend()
+
+
+
+* Wall Service -
+
+user_id (PK), ts (Cluster Key), user_id, msg_id -> stores posts on user's wall by time (sorted on ts cluster key desc) by their friends
+
+   => writePost(u1, u2, blob), getPost(u1, ts)
+
+   => Wall can have many posts over time, getPosts() call will pull posts for last 3 months.
+
+		-> Response sends back ts of the last post. Then paginate by getting further posts after ts.
+
+        -> If a post is updated, it has to be added to the wall.
+
+        -> We can keep a web-socket / long poll connection with 10sec timeout to keep calling getPost() & merging states.
+
+        -> A popular person can have many friends writing to wall, but still won't go into more than few thousand.
+
+        -> Replies to wall post can be as simple as writePost() call which appends this post to his/her wall.
+
+   => Wall can have videos or pic posted. We'll still call writePost() with hash of the image/video. The video is uploaded in chunks into a CDN server & a hash sent back. This will help with re-posts of a popular video content, it wud just send back & forth the hash & will download on client's app / browser from CDN directly without overwhelming Wall App Servers.
+
+
+
+* Message / Like service -
+
+msg_id, blob, isMIME (get from CDN), is_active, like_count1, like_count2, ... like_countN (can be sharded for concurrency & added up for displaying counts)
+
+=>  like(u1, msg_id) - app generates a bucket (user_id hash % num_buckets) to increment likes exactly on that column
+
+
+
+* Fraud / Harmful Post Detection -
+
+ => Posts will be sent async to Kafka -> HDFS. Hive Spark MR jobs will do ML to detect bad content in posts every few hours.
+
+ => For videos malice, it's hard but a flag would be generated for manual review if a particular video is viral (through Spark Stream Processing which will find re-posts/likes over batches of say 1 hour).
+
+ => deactivatePost(msg_id)
+

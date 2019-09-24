@@ -76,7 +76,7 @@ public class WordBreakCount {
      * May not be correct as per IK, its O(n^3) as we require n for each substring lookup from dict (a substring's hascode has to be prepared for hashset lookup which is n)
      * dp(n states) x num of substrings x n dict lookup = O(n^3)
      *
-     * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/ (it will fail if a char doesn't match)
+     * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/ (it will not proceed if a char doesn't match, hence avoiding all substr matches)
      */
     static int dp(Set<String> dict, int[] dpTable, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
