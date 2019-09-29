@@ -1,0 +1,55 @@
+=== Massive Multi-player Online Role Playing Game DESIGN ===
+
+# Types of games
+  => Strategic games (Civilization)
+  => Turn based games (Chess, Poker)
+  => First Person Shooting (PUBG)
+     -> Latency sensitive, SFO to NYC is 4000 km takes 13 ms in shortest dist, but add router, repeaters latencies
+     -> Also, servers will have some latency
+
+# Game Loop
+  => Always running thread to handle input change events
+  while(true) {
+    check_input()
+    update_game_state()
+    render_screen()
+    emit_sound()
+  }
+
+# Sync states b/w multiple players
+  => Deterministic Lock Step: Input only
+     -> Send sequence of incremental change events only eg. 8 bits 10110100, where each bit representing up,down,left,right,run,jump,shoot,power pressed or not states
+        * TCP w/ buffer - packet loss will cause retries, increasing latency as seq is necessary to reconstruct state
+        P1 -> packet3,packet2,packet1 -> P2
+
+        * UDP - Faster w/ minimal headers, but seq not guaranteed. Hence, we can send couple of previous states as well, in case some packets are dropped.
+        P1 -> [s1,s2,s3], [s1,s2], [s1] -> P2
+     -> Prone to severe sync issues, if lots of packets are dropped
+
+  => State Synchronization: Full State info (pos, orientation, linear velocity, angular velocity, ts)
+     -> More chatter, but can reconstruct state after some lag (if packets were dropped)
+     -> Linear Interpolation - Predict some frames ahead or in b/w states s1 -> s3, as we know the last state, velocity etc
+     -> Object State Machine w/ boundaries. At each state only few things are allowed, like if jumped, then can't do another jump.
+
+# Patch Server
+  => Always patches a player's game app w/ latest game version
+
+# Players => Connection Server(auth,connections) => World Server(player Session,area servers) => Game server(actual game)
+  => World server stores player position/state & knows which game server to route
+  => Game/Area server can host map segments play, otherwise it can overwhelm a server if all players route to a single server
+
+# Rendering
+  => Unreal Engine / Unity 5 for game objects design
+  => Physical object can be expensive in terms of memory
+  => Use singletons / flyweight patterns (separate minimal state in an external object/player) otherwise will bloat memory, if all duplicate objects are created
+
+# Game state backup
+  => Game can crash, or game servers can crash. To recover, keep saving states every few seconds asynchronously
+
+# Monitoring
+  => ELK stack w/ Kibana
+
+# Analytics
+  => HDFS w/ Hive support
+  => Run offline Hadoop MR  / Spark / Flink jobs
+  => Use real time streaming aggregations using Storm / Flink

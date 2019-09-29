@@ -1,0 +1,48 @@
+=== NETFLIX System Design ===
+
+# Microservices:
+
+Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Hashing) => Cache + DB
+
+* User Account - Create / Login
+  - user_id, email, passwd
+  - cache + DB
+  - multi-profiles in same account
+  - billing
+
+* Movie Transcoding
+
+  NewMovie => Read in Chunks => Parallel Transcoding into diff formats => (DB+Cache) & Kafka => AmazonS3 & OpenConnect CDNs
+
+  - Ingest new movies, each movie is transcoded into different format
+  - ((movie_id,format),part_num),blobs
+  - break movie into 1 mins chunks which is sorted by part # and stored in sorted order
+  - Save part num info for a movie in zookeeper (we can use S3 for blob storage)
+  - May create hot spots on shard if CDN fails. We can modify schema to - (movie_id,format,partNum),bytes_chunk
+  - Kafka will send data to open connect CDNs, else they'll be cached in CDN Edge Server at time of play.
+
+* Recommendation
+  -> Carousel: Inspired by User's Playback History
+     - Content based filtering ML models - by genre, by actor, by language etc
+  -> Carousel: Other's of similar interests also watched
+     - Collaborative Filtering ML models - Match users of similar interests and predict
+  -> Sponsored Module
+  -> Trending Content module
+  -> Use clicks, views info from App to train models & precompute recco modules or live compute
+  -> Schema DB+Cache: user_id, pre-computed json module with movie_ids
+  -> Fallback - give static response so that modules load in case of failures
+
+* Search
+  -> Inverted Index - Lucene Based Search Solution like ES / Solr etc
+
+* Playback Service
+  -> Renders Playback module
+     - While streaming from App, it will buffer upto 5 mins content. If slow internet, it will downgrade bit format. This logic lives on the App side and is real time.
+  -> Save & retrieve user's last state - user_id, state json (movie_id, part_num or episode seen)
+  -> Send state info every few secs from App via http to AWS servers
+
+# Deployment:
+-> Cache static movie content in CDNs. Netflix has it's own CDN n/w called OpenConnect throughout the globe.
+-> All streaming content is delivered via OpenConnect(after u hit "play"),
+-> Everything else is from AWS servers(netflix deployed services) around globe, i.e. before u hit "play"
+   including all of the logic of the application interface, the content discovery and selection experience, recommendation algorithms etc.

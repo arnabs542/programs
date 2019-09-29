@@ -1,0 +1,32 @@
+
+* RDBMS
+  -> Schema (metric,timestamp),value - too many writes can choke
+  -> Bucket ts into day (aggregate it for each minute using Kafka Storm)
+     - (metric,day),t1,t2,t3....t1440
+     - only 365 rows per year / metric
+     - supports joins, indexing on fields & other features on SQL
+     - Shard it on metric
+     - may not work for too many writes
+
+* NoSQL
+  -> Schema (PK-metric,ClusteringKey-timestamp),value
+  -> M1,t0,v0  (Clustering Key in C* is sorted allowing range queries)
+        t1,v1
+        t2,v2
+        t3,v3
+  -> Better to handle huge writes -
+  CREATE TABLE tweet_stream (
+      user text,
+      day text,
+      bucket int,   --> allows bucketing each user's tweets for more parallelism (aggregate of all buckets gives the day's tweets)
+      ts timeuuid,
+      message text,
+      primary key((user, day, bucket), ts)
+  ) WITH CLUSTERING ORDER BY (ts DESC)
+           AND COMPACTION = {'class': 'TimeWindowCompactionStrategy',  --> C* drops the entire bucket after days expiry
+                         'compaction_window_unit': 'DAYS',
+                         'compaction_window_size': 1};
+  -> Each user's tweets goto multiple partitions at any given time to fan out inserts to the entire cluster.
+  -> The nice part about this strategy is we can use a single partition for low volume(common people), and many partitions for high volume(celebrities).
+
+* Use pre built time series optimized TSDBs like InfluxDB,Prometheus,RiakTS etc

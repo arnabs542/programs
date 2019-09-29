@@ -18,9 +18,29 @@ https://llimllib.github.io/bloomfilter-tutorial/
 >> Choose the right way of Client side connection with server
 https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-events-c43ba96df7c1
 
-Polling - Client polls looking for new content at regular intervals (Short & Long Poll)
-Server Sent Event (SSE) - Server pushes new content to Client as it is available (Client subscribes to server events)
-WebSocket: 2 way duplex communication appropriate for Chat/Messengers/Multiplayer Games (https://stackoverflow.com/questions/14703627/websockets-protocol-vs-http)
+=> TCP vs UDP:
+ -> UDP characteristics:
+    - is a connectionless protocol, No ACKs
+    - is used for VoIP, video streaming, gaming and live broadcasts
+    - it’s faster and needs fewer resources
+    - the packets don’t necessarily arrive in order
+    - it allows missing packets. The sender is unable to know whether a packet has been received
+    - better suited for applications that need fast, efficient transmission, such as games.
+
+ -> TCP characteristics:
+    - is a connection-oriented protocol, w/ ACKs
+    - it’s the most widely used protocol on the Internet
+    - it guarantees that no packets are missing and all the data that’s sent makes it to the intended recipient
+    - sends packets in order so they can be stitched back together easily.
+    - it’s slower and requires more resources
+    - has a bigger header than UDP
+    - best suited for apps that need high reliability, and transmission time is relatively less critical.
+
+=> Polling - Client polls looking for new content at regular intervals (Short & Long Poll)
+=> Server Sent Event (SSE) - Server pushes new content to Client as it is available (Client subscribes to server events)
+=> WebSocket: 2 way duplex communication appropriate for Chat/Messengers/Multiplayer Games/MobileApps
+           -> https://stackoverflow.com/questions/14703627/websockets-protocol-vs-http
+           -> https://www.quora.com/What-is-the-best-way-to-push-real-time-data-to-a-mobile-app-from-a-backend
 
 >> Encryption:
   => Symmetric - Same public key b/w 2 parties is used to encrypt message
@@ -86,6 +106,10 @@ To ensure consistency, there are some popular protocols to consider: 2PC, eventu
 
 =======
 
+# Real Time Streaming
+  => Apply when looking for near real time aggregations / batch counts / insights / trends etc
+
+=======
 # Concerns to address while designing scalable systems:
 1. Parallel Requests
 2. Geo Location
