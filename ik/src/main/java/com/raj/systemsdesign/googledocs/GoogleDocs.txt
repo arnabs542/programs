@@ -1,0 +1,36 @@
+== Design Google Docs ===
+eg. Online collaborative Word-pad
+
+Microservices
+-------------
+
+# API Gateway:
+- Sits in front of an application programming interface (API) and acts as a single point of entry for a
+defined group of microservices. Because a gateway handles protocol translations, this type of front-end programming is
+especially useful when clients built with microservices make use of multiple, disparate APIs - like REST, WebSockets(NodeJS), AMQP(IoT)
+- Provides features like scatter/gather, security, circuit breaker
+
+# Session Server: Saves event based changes for each doc so that it can broadcast it to all other users using it concurrently
+  => Timeseries DB to log time based data
+  => Use Redis for Caching+DB
+
+# Comments: Saves comments for docs ina NoSQL DB
+
+# Import/Export Doc: Saves a doc as blob in S3 cloud storage
+
+
+Deep Dive
+---------
+
+# Sync strategies:
+  => Event Passing using Operational Transformation: The basic idea of OT is to transform (or adjust) the parameters of
+     an editing operation according to the effects of previously executed concurrent operations so that the transformed
+     operation can achieve the correct effect and maintain document consistency.
+     -> eg. ShareJS is a server / client lib to allow concurrent editing of any kind of content using OT.
+        Server runs on NodeJS & client works in a web-browser or NodeJS.
+  => Differential Sync: Only save changes to the cloud or server, just like patching incremental states to server to
+     keep it up-to-date. Maynot work for concurrent updates on same column though.
+
+
+
+
