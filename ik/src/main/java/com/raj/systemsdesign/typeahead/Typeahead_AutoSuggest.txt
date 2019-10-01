@@ -1,0 +1,44 @@
+=== Design a Typeahead Auto Suggestion like that of Google Search ===
+Limit to 5 suggestions, w/ extremely fast retrieval
+
+# Could use Solr/ES Lucene based textual search solution, but may not work well for huge loads & few millis response times
+# For fastest retrieval, we need a HashMap of prefix -> List<Suggestions>
+# Pre-compute this using Tries & store top 5 suggestions for each prefix
+
+# General System Design
+                     [Sharded, Replicated]
+User -> LB -> App -> Cache -> DB
+
+
+[Microservices]
+
+Following CQRS pattern, we'll divide our services into Ingestion & Query
+
+# Search Trends: Use a Real time streaming Storm pipeline to listen to user searches, aggregate them into 15min, 1hour, 1day bucket
+  => Schema: (keyword,(time_interval)),counts - keeps track of trends by pre-defined intervals
+  => Use Count-Min-Sketch DS to keep track of counts & project trends using "z-score"
+  => Store prefix trends suggestions in Cache+DB
+
+# User Context Search: For each user also build a prefix -> suggestions map based on search history.
+  => Assuming this will be lesser as a user can only search so much !
+  => ML model scoring should give more preference to user searches
+
+# Indexing Service: As users search, the keywords will be sent over Kafka & the indexing service will keep incrementing counts for each keyword
+  => Schema: keyword,count,score (will be computed through ML models)
+  => Since, the num of keywords can be millions, we can parallelize computing of indexes by using Spark MR etc which will operate on a subset of keywords
+  => Every few hours a map reduce job will run and build a Trie with relevance scores at each word node
+  => It will then generate a Prefix -> List<Suggestions> HashMap as part of reduce step
+  => This can then be saved in each cache+DB shard using consistent hashing on keyword
+
+# Serving:
+  => API - getSuggestions(keyword) - lookup from precomputed distributed KV cache + data store
+  => The lookup will entail scatter & gather from 3 sources - Search Trends + User Context Searches + Indexing Service
+  => Gathered results are sorted on scores
+  => Schema: prefix,list of suggestions
+
+# ML:
+  => Train models to score suggestions based on -
+     -> Trends - # of people searched in the last hours or so w/ decay(more recent is ranked higher)
+     -> User search history - assign more score (personalized)
+     -> Overall higher counts for search keywords rank higher
+     -> Data Scientists can do A/B test on newer models, by diverging some % of traffic to new models to evaluate
