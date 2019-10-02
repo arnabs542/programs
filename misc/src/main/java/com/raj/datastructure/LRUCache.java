@@ -1,9 +1,6 @@
 package com.raj.datastructure;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author rshekh1
@@ -34,15 +31,41 @@ public class LRUCache {
 
     /**
      * Algo:
-     * Create a doubly linked list(O(1) deletion) of size 'n' which stores keys and maintains insert ordering
+     * Create a doubly linked list - O(1) deletion, of size 'n' which stores keys and maintains insert ordering
      * Create a hashmap with key and value
-     * set operation - Add element to the front of the queue & hashmap. If full delete the last one from list and map.
+     * set operation - Add element to hashmap & to the front of the queue. If full delete the last one from list and map.
      * get operation - return corresponding value from queue via lookup from map
      * Edge cases : Adding an existing key, then remove the node, re-insert at front but exclude it from capacity check
      */
-    private LinkedList<Integer> queue;
-    private HashMap<Integer,Integer> map;
+    private LinkedList<QNode> queue;    // Queue maintains access order + QNode stores the actual value
+    private HashMap<Integer,QNode> map; // map stores the address of the QueueNode
     private int size;
+    static class QNode {
+        int key, val;  // need to store key as well for removing map entry when queue is full
+        QNode(int k, int v) {key = k;val = v;}
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            QNode qNode = (QNode) o;
+            return key == qNode.key &&
+                    val == qNode.val;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key, val);
+        }
+
+        @Override
+        public String toString() {
+            return new StringJoiner("->", "" + "(", ")")
+                    .add(key+"")
+                    .add(val+"")
+                    .toString();
+        }
+    }
 
     public LRUCache(int capacity) {
         queue = new LinkedList<>();
@@ -54,23 +77,26 @@ public class LRUCache {
         System.out.print("****Get " + key + " -> ");
         if (map.get(key) == null) return -1;
         else {
-            this.set(key, map.get(key));    // move node to the front of the queue
-            return map.get(key);
+            int value = map.get(key).val;
+            this.set(key, value);    // move node to the front of the queue
+            return value;
         }
     }
 
     public void set(int key, int value) {
         try {
             if (map.containsKey(key)) {  // if the key already exists, just remove the node from both DS and let the insert happen again at first position
-                queue.remove(queue.indexOf(key));
+                queue.remove(map.get(key));
                 map.remove(key);
             }
             if (map.size() >= size) {   // if capacity exceeded, remove least recently used from both DS
-                map.remove(queue.removeLast());
+                QNode delQNode = queue.removeLast();
+                map.remove(delQNode.key);
             }
             // now add to the front and set value
-            queue.addFirst(key);
-            map.put(key, value);
+            QNode node = new QNode(key, value);
+            queue.addFirst(node);
+            map.put(key, node);
         } catch (Exception e) {
             System.out.println("Failed to insert: " + key + " -> " + value);
             e.printStackTrace();
@@ -112,12 +138,16 @@ public class LRUCache {
 
     }
 
+
+
     /**
-     * A simpler implementation using inbuilt java DS "LinkedHashMap"
+     * A simpler implementation using inbuilt java DS "LinkedHashMap" which is an ordered hashmap,
+     * Note: Set accessOrder while creating LinkedHashMap for the ordering on access for simplicity
+     * Else u'll need to remove and re-insert on each get to maintain access order
      */
     Map<Integer,Integer> cache;
     public LRUCache(int capacity, boolean use) {
-        cache= new LinkedHashMap<Integer,Integer>(capacity,0.75f,true) {    // access order needs to be set for it to get to the front of the map
+        cache = new LinkedHashMap<Integer,Integer>(capacity,0.75f,true) {    // access order needs to be set for it to get to the front of the map
             public boolean removeEldestEntry(Map.Entry eldest) { // no default impl, hence need to impl when to remove eldest
                 return size() > capacity;
             }
@@ -131,6 +161,8 @@ public class LRUCache {
     public void set0(int key, int value) {
         cache.put(key,value);
     }
+
+
 
     /**
      * Impl using bare bones DS

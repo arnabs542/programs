@@ -1,6 +1,8 @@
 === Design a Typeahead Auto Suggestion like that of Google Search ===
 Limit to 5 suggestions, w/ extremely fast retrieval
 
+Alternate answer: https://www.interviewbit.com/problems/design-search-typeahead/
+
 # Could use Solr/ES Lucene based textual search solution, but may not work well for huge loads & few millis response times
 # For fastest retrieval, we need a HashMap of prefix -> List<Suggestions>
 # Pre-compute this using Tries & store top 5 suggestions for each prefix
@@ -23,12 +25,16 @@ Following CQRS pattern, we'll divide our services into Ingestion & Query
   => Assuming this will be lesser as a user can only search so much !
   => ML model scoring should give more preference to user searches
 
-# Indexing Service: As users search, the keywords will be sent over Kafka & the indexing service will keep incrementing counts for each keyword
+# Indexing Service: As users search, the keywords will be sent over Kafka & the indexing service will keep incrementing counts for each keyword node
   => Schema: keyword,count,score (will be computed through ML models)
   => Since, the num of keywords can be millions, we can parallelize computing of indexes by using Spark MR etc which will operate on a subset of keywords
   => Every few hours a map reduce job will run and build a Trie with relevance scores at each word node
   => It will then generate a Prefix -> List<Suggestions> HashMap as part of reduce step
   => This can then be saved in each cache+DB shard using consistent hashing on keyword
+  => If data is very huge, then MR job may take too long, in that case we can store this trie in sharded cache+DB & keep incrementing counts + top 5 at each level
+     -> It will accept updates for every searched term & do in place update of the trie/counts & top 5
+     -> Top 5 can change after an update, so we'll need to check frequencies of each term & update if this term is same or different and is more than min freq
+     ->
 
 # Serving:
   => API - getSuggestions(keyword) - lookup from precomputed distributed KV cache + data store

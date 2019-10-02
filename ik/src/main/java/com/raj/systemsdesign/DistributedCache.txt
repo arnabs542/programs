@@ -1,0 +1,35 @@
+=== Design a Redis / Memcache like cache ===
+
+# Capacity Estimation ?
+
+# Eviction Policies:
+  => LRU:
+  Maintain a HashMap with Key->ListNode for O(1) quick access
+  A Doubly LinkedList comprised of ListNodes maintains access order. When full, it deletes the last node.
+  ListNode stores key & value (key is required for deletion from map when queue is full)
+
+  MAP(key -> Node)                  Queue (key,value)
+  k1 -> Node(k1,v1)  ...link...>    Node(k1,v1)
+  k2 -> Node(k2,v2)                 Node(k1,v1) -> Node(k2,v2)
+  k3 -> Node(k3,v3)                 Node(k1,v1) -> Node(k2,v2) -> Node(k3,v3)
+  ....
+  Above set operations are trivial
+  * Now say, size=3, hence queue is full
+  * set(k4,v4) will cause deletedNode = Queue.removeLast() & also Map.remove(deletedNode.key)
+
+  * get(k2) will cause Node(k2,v2) to be deleted & re-inserted again in Queue so that access is fresh.
+
+  => LeastFrequentlyUsed: Use count min sketch to maintain counts w/ over counting, but less memory overhead ???
+  Use a minHeap with frequencies & hashMap w/ key -> heapNode
+
+  => TTL: A compaction job crawls RAM and deletes the expired rows.
+     -> Store data in hourly buckets of TTL expiry & drop the whole bucket when hour expires
+
+# Architecture:
+  get/put => LB => queue => event loop => thread pool => Memory RAM
+
+# Fault Tolerance
+(Persistent State)
+  => Keep taking backups of RAM into Disk (or take incremental backups)
+  => Keep saving data into commit log (along w/ RAM) & do batch flushes to Disk every few seconds
+  => The data can be reconstructed into RAM in case of failures
