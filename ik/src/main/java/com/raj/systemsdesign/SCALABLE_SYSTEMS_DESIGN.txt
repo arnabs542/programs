@@ -1,11 +1,13 @@
 ==== Designing Scalable Systems ====
 
 # Remember Basics
-1M Kb = 1Gb
-1B Kb = 1Tb
+1Million Kb = 1Gb
+1Billion Kb = 1Tb
+
+1 day has approx 100,000 sec
 
 >> Java Primitives sizes:
-char = 2 byte = 0 to 65K
+char = 2 byte = 0 to 65K  (1 byte for most common chars)
 byte = 8 bits = 2^8 (-128 to 127)
 int = 4 byte = +-2B
 long = 8 byte = +- 19 digits
@@ -241,7 +243,8 @@ Based on search criteria -
   => Multi leveled trees L0 (smaller, in-memory), L1(merged from L1, stored on disk)
   => eg. BigTable, Cassandra, HBase, RocksDB
 
-
+# What is NGINX?
+Nginx is a all in one web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.
 
 
 

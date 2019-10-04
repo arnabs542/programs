@@ -1,0 +1,14 @@
+=== Parking Lot Design ===
+
+Classes:
+# EntranceExitConsole
+  - notifyNewCar()
+  - issueTicket()
+  - openBarrier()
+  - exit&pay()
+1
+|
+*
+# ParkingLotManager
+  - handleEntranceWorkflow()
+  - handleExitWorkflow()

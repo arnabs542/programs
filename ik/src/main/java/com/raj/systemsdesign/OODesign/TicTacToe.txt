@@ -1,0 +1,69 @@
+Design/Model a tic tac toe game.
+What that typically means: Design a software library for a 3x3 Tic-Tac-Toe game. Your users are 3rd party developers, who will use your library and implement the UI of the said game.
+There is no need to design the UI.
+Unless the interviewer asks explicitly, to begin with, there is no need to implement the actual algorithm to identify the game state. Just identify the right method where it should exist.
+It is important however, to identify the right data-structure to store and parse game state. It could be a matrix.
+
+Deliverables:
+1. A class diagram, showing relationships with each other where appropriate. Classes should show state and methods. Use any convenient notation. UML is more widely known.
+2. Main() method, showing how you'll initialize your system and start using it.
+3. Identify the design pattern.
+
+API:
+Create a game API to make moves against a computer player
+Start finite viz. 3x3 and two players. Don’t even think about anything more complex.
+There is no need to identify what algorithm the computer would use, to make moves against the player. We just need the scaffolding.
+Follow general REST API thought design guidelines
+
+=========================================
+
+# Classes:
+
+User - user playing history, logins, wins, scores etc
+
+
+
+Board - int[][] grid, place(row,col), isGameOver()
+
+
+
+Player - name, State{WIN/LOSE/DRAW/IN_PROGRESS} (composition)
+
+
+
+Game - composition of a Board, 2 Players & State  (State pattern)
+
+Board b, Player A, Player B, int game_id, State state
+
+game_id = create_game(), State = play(row,col)
+
+
+
+State - Finite States Enum {WIN / LOSE / OVER / DRAW / IN_PROGRESS / INVALID_MOVE}
+
+
+
+# REST API:
+
+* Create Player
+
+POST /game/player/{name}  return player_id
+
+GET /game/{player_id}  return name, score
+
+
+
+* Create Game Session
+
+POST /game  return game_id
+
+GET /game/{game_id}  return board state, players, scores
+
+DELETE /game/{game_id}
+
+
+
+* Play Turn by a player
+
+PUT /game/{game_id}/{player_id}/{row}/{col}  return Game STATE & Player State
+

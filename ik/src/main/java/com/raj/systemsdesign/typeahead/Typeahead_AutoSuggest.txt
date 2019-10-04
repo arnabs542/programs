@@ -3,6 +3,12 @@ Limit to 5 suggestions, w/ extremely fast retrieval
 
 Alternate answer: https://www.interviewbit.com/problems/design-search-typeahead/
 
+# Capacity Estimates
+  => 100K searches / sec = 100K read+writes / sec
+  => Assuming 1 machine can do 1K read+write/sec, we need 100 machines
+  => Storage - Say, we need 100K * 25 bytes (avg 5 words of 5 chars each) = 2.5 MB /sec b/w
+  => Say, we get all combinations of words in 1 day = 2.5 * 100K MB = 2.5 TB data in tries (should fit in 100 machines)
+
 # Could use Solr/ES Lucene based textual search solution, but may not work well for huge loads & few millis response times
 # For fastest retrieval, we need a HashMap of prefix -> List<Suggestions>
 # Pre-compute this using Tries & store top 5 suggestions for each prefix
@@ -34,7 +40,7 @@ Following CQRS pattern, we'll divide our services into Ingestion & Query
   => If data is very huge, then MR job may take too long, in that case we can store this trie in sharded cache+DB & keep incrementing counts + top 5 at each level
      -> It will accept updates for every searched term & do in place update of the trie/counts & top 5
      -> Top 5 can change after an update, so we'll need to check frequencies of each term & update if this term is same or different and is more than min freq
-     ->
+     -> Ptrs to nodes where top 5 words reside?d
 
 # Serving:
   => API - getSuggestions(keyword) - lookup from precomputed distributed KV cache + data store

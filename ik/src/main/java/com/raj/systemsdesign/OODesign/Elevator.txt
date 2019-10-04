@@ -1,0 +1,59 @@
+=== Design Elevator System ===
+
+Direction : UP
+Cur Floor : 4
+Manager   : 6,8,3,5,5,2 (order in which floors are requested)
+UP  Queue : 5,6,8  (Queue w/ some priority => MinHeap)
+DN  Queue : 3,2    (MaxHeap)
+
+# ElevatorManager (@OneToMany Elevator - can handle multiple elevators)
+  - Elevator[] elevators
+  - handleFloorRequest()
+  - AssignmentStrategy
+
+=> Elevator manager can handle cases such as:
+* If Elevator is going UP & a lower floor is pressed from inside, it will assign request to DOWN Queue & continue moving UP
+* If Elevator is going UP & a lower floor summon is made from outside, it will assign request to DOWN Queue & continue moving UP
+* Handles dupes of same floor request from inside or outside
+* If it has a pool of elevators, then can intelligently handle requests based on strategy
+* LoadBalance strategy will assign request in a round robin fashion(most easy)
+* EnergySaveOptimalMode may be tricky but will take care of multiple parameters like:
+  -> Direction of the elevator  (more weight)
+  -> Distance from the requested floor
+  -> WeightSoFar
+  -> Is the elevator going UP & the request is for UP from a nearby floor, give priority (but discard if the weightLimit is almost near)
+  -> Queue.size()
+  -> It can assign some weight to each of these parameter, score for each elevator & then do optimal routing of request to the elevator's UP/DN Queue
+
+(Strategy Pattern assignment)
+# AssignmentStrategy {LoadBalance,Random,EnergySaveOptimalMode,QuickDispatch,PreferentialFloor}
+
+# Direction {UP,DN}
+
+# Request
+  - int Floor
+  - Direction (null if pressed from outside)
+
+# Elevator
+  - UPPriorityQueue
+  - DNPriorityQueue
+  - Direction
+  - State {OutOfOrder,Repair,Working}
+  - processRequest(Request)
+  - int weightLimit
+  - alarmIfWeightOverLimit()
+  - speed
+  - setSpeed()
+  - open/close door()
+  - callEmergency()
+  - stop()
+
+
+REST APIs:
+GET /elevators                  ... list of all elevators
+POST /elevators/{id}            ... add an elevator
+PUT /elevators/{id}/{state}     ... take elevator out of order
+DELETE /elevators/{id}          ... remove an elevator
+
+PUT /elevators/request/{floor}/{direction}  ... outside summon
+PUT /elevators/request/{floor}              ... inside press
