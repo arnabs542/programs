@@ -22,6 +22,7 @@ public class MergeOverlappingIntervals {
         })));
     }
 
+    //Time = O(n), Aux Space = O(1)
     static int[][] getMergedIntervals(int[][] A) {
         if (A == null || A.length <= 1) return A;
 
