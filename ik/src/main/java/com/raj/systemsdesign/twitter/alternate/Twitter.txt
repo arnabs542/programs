@@ -21,3 +21,5 @@ Estimates:
      - then the largest increase over the previous time point is reported as trend.
      - This approach can be refined by using exponentially weighted moving averages and variance for normalization
   -> Or better do a "z-score" for each topic using formula = (x - mean)/(standard deviation)
+  -> Another optimization could be to use a Circular Ring Buffer with a finite sliding window of say 1yr for each HashTag.
+  -> Local Maximum from a MinHeap from each server sent into a Global MinHeap with 10 count => gives you top 10 trends

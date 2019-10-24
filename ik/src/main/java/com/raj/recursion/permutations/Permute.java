@@ -12,9 +12,10 @@ import java.util.Stack;
 public class Permute {
 
     public static void main(String[] args) {
-        permute(new int[]{1,2,3,4}, 0, new Stack<>());  // no repetitions
+        permute(new int[]{1,2,3}, 0, new Stack<>());  // no repetitions of elements in input array
+
         System.out.println("\nWith repetitions....");
-        permuteRep(new int[]{1,2,1}, 0, new Stack<>());  // no repetitions
+        permuteRep(new int[]{1,2,1}, 0, new Stack<>());  // input array has repeating elems
     }
 
     /**
@@ -58,11 +59,12 @@ public class Permute {
             return;
         }
 
-        Set<Integer> set = new HashSet<>(); // maintain a set for ith elem fan-out
-        // doesn't create copies while recursion
+        Set<Integer> set = new HashSet<>(); // maintain a set for ith elem fan-out & to avoid repetitive branching (linear space)
+
+        // doesn't create copies while recursion w/ ptr
         for (int j = i; j < arr.length; j++) {
+
             if (set.contains(arr[j])) continue;     // we have already done work for this
-            set.add(arr[j]);
 
             // arr - > 0...i-1 | i....n  , ignore until i-1 as it's done
             Util.swap(arr, i, j);   // swap & bring j to front
@@ -72,6 +74,8 @@ public class Permute {
             // revert
             slate.pop();
             Util.swap(arr, i, j);
+
+            set.add(arr[j]);    // add this as done ...
         }
     }
 

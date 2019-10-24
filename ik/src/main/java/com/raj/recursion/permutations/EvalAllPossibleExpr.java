@@ -8,12 +8,24 @@ import java.util.List;
  */
 public class EvalAllPossibleExpr {
 
+    /**
+     * Generate All Possible Expressions That Evaluate To The Given Target Value
+     * using input array elements & + , * only
+     *
+     * Input1:
+     * s = "222", target = 24
+     * ["22+2", "2+22"]
+     *
+     * Input2:
+     * s = "123", target = 6
+     * [1+2+3, 1*2*3]
+     */
     public static void main(String[] args) {
         _permute("123", "", 0, 6, 0, 0);
-        System.out.println(res);
+        System.out.println(res + "\n\n");
         res.clear();
 
-        _permute("1234", "", 0, 24, 0, 0);
+        //_permute("1234", "", 0, 24, 0, 0);
         System.out.println(res);
 
     }
@@ -27,7 +39,7 @@ public class EvalAllPossibleExpr {
      *    1,2(3)    1,23()          12,3()           123()
      *   1,2,3()
      */
-    // dfs - working
+    // dfs
     static void _permute(String rest, String soFar, long valueSoFar, long target, long prev, int level) { // level is for debug print
         System.out.println(level + " -> " + soFar + " = " + valueSoFar);
 
