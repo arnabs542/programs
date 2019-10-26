@@ -39,7 +39,8 @@ public class WordWrap {
         comp = 0; dpTable = new long[words.size()+1]; Arrays.fill(dpTable, -1); System.out.println(dp(words, 0, 6, dpTable));
         System.out.println("comparisons = " + comp);
 
-        //System.out.println(solveBalancedLineBreaks(Arrays.asList("omg", "very", "are", "extreme"), 10));
+        comp = 0; dpTable = new long[words.size()+1]; Arrays.fill(dpTable, -1);
+        System.out.println(dp(Arrays.asList("omg", "very", "are", "extreme"), 0, 10, dpTable));
     }
 
     /**

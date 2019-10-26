@@ -11,7 +11,7 @@ import java.util.Stack;
 public class GenParenthesis {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(find_all_well_formed_brackets(2)));
+        System.out.println(Arrays.toString(find_all_well_formed_brackets(3)));
     }
 
 

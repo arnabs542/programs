@@ -22,8 +22,10 @@ public class EvalAllPossibleExpr {
      */
     public static void main(String[] args) {
         _permute("123", "", 0, 6, 0, 0);
-        System.out.println(res + "\n\n");
-        res.clear();
+        System.out.println(res + "\n\n"); res.clear();
+
+        permute("123", 0, "", 0, 6, 0, 0);
+        System.out.println(res + "\n\n"); res.clear();
 
         //_permute("1234", "", 0, 24, 0, 0);
         System.out.println(res);
@@ -66,6 +68,36 @@ public class EvalAllPossibleExpr {
                  * => (valueSoFar - prev) + prev*num  (basically we undo last math operation using prev)
                  **/
                 _permute(rest.substring(i+1), soFar + "*" + numStr, (valueSoFar - prev) + (prev * num), target, (prev * num), level+1);
+            }
+        }
+    }
+
+    static void permute(String s, int i, String soFar, long valueSoFar, long target, long prev, int level) { // level is for debug print
+        System.out.println(level + " -> " + soFar + " = " + valueSoFar);
+
+        if (i >= s.length() && valueSoFar == target) {
+            res.add(soFar);
+            return;
+        }
+
+        String numStr = "";
+        for (int j = i; j < s.length(); j++) {  // append ith char to form 1, 12, 123 number ....
+            numStr += s.charAt(j);
+            long num = Long.parseLong(numStr);  // parse as num for maths operations later
+
+            if (soFar.isEmpty()) {
+                // no need to do '+' or '*' if soFar (which is left operand) is empty
+                permute(s, j+1, soFar + numStr, num, target, num, level+1);
+            } else {
+                // do maths operations if soFar is minimally formed
+                permute(s, j+1, soFar + "+" + numStr, valueSoFar + num, target, num, level+1);
+                /**
+                 * Give precedence to multiplication - eg if we have a + b * c, we really want
+                 * (a+b) * c has to be a + (b*c)
+                 * => ((a+b) - b) + b*c
+                 * => (valueSoFar - prev) + prev*num  (basically we undo last math operation using prev)
+                 **/
+                permute(s, j+1, soFar + "*" + numStr, (valueSoFar - prev) + (prev * num), target, (prev * num), level+1);
             }
         }
     }
