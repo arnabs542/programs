@@ -31,7 +31,7 @@ public class JAVA_CODING_MUST_READ {
 
         // Use while loop when u want full control over incrementing/decrementing index
 
-        // why mod? just to keep values not going negative, at least will be +ve
+        // why modulo w/ prime number? just to keep values not going negative, at least will be +ve
         int i = 2_147_483_646;       // int max limit is 2_147_483_647
         print(i+2);                  // goes negative
         print((i % 1000000007) + 9); // still +ve w/ some lossy operation

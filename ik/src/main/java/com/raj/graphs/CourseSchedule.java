@@ -8,7 +8,7 @@ import java.util.*;
 public class CourseSchedule {
 
     /**
-     * You need to take n courses and these courses. Few of these courses have prerequisites.
+     * You need to take n courses. Few of these courses have prerequisites.
      * You are given the prerequisites as a list of pairs where each pair is of form : [x, y]
      * where to take course 'x', you need to complete course 'y' before it.
      * Given these pairs and also the count of total courses n, you need to return the ordering in which
