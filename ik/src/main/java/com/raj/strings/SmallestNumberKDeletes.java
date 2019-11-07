@@ -21,6 +21,7 @@ public class SmallestNumberKDeletes {
      * # Create a sliding window of length k+1 & keep picking min & move forward.
      * # Decrement k when leading chars not considered
      * # Stop when k = 0.
+     * Runtime = O(n)
      */
     static int findSmallestNum(String s, int k) {
         StringBuilder res = new StringBuilder();
@@ -38,7 +39,7 @@ public class SmallestNumberKDeletes {
                 window--; i++;
             }
             del += minIdx - start; // we skipped this digit
-            res.append(min);  // appaend min in this window
+            res.append(min);  // append min in this window
             i = minIdx + 1;   // slide i to min + 1 & start of a new window
         }
 
