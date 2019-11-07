@@ -73,7 +73,7 @@ public class WordBreakCount {
      * Exactly same solution as recursive above, except that we memoized the solutions to sub-problems top-down
      * Time complexity is O(n*s) where s is the length of the largest string in the dictionary and n is the length of the given string.
      * Space = O(n)
-     * May not be correct as per IK, its O(n^3) as we require n for each substring lookup from dict (a substring's hascode has to be prepared for hashset lookup which is n)
+     * May not be correct as per IK, its O(n^3) as we require n for each substring lookup from dict (a substring's hashcode has to be prepared for hashset lookup which is n)
      * dp(n states) x num of substrings x n dict lookup = O(n^3)
      *
      * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/ (it will not proceed if a char doesn't match, hence avoiding all substr matches)

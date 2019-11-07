@@ -13,7 +13,7 @@ public class BipartiteGraph {
         /**
          *    Can we color adjacent edges with different colors? Same as asking is the Graph Bipartite?
          *    Different variation of this problem, can we split a group of n people in 2 teams such that each group has
-         *    folks who don't dislike each other. Dislike is represented by edges b/w 2 people
+         *    folks who don't DISLIKE each other. Dislike is represented by edges b/w 2 people
          *
          *    Given Graph:
          *    0-----1-----2
@@ -24,7 +24,7 @@ public class BipartiteGraph {
          *    ==> Yes
          */
         int G[][] = {
-             //  0  1  2  3  (Vertex)    G[i][j] represents an edge b/w Vertex i & j
+             //  0  1  2  3  4  5 (Vertex)    G[i][j] represents an edge b/w Vertex i & j
                 {0, 1, 0, 1, 0, 0}, // 0
                 {1, 0, 1, 0, 0, 0}, // 1
                 {0, 1, 0, 1, 0, 0}, // 2
@@ -32,11 +32,11 @@ public class BipartiteGraph {
                 {0, 0, 0, 0, 0, 1}, // 4
                 {0, 0, 0, 0, 1, 0}  // 5
         };
-        int[] vertexColors = new int[G.length];
+        int[] vertexColors = new int[G.length];     // 1D array of vertices and values as their colors
         for (int i = 0; i < vertexColors.length; i++) vertexColors[i] = -1; // init colors as -1 & lets color 0 & 1
 
         for (int i = 0; i < vertexColors.length; i++) { // takes care of disconnected graphs bipartiteness as well
-            if (vertexColors[i] == -1) {
+            if (vertexColors[i] == -1) {    // vertex not colored, aka not visited
                 System.out.println("Bipartite ? " + isBipartite(G, i, vertexColors));
                 System.out.println("Colors=" + Arrays.toString(vertexColors));
             }
