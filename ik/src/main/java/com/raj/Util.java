@@ -14,6 +14,13 @@ public class Util {
         A[j] = tmp;
     }
 
+    public static void swap(char[] A, int i, int j) {
+        if (i == j) return;
+        char tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+    }
+
     public static class Point {
         public int x,y;
 

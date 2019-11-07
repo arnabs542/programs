@@ -1,0 +1,11 @@
+=== STRING Problems Notes ===
+
+# VERY IMPORTANT !! Get Clear understanding of
+  => Permutation & Combination strings notes refer to PERMUTE_vs_COMBINATE.txt and also following problems:
+  => com.raj.recursion.combinations.Subsets
+  => com.raj.recursion.permutations.Permute
+
+# Complexity of String append ?
+append is O(n) in Java/Python due to immutability but O(1) in C++
+for (i=0 to n) print("Hello" + "World"); // O(n^2)
+

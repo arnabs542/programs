@@ -10,6 +10,8 @@ import java.util.Stack;
  */
 public class Subsets {
 
+    // Print ALL possible subsets = Print all 1 char, 2 char, 3 char.... combinations
+
     public static void main(String[] args) {
         //printSubsets_ExtraMem(Arrays.asList(1,2,3,4), new ArrayList());
         printSubsets(Arrays.asList(1,2,3,4), new ArrayList());
@@ -45,7 +47,7 @@ public class Subsets {
         printSubsets_ExtraMem(new ArrayList<>(rem.subList(1, rem.size())), _soFar);
     }
 
-    // O(n) extra space as we don't create copies, instead use the same slate [O(n)] (add/erase elems) for the DFS call stack till printing
+    // O(n) extra space for the slate, we use the same slate [O(n)] (add/erase elems) for the DFS call stack till printing
     static void printSubsets(List rem, List slate) {
         if (rem.isEmpty()) {
             System.out.println(slate);
@@ -53,15 +55,15 @@ public class Subsets {
         }
 
         // exclude i
-        printSubsets_ExtraMem(new ArrayList<>(rem.subList(1, rem.size())), slate);  // subList doesn't create array copy but just creates a view
+        printSubsets(new ArrayList<>(rem.subList(1, rem.size())), slate);  // Extra space for arrayList? subList doesn't create array copy but just creates a view
 
         // include i
         slate.add(rem.get(0));  // mutate slate by adding i
-        printSubsets_ExtraMem(new ArrayList<>(rem.subList(1, rem.size())), slate);
+        printSubsets(new ArrayList<>(rem.subList(1, rem.size())), slate);
         slate.remove(0);  // reset back to original slate, remember each frame wud have reverted state as well
     }
 
-    // Same as above, except that it gets all results, hence incurs O(2^n) space
+    // Same as above, except that it uses ptr to track array index. It stores all results, hence incurs O(2^n) space
     static void getSubsets(List rem, int i, Stack slate, List result) {   // no extra space as we don't create copies, instead use the same slate (add/erase elems)
         if (i >= rem.size()) {
             result.add(new ArrayList<>(slate)); // adds extra space

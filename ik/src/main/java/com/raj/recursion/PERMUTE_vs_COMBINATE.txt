@@ -1,0 +1,26 @@
+# PERMUTATIONS VS COMBINATIONS
+  => The difference between combinations and permutations is ordering :
+     -> With permutations we care about the order of the elements, whereas with combinations we don't.
+     -> For example, say your locker PIN is "abcd". If you enter "bcad" into your locker it won't open because it is a
+        different ordering (aka permutation).
+     -> Combinations here would have meant it doesn't matter how u enter abcd as long as all char set is entered.
+
+# Arrange k items from a set of n distinct items - Exponential runtime probs (is only good for smaller n):
+# Permutation => order matters
+ => with repetition - n^k
+ => without repetition - n * n-1 * n-2 ....n-k
+
+# Combination => order doesn't matter (subset problem)
+ => Choose k combinations out of n => C(n,k) = n! / k! (n-k!)
+
+# Print all permutations of abc
+ => abc, acb, bac, bca, cab, cba
+ => Total of n! arrangements (time complexity)
+ => https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
+ => Algo : fix char i by swapping it to front, then permute rec, revert swap. Print when i==len
+
+# Print all combinations using 3 chars in string array "abcd"
+ => abc, abd, acd, bcd
+ => Total of C(4,3) = 4! / 3!*(4-3)! = 4 arrangements
+ => https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+ => To print 'ALL' subsets of any lengths, use the include/exclude char i recursion
