@@ -29,7 +29,6 @@ public class Trie implements Serializable {
     }
 
     public void insert(String word) {
-
         Node node = root;
         String wordUpper = word.toUpperCase();
         for (int i = 0; i < wordUpper.length(); i++) {

@@ -1,3 +1,8 @@
+# Toughest things about graphs is to identify it's a graph problem. Once it's identified, there are only few things to apply:
+  => BFS, DFS, Visited, Cycle
+  => Shortest / closest - BFS
+  => Connected / Longest / Path b/w nodes - DFS
+
 # Algo Design Manual- Steven Skiena
 
 # Degree of a node is the number of edges coming into a vertex. What's the sum of degree of all vertices?
