@@ -10,6 +10,7 @@ public class SubstringMatch {
     public static void main(String[] args) {
         System.out.println(bruteForce("abcdbcam", "bca"));
         System.out.println(rabin_karp("abcdbcam", "bca"));
+        KMP();
     }
 
     /**
@@ -82,10 +83,10 @@ public class SubstringMatch {
      * Other linear time algos: https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
      * 1) Preprocess Pattern: KMP Algorithm, Rabin Karp Algorithm, Finite Automata, Boyer Moore Algorithm.
      * 2) Preprocess Text: Suffix Trie
-     *    => Optimization - Compress Suffix Tree
+     *    => Optimization - Compact Suffix Tree
      *    => For more details refer to SuffixTrie.java
      * 3) If substring is a valid prefix of word, build a Prefix Trie instead
-     *    => Compress Trie
+     *    => Compressed Trie also called "radix tree"
      *    => For faster retrieval, you can store all words starting with prefix at each node w/ memory cost.
      *    => Push all prefix -> list words into in-memory shards for O(1) retrieval
      *    => For more enriched auto-complete experience, search parallely in Prefix Maps + Suffix Trees (which can be TST w/ O(logn) as it's less common)
@@ -115,6 +116,16 @@ public class SubstringMatch {
      *
      */
 
+     static void KMP() {
+         /**
+          *          0 1 2 3 4
+          * String = A A A A B
+          * Substr = A A B
+          * When the mismatch happens at 2, there is no reason to reset back the substr to 0 as we know prev chars had matched.
+          * So the idea is to reuse what computation we did earlier. We reset back substr to 1 and continue matching.
+          * Runtime = O(n+m)  .. as we only reset back substr by 1 instead of all the way back
+          */
 
+     }
 
 }

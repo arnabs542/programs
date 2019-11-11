@@ -21,6 +21,23 @@ public class Util {
         A[j] = tmp;
     }
 
+    public static String reverseStr(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = s.length()-1; i >= 0; i--) {
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }
+
+    public static boolean isPalin(String s) {
+        if (s == null || s.isEmpty()) return false;
+        if (s.length() == 1) return true;
+        for (int i = 0, j=s.length()-1; i < j; i++,j--) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+        }
+        return true;
+    }
+
     public static class Point {
         public int x,y;
 
@@ -37,6 +54,5 @@ public class Util {
                     .toString();
         }
     }
-
 
 }

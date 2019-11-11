@@ -8,8 +8,7 @@ public class RegExPatternMatch {
      * Find all words that match a pattern
      */
     public static void main(String[] args) {
-        Set<String> dict = new HashSet<>();
-        Arrays.stream(new String[] {"cat","cats","car","cop","cart","dog"}).forEach(x -> dict.add(x));
+        List<String> dict = Arrays.asList(new String[] {"cat","cats","car","cop","cart","dog"});
 
         List<String> res = new ArrayList<>();
         matchPattern(dict, "c*t", res);
@@ -34,7 +33,7 @@ public class RegExPatternMatch {
      *
      * Runtime = there is branching factor of 2 for *, so worst case can be O(2^n) exponential
      */
-    static void matchPattern(Set<String> dict, String pattern, List<String> res) {
+    static void matchPattern(List<String> dict, String pattern, List<String> res) {
         // for each word in dict, check if it matches pattern
         for (String text : dict) {
             if (isMatch_recur(text, pattern, 0, 0)) res.add(text);
@@ -75,7 +74,7 @@ public class RegExPatternMatch {
      *
      * Runtime = O(m), where m is the length of substring w/ O(n) cost of building Prefix Trie
      */
-    static List<String> isMatch_Trie(Set<String> dict, String pattern) {
+    static List<String> isMatch_Trie(List<String> dict, String pattern) {
         Trie trie = buildTrie(dict);
         List<String> res = new ArrayList<>();
         searchTrie(trie.root, new Stack<>(), pattern.toCharArray(), 0, res);
@@ -114,7 +113,7 @@ public class RegExPatternMatch {
         }
     }
 
-    static Trie buildTrie(Set<String> dict) {
+    static Trie buildTrie(List<String> dict) {
         Trie trie = new Trie();
         dict.forEach(text -> {
             TNode node = trie.root;
@@ -130,13 +129,15 @@ public class RegExPatternMatch {
         return trie;
     }
 
-    static class Trie {
+    // O(nm) runtime. n = num words, m = max length of word
+    public static class Trie {
         TNode root = new TNode('#'); // root node
     }
 
-    static class TNode {
+    public static class TNode {
         public char ch;
         public Map<Character,TNode> childs = new HashMap<>();
+
         TNode(char c) {
             ch = c;
         }

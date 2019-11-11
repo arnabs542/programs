@@ -41,13 +41,14 @@ public class LongestPalinSubstr {
     }
 
     /**
-     * Algo:
+     * Algo: "Slide & Expand around center"
      * For an O(n^2) algo which is better than BF, we'll need to pick each char and loop on rest
      * Picking left & right won't do the trick, DP might be complicated
      * # Fix each char from left and expand simultaneously from 'chosen' mid until not palin
      * # Check if left & right ptrs match, keep updating max
      * # Above wud wrk for odd lengths, for even length just fix left & right adjacent
      * # Keep 2 loops for each odd & even lengths for simplicity
+     * Runtime = O(n)
      */
     static String quadratic(String s) {
         if (s.isEmpty() || s.length() == 1) return s;
@@ -79,7 +80,8 @@ public class LongestPalinSubstr {
     }
 
     /**
-     * Linear solve ? Manacher's Algo : https://www.youtube.com/watch?v=V-sEwsca1ak
+     * Another Linear solve ? Manacher's Algo : https://www.youtube.com/watch?v=V-sEwsca1ak
+     * https://en.wikipedia.org/wiki/Longest_palindromic_substring
      * Not required for interview
      */
 

@@ -13,12 +13,13 @@ for (i=0 to n) print("Hello" + "World"); // O(n^2)
   => subseq starting with 'a' in 'abcd' => ab..,ac..,ad.. (3 choices to make - exponential, recursion, overlapping subproblems)
 
 # INTUITIONS for String related problems
-  => Enumerate all substrings from left to right fixing each char from left ... O(n^2)
-  => If it's subsequence etc, try looking at subsets
-  => Try formulating a recursive approach where u solve a smaller problem & recurse on remaining, identify base case
-     => Go DP table bottom up or DP top down memoization
-  => Try iterating from right to left instead of regular left to right
-  => Mid element expansion ? Try fixing a char from left & expand going left & right simultaneously
+  => "Enumerate all substrings" from left to right fixing each char from left ... O(n^2)
+  => If it's subsequence etc, try "enumerate all subsets"
+  => Try formulating a "recursive approach" where u solve a smaller problem & recurse on remaining, identify base case
+     => Go "DP table" bottom up or DP top down memoization
+  => Try "iterate differently from R->L or Mid" instead of regular left to right
+     => Mid element expansion ? Try fixing a char from left & expand going left & right simultaneously
      => For even length just set left & right ptrs adjacent
-  =>
+  => Tries (Prefix searches only)
+  => Suffix Trees (any substr search including prefixes)
 
