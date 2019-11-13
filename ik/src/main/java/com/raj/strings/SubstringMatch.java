@@ -77,6 +77,16 @@ public class SubstringMatch {
             if (hashSubstr == hashText && text.substring(i, i+substr.length()).equals(substr)) return i;
         }
         return -1;
+
+        /**
+         * Other problems that can be solved using Rolling Hash Pattern:
+         * -> Given two strings A and B, and a number X find if they have a common sequence of length X.
+         *    eg. ABCD, XBCY, len = 2
+         * -> Given two strings, find out if one is a rotation of the other.
+         *    eg. ABCD, DABC (compute hash of 2 letters & slide ?)
+         * -> Keep two files on disk in sync, by copying only the deltas.
+         */
+
     }
 
     /**
@@ -107,6 +117,7 @@ public class SubstringMatch {
      *       -> BST like complexity ie. O(logn) w/ base 3 & O(n) space cost to build.
      *    => Further, ternary search trees can be used any time a hashtable would be used to store strings.
      *      -> There are applications where you need to just query if the string exists in a dictionary or not. Example: You have been given a jumbled word and you need to find the correct word that can be formed out of it. Then you just need to find its each permutation and query if it's there in the dictionary.
+     *    => https://www.cs.usfca.edu/~galles/visualization/TST.html
      *
      * # Then when should we use TST?
      * -> One of the advantages of using TST over HashTable is that it helps in prefix searching and near neighbor lookups.

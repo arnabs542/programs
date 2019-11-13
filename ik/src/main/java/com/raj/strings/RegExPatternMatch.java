@@ -20,6 +20,19 @@ public class RegExPatternMatch {
         System.out.println(isMatch_Trie(dict, "cop*"));
         System.out.println(isMatch_Trie(dict, "c*t"));
         System.out.println(isMatch_Trie(dict, "c*t*"));
+
+        // In this question, b* only matches sequences of b '', b, bb, bbb... and not ba or bcd etc
+        System.out.println(pattern_matcher("abb", "ab*"));
+        System.out.println(pattern_matcher("abbc", "ab*"));
+        System.out.println(pattern_matcher("aaa", ".a*.."));
+        System.out.println(pattern_matcher("aaa", ".*b"));
+
+        System.out.println(dp("abb", "ab*"));
+        /*System.out.println(dp("abbc", "ab*"));
+        System.out.println(dp("aaa", ".a*.."));
+        System.out.println(dp("aaa", ".*b"));
+        System.out.println(dp("", "a*b*c*.*g*"));*/
+
     }
 
     /**
@@ -62,11 +75,9 @@ public class RegExPatternMatch {
         // text finished already
         if (i >= text.length()) return j == pattern.length()-1 && pattern.charAt(j) == '*';
 
-        char t = text.charAt(i); char p = pattern.charAt(j);
-
         // match 0 or more chars from text
-        if (p == '*') return isMatch_recur(text, pattern, i+1, j) || isMatch_recur(text, pattern, i, j+1);
-        if (t == p) return isMatch_recur(text, pattern, i+1, j+1);
+        if (pattern.charAt(j) == '*') return isMatch_recur(text, pattern, i+1, j) || isMatch_recur(text, pattern, i, j+1);
+        if (text.charAt(i) == pattern.charAt(j)) return isMatch_recur(text, pattern, i+1, j+1);
         else return false; // char didn't match
     }
 
@@ -141,6 +152,88 @@ public class RegExPatternMatch {
         TNode(char c) {
             ch = c;
         }
+    }
+
+    /**
+     * IK Problem: (slightly different from above)
+     * Given a text string containing characters only from lowercase alphabetic characters and a pattern string containing
+     * characters only from lowercase alphabetic characters and two other special characters '.' and '*'.
+     * Your task is to implement pattern matching algorithm that returns true if pattern is matched with text otherwise returns false.
+     * The matching must be exact, not partial.
+     * 1) '.'  Matches a single character from lowercase alphabetic characters.
+     * 2) '*'  Matches zero or more preceding character. It is guaranteed that '*' will have one preceding character. '**' won't occur as well.
+     *
+     * '.' = "a", "b", "c", ... , "z".
+     * a*  = "", "a","aa","aaa","aaaa",...
+     * ab* = "a", "ab", "abb", "abbb", "abbbb",...
+     *
+     * Example:
+     * 1> text = "abbbc" and pattern = "ab*c" => can match "ac", "abc", "abbc", "abbbc"
+     * true
+     *
+     * 2> text = "abcdefg" and pattern = "a.c.*.*gg*"
+     * true
+     * ".*" in pattern can match  "", ".", "..", "...", "....", ... (special case)
+     * "g*" in pattern can match "", "g", "gg", "ggg", "gggg", ...
+     *
+     * "abc" and pattern = ".ab*.." => false
+     * Too many edge cases to handle....
+     */
+    static boolean pattern_matcher(String text, String pattern) {
+        return rec(text.toCharArray(), pattern.toCharArray(), 0, 0);
+    }
+
+    // O(2^n) exponential complexity
+    static boolean rec(char[] txt, char[] pat, int i, int p) {
+        if (p == pat.length) return i == txt.length;
+        if (i >= txt.length) return p+1 < pat.length && pat[p+1] == '*' && rec(txt, pat, i, p+2);
+
+        // 0 or more char match. handle cases like a* -> '', a, aa, aaa & ".a*.." -> "aaa"
+        /**
+         * '*' match has many edge cases:
+         * 1. a* -> ''
+         * 2. a* -> a
+         * 3. a* -> aa, aaa ... (skip txt char only if prev pattern char matches)
+         * If look forward 1 char and determine its a '*' then we can handle these
+         */
+        char next = (p+1 < pat.length && pat[p+1] == '*') ? '*' : ' ';
+        if (next == '*') {
+            if (pat[p] == txt[i] || pat[p] == '.') return rec(txt, pat, i+1, p) || rec(txt, pat, i, p+2); // for more chars, the prev char has to match
+            return rec(txt, pat, i, p+2);   // otherwise just match 0 chars
+        }
+
+        //match 1 char from pattern and text and go to next in both
+        if(txt[i] == pat[p] || pat[p] == '.') {
+            return rec(txt, pat, i+1, p+1);
+        }
+
+        return false;
+    }
+
+    static boolean dp(String text, String pattern) {
+        int N = text.length();
+        int M = pattern.length();
+        boolean[][] dp = new boolean[M+1][N+1];
+        dp[0][0] = true;
+        for (int i = 1; i <= M; i++) {
+            dp[i][0] = (pattern.charAt(i-1) == '*') && dp[i-2][0]; // handles ("", a*b*c*.*g*)
+        }
+        for (int i = 1; i <= M; i++) {  // row i is for pattern
+            for (int j = 1; j <= N; j++) {  // col j is for text
+                char t = text.charAt(j-1);
+                char p = pattern.charAt(i-1);
+                if (t == p || p == '.') {
+                    dp[i][j] = dp[i-1][j-1];
+                } else if (p == '*') {
+                    dp[i][j] = dp[i-2][j] ||
+                            (((pattern.charAt(i-2) == t) || (pattern.charAt(i-2) == '.')) && dp[i][j-1]);
+                } else {
+                    dp[i][j] = false;
+                }
+            }
+        }
+        System.out.println(Arrays.deepToString(dp));
+        return dp[M][N];
     }
 
 }

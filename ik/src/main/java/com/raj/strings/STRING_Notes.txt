@@ -21,5 +21,8 @@ for (i=0 to n) print("Hello" + "World"); // O(n^2)
      => Mid element expansion ? Try fixing a char from left & expand going left & right simultaneously
      => For even length just set left & right ptrs adjacent
   => Tries (Prefix searches only)
-  => Suffix Trees (any substr search including prefixes)
+  => Suffix Trees (any substr search including prefixes as each substr is a prefix of suffix)
+
+# Both Tries and HashTables have the same time complexity O(L) of insert, because in a HashTable, we need to compute a hashkey for each insert which takes O(L).
+
 

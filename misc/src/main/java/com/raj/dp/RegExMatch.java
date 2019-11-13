@@ -104,7 +104,7 @@ public class RegExMatch {
             for (int j = 1; j <= text.length(); j++) {
 
                 // Two cases if we see a '*'
-                // a) We ignore '*'' character and move to next  character in the pattern, i.e., '*' indicates an empty sequence.
+                // a) We ignore '*' character and move to next character in the pattern, i.e. '*' indicates an empty sequence.
                 // b) '*' character matches with ith character in input
                 if (pattern.charAt(i - 1) == '*') match[i][j] = match[i][j - 1] || match[i - 1][j];
 
