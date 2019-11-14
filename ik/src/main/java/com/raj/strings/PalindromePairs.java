@@ -5,6 +5,7 @@ import com.raj.Util;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.raj.Util.isPalin;
 import static com.raj.Util.reverseStr;
 import static com.raj.strings.RegExPatternMatch.*;
 
@@ -15,7 +16,8 @@ public class PalindromePairs {
      * Result = {doggod, raceecar, madam, goddog}
      */
     public static void main(String[] args) {
-        System.out.println(findPalinPairs(Arrays.asList("dog", "cat", "racee", "ma", "dam", "car", "god")));
+        System.out.println(findPalinPairs_Trie(Arrays.asList("b", "dog", "cat", "racee", "ma", "dam", "car", "god")));
+        System.out.println(Arrays.toString(findPalinPairs_hashmap(new String[]{"b", "dog", "cat", "racee", "ma", "dam", "car", "god"})));
     }
 
     /**
@@ -48,7 +50,7 @@ public class PalindromePairs {
      *      -> Some dupes like "doggod" & "goddog" will be found. Use Set to avoid dupes.
      * Complexity - Runtime is O(n * L) at the the cost O(n * L) of building Trie, where n = number of words
      */
-    static List<String> findPalinPairs(List<String> words) {
+    static List<String> findPalinPairs_Trie(List<String> words) {   // to do handle 'b' in input
         Set<String> res = new HashSet<>();
         List<String> reverseWords = words.stream().map(x -> reverseStr(x)).collect(Collectors.toList());
 
@@ -66,9 +68,9 @@ public class PalindromePairs {
     static void searchTrie(List<String> words, Trie trie, Set<String> res) {
         for (String w : words) {
             int matchedIdx = isPrefixWordInTrie(trie.root, w);
-            if (matchedIdx > 0) {  // partial or full match
-                if (Util.isPalin(w.substring(matchedIdx))) {
-                    res.add(w + reverseStr(w.substring(0, matchedIdx)));
+            if (matchedIdx > 0) {  // matched index is until it matched a waord in trie
+                if (Util.isPalin(w.substring(matchedIdx))) {    // check if remaining part of word is palin
+                    res.add(w + reverseStr(w.substring(0, matchedIdx))); // add the palin pair
                 }
             }
         }
@@ -85,6 +87,67 @@ public class PalindromePairs {
             node = node.childs.get(word.charAt(i));
         }
         return node.childs.containsKey('$') ? i : 0;
+    }
+
+
+    private static boolean isPalindrome(String word) {
+        int start = 0;
+        int end = word.length() - 1;
+        while (start < end) {
+            if (word.charAt(start) != word.charAt(end)) return false;
+            start++;
+            end--;
+        }
+        System.out.println(word + " ispalin");
+        return true;
+    }
+
+    /**
+     * We are doing full text matches in Trie above. We just need a constant time lookup which can aslo be done via hashmap
+     * # "dog", "cat", "racee", "ma", "dam", "car", "god" --> put them in set
+     * # Iterate thru each word in set, reverse it and go left to right one char at a time creating a prefix | suffix split for word
+     * # Check if prefix exists in set & rest aka suffix is palin.
+     * # Check if prefix is palin & rest aka suffix is in set.
+     * # Both of the above yields a palin pair.
+     * racee -> ee|car  (prefix ee is palin & car exists in set) => raceecar ie. racee (original str) + car (corresponding pair in set) is one pair
+     * dog -> god| => doggod
+     * dam -> ma|d => ma exists & d is palin => dam + ma
+     * a, levela
+     * levela -> a | level
+     * Runtime = O(n * 3L)
+     */
+    static String[] findPalinPairs_hashmap(String[] words) {
+        Set<String> res = new HashSet<>();
+        Map<String,Integer> map = new HashMap<>();
+        Map<String,Integer> freq = new HashMap<>();
+        int i = 0;
+        for (String w : words) {
+            map.put(w, i++);
+            if (!freq.containsKey(w)) freq.put(w, 0);   // maintain freq to handle cases like aa,aa in words
+            freq.put(w, freq.get(w)+1);
+        }
+
+        for (String s : map.keySet()) {  // n cost
+            String revStr = Util.reverseStr(s); // L cost
+            String prefix = "", suffix;
+            for (i = 0; i < revStr.length(); i++) {  // n * 3L cost ?
+                prefix += revStr.charAt(i);
+                suffix = revStr.substring(i+1);   // L cost
+
+                if (isPalin(prefix) && map.containsKey(suffix)) {
+                    // edge case: handle single 'b' in input
+                    // edge case: 'b', 'b' occurs 2 times, then it's ok to print as palin pairs
+                    if (s.equals(suffix) && freq.get(s) == 1) continue;
+                    res.add(s + suffix);   // ee | car   ... L cost
+                }
+                if (map.containsKey(prefix) && isPalin(suffix)) {
+                    if (s.equals(prefix) && freq.get(s) == 1) continue;
+                    res.add(s + prefix);   // ma | d     ... L cost
+                }
+            }
+        }
+
+        return res.toArray(new String[res.size()]);
     }
 
 }
