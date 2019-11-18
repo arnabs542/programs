@@ -17,12 +17,16 @@ public class StringIterationTemplate {
 
     /**
      * Print all substring: (contiguous chars)
-     * abcd => a, ab, abc, abcd, b, bc, bcd, c, cd
+     * abcd =>
+     * a, ab, abc, abcd,
+     * b, bc, bcd,
+     * c, cd
+     * d
      *
      * Note - we aren't skipping chars when going from left to right (as we do when we print subsets)
      *
      * Algo:
-     * # 1st loop = Fix ith char, eg. b
+     * # 1st loop = Fix ith char, eg. a
      * # 2nd loop = j : Run from i until len, printing substrs(i...j)
      * Runtime = O(n^3)
      */
@@ -51,7 +55,7 @@ public class StringIterationTemplate {
             for (int j = i; j < str.length(); j++) {    // O(n)
                 tempStr.append(str.charAt(j));          // append is O(1) with StringBuilder
                 cmp++;
-                System.out.print(tempStr + " ");
+                System.out.print(tempStr.toString() + " ");  // but print may be O(n)
             }
         }
         System.out.println("comparisons = " + cmp);

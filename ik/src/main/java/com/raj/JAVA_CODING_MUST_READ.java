@@ -30,6 +30,21 @@ public class JAVA_CODING_MUST_READ {
         print(Arrays.binarySearch(A, 2)); // binary search an array
 
         // Use while loop when u want full control over incrementing/decrementing index
+        // VERY IMPORTANT - ALWAYS INCR WHILE LOOP PTRS BEFORE USING IT, OTHERWISE YOU'LL GET INTO EXTREMELY COMPLEX DEBUGGING MESS
+        // ESPECIALLY w/ SLIDING WINDOW problems
+        int left = -1, right = -1; // INIT before first char
+        String s = "ab";
+        while (right < s.length()) {
+            // expand until some condition
+            while (++right < s.length()) { // && some condition until when to stop expansion
+                // now use right ptr
+            }
+            // update maxLen, on some base condition
+            // contract until some condition
+            while (++left < right) { // && some condition until when to stop contraction
+                // now use left ptr
+            }
+        }
 
         // why modulo w/ prime number? just to keep values not going negative, at least will be +ve
         int i = 2_147_483_646;       // int max limit is 2_147_483_647

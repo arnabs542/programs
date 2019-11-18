@@ -38,6 +38,16 @@ public class Util {
         return true;
     }
 
+    public static void print2DArray(int[][] A) {
+        for (int i = 0; i < A.length; i++) {
+            System.out.println();
+            for (int j = 0; j < A[0].length; j++) {
+                System.out.print(A[i][j] + " ");
+            }
+        }
+        System.out.println();
+    }
+
     public static class Point {
         public int x,y;
 
