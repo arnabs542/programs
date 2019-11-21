@@ -13,6 +13,7 @@ for (i=0 to n) print("Hello" + "World"); // O(n^2)
   => subseq starting with 'a' in 'abcd' => ab..,ac..,ad.. (3 choices to make - exponential, recursion, overlapping subproblems)
 
 # INTUITIONS for String related problems
+  => 2 ptrs approach ? eg. Lomuto's partitioning
   => "Enumerate all substrings" from left to right fixing each char from left ... O(n^2)
   => If it's subsequence etc, try "enumerate all subsets"
   => Try formulating a "recursive approach" where u solve a smaller problem & recurse on remaining, identify base case

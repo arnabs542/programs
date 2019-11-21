@@ -66,6 +66,8 @@ public class JAVA_CODING_MUST_READ {
         // Ordered Sets  -> TreeSet maintains sorted collection,  LinkedHashSet maintains insertion order
 
         System.out.println("0123456789".substring(2, 5)); // 234 & not 2345 ... add +1 to endIdx
+
+        // It takes O(L) time to calculate hashcode or to compare two strings up to L characters long. Thus populating the hashmap with n words will take O(n*L), making w searches in that hashmap will take O(w*L)
     }
 
     static void print(Object o) {

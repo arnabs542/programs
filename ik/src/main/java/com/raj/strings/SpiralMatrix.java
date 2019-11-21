@@ -17,16 +17,17 @@ public class SpiralMatrix {
      * Change dir once exhausted
      */
     static String printSpirally(char[][] g) {
+
         if (g == null || g.length == 0) return "";
+
         int i=0, r=0, c=0;
         int ROW = g.length, COL = g[0].length;
         int size = ROW * COL;
+
         // init state
-        String res = g[0][0] + ""; g[0][0] = '$'; char dir = 'R';
-        while (i<size-1) {
-
+        String res = g[0][0] + ""; g[0][0] = '$'; char dir = 'R'; i++;
+        while (i < size) {
             switch(dir) {
-
                 // -->
                 case 'R':
                     if (c+1<COL && g[r][c+1] != '$') { res+=g[r][++c]; g[r][c]='$'; i++; }
@@ -51,7 +52,7 @@ public class SpiralMatrix {
                     else dir = 'R';
                     break;
             }
-            //System.out.println(i + " :" + r + "," + c + "-> " + res);
+            System.out.println(i + " :" + r + "," + c + "-> " + res);
             g[r][c] = '$'; // visited
         }
         return res;
