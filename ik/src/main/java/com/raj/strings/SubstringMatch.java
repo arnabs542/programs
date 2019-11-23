@@ -123,7 +123,11 @@ public class SubstringMatch {
      * -> One of the advantages of using TST over HashTable is that it helps in prefix searching and near neighbor lookups.
      * Say you want to search all words starting with "Man". It can be used to implement a dictionary w/ auto-complete feature.
      * -> TRIE too can be used here. The downside with TRIE is its huge space requirements. If the input data is densely
-     * distributed, then TRIE should be preferred over TST.
+     * distributed, then TRIE should be preferred over TST as many word prefix will share same nodes.
+     *
+     * Applications of ternary search trees:
+     * 1. Ternary search trees are efficient for queries like “Given a word, find the next word in dictionary(near-neighbor lookups)” or “Find all telephone numbers starting with 9342 or “typing few starting characters in a web browser displays all website names with this prefix”(Auto complete feature)”.
+     * 2. Used in spell checks: Ternary search trees can be used as a dictionary to store all the words. Once the word is typed in an editor, the word can be parallely searched in the ternary search tree to check for correct spelling.
      *
      */
 
@@ -134,6 +138,7 @@ public class SubstringMatch {
           * Substr = A A B
           * When the mismatch happens at 2, there is no reason to reset back the substr to 0 as we know prev chars had matched.
           * So the idea is to reuse what computation we did earlier. We reset back substr to 1 and continue matching.
+          * We'll need to pre-process substr to know where to rest in case of a mismatch
           * Runtime = O(n+m)  .. as we only reset back substr by 1 instead of all the way back
           */
 

@@ -18,6 +18,7 @@
 
 # Merge k sorted lists?
     => k sized minHeap. Insert elements, move ptr from the list this element is taken. Pop min & keep inserting.
+    => We'll need to keep track of arr index when poped, so that we can insert from that list
 
 # Sort Big File of 500 GB that can't fit in memory?
     =>     

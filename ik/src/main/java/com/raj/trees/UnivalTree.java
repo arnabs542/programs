@@ -11,7 +11,7 @@ public class UnivalTree {
      * Note that a leaf qualifies as a unival tree
      *
      * A Simple Solution is to traverse the tree. For every traversed node, check if all values under this node are
-     * same or not. If same, then increment count. Time complexity of this solution is O(n2).
+     * same or not. If same, then increment count. Time complexity of this solution is O(n^2).
      *
      * An Efficient Solution O(n) is to traverse the tree in bottom up manner. For every subtree visited, return true
      * if subtree rooted under it is single valued and increment count. So the idea is to use count as a reference

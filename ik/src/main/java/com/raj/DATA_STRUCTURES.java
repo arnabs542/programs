@@ -40,10 +40,14 @@ public class DATA_STRUCTURES {
         Collections.singleton(-1);
 
         /**
-         * Segment Trees
+         * Segment Trees -
+         * Use when many operations of range queries(min/max/sum/product) on array and array updates are many as well.
+         * For example, finding the sum of all the elements in an array from indices L to R,
+         * or finding the minimum (famously known as Range Minimum Query problem) of all the elements in an array from indices L to R.
+         * These problems can be easily solved in O(log n) vs Naive solve will incur O(n) range query & O(1) update
          * https://www.geeksforgeeks.org/overview-of-data-structures-set-3-graph-trie-segment-tree-and-suffix-tree/#code11
          * https://youtu.be/0l3xN3BpxHg
-         *
+         * @see com.raj.trees.SegmentTree
          */
     }
 
