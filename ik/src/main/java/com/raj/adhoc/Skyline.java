@@ -120,6 +120,7 @@ public class Skyline {
     public static List<List<Integer>> findSkyline(List<List<Integer>> buildings) {
         List<List<Integer>> res = new ArrayList<>();
         List<Building> inputs = new ArrayList<>();
+        // pre-process input
         buildings.forEach(x -> {    // build a building list
             int _s = x.get(0), _e = x.get(1), _h = x.get(2);
             inputs.add(new Building(_s, _h, true));

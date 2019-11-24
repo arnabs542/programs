@@ -46,7 +46,6 @@ public class LevenshteinDistance {
         // If second string is empty, the only option is to, remove all characters of first string
         if (j == s2.length) return s1.length-j;
 
-
         // first char matches, recur on remaining
         if (s1[i] == s2[j]) return levenshteinDistance_recur(s1, i+1, s2, j+1);
 

@@ -13,18 +13,14 @@ public class DATA_STRUCTURES {
 
         /**
          * https://www.geeksforgeeks.org/overview-of-data-structures-set-3-graph-trie-segment-tree-and-suffix-tree/#code11
-         * Arrays
-         * Stack
-         * LinkedList / Queue
-         * HashMap
-         * HashSet
-         * LinkedHashMap
+         * List - Arrays, LinkedList(Queue), Stack
+         * Map - HashMap, LinkedHashMap, TreeMap
+         * Set - HashSet, LinkedHashSet, TreeSet
          * Heaps - PriorityQueue
-         * Trees - BinaryTree, BST
-         * Graphs
-         * Trie
-         * Suffix Tree
-         * Segment Trees
+         * Trees - BinaryTree, BST - PreOrder, InOrder, PostOrder
+         * Graphs - BFS, DFS, Visited, Cycle detect
+         * Trie - Compact Trie, Suffix Tree
+         * Segment Trees - RMQ
          */
 
         // Build an LRU cache using linkedhashmap
