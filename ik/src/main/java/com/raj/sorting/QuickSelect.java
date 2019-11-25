@@ -1,11 +1,13 @@
 package com.raj.sorting;
 
+import com.raj.Util;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.raj.Util.Point;
 import static com.raj.Util.swap;
+import static com.raj.sorting.KNearestNeighbors.Point;
 
 /**
  * Hoare's Algorithm tweaks the QuickSort algo to achieve a O(n) - avg case algo
@@ -18,18 +20,16 @@ public class QuickSelect {
     public static void main(String[] args) {
         System.out.println(findKthSmallest(new int[]{3,2,1,4,8,7,5,6}, 4-1)); // 4th smallest, adjust for array index starting at 0
         System.out.println("Median = " + findMedian(new int[]{3,2,1,4,8,7,5,6}));
-        System.out.println("K nearest points to origin = " + findKNearestPoints(new Point[] {
-                new Point(7,9), new Point(5,4), new Point(1,2), new Point(3,5),
-                new Point(1,7), new Point(3,9), new Point(6,2), new Point(8,6)
-        }, 3));
+        System.out.println("K nearest points to origin = " + findKNearestPoints(null, null, 3));
     }
 
     /**
      * Return k nearest points to origin
      * QuickSelect k smallest, return all elements before kth pivot
+     * @see com.raj.sorting.KNearestNeighbors
      */
-    static List<Point> findKNearestPoints(Point[] points, int k) {
-        // TODO
+    static List<Util.Point> findKNearestPoints(Util.Point[] points, Point origin, int k) {
+        // refer to com.raj.sorting.KNearestNeighbors
         return null;
     }
 
@@ -69,12 +69,13 @@ public class QuickSelect {
         // partition
         int smaller = start, pivot = A[start];
         for (int bigger = smaller+1; bigger <= end; bigger++) {
-            if (A[bigger] < pivot) swap(A, ++smaller, bigger);
+            if (A[bigger] < pivot) swap(A, ++smaller, bigger);  // don't use A[pivotIdx] as it's swapped elem
         }
-        swap(A, smaller, start);
+        swap(A, smaller, start);  // smaller is at boundary of lesser elems than pivot, hence swap pivot to here (not smaller+1 as it will bring a bigger elem to lesser partition)
+        // Array looks like ...lesser elems... Pivot elem ...greater elems...
         System.out.println("After partitioning array " + Arrays.toString(A));
 
-        // if pivot is kth, we found the answer
+        // if pivot is kth, we found the answer as it is at it's exact sorted place in array & elems to left are smaller (but not sorted)
         if (smaller == k) {
             return A[smaller];
         }

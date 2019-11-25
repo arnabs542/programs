@@ -21,6 +21,10 @@ public class DATA_STRUCTURES {
          * Graphs - BFS, DFS, Visited, Cycle detect
          * Trie - Compact Trie, Suffix Tree
          * Segment Trees - RMQ
+         *
+         * Ordered Sets :
+         * TreeSet maintains sorted collection
+         * LinkedHashSet maintains insertion order
          */
 
         // Build an LRU cache using linkedhashmap

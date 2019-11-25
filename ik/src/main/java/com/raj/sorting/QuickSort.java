@@ -35,7 +35,7 @@ public class QuickSort {
         // and swap anything that it sees as smaller than pivot, thus creating a contiguous block of smaller elems | pivot | bigger elems
         int smaller = startIdx, bigger = startIdx + 1, pivot = A[startIdx]; // our pivot is now at start
         for (; bigger <= endIdx; bigger++) {
-            if (A[bigger] < pivot) {
+            if (A[bigger] < pivot) {    // don't use A[pivotIdx] as it's swapped elem
                 Util.swap(A, ++smaller, bigger);
             }
         }

@@ -103,7 +103,7 @@ public class PalindromePairs {
     }
 
     /**
-     * We are doing full text matches in Trie above. We just need a constant time lookup which can aslo be done via hashmap
+     * We are doing full text matches in Trie above. We just need a constant time lookup which can also be done via hashmap
      * # "dog", "cat", "racee", "ma", "dam", "car", "god" --> put them in set
      * # Iterate thru each word in set, reverse it and go left to right one char at a time creating a prefix | suffix split for word
      * # Check if prefix exists in set & rest aka suffix is palin.
@@ -146,8 +146,15 @@ public class PalindromePairs {
                 }
             }
         }
-
         return res.toArray(new String[res.size()]);
     }
+
+    /**
+     * Mock Interview - given unique words in dict find palin pairs indices in dict.
+     * Similar to above except no need to track freq as its unique. Used a hashmap(word->index) to track indices & split word into prefix | suffix.
+     * Each time checking if prefix is palin & suffix exists in map & vice versa. Add them to res.
+     * Edge case - What if word itself is palin & no "" empty word is given, then we shudn't print it by adding:
+     * word index i != map.get(suffix) & vice versa
+     */
 
 }
