@@ -1,4 +1,4 @@
-package com.raj.systemsdesign;
+package com.raj.scalablesystems;
 
 import java.util.Base64;
 

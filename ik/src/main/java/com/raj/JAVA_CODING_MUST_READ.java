@@ -23,10 +23,11 @@ public class JAVA_CODING_MUST_READ {
         print(strList);
 
         // Convert to Array from List
-        strList.toArray(new String[strList.size()]);
+        String[] arr = strList.toArray(new String[strList.size()]);
 
         List<Integer> intList = Arrays.asList(1,2,3,4);
         print(intList);
+        List<String> strList1 = Arrays.asList("abc","def","ghf");
 
         print(Arrays.binarySearch(A, 2)); // binary search an array
 
@@ -64,6 +65,7 @@ public class JAVA_CODING_MUST_READ {
         int i = 2_147_483_646;       // int max limit is 2_147_483_647
         print(i+2);                  // goes negative
         print((i % 1000000007) + 9); // still +ve w/ some lossy operation
+        // https://www.geeksforgeeks.org/modulo-1097-1000000007/
 
 
         // ============= SORT / COMPARE / HASHCODE GOTCHAS ===========

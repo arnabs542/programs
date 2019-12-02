@@ -1,3 +1,14 @@
+# QuickSort vs MergeSort:
+    Quicksort is an in-place sorting algorithm, that is, it does not require any extra space to perform sorting of an array.
+    On the other hand, merge sort requires O(n*logn) auxiliary space. However, the worst-case time complexity of
+    quicksort is O(n^2) because the time complexity depends on the selection of pivot. On the other hand, for mergesort,
+    the worst-case time complexity is always O(n*logn).
+
+# Why Merge Sort for LinkedList & Quick sort for Arrays:
+  - https://www.geeksforgeeks.org/why-quick-sort-preferred-for-arrays-and-merge-sort-for-linked-lists/
+  - LL: Aux space for merge routine in constant as swap can be done easily with ptrs. So, no extra space required.
+  - Arrays: QSort requires a lot of shuffling and locality of reference is good w/ arrays.
+
 # How to build a Max Heap using a MinHeap (Python only provide MinHeap)? Just negate the numbers and use minHeap.
 
 # When asked for kth smallest / largest distance, think of:

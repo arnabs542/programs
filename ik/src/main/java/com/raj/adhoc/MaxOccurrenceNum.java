@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class MaxOccurrenceNum {
 
     /**
-     * Find max number of occurrences of an integer in given array
-     * {2, 3, 3, 5, 3, 4, 1, 7} => 3
+     * Find max number of occurrences of an integer in given array where elements are within 0...n-1 range
+     * {2, 3, 3, 0, 3, 4, 1, 7} => 3
      */
     public static void main(String[] args) {
-        System.out.println("Ans = " + findMaxOccurrence(new int[]{2, 3, 3, 5, 3, 4, 1, 7}));
+        System.out.println("Ans = " + findMaxOccurrence(new int[]{2, 3, 3, 0, 3, 4, 1, 7}));
         System.out.println("Ans = " + findMaxOccurrence(new int[]{2,2,3,1}));
         System.out.println(findMaxOccurrence(new int[]{5,8,2,2}));  // doesn't wrk as 8 is bigger than arr len
     }
@@ -23,7 +23,7 @@ public class MaxOccurrenceNum {
      *           3   1
      *             2
      * => imagine the modulo as a circular wrap around struct as above.
-     * For 4 length arr, you keep incr counts at its place. To preserve the original int, just add the
+     * For 4 length arr, you keep incr counts at its place. To preserve the original int, just add the size of arr
      *
      *  0  1  2  3  4  5  6  7  (idx)
      *  2, 3, 3, 5, 3, 4, 1, 7
@@ -32,14 +32,14 @@ public class MaxOccurrenceNum {
      *  (k is a num where all array elements are smaller than it & also is the arr length) ... it only wrks when this condition is satisfied
      *
      *  Basically, we want A[element which is A[i]] as k + A[i] & to avoid overflows, we mod :
-     *  A[ A[i] % k ] = A[i] + k   ... only works if array elem
+     *  A[ A[i] % k ] = A[i] + k   ... only works if array elem < k
      */
     static int findMaxOccurrence(int[] A) {
-        int k = A.length;
+        int k = A.length;   // if
         int max = 0, maxIdx = -1;
         for (int i = 0; i < A.length; i++) {
             //System.out.println(i);
-            int setToIdx = A[i] % k;
+            int setToIdx = A[i] % k;    // why mod ? think if A[i] was set earlier, it's value wud overflow array bounds, hence to size it we use mod
             A[setToIdx] = A[i] + k;
             if (A[setToIdx] > max) {    // keep updating max value & corresponding index
                 max = A[setToIdx];

@@ -5,7 +5,6 @@ import com.raj.helper.Util;
 import java.util.Arrays;
 
 /**
- * Created by Sweta on 1/31/2015.
  */
 public class QuickSort {
 

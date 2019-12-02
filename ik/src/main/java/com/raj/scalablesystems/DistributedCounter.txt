@@ -17,3 +17,6 @@ https://drive.google.com/file/d/1itbw9WYstpJMFVYqRYdKcVQVADRGVpnQ/view
      - all nodes converge to same value after last broadcast time + delay & hence conflict free.
      - parallel reads + writes
      - can be used to build more complex data types than just counters
+
+* Simpler approach - Each server maintains a local count. An aggregator pulls the counts from each server & adds them.
+If it reaches 1B, we are done. But this approach has a tradeoff that the aggregator may have moved forward than 1B when it pulls.
