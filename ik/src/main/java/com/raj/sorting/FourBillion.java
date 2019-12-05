@@ -64,7 +64,7 @@ public class FourBillion {
 
     /**
      * What if we need to do this with 10MB memory?
-     * Our prev solution uses 1GB. 10MB is 100x smaller. So we can apply "paging technique" of external sort.
+     * Our prev solution uses 1GB. 10MB is 100x smaller. So we can apply "paging technique" of External Sort.
      * Basically, run the algo 100 times over after making the bins size smaller & check presence of missing numbers on just a small range
      */
     public static long find_integer_10MB(List<Long> arr) {
