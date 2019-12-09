@@ -65,13 +65,16 @@ public class BST {
         System.out.println("Print paths: ");
         bst1.printPaths(root, 0, new int[10]);*/
 
+        System.out.println("Original Tree: ");
+        bst1.printPaths(root, 0, new int[10]);
         System.out.println("Mirror Tree: ");
-        //bst1.mirrorTree(root);
-        Node mirror = bst1.mirror(root);    // root will alter (same as mirror)
+        Node mirror = bst1.mirror(root);    // alters original tree as well
         bst1.printPaths(mirror, 0, new int[10]);
 
-        System.out.println("Is Mirror Tree ? " + bst1.isMirrorTree(root, mirror));
-        System.out.println("Is Same Tree ? " + bst1.isSameTree(root, mirror));
+        System.out.println("Is Mirror Tree ? " + bst1.isMirrorTree(root, mirror));  // false as original tree was altered
+
+        Node clone = bst1.cloneTree(root);
+        System.out.println("Is Same Tree ? " + bst1.isSameTree(root, clone));
 
         bst1.mirror(root); // revert back to original tree
         System.out.println("LCABST of 2,8 -> " + bst1.LCABST(root, 2, 8));
@@ -167,6 +170,7 @@ public class BST {
             if (cur.left != null) queue.add(cur.left);
             if (cur.right != null) queue.add(cur.right);
         }
+        System.out.println();
     }
 
     /**
@@ -376,7 +380,6 @@ public class BST {
     /**
      * Print path which sums up to X.
      */
-
     public void printPathSum(Node n, int sum, int arr[], int depth) {
         if (n == null) return;
         arr[depth] = n.data;
@@ -392,27 +395,38 @@ public class BST {
     }
 
     /**
+     * Clone a tree
+     */
+    public Node cloneTree(Node n1) {
+        if (n1 == null) return null;
+        Node n2 = new Node(); n2.data = n1.data;
+        n2.left = cloneTree(n1.left);
+        n2.right = cloneTree(n1.right);
+        return n2;
+    }
+
+    /**
      * Mirror a tree
      */
-    public void mirrorTree(Node n) {
-        if (n == null) return;
+    public Node mirrorTree(Node n) {
+        if (n == null) return null;
         Node t = n.left;    // swap left, right
         n.left = n.right;
         n.right = t;
         mirrorTree(n.left);
         mirrorTree(n.right);
+        return n;
     }
 
     /**
      * Mirror tree, cleaner & elegant
      */
     public Node mirror(Node node) {
-        if (node == null) return node;
-
-        Node t = node.left;     // save left as it would be modified
-        node.left = mirror(node.right);
-        node.right = mirror(t);
-
+        if (node == null) return null;
+        Node left = mirror(node.left);
+        Node right = mirror(node.right);
+        node.left = right;
+        node.right = left;
         return node;
     }
 

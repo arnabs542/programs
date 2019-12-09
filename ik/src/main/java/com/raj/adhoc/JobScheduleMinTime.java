@@ -23,6 +23,8 @@ public class JobScheduleMinTime {
      * 0.....51
      *   m=25 ---> can we finish in this time? If yes, try reducing the time window by searching answer in left or right
      * canFinish(time) => tells if we can finish all jobs
+     *
+     * Runtime = O(nlogn) where n is sum of times of all jobs
      */
     static int findMinTime(int K, int timePerJob, int[] job) {
         // add up all job times to get max bounds
@@ -45,6 +47,7 @@ public class JobScheduleMinTime {
         return minTime * timePerJob;
     }
 
+    // Remember : A worker can only work on contiguous jobs
     static boolean canFinishInTime(int allowedTime, int[] job, int K) {
         int curr_time = 0;
         for (int j : job) {
