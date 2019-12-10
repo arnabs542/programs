@@ -6,9 +6,18 @@ public class LargestBST {
      * Given a binary tree, find the largest subtree which is also a binary search tree(BST). Here largest subtree means
      * subtree with maximum number of nodes. A binary search(BST) is a rooted binary tree whose left child values are
      * less than or equal to parent value and right child values are greater than or equal to parent value.
+     *
+     *                   1
+     *               3       5
+     *             2  4    6   7
      */
     public static void main(String[] args) {
-
+        Node root = new Node(1);
+        root.left = new Node(3); root.left.left = new Node(2); root.left.right = new Node(4);
+        root.right = new Node(5); root.right.left = new Node(6); root.right.right = new Node(7);
+        System.out.println(brute(root));
+        System.out.println(findLargestBST(root).size);
+        System.out.println(_findLargestBST(root).size);
     }
 
     /**
@@ -52,20 +61,24 @@ public class LargestBST {
      */
     static Result findLargestBST(Node n) {
 
-        // provide max value to 'min' so that when left subtree if null, n.data is picked as min & vice-versa
-        if (n == null) return new Result(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        // provide max value to 'min' so that when left subtree if null, n.data is picked as min & vice-versa (also we'll use Math.min functions, so default value has to be like that)
+        if (n == null) return new Result(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);  // pass in default values for min / max
 
         Result result = new Result();
         Result leftRes = findLargestBST(n.left);
         Result rightRes = findLargestBST(n.right);
 
         if (leftRes.isBST && rightRes.isBST && n.data >= leftRes.max && n.data <= rightRes.min) {
-            int min = Math.min(leftRes.min, n.data); // when left subtree if null, n.data is picked as min (which we want) as non-bst & null subtrees will return min as Int.max_value
-            int max = Math.max(rightRes.max, n.data);
+             //int min = Math.min(leftRes.min, n.data); // when left subtree if null, n.data is picked as min (which we want) as non-bst & null subtrees will return min as Int.max_value
+             //int max = Math.max(rightRes.max, n.data);
+
+             // Above code is equivalent of -
+             int min = (n.left != null) ? leftRes.min : n.data;  // if left node is null, the min is this node's data
+             int max = (n.right != null) ? rightRes.max : n.data;
             return new Result(true, 1 + leftRes.size + rightRes.size, min, max);
         }
 
-        return new Result(false, Math.max(leftRes.size, rightRes.size), Integer.MAX_VALUE, Integer.MIN_VALUE);
+        return new Result(false, Math.max(leftRes.size, rightRes.size), Integer.MAX_VALUE, Integer.MIN_VALUE);  // pass in default values for min / max
     }
 
     static Result _findLargestBST(Node n) {
@@ -76,13 +89,14 @@ public class LargestBST {
         Result leftRes = _findLargestBST(n.left);
         Result rightRes = _findLargestBST(n.right);
 
-        if (!leftRes.isBST || !rightRes.isBST || n.data < leftRes.max || n.data > rightRes.min) {   // or u could negate this and write it
+        if (!leftRes.isBST || !rightRes.isBST || n.data < leftRes.max || n.data >= rightRes.min) {   // or u could negate this and write it
             result.isBST = false;
             result.size = Math.max(leftRes.size, rightRes.size);
             return result;
         }
 
         // both left & right subtrees are BST
+        result.isBST = true;
 
         // update counts
         result.size = 1 + leftRes.size + rightRes.size;
@@ -113,5 +127,8 @@ public class LargestBST {
     private static class Node {
         int data;
         Node left, right;
+        Node(int d) {
+            data = d;
+        }
     }
 }
