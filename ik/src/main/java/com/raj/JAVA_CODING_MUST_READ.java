@@ -9,6 +9,8 @@ public class JAVA_CODING_MUST_READ {
 
     public static void main(String[] args) {
 
+        // Write complete classes, not just methods in interviews for completeness
+
         // =========== Array Gotchas =========
         int[] A = new int[] {1, 2, 3, 4, 5};  // Init array
         print(Arrays.toString(A));  // print an array
