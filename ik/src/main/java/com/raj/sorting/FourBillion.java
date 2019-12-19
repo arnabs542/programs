@@ -19,17 +19,18 @@ public class FourBillion {
 
     /**
      * Storing each long wud take 8 bytes in java, hence 4B longs wud take 32 GB, if they were unique !!
-     * But we know the range of longs(per problem) 32 bits. So they lie b/w 0 to 2^32 range. At max we have 2^32 longs.
+     * But we know the range of longs(per problem) 32 bits. So they lie b/w 0 to 2^32 range. At max we have 2^32 or 2B longs(signed).
      * Storing them wud need 2^32 * 8 bytes = 16 GB, but we have 1 GB only.
      * Idea is to squeeze numbers in least amount of space.
      * We have 1GB memory available which is equivalent to 10^9 bytes = 8*10^9 bits.
      * We can consider each of these bits to represent a long. And set them if present. Now each long takes just 1 bit !!
-     * This way we can test presence of 4 Billion numbers !!
+     * Now, for space of one 32 bit long, we are able to store 32. 32X more numbers in total !!
      * Finally, we return any number whose corresponding bit isn’t set.
      *
      * Consider the following input:
      * [0,2,3]
-     * Creating a 2^32 bit array may be not possible, also even if we create it arr[index can only be int which is max ] so let's break it into chunks of 32 bit longs
+     * Creating a 2^32 bit array may be not possible, also even if we create it arr idx can only be int which is max 2B,
+     * so let's break it into chunks of 32 bit longs.
      * Here, we create bins of size 0xffffffff/32 (or /8), where each bin will hold 32 bits, each bit representing an integer.
      * Here, since the integers are 0, 2 and 3, we will iterate through the integers and mark the corresponding bits in
      * the corresponding bin as set. So here, we set the zeroth, second and the third bit as set in bin 1. So Now the

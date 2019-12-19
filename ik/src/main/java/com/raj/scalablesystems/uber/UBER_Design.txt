@@ -34,10 +34,7 @@ Auth using cache. Stores user_id, token, password (encrypted)
 Once logged in, a token will be sent for further requests to avoid DB lookups. UserId+Token will be cached for validating auth token.
 Use the same DB as User Registration for cache misses.
 
-
 # Similar User Registration & Login services for Drivers but at a smaller scale.
-
-
 
 # Supply Service - tracks all drivers, their locations
 
@@ -46,7 +43,7 @@ Driver app sends location, which is updated in the grid.
 Fast reads / writes - 500K read / write qps = NoSQL KV DB with Cache (Redis or C* + Memcache) = 50 X 50 Shards cluster for DC failure support
 500 app boxes
 DB Schema - driver_id, grid_id, location_xy, trip_id  => update driver location every 5 secs.
-Also update another table grid_id, driver_id list => for available drivers within a grid
+Also update another table - grid_id, driver_id list => for available drivers within a grid
 update_driver_loc(driver_id, location)
 reserve_driver(driver_id, trip_id) --> removes from available driver list
 

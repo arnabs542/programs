@@ -2,20 +2,45 @@
 
 * DB Model
 (Adjacency List of immediate connections)
-user_id -> Sorted List of connections
+Adj list is undirected, if u1 is connected to u2, then u2 is also connected to u1
+user_id -> SORTED List of connections
 u1 -> u2,u3,u4
-u2 -> u5,u8
+u2 -> u5,u6
 u3 -> u7,u8
 u5 -> u9
+u8 -> u3,u9
+u9 -> u5,u8
 
 * API
   => isFirstLevel(u1,u2):
-    -> binary search u2 in adj connections - O(logn)
+    -> check if u1 ---- u2
+    -> binary search u2 in adj connections {u2,u3,u4}
+    -> O(log n)
 
   => isSecondLevel(u1,u8):
-    -> Approach 1: for each adj connection w, isFirstLevel(w,u8) - O(nlogn)
-    -> Approach 2: u2List = getAdjList(u2), u3List = getAdjList(u3) ...
-                   Just Merge k-way sorted lists - O(n)
+    -> check if u1 --- x --- u8
+    -> Approach 1:
+       - for each adj connection w in {u2,u3,u4} of u1
+             check if isFirstLevel(w,u8) = true
+       - O(nlogn)
+    -> Approach 2: Optimized
+       - u1AdjList = getAdjList(u1) ..... {u2,u3,u4}
+       - u8AdjList = getAdjList(u8) ..... {u3,u6}
+       - Since they are sorted, we just need to do 2-way merge sub-routine like check
+       - Use 2 pointer based compare and check for presence on one in other sorted list
+       - O(n)
 
   => isThirdLevel(u1,u9):
-    -> for each adj connection w, isSecondLevel(w,u9) - O(n^2)
+    -> check if u1 --- x --- y --- u9     eg. u1 -> u3 -> u8 -> u9
+    -> get adjLists of u1 & u9
+    -> u1 -> {u2,u3,u4}, u9 -> {u5,u8}
+    -> Approach 1:
+    for each x in getAdjList(u1):        // n
+        for each y in getAdjList(x):     // n
+            isFirstDegree(y,u9)          // log n
+    Time: O(n^2 log n)
+
+    -> Approach 2: Optimal
+    for each adj connection w:          // n
+        isSecondLevel(w,u9)             // n
+    Time: O(n^2)

@@ -1,8 +1,9 @@
 ==== Designing Scalable Systems ====
 
 # Remember Basics
-1Million Kb = 1Gb
-1Billion Kb = 1Tb
+1M Bytes = 1Mb
+1M Kb / 1B Bytes = 1Gb
+1B Kb / 1T Bytes = 1Tb
 
 1 day has approx 100,000 sec
 
@@ -166,11 +167,12 @@ Physical Schema (Disk):
 Indexing:
 Based on search criteria -
 1. Hash Index (exact match)
-2. n-ary B-tree Index (not exact; range based retrieval)
+2. BST (Self-balancing - Red/Black, AVL, B-Tree) - logn w/ balance cost
+3. n-ary B-tree Index (not exact; range based retrieval). Refer to https://www.youtube.com/watch?v=aZjYr87r1b8
               n
           /   |   \
-       [a-d] [e-g] [h-k]
-3. Combination = Hash + B-tree (parts exact match, others range based)
+       [a-d] [e-g] [h-k]      .... widely used in DB, keeps keys in sorted order for sequential traversing - https://en.wikipedia.org/wiki/B-tree
+4. Combination = Hash + B-tree (parts exact match, others range based)
 
 # Sharding:
 >> Horizontal Sharding [Most common pattern] - too many rows, partition by keys

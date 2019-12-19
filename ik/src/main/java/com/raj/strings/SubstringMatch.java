@@ -103,7 +103,7 @@ public class SubstringMatch {
      *       -> eg. try searching "orld" in Google. It shows "world". It means it also searches suffixes.
      * 4) Search in a huge file size of gigs, break it into smaller chunks, push into shards memory, apply linear time algos in parallel
      * 5) Lucene search (Inverted Index)
-     *    => for use in distributed scale (uses inverse map of pattern -> {list of docs}) ... O(1 lookup
+     *    => for use in distributed scale (uses inverse map of pattern -> {list of docs}) ... O(1) lookup
      *    => Shard it by start chars a,b,c etc. Fire parallel & distributed queries.
      *    => "the hello world" -> remove stopwords, fire hello & world parallely to 'h' & 'w' shards
      *
@@ -120,7 +120,7 @@ public class SubstringMatch {
      *    => https://www.cs.usfca.edu/~galles/visualization/TST.html
      *
      * # Then when should we use TST?
-     * -> One of the advantages of using TST over HashTable is that it helps in prefix searching and near neighbor lookups.
+     * -> One of the advantages of using TST over HashTable is that it helps in prefix searching and "near neighbor lookups".
      * Say you want to search all words starting with "Man". It can be used to implement a dictionary w/ auto-complete feature.
      * -> TRIE too can be used here. The downside with TRIE is its huge space requirements. If the input data is densely
      * distributed, then TRIE should be preferred over TST as many word prefix will share same nodes.

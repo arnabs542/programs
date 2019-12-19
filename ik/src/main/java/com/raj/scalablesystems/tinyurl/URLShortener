@@ -16,9 +16,19 @@ B/W reqd => 1 Box can support upto 1Gb/s => 170 Kb/s writes, 17 Mb/s reads shud 
 
 => Use Base64 encoding for shortened url => 8 base64 digits should cover 280 Trillion combinations
 
+Services - Login(user_id as UUID for each user to store in DB, saves space), TinyUrl service
+
+APIs:
+String post(url,uuid - optional) => POST /tinyurl/user_id/url/{url}
+String get(tinyUrl,uuid - optional) => GET /tinyurl/user_id/tinyurl/{tinyurl}
+
+KV DB:
+user_name / email_id -> user_id
+base64 encoded tinyurl -> big url
+
 UUID generation =>
 1> Random
-2> md5 hash = 128bit / 6 for each base64 char (2^6 = 64) => 21 chars
+2> md5 hash = 128bit / 6 for each base64 char (as 2^6 = 64) => 21 chars in total
 3> DB based seq number (odd/even servers for availability & some parallelism)
 4> Range based allocation - each server when asking for a sequence, pulls 10000 sequences at once so that it can
 allocate for a while without going to DB again.

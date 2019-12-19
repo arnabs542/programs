@@ -1,0 +1,20 @@
+https://www.quora.com/How-does-machine-learning-work
+
+READ answer from:
+Maverick Lin, Operations Research Undergrad. Former D1 Athlete.
+
+Some excerpts:
+
+Machine learning - The high level and most commonly accepted definition is: machine learning is the ability for computers to learn and act
+without being explicitly programmed.
+
+Supervised learning is when you have knowledge of the input (X) and the output (Y), then you “supervise” the program in
+predicting the right outcome via trial and error.
+
+Unsupervised learning is when you have zero knowledge of the output and you want to try to find patterns or groupings
+within the data. Think clustering.
+
+Deep Learning uses neural network & uses millions of datapoints to make a decision unlike ML which does few thousands.
+It has been doing extremely well is that Neural Networks have been proven to be an Universal Function Approximater,
+meaning that it can approximate any function between X or Y- given enough data of course.
+

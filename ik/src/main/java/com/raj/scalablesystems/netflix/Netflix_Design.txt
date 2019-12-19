@@ -28,7 +28,7 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
      - Collaborative Filtering ML models - Match users of similar interests and predict
   -> Sponsored Module
   -> Trending Content module
-  -> Use clicks, views info from App to train models & precompute recco modules or live compute
+  -> Use clicks, views info from App to train models & precompute recco modules (offline for each use) or live compute in runtime
   -> Schema DB+Cache: user_id, pre-computed json module with movie_ids
   -> Fallback - give static response so that modules load in case of failures
 

@@ -54,7 +54,10 @@ user_id (PK), ts (Cluster Key), user_id, msg_id -> stores posts on user's wall b
 
         -> Replies to wall post can be as simple as writePost() call which appends this post to his/her wall.
 
-   => Wall can have videos or pic posted. We'll still call writePost() with hash of the image/video. The video is uploaded in chunks into a CDN server & a hash sent back. This will help with re-posts of a popular video content, it wud just send back & forth the hash & will download on client's app / browser from CDN directly without overwhelming Wall App Servers.
+   => Wall can have videos or pic posted. We'll still call writePost() with hash of the image/video. The video is
+      uploaded in chunks into a CDN server & a hash sent back. This will help with re-posts of a popular video content,
+      it wud just send back & forth the hash & will download on client's app / browser from CDN directly without
+      overwhelming Wall App Servers.
 
 
 
@@ -62,8 +65,9 @@ user_id (PK), ts (Cluster Key), user_id, msg_id -> stores posts on user's wall b
 
 msg_id, blob, isMIME (get from CDN), is_active, like_count1, like_count2, ... like_countN (can be sharded for concurrency & added up for displaying counts)
 
-=>  like(u1, msg_id) - app generates a bucket (user_id hash % num_buckets) to increment likes exactly on that column
-
+=>  like(u1, u2, msg_id) - u2 clicks LIKE in u1's wall message
+    -> app generates a bucket (u2 hash % num_buckets) to increment likes exactly on that column to support multiple likes
+    -> Like count can be updated in place on the app for u2, if u1 is also logged in (or other u1's friends), the like count will increment as long-poll webhook pulls next update
 
 
 * Fraud / Harmful Post Detection -
