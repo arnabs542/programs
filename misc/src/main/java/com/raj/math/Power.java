@@ -28,6 +28,25 @@ public class Power {
         return false;
     }
 
+    static int MOD = 1000000007;
+    // Runtime = O(log b), where b is the exponent as we are halving problem space every recursive call
+    // Space = O(log b), depth of recursive call
+    public static int calculate_power(long a, long b) {
+        // base case
+        if (b == 0) return 1;
+        a = a % MOD;
+        // recursively calculate a^(b/2)
+        long tmp = calculate_power(a , b/2);
+        // doubling the power : a^(b/2) * a^(b/2) = a^b , if b is even
+        tmp = tmp * tmp % MOD;
+        // if power is odd
+        if (b % 2 == 1) {
+            // multiply with extra a
+            tmp = tmp * a % MOD;
+        }
+        return(int)tmp;
+    }
+
     public static void main(String[] args) {
         Power p = new Power();
         System.out.println(p.isPower(1));
@@ -42,6 +61,7 @@ public class Power {
         System.out.println(p.isPower(81));
         System.out.println(p.isPower(1000));
 
+        System.out.println(calculate_power(2, 32));
     }
 
 }
