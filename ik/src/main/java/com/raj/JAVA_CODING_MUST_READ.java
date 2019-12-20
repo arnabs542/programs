@@ -27,6 +27,10 @@ public class JAVA_CODING_MUST_READ {
         // Convert to Array from List
         String[] arr = strList.toArray(new String[strList.size()]);
 
+        // Convert char array to String
+        String str = new String(new char[] {'c', 'a', 'r'});
+
+        // create List easily
         List<Integer> intList = Arrays.asList(1,2,3,4);
         print(intList);
         List<String> strList1 = Arrays.asList("abc","def","ghf");
