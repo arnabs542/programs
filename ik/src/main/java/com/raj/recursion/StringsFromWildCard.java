@@ -37,17 +37,10 @@ public class StringsFromWildCard {
         }
 
         if (s[i] == '?') {  // if wildcard, try subs
-
-            // substitute 0 for ?
-            s[i] = '0'; f(s, i+1, res);
-
-            // substitute 1 for ?
-            s[i] = '1'; f(s, i+1, res);
-
-            // revert substitution
-            s[i] = '?';
-
-        } else {    // otherwise move ahead
+            s[i] = '0'; f(s, i+1, res);     // substitute 0 for ?
+            s[i] = '1'; f(s, i+1, res);     // substitute 1 for ?
+            s[i] = '?';                        // revert any substitutions
+        } else {    // otherwise move ptr ahead
             f(s, i+1, res);
         }
     }

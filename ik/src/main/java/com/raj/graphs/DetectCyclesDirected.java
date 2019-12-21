@@ -12,6 +12,9 @@ public class DetectCyclesDirected {
 
     public static void main(String[] args) {
         /**
+         * @see com.raj.graphs.DetectCyclesSimple for a simpler elegant solve, but following is good for in-depth understanding
+         *
+         * Graph:
          *      0 ----> 1 ---> 4
          *      |       ^    /
          *      v        \ v
