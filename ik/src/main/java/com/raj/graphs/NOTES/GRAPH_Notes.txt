@@ -3,6 +3,27 @@
   => Shortest / closest - BFS
   => Connected / Longest / Path b/w nodes - DFS
 
+# Graph Representations:
+  G(V,E) => Set of Vertices & Edges.
+  v -> w* => We need to represent vertices & connection b/w them as edges somehow.
+  Most basic thing we are looking for is - given a Vertex v, find all neighbors w (optimize this based on problem)
+
+  => Edge Lists
+     -> [(v1,v2), (v1,v3), (v2,v3), (v2,v4), (v3,v5)]
+     -> Neighbors can be found by iterating the edge list
+
+  => Adjacency List
+     -> List<Integer>[] adjList = new List[V];
+     -> adjList[0] represents vertex 0 & its value represents the List of neighbors
+
+  => Adjacency Map
+     -> Map<Integer,List<Integer>> map = new HashMap<>();
+     -> Similar to above except that it's a map
+
+  => 2D Grid
+     -> each row i represents a vertex and a value 1 at col j represents its connected (or its weight)
+
+
 # Algo Design Manual- Steven Skiena
 
 # Degree of a node is the number of edges coming into a vertex. What's the sum of degree of all vertices?

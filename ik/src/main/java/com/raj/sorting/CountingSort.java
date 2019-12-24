@@ -7,7 +7,7 @@ import java.util.List;
 public class CountingSort {
 
     public static void main(String[] args) {
-        System.out.println(sort_array(new ArrayList<>(Arrays.asList('c','d','#','b','&','a','z'))));
+        System.out.println(sort_array(new ArrayList<>(Arrays.asList('c','d','#','a','b','&','a','z'))));
     }
 
     public static List<Character> sort_array(List<Character> arr) {

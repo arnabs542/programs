@@ -59,8 +59,11 @@ public class DiameterTree {
     }
 
     /**
-     * The above can be optimized by calculating the height in the same recursion rather than calling height() separately.
-     * Idea is to keep another state info for keeping track of subtree heights as we go down or backtrack.
+     * To optimize, we can try following approaches:
+     * 1: Precompute heights of each node in hashMap and re-use it. O(n) extra space.
+     * 2: Calculate the height in the same recursion rather than calling height() separately.
+     *    - Idea is to keep another state info for keeping track of subtree heights as we go down or backtrack.
+     *    - No extra space other than depth of recursion stack O(logn)
      * Runtime = O(n)
      */
     static class Height { int h; }
