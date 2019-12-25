@@ -14,11 +14,12 @@ public class MinCoinChange {
      * => 2 i.e. 3+5
      */
     public static void main(String[] args) {
-        System.out.println(minCoinChange_rec(8, new int[]{2,3,5}));
-        System.out.println(minCoinChange_dp(8, new int[]{2,3,5}));
+        System.out.println("min coins rec = " + minCoinChange_rec(8, new int[]{2,3,5}));
+        System.out.println("min coins DP = " + minCoinChange_dp(8, new int[]{2,3,5}));
     }
 
     /**
+     * Min num coins to reach A is min to reach (A - value of this coin) + 1 for this coin
      *                  f(A)
      *               2/  3|  5\     ... using k coins (branching factor)
      *               /    |    \
@@ -41,7 +42,7 @@ public class MinCoinChange {
             min = Math.min(min, minCoinChange_rec(A-coin, k));
         }
         // now add 1 for this coin
-        if (min != Integer.MAX_VALUE) {     //edge case: to avoid integer overflow when 1 is added to MAX, it becomes MIN & throws off comparison
+        if (min != Integer.MAX_VALUE) {     // edge case: to avoid integer overflow when 1 is added to MAX, it becomes MIN & throws off comparison
             min = min + 1;                  // hence add 1 later after asserting, it's not already infinity
         }
         return min;
@@ -63,11 +64,12 @@ public class MinCoinChange {
                 dp[a] = 1 + dp[a];
             }
         }
-        System.out.print("\nChanges = ");
+        System.out.println("DP table = " + Arrays.toString(dp));
+        System.out.print("Changes = ");
         int a = A;
         while (a > 0) {
             for (int k : K) {
-                if ((dp[a] - dp[a-k]) == 1) {
+                if (dp[a] == (dp[a-k] + 1)) {     // num ways to get a-k + 1
                     System.out.print(k + " ");
                     a -= k;
                     break;

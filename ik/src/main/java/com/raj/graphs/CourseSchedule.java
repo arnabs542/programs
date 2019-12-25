@@ -15,9 +15,13 @@ public class CourseSchedule {
      * the courses should be taken.
      *
      * https://oj.interviewkickstart.com/view_editorial/5370/132/
-     * Description:
      *
      * This is a typical topological sorting problem which can be solved using DFS.
+     * TOPOLOGICAL SORT: https://www.geeksforgeeks.org/topological-sorting/  (ordering of graph's vertices)
+     * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every
+     * directed edge uv, vertex u comes before v in the ordering. Topological Sorting for a graph is not possible
+     * if the graph is not a DAG.
+     *
      * A directed graph is formed using each prerequisite as an edge. Note that a possible ordering only exists if there
      * is no cycle in the directed acyclic graph formed. To find cycle in a directed acyclic graph, we keep three
      * visited states (0 for a node which has not been visited yet, 1 for those who are in current DFS stack
@@ -31,9 +35,9 @@ public class CourseSchedule {
      *   _______
      *  |      |
      *  V      |
-     *  0     1 <---- 3 ----->2
-     * ^                     |
-     * |_____________________|
+     *  0     1 <---- 3 -----> 2
+     *  ^                      |
+     *  |______________________|
      *
      * Here node '0' has no outward edge, which means course '0' requires no other course to be completed before it
      * to be taken. Hence course '0' can be taken as the first course. After course '0' is taken, we are eligible to
@@ -111,6 +115,7 @@ public class CourseSchedule {
         System.out.println("Topo sort using Kahn's in-degree method => " + course_schedule_kahns(4, prerequisites));
     }
 
+    // DFS (modified) topo sort - idea is to first visit all neighboring nodes then process this node
     static List<Integer> course_schedule(int n, List<List<Integer>> prerequisites) {
         Graph g = new Graph(n);
         for (List<Integer> p: prerequisites) {

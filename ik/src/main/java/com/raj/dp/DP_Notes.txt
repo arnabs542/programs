@@ -2,7 +2,7 @@
   => Look for following words: min/max, num counts/ways, 0-sum game etc
   => Has overlapping sub-problem property
   => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
-  => Core of a DP problem is understanding the recurrence relation, farming the DP formula with base cases
+  => Core of a DP problem is understanding the recurrence relation, framing the DP formula with base cases
 
 # DP approaches:
   => Both Memoization and Dynamic Programming solves individual sub-problem only once.

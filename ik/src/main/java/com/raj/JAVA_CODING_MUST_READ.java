@@ -24,16 +24,19 @@ public class JAVA_CODING_MUST_READ {
         List<String> strList = Arrays.asList("aStr","anotherStr");
         print(strList);
 
-        // Convert to Array from List
-        String[] arr = strList.toArray(new String[strList.size()]);
-
-        // Convert char array to String
-        String str = new String(new char[] {'c', 'a', 'r'});
-
         // create List easily
         List<Integer> intList = Arrays.asList(1,2,3,4);
         print(intList);
         List<String> strList1 = Arrays.asList("abc","def","ghf");
+
+        // Convert to Array from List
+        String[] arr = strList.toArray(new String[strList.size()]);
+
+        // Convert to int array from Integer ArrayList
+        int[] array = intList.stream().mapToInt(i->i).toArray();
+
+        // Convert char array to String
+        String str = new String(new char[] {'c', 'a', 'r'});
 
         print(Arrays.binarySearch(A, 2)); // binary search an array
 
