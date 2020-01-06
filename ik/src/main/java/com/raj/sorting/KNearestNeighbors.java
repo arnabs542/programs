@@ -4,6 +4,9 @@ import java.util.*;
 
 public class KNearestNeighbors {
 
+    /**
+     * Given a point p, & other n points in 2D space, find k points which are nearest to p.
+     */
     static Random random = new Random();
 
     public static void main(String[] args) {
@@ -19,7 +22,13 @@ public class KNearestNeighbors {
     }
 
     /**
-     * Using max heap - O(nlogn)
+     * Brute Force:
+     * 1> Selection Sort k times => O(nk)
+     * 2> Sort and find the first k points => O(nlogn)
+     * 3> n-sized Min Heap => O(n) to build heap + O(klogn) to extract k min elems.
+     *
+     * Better - Using k-sized max heap (Anti-Heap as we just need to store k elems that are of interest):
+     * Runtime = O(k + (n-k)logk) ~= O(nlogk)
      */
     public static List<List<Integer>> nearest_neighbours(int x, int y, int k, Point[] pts) {
         if (pts.length == 0 || k < 1) return Collections.emptyList();
@@ -29,9 +38,9 @@ public class KNearestNeighbors {
             Point newPoint = new Point(p.x, p.y);
             newPoint.dist = dist;
 
-            if (pq.size() < k) pq.add(newPoint); // fill up heap first
-            else if (dist < pq.peek().dist) {    // check if new dist is of interest
-                pq.remove();        // O(logn)
+            if (pq.size() < k) pq.add(newPoint); // fill up heap first ... O(k)
+            else if (dist < pq.peek().dist) {    // check if new dist is of interest  ... n-k remaining elements
+                pq.remove();        // O(logk)
                 pq.add(newPoint);
             }
         }
@@ -46,9 +55,14 @@ public class KNearestNeighbors {
     }
 
     /**
-     * Return k nearest points to origin
      * QuickSelect k smallest, return all elements before kth pivot
      * Runtime = O(n)
+     *
+     * The algorithm is similar to QuickSort. The difference is, instead of recurring for both sides (after finding pivot),
+     * it recurs only for the part that contains the k-th smallest element. The logic is simple, if index of partitioned
+     * element is more than k, then we recur for left part. If index is same as k, we have found the k-th smallest
+     * element and we return. If index is less than k, then we recur for right part. This reduces the expected
+     * complexity from O(n log n) to O(n), with a worst case of O(n^2).
      */
     static Point[] findKNearestPoints(Point[] points, Point origin, int k) {
         // compute dist with origin
@@ -104,5 +118,11 @@ public class KNearestNeighbors {
             return (int)dist + "" ; //Arrays.toString(new int[]{(int)dist});
         }
     }
+
+    /**
+     * Another Variant of this problem:
+     * K smallest / largest elements in an array. Also called Order Statistics.
+     * https://www.geeksforgeeks.org/k-largestor-smallest-elements-in-an-array/
+     */
 
 }

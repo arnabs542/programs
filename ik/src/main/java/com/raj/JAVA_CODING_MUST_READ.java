@@ -21,12 +21,14 @@ public class JAVA_CODING_MUST_READ {
         // When dealing w/ Arrays, never forget to handle boundary checks, especially in recursion / while loops
 
         // Create any type list with no fuss
+        Collections.singleton(-1);  // Return a single valued list
+
         List<String> strList = Arrays.asList("aStr","anotherStr");
         print(strList);
 
-        // create List easily
         List<Integer> intList = Arrays.asList(1,2,3,4);
         print(intList);
+        List<Double> doubleList = Arrays.asList(1d,2d,3d,4d);
         List<String> strList1 = Arrays.asList("abc","def","ghf");
 
         // Convert to Array from List

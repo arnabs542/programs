@@ -25,7 +25,8 @@ public class TopKFrequentElements {
      *      - Remove heap contents into stack, pop stack and print
      *
      * ==> Why min heap?
-     * Min at the top, all elements below are larger than top(more frequent than top).
+     * In a Heap we only have access to top element. We need to decide if the new element is of interest.
+     * If Min is at the top, all elements below are larger than top(more frequent than top).
      * While comparison, we can always evaluate if we need to insert it or not as we are trying
      * to maintain k most frequent elements in heap. Insert if element greater than top.
      *

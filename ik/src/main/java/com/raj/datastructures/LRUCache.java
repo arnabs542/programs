@@ -1,4 +1,4 @@
-package com.raj.datastructure;
+package com.raj.datastructures;
 
 import java.util.*;
 

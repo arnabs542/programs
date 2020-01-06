@@ -1,6 +1,5 @@
 package com.raj;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,10 +20,36 @@ public class DATA_STRUCTURES {
          * Graphs - BFS, DFS, Visited, Cycle detect
          * Trie - Compact Trie, Suffix Tree
          * Segment Trees - RMQ
+         * Skip List - https://www.geeksforgeeks.org/skip-list/
          *
          * Ordered Sets :
          * TreeSet maintains sorted collection
          * LinkedHashSet maintains insertion order
+         *
+         * Big-O Cheat Sheet - Know Thy Complexities:
+         * https://www.bigocheatsheet.com/
+         *
+         * === Binary Heap Complexities ===
+         * Heapify a single node takes O(log n) time complexity where n is the total number of Nodes.
+         * Therefore, building the entire Heap will take N heapify operations. Hence, Total time complexity => O(N*logN)
+         *
+         * ----> BUT in reality, building a heap takes O(n) time. How?
+         * # The basic idea behind why the time is linear is due to the fact that the time complexity of heapify depends
+         * on where it is within the heap.
+         * # It takes O(1) time when the node is a leaf node (which makes up 50% of the nodes) & O(logn) time when it’s at the root.
+         * # Almost 90% of the nodes of a complete binary tree reside in the 3 lowest levels. Thus the lesson to be
+         * learned is that when designing algorithms that operate on trees, it is important to be most efficient on the
+         * bottommost levels of the tree (as BuildHeap is) since that is where most of the weight of the tree resides.
+         *
+         * https://www.geeksforgeeks.org/building-heap-from-array/ (MAX HEAP)
+         * Optimized Approach: The above approach can be optimized by observing the fact that the leaf nodes need not to
+         * be heapified as they already follow the heap property. Also, the array representation of the complete binary
+         * tree contains the level order traversal of the tree.
+         *
+         * So the idea is to find the position of the last non-leaf node and perform the heapify operation of each
+         * non-leaf node in reverse level order.
+         *
+         * Any other operation on Heap takes O(log n)
          */
 
         // Build an LRU cache using linkedhashmap
@@ -35,9 +60,6 @@ public class DATA_STRUCTURES {
                 return size() > MAX_CACHE_SIZE;
             }
         };
-
-        // Return a single valued list
-        Collections.singleton(-1);
 
         /**
          * Segment Trees -

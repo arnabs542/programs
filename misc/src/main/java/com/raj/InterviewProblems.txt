@@ -1,59 +1,60 @@
-1> Group or Sort(similar) anagrams -> abc, mat, cab, ban, tam, bac, nab => {abc,cab,bac}, {mat,tam}, {nab,ban}
+# Group or Sort(similar) anagrams -> abc, mat, cab, ban, tam, bac, nab => {abc,cab,bac}, {mat,tam}, {nab,ban}
 
-2> Find longest common prefix, given a list of strings -> abcde, abcmn, abkl, abz => {ab}
+# Find longest common prefix, given a list of strings -> abcde, abcmn, abkl, abz => {ab}
 
-3> Given 2 nodes in a binary tree with pointers to parent node, find Least Common Ancestor
+# Given 2 nodes in a binary tree with pointers to parent node, find Least Common Ancestor
 
-4> Permute abc -> abc, acb, bac, bca, cab, cba
+# Permute abc -> abc, acb, bac, bca, cab, cba
 
-5> Permute 123 to ascii chars -> abc, lc, aw
+# Permute 123 to ascii chars -> abc, lc, aw
 
-6> Needle in Haystack -> abcdefgh lmnopqr => def, expand it to a service with sub sec latency => Solr,ES inverted index
+# Needle in Haystack -> abcdefgh lmnopqr => def, expand it to a service with sub sec latency => Solr,ES inverted index
 
-7> Merge overlapping intervals. Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] would result in [1,2],[3,10],[12,16].
+# Merge overlapping intervals. Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] would result in [1,2],[3,10],[12,16].
 This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. Make sure the returned intervals are also sorted.
 
-8> Find Largest number formed from : 3,30,34,5,9 => 9 5 34 3 30
+# Find Largest number formed from : 3,30,34,5,9 => 9 5 34 3 30
 
-9> Find merging point of 2 linked list.
+# Find merging point of 2 linked list.
 
-10> "aabbbccddde"  => "abcde", "a2b3c2d3e"
+# "aabbbccddde"  => "abcde", "a2b3c2d3e"
 
-11> Find minimum levels of binary tree
+# Find minimum levels of binary tree
         1 <- Root
        / \
       2   3     =>   2
      / \
     4   5
 
-12> Design LRU cache.
+# Design LRU cache.
 
-13>
-How would you scale an API or span an application onto multiple machines and what problems would they cause?
-How would you store Strings for faster retrieval if they are being used in a type-ahead field?
-A coding question.
-REST API method selection and usage with emphasis on idempotency.
-HashMap & Immutability.
-Some behavioral questions like why is he looking for new positions and what interested him in Walmart?
-Git process and some other CI/CD stuff.
+# How would you scale an API or span an application onto multiple machines and what problems would they cause?
 
-14> DP - Min cost of cutting a rod. Knapsack problem.
+# How would you store Strings for faster retrieval if they are being used in a type-ahead field?
+# REST API method selection and usage with emphasis on idempotency.
+# Some behavioral questions like why is he looking for new positions and what interested him in Walmart?
+# Git process and some other CI/CD stuff.
 
-15> Write a function that takes a list of "ranges" and returns a list of the minimum number of "ranges" by combining overlapping "ranges".
+# DP - Min cost of cutting a rod. Knapsack problem.
+
+# Write a function that takes a list of "ranges" and returns a list of the minimum number of "ranges" by combining overlapping "ranges".
 >>> iterate, keep extending this end as long as next start is before this end, add it to result list
 
-16> Write a function that takes a list of all available cars and returns the 10 nearest cars to a user's location.
+# Write a function that takes a list of all available cars and returns the 10 nearest cars to a user's location.
 >>> use max heap(Priority Queue) with distance as value(pointing to each car id), thus top most is the max dist car
 >>> Keep adding if dist is < heap.peek, if size exceeds 10, delete/poll from heap
 >>> Finally, iterate again, poll & print car
 >>> n log 10
 
-17> Schedule tasks with dependencies. A -> [B], B -> [], C -> [A], D -> [B,C] => B,A,C,D
+# Schedule tasks with dependencies. A -> [B], B -> [], C -> [A], D -> [B,C] => B,A,C,D
 >>> cycles?
 >>> O(n)
 
-18> Evaluate Expression: (only + & * allowed, edge case - how would u take care of double digits)
+# Evaluate Expression: (only + & * allowed, edge case - how would u take care of double digits)
     (2 + ( (1+2)*(3+1) ) + 5) = 19
     (1+((2*3))) = 7
 
-
+==== FB Interview Questions ====
+> Two sum, reverse integer, edit distance, clone graph
+> Add two binary numbers (Input as a string)
+> https://rosettacode.org/wiki/Same_Fringe#Java

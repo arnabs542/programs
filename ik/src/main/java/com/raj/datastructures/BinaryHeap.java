@@ -1,152 +1,138 @@
-package com.raj.datastructure;
-
-/**
- *  Java Program to Implement Binary Heap
- */
+package com.raj.datastructures;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class BinaryHeap
-{
+/**
+ * Heap DS is used to implement PQ.
+ * Why is Binary Heap Preferred over BST for Priority Queue?
+ * https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/
+ * Other Applications of Heap DS:
+ * Order statistics: The Heap data structure can be used to efficiently find the kth smallest (or largest) element
+ * in an array. (QuickSelect is optimal though)
+ *
+ * # Optimized Build Heap takes O(n) time - https://www.geeksforgeeks.org/building-heap-from-array/
+ * # Peeking Top takes O(1), Any other operation on Heap takes O(log n)
+ */
+public class BinaryHeap {
     /** The number of children each node has **/
     private static final int d = 2;
     private int heapSize;
     private int[] heap;
 
     /** Constructor **/
-    public BinaryHeap(int capacity)
-    {
+    public BinaryHeap(int capacity) {
         heapSize = 0;
         heap = new int[capacity + 1];
         Arrays.fill(heap, -1);
     }
 
     /** Function to check if heap is empty **/
-    public boolean isEmpty( )
+    public boolean isEmpty()
     {
         return heapSize == 0;
     }
 
     /** Check if heap is full **/
-    public boolean isFull( )
+    public boolean isFull()
     {
         return heapSize == heap.length;
     }
 
     /** Clear heap */
-    public void makeEmpty( )
+    public void makeEmpty()
     {
         heapSize = 0;
     }
 
-    /** Function to  get index parent of i **/
+    /** Function to get index parent of i **/
     private int parent(int i)
     {
-        return (i - 1)/d;
+        return (i-1)/d;
     }
 
-    /** Function to get index of k th child of i **/
+    /** Function to get index of kth child of i **/
     private int kthChild(int i, int k)
     {
-        return d * i + k;
+        return d*i+k;
     }
 
     /** Function to insert element */
-    public void insert(int x)
-    {
-        if (isFull( ) )
-            throw new NoSuchElementException("Overflow Exception");
+    public void insert(int x) {
+        if (isFull()) throw new NoSuchElementException("Overflow Exception");
         /** Percolate up **/
         heap[heapSize++] = x;
-        heapifyUp(heapSize - 1);
+        heapifyUp(heapSize-1);
     }
 
     /** Function to find least element **/
-    public int findMin( )
-    {
-        if (isEmpty() )
-            throw new NoSuchElementException("Underflow Exception");
+    public int findMin() {
+        if (isEmpty()) throw new NoSuchElementException("Underflow Exception");
         return heap[0];
     }
 
     /** Function to delete min element **/
-    public int deleteMin()
-    {
+    public int deleteMin() {
         int keyItem = heap[0];
         delete(0);
         return keyItem;
     }
 
     /** Function to delete element at an index **/
-    public int delete(int ind)
-    {
-        if (isEmpty() )
-            throw new NoSuchElementException("Underflow Exception");
+    public int delete(int ind) {
+        if (isEmpty() ) throw new NoSuchElementException("Underflow Exception");
         int keyItem = heap[ind];
-        heap[ind] = heap[heapSize - 1];
+        heap[ind] = heap[heapSize-1];
         heapSize--;
         heapifyDown(ind);
         return keyItem;
     }
 
     /** Function heapifyUp  **/
-    private void heapifyUp(int childInd)
-    {
+    private void heapifyUp(int childInd) {
         int tmp = heap[childInd];
-        while (childInd > 0 && tmp < heap[parent(childInd)])
-        {
-            heap[childInd] = heap[ parent(childInd) ];
+        while (childInd > 0 && tmp < heap[parent(childInd)]) {
+            heap[childInd] = heap[parent(childInd)];
             childInd = parent(childInd);
         }
         heap[childInd] = tmp;
     }
 
     /** Function heapifyDown **/
-    private void heapifyDown(int ind)
-    {
+    private void heapifyDown(int ind) {
         int child;
-        int tmp = heap[ ind ];
-        while (kthChild(ind, 1) < heapSize)
-        {
+        int tmp = heap[ind];
+        while (kthChild(ind, 1) < heapSize) {
             child = minChild(ind);
-            if (heap[child] < tmp)
-                heap[ind] = heap[child];
-            else
-                break;
+            if (heap[child] < tmp) heap[ind] = heap[child];
+            else break;
             ind = child;
         }
         heap[ind] = tmp;
     }
 
     /** Function to get smallest child **/
-    private int minChild(int ind)
-    {
+    private int minChild(int ind) {
         int bestChild = kthChild(ind, 1);
         int k = 2;
         int pos = kthChild(ind, k);
-        while ((k <= d) && (pos < heapSize))
-        {
-            if (heap[pos] < heap[bestChild])
-                bestChild = pos;
+        while ((k <= d) && (pos < heapSize)) {
+            if (heap[pos] < heap[bestChild]) bestChild = pos;
             pos = kthChild(ind, k++);
         }
         return bestChild;
     }
 
     /** Function to print heap **/
-    public void printHeap()
-    {
+    public void printHeap() {
         System.out.print("\nHeap = ");
         for (int i = 0; i < heapSize; i++)
             System.out.print(heap[i] +" ");
         System.out.println();
     }
 
-
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Binary Heap Test\n\n");
         System.out.println("Enter size of Binary heap");
@@ -155,8 +141,7 @@ public class BinaryHeap
 
         char ch;
         /**  Perform Binary Heap operations  **/
-        do
-        {
+        do {
             System.out.println("\nBinary Heap Operations\n");
             System.out.println("1. insert ");
             System.out.println("2. delete min");
@@ -165,26 +150,21 @@ public class BinaryHeap
             System.out.println("5. clear");
 
             int choice = scan.nextInt();
-            switch (choice)
-            {
+            switch (choice) {
                 case 1 :
-                    try
-                    {
+                    try {
                         System.out.println("Enter integer element to insert");
                         bh.insert( scan.nextInt() );
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                         System.out.println(e.getMessage() );
                     }
                     break;
                 case 2 :
-                    try
-                    {
+                    try {
                         System.out.println("Min Element : "+ bh.deleteMin());
                     }
-                    catch (Exception e)
-                    {
+                    catch (Exception e) {
                         System.out.println(e.getMessage() );
                     }
                     break;
@@ -209,5 +189,6 @@ public class BinaryHeap
             ch = scan.next().charAt(0);
         } while (ch == 'Y'|| ch == 'y');
     }
+
 }
 

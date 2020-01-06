@@ -1,6 +1,4 @@
-package com.raj.datastructure;
-
-import com.raj.linkedlist.MergeTwoSortedLists.Node;
+package com.raj.datastructures;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -68,8 +66,8 @@ public class MergeKSortedList {
             public int compare(HeapNode o1, HeapNode o2) {
                 if (o1 == null) return 1;
                 if (o2 == null) return -1;
-                if (o1.node.data == o2.node.data) return 0;
-                else if (o1.node.data < o2.node.data) return -1;
+                if (o1.node.val == o2.node.val) return 0;
+                else if (o1.node.val < o2.node.val) return -1;
                 else return 1;
             }
         });
@@ -126,9 +124,15 @@ public class MergeKSortedList {
     public static void printList(Node head) {
         Node temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            System.out.print(temp.val + " ");
             temp = temp.next;
         }
         System.out.println();
+    }
+    
+    static class Node {
+        int val;
+        Node next;
+        Node(int v) {val = v;}
     }
 }

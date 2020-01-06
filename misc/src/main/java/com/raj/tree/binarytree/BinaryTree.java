@@ -106,6 +106,7 @@ public class BinaryTree {
      * Go to right subtree and return the node with minimum key value in right subtree.
      * 2) If right subtree of node is NULL, then start from root and use search like technique. Do following.
      * Travel down the tree, if a node’s data is greater than root’s data then go right side, otherwise go to left side.
+     * Time = O(height of tree)
      */
     public static void findInOrderSuccessor(BTree bTree) {
         System.out.println(bTree.root.left + " => " + inOrderSuccessor(bTree.root.left, bTree.root));
@@ -120,7 +121,7 @@ public class BinaryTree {
         Node succ = null;
         while (root != null) {          // keep traversing until exhausted
             if (n.data < root.data) {   // go left if node has a lesser value
-                succ = root;            // but do save this candidate successor while we search downwards
+                succ = root;            // but do save this candidate successor while we go left
                 root = root.left;       // now go left
             } else if (n.data > root.data) {    // if node has a greater value than root, continue search in right subtree
                 root = root.right;              // no candidate successor here as we are looking for one greater than n's value
@@ -162,19 +163,12 @@ public class BinaryTree {
 
 
 
-
-
-
-
-
     /* --------------------- Binary Tree DS -------------- */
     static class BTree {
         public Node root;
-
         public BTree(Node r) {
             root = r;
         }
-
     }
 
     static class Node {

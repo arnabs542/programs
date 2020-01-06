@@ -33,7 +33,7 @@
  * http://creativecommons.org/publicdomain/zero/1.0/
  */
 
-package com.raj.datastructure;
+package com.raj.datastructures;
 
 import java.io.IOException;
 import java.io.Serializable;

@@ -31,5 +31,11 @@
     => k sized minHeap. Insert elements, move ptr from the list this element is taken. Pop min & keep inserting.
     => We'll need to keep track of arr index when poped, so that we can insert from that list
 
-# Sort Big File of 500 GB that can't fit in memory?
-    =>     
+# Sort Big File of 500 GB that can't fit in memory of 1GB?
+    => Chunk file into 1GB sizes. Load 1GB chunk in memory, sort it and store it in disk. Repeat 500 times.
+    => Now we have 500 sorted part files. We need to assemble them using merge subroutine - but can't use 500 ptrs!!
+    => Use a minHeap of size 1GB (which is easier). Fill up Heap first cycling thru part files.
+    => Keep track of which element is from which part file in heap. eg. Element {int num; File file; long offset;}
+    => Then once full, pop an elem, which will be the min and save it to final result file.
+    => After popping, find & add the next element from the file from where it was popped.
+    => Rinse & repeat. Finally we have the sorted file.
