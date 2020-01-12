@@ -65,10 +65,10 @@ public class OptimalGameStrategy {
     static int rec(int[] V, int i, int j) {
         if (i == j) return V[i];
         if (j == i+1) return Math.max(V[i], V[j]);
-
+        // opponent will pick such that we get minimum, but we'll try to maximize with what we are left with
         return Math.max(
-                V[i] + Math.min(rec(V, i+2, j), rec(V, i+1, j-1)), // A picks Vi then B has (i+2,j) & (i+1,j-1) options
-                V[j] + Math.min(rec(V, i, j-2), rec(V, i+1, j-1))  // A picks Vj then B has (i,j-2) & (i+1,j-1) options
+                V[i] + Math.min(rec(V, i+2, j), rec(V, i+1, j-1)), // A picks i then B has to choose b/w i+1 & j
+                V[j] + Math.min(rec(V, i, j-2), rec(V, i+1, j-1))  // A picks j then B has to choose b/w i & j+1
         );
     }
 
