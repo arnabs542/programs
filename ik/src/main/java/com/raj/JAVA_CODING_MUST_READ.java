@@ -49,6 +49,11 @@ public class JAVA_CODING_MUST_READ {
         Random random = new Random();
         int pivotIdx = start + random.nextInt(end - start + 1); // add +1 to endIdx
 
+        // Pick a random array idx
+        int idx = (int) (Math.random() * A.length);
+
+        Math.round(4.56); // round of to 5
+
         // Array copy - get an in place O(1) time & space array view of elems A[1,2,3]
         Arrays.copyOfRange(A, 1, 3+1);  // add +1 to endIdx
 

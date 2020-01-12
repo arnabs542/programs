@@ -20,4 +20,15 @@ With permutations we care about the order of the elements, whereas with combinat
 For example, say your locker “combo” is 5432. If you enter 4325 into your locker it won't open because it is a
 different ordering (aka permutation).
 
+# Time Complexity of Recursion Tree:
+        root        ..... branching factor = bf
+       /  |  \
+      A   B   C     ... lvl 1 => bf
+    /|\  /|\  /|\
+  1 2 3 4 5 6 7 8 9 ... lvl 2 => bf * bf
+
+It multiplies by bf in each level. Num of levels = Depth of rec tree.
+Hence it's O( (branching factor) ^ (Depth of rec tree) )
+
+
 

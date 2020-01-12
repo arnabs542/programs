@@ -17,7 +17,7 @@ public class OptimalGameStrategy {
      *
      * v = [8, 15, 3, 7]
      * o/p => Best=22 (7+15) , other alternative = 15 (8+7) (if he was greedy)
-     * 23 (15+8), if opponent was dumb
+     * 23 (15+8), if opponent was dumb which isn't the case here - we assume opponent always maximizes his chance
      */
     public static void main(String[] args) {
         System.out.println(rec_dumb(new int[]{8,15,3,7}));
@@ -49,8 +49,8 @@ public class OptimalGameStrategy {
 
     /**
      * https://www.youtube.com/watch?v=3hNuefaICxw
-     * "The best chance we have, to maximize our money - with the only guarantee we can issue is that we can achieve min of
-     * these 2 values, as we don't have control on what choice the opponent makes & if opponent is smart, then he'll
+     * "The best chance we have, to maximize our money - with the only guarantee we can issue is that we can achieve min
+     * of these 2 values, as we don't have control on what choice the opponent makes & if opponent is smart, then he'll
      * choose such that it minimizes the value we can receive.
      * V  =            8,15,3,7
      *           (7)8,15,3    (8)15,3,7
@@ -67,8 +67,8 @@ public class OptimalGameStrategy {
         if (j == i+1) return Math.max(V[i], V[j]);
 
         return Math.max(
-                V[i] + Math.min(rec(V, i+2, j), rec(V, i+1, j-1)),  // A picks Vi
-                V[j] + Math.min(rec(V, i, j-2), rec(V, i+1, j-1))  // A picks Vj
+                V[i] + Math.min(rec(V, i+2, j), rec(V, i+1, j-1)), // A picks Vi then B has (i+2,j) & (i+1,j-1) options
+                V[j] + Math.min(rec(V, i, j-2), rec(V, i+1, j-1))  // A picks Vj then B has (i,j-2) & (i+1,j-1) options
         );
     }
 

@@ -35,7 +35,18 @@ public class LevenshteinDistance {
         System.out.println(levenshteinDistance_dp("kitten".toCharArray(), "sitting".toCharArray()));  // 3
     }
 
-    // O(3^m) exponential, too many overlapping sub-problems
+    /**
+     * Note - we can't just find diff chars & length dist for answer as this will fail:
+     * aaaa
+     * bbbaaaa
+     * Answer = 3, but by earlier logic it will add up 3 for diff chars + 3 extra chars = 6
+     *
+     * Rec tree:
+     *           s1 = a
+     *         +/ -|  \replace  ... bf = 3
+     *        aa   .   b
+     * Runtime => if depth of rec = n which is length of string, then its O(3^n)
+     */
     static int levenshteinDistance_recur(char[] s1, int i, char[] s2, int j) {
         // reached end of comparison
         if (i == s1.length && j == s2.length) return 0;
