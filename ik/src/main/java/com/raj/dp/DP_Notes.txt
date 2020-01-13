@@ -1,11 +1,17 @@
 # How do we know it's a DP problem? How do we solve it?
   => Look for following words: min/max, num counts/ways, 0-sum game etc
-  => Has overlapping sub-problem property
+  => Has overlapping sub-problem property - many of the same sub-problems are solved over and over again
+  => Has optimal substructure - if we can re-use the optimal sub-problems solutions to solve the original problem optimally.
+    -> counter eg. Longest Path Problem doesn't have this property: https://www.geeksforgeeks.org/optimal-substructure-property-in-dynamic-programming-dp-2/
   => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
   => Core of a DP problem is understanding the recurrence relation, framing the DP formula with base cases
 
 # DP approaches:
+  => Build recurrence relation thinking how we would solve the problem by using delegation aka recursion for sub-problems.
   => Both Memoization and Dynamic Programming solves individual sub-problem only once.
-  => Memoization uses RECURSION and works top-down, breaking bigger problem into smaller ones and saving results for future use.
-  => DP moves in opposite direction solving the problem bottom-up ie. solves all smaller sub-problems first & builds up on them.
+  => Memoization uses RECURSION and works TOP-DOWN, breaking bigger problem into smaller ones and saving results for future use.
+    -> Imagine a rec tree, we start from root, dfs, until we reach leaves & memoize on the way.
+  => DP moves in reverse direction solving the problem BOTTOM-UP ie. solves all smaller sub-problems first starting with
+     obvious known ones & builds up on them in an iterative way.
     -> Will always solve all sub-problems first (may not be required for some problems, hence memo wud work better)
+    -> DP table dimension can be determined by number of changing params.

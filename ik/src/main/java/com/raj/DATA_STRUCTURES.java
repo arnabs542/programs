@@ -20,7 +20,7 @@ public class DATA_STRUCTURES {
          * Graphs - BFS, DFS, Visited, Cycle detect
          * Trie - Compact Trie, Suffix Tree
          * Segment Trees - RMQ
-         * Skip List - https://www.geeksforgeeks.org/skip-list/
+         * Skip List - https://www.geeksforgeeks.org/skip-list/ - express lane hierarachy index over LL - O(logn) - used in highly scalable concurrent priority queues with less lock contention
          *
          * Ordered Sets :
          * TreeSet maintains sorted collection

@@ -18,6 +18,6 @@ public class Problem_PATTERNS {
      * [DP]
      * @see com.raj.dp.CountWays - simple
      * @see com.raj.dp.MinCoinChange - minimizing result
-     *
+     * @see com.raj.dp.SubsetSumDP - Subset sum DP reduces recursive exponential time to polynomial time
      */
 }

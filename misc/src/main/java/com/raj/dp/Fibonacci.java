@@ -51,8 +51,14 @@ public class Fibonacci {
         return dp[n];
     }
 
-    // bottom up(tabulation) - solve obvious ones like f(0), f(1) and then use them to solve others
+    // bottom up(tabulation) - solve obvious ones like f(0), f(1) and then use them to solve others - O(n) time
     public static int fib1(int n) {
+        /**
+         * Note - To optimize on space, since f depends on prev 2 values, we can just store 3 values
+         * & do i%3 to get index thereby achieving O(1) space
+         * f[i%3] = f[(i-1)%3] + f[(i-2)%3]
+         * return f[n%3]
+         */
         int f[] = new int[n+1];
         f[0] = 0;
         f[1] = 1;

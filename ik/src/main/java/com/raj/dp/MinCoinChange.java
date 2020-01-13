@@ -14,8 +14,16 @@ public class MinCoinChange {
      * k = {2,3,5}
      * => 2 i.e. 3+5
      *
-     * First try to solve it as number of ways to give changes amounting to 8.
+     * Some pointers:
+     * # Will GREEDY Approach work here?
+     *   As we are trying to minimize number of coin changes, we start with max coin until we use up A:
+     *   8-5=3, 3-3=0 => answer = 3,5
+     *   But it will fail for - A=10, k={1,5,7} => we get 3=>{7,1,1} while optimal solution is 2=>{5,5}
+     *   Hence, Greedy won't work. We should prove this & then go for Recursion => Identifying Overlapping Sub-problems => DP
+     *
+     * # First try to solve it as number of ways to give changes amounting to 8.
      * Then think about minimizing the number of coins used.
+     *
      */
     public static void main(String[] args) {
         Res res = new Res();

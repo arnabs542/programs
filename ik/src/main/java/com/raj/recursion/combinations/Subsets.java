@@ -30,7 +30,8 @@ public class Subsets {
      *               /    \         /   \
      *            12,34  1,34     2,34  x,34   4 leaf
      *
-     *                  --------> 2^n leaf nodes, which will print the nodes, hence that's our time complexity = O(n.2^n), n to print slate if printing does iterations
+     * => 2^n leaf nodes, which will print the nodes, hence that's our time complexity = O(n.2^n), n to print slate if printing does iterations
+     * Time complexity of the above solution is exponential. The problem is in-fact NP-Complete (There is no known polynomial time solution for this problem)
      */
     // creates copies of the List everytime O(2^n) extra space
     static void printSubsets_ExtraMem(List rem, List soFar) {
