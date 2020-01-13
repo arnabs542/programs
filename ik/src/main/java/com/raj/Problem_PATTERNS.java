@@ -16,8 +16,14 @@ public class Problem_PATTERNS {
      * @see com.raj.trees.KClosestNodes
      *
      * [DP]
+     * Types of problems:
+     * 1> Fibonacci/Factorial - count ways
+     * 2> Subset / Knapsack - subset sum
+     * 3> Grid / Matrix - max sum path
+     * 4> Strings
      * @see com.raj.dp.CountWays - simple
      * @see com.raj.dp.MinCoinChange - minimizing result
      * @see com.raj.dp.SubsetSumDP - Subset sum DP reduces recursive exponential time to polynomial time
+     * @see com.raj.dp.MaxSumPath
      */
 }
