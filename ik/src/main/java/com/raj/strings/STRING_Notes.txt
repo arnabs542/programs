@@ -9,6 +9,11 @@
 append is O(n) in Java/Python due to immutability but O(1) in C++
 for (i=0 to n) print("Hello" + "World"); // O(n^2)
 
+# Substring vs Subset vs Subsequence for "abracadabra" ?
+ => Substring can be "cad" - contiguous chars starting & ending anywhere in string
+ => Subset can be {b,d,c,a} - an unordered set of chars occurring anywhere in string
+ => Subsequence can be "bcd" - u can skip chars in between
+
 # When you are trying to determine a SUB-SEQUENCE, most likely it's a DP problem
   => subseq starting with 'a' in 'abcd' => ab..,ac..,ad.. (3 choices to make - exponential, recursion, overlapping subproblems)
 

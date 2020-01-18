@@ -5,6 +5,13 @@
     -> counter eg. Longest Path Problem doesn't have this property: https://www.geeksforgeeks.org/optimal-substructure-property-in-dynamic-programming-dp-2/
   => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
   => Core of a DP problem is understanding the recurrence relation, framing the DP formula with base cases
+  => To implement a DP solution, follow these steps:
+     -> DP Table dimension/size - How many params are changing?
+     -> DP Table Base cases - Recursive base cases
+     -> Traversal Direction - DP formula eg. if dp[i][j] = f() + dp[i+1][j-1],
+        - means we need to compute i+1 first, hence ith iteration goes in reverse way, while j goes forward
+     -> DP Table Population - Recursion/DP formula copy
+
 
 # DP approaches:
   => Build recurrence relation thinking how we would solve the problem by using delegation aka recursion for sub-problems.
@@ -15,3 +22,5 @@
      obvious known ones & builds up on them in an iterative way.
     -> Will always solve all sub-problems first (may not be required for some problems, hence memo wud work better)
     -> DP table dimension can be determined by number of changing params.
+
+

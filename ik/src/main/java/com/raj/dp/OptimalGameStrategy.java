@@ -96,8 +96,8 @@ public class OptimalGameStrategy {
         int n = v.length;
         int[][] table = new int[n + 1][n + 1];
 
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = 0; j <= n - 1; j++) {
+        for (int i = n - 1; i >= 0; i--) {  // we iterated i in reverse as i+1 or i+2 is needed as per DP formula
+            for (int j = 0; j <= n - 1; j++) {  // similarly for j we need prev j-1 value, hence go forward
                 if (i > j) {
                     continue;
                 } else if (i == j) {

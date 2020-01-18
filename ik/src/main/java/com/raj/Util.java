@@ -65,4 +65,15 @@ public class Util {
         }
     }
 
+    public static void print2DBooleanArray(boolean[][] A) {
+        for (int i = 0; i < A.length; i++) {
+            System.out.println();
+            for (int j = 0; j < A[0].length; j++) {
+                if (A[i][j]) System.out.print("T ");
+                else System.out.print("F ");
+            }
+        }
+        System.out.println();
+    }
+
 }

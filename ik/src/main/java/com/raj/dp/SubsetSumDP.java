@@ -48,6 +48,7 @@ public class SubsetSumDP {
      * # Col 0 means can we reach 0 using any element? Yes {} empty set, hence its True.
      *
      * Time / Space = O(n * sum)
+     * Note - Recursive solve O(2^n) or rec solve w/ memo could be better if sum is very large (in millions)
      */
     static boolean dp(int[] A) {
         int total = 0;

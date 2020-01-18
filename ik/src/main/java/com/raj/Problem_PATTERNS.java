@@ -17,13 +17,18 @@ public class Problem_PATTERNS {
      *
      * [DP]
      * Types of problems:
-     * 1> Fibonacci/Factorial - count ways
+     * 1> Fibonacci/Factorial - count ways, rod cut
      * 2> Subset / Knapsack - subset sum
      * 3> Grid / Matrix - max sum path
      * 4> Strings
-     * @see com.raj.dp.CountWays - simple
-     * @see com.raj.dp.MinCoinChange - minimizing result
-     * @see com.raj.dp.SubsetSumDP - Subset sum DP reduces recursive exponential time to polynomial time
-     * @see com.raj.dp.MaxSumPath
+     * @see com.raj.dp.CountWays - Simple counting
+     * @see com.raj.dp.MinCoinChange - Counting + Minimizing change
+     * @see com.raj.dp.RodCutMaxProfit - Rod cut
+     * @see com.raj.dp.SubsetSumDP - Subset Sum DP reduces recursive exponential time to polynomial time
+     * @see com.raj.dp.LongestCommonSubsequence - Subset pattern
+     * @see com.raj.dp.LevenshteinDistance - String Edit Distance
+     * @see com.raj.dp.MaxSumPath - Grid / Matrix path traversal + Maximizing sum
+     *
+     * Some problems may require pre-processing the input set like sorting etc to formulate a correct recursion > DP formula.
      */
 }

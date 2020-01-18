@@ -25,7 +25,9 @@ public class NQueens {
      *   "-q--"]
      * ]
      *
-     * Approach:
+     * Naive Brute Force will look through all board configurations and validate it => O(N^N)
+     *
+     * Recursive Approach:
      * # We have 4 Q to place, 1 per row. For each row there are 4 col options. We dfs after placing on a col for row+1 th
      * # We kick off recursion with placing Q at 0th row, recursive step will involve iterating thru cols & if valid dfs
      * # Once all rows are done, we have finished placing all Q
@@ -35,12 +37,15 @@ public class NQueens {
      *     f(1),0...3   f(1),0....3  f(1),0...3  f(1),0...3
      *    f(2),0...3 .....
      *
+     * Note - This can't be solved via DP as for that to work, input shouldn't be changed. Here, board is being changed every time & there may not be an overlapping sub-problem.
      */
     public static void main(String[] args) {
         System.out.println(Arrays.deepToString(find_all_arrangements(4)));
     }
 
-    // Time complexity exponential ~O(n!)
+    /**
+     * T(n) = n*T(n-1) + O(n^2) which translates to O(N!) time complexity in average.
+     */
     static String[][] find_all_arrangements(int n) {
         int[] A = new int[n];   // instead of using 2D grid of booleans, we can represent just the queen's position by using 1D array A[row]=col
         Arrays.fill(A, -1);
