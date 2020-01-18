@@ -50,7 +50,7 @@ public class LongestCommonSubsequence {
         if (A[i] == B[j]) return 1 + rec(A, i+1, B, j+1);
         else {  // character mismatch
             return Math.max(rec(A, i+1, B, j),      // exclude ith char and search in B
-                            rec(A, i, B, j+1));     // include ith char and search in B(j+1 ... len)
+                    rec(A, i, B, j+1));     // include ith char and search in B(j+1 ... len)
         }
     }
 
@@ -99,6 +99,19 @@ public class LongestCommonSubsequence {
         System.out.println("Longest Common Sub-sequence => " + res);
 
         return dp[A.length][B.length];
+    }
+
+    // alternative to print string using dfs guided by dp table results
+    private static void dfs_lcs(int[][] dp, String a, String b, int i, int j, StringBuilder sb){
+        if(i >= a.length() || j >= b.length()) return;
+        if (a.charAt(i) == b.charAt(j)) {
+            sb.append(a.charAt(i));
+            dfs_lcs(dp, a, b, i+1, j+1, sb);
+        } else if(dp[i][j+1] > dp[i+1][j]) {
+            dfs_lcs(dp, a, b, i, j+1, sb);
+        } else {
+            dfs_lcs(dp, a, b, i+1, j, sb);
+        }
     }
 
 }
