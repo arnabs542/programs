@@ -1,9 +1,11 @@
 package com.raj.dp;
 
-import java.util.Arrays;
+import com.raj.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubsetSumDP {
-
     /**
      * Find is it's possible to Divide a group of people into 2 groups of equal weights.
      * Another variation is - Given an array of non negative numbers and a total, is there subset of numbers in this
@@ -15,6 +17,10 @@ public class SubsetSumDP {
         int[] A = {1,2,3,4,5,7};
         System.out.println(rec(A, 0, 11));  // total_weight/2
         System.out.println(dp(A));
+
+        //System.out.println(rec(new int[]{-3,7,2,1,3}, 0, 5));  // total_weight/2
+        //System.out.println(dp(new int[]{-3,7,2,1,3}));
+        System.out.println(dp(new int[]{2,3,1}));
     }
 
     /**
@@ -63,7 +69,7 @@ public class SubsetSumDP {
         // base case 1 - we can form sum=0 with empty set, hence set T irrespective of arr elements
         for (int i = 0; i <= A.length; i++) dp[i][0] = true;
         // base case 2 - we can only form 1 with arr element 1, every other col is false
-        dp[0][1] = true;
+        //dp[0][1] = true;
 
         for (int i = 1; i <= A.length; i++) {           // row 0 was taken care of in base case
             for (int sum = 1; sum <= target; sum++) {   // sum 0 was taken care of in base case
@@ -77,7 +83,24 @@ public class SubsetSumDP {
                 dp[i][sum] = include || exclude;
             }
         }
-        System.out.println(Arrays.deepToString(dp));
+
+        Util.print2DBooleanArray(dp);
+
+        // print partitions
+        List<Integer> inclPart = new ArrayList<>();
+        List<Integer> exclPart = new ArrayList<>();
+        int i = A.length; int sum = target;
+        while (i>0) {
+            if (sum >= A[i-1] && dp[i][sum-A[i-1]]) {
+                inclPart.add(A[i-1]);                  // we included subject to above condition
+                sum-=A[i-1];
+            } else {
+                exclPart.add(A[i-1]);                  // else add to excluded partition
+            }
+            i--;
+        }
+
+        System.out.println("Partition 1 = " + inclPart + ", Partition 2 = " + exclPart);
         return dp[A.length][target];
     }
 
