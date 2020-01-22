@@ -1,10 +1,16 @@
+# Greedy Strategy - https://www.geeksforgeeks.org/greedy-algorithms/
+  => Greedy is an algorithmic paradigm that builds up a solution piece by piece, always choosing the next piece that
+  offers the most obvious and immediate benefit. So the problems where choosing locally optimal also leads to global
+  solution are best fit for Greedy.
+
 # How do we know it's a DP problem? How do we solve it?
+  => Prove that a simple Greedy approach won't work.
   => Look for following words: min/max, num counts/ways, 0-sum game etc
   => Has overlapping sub-problem property - many of the same sub-problems are solved over and over again
   => Has optimal substructure - if we can re-use the optimal sub-problems solutions to solve the original problem optimally.
     -> counter eg. Longest Path Problem doesn't have this property: https://www.geeksforgeeks.org/optimal-substructure-property-in-dynamic-programming-dp-2/
   => Understanding what smaller sub-problem exists from where u can build the next one & finally the solution
-  => Core of a DP problem is understanding the recurrence relation, framing the DP formula with base cases
+  => Core of a DP problem is understanding the recurrence relation, framing the DP formula with BASE cases.
   => To implement a DP solution, follow these steps:
      -> DP Table dimension/size - How many params are changing?
      -> DP Table Base cases - Recursive base cases
