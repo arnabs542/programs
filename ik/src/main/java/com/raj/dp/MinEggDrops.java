@@ -21,7 +21,8 @@ public class MinEggDrops {
      * N attempts.
      * But here we got K eggs, definitely we could do better.
      *
-     * # Can we apply Greedy Strategy - Like use Binary Search?
+     * # Can we apply Greedy Strategy - Like use Binary Search ?
+     * Basically, do we know which floor to start to arrive at the optimal solution ?
      * Suppose, we proceed using binary search, and let k=100, we take 50th floor first and test it. What if the egg
      * breaks? we have to test for the remaining 1 to 49 floors with only 1 egg remaining, that requires 49 more drops
      * in the worst case where the required floor is 49th floor.
@@ -33,11 +34,13 @@ public class MinEggDrops {
      *
      * # We are left with "trying each floor one at a time & computing what's the minimum attempts for it recursively".
      *                f(n,k)
+     *               /  |     \
+     *              1   2 ..   n              ... we try each floor starting from 1,2...n
+     *                      /       \
+     *                  break       no break  ... for each of the floor, 2 cases arise
+     *               f(n-1,k-1)     f(n-1,k)  ... as all eggs are intact & one less floor to cover
      *              /        \
-     *          break       no break
-     *       f(n-1,k-1)     f(n-1,k)  ... as all eggs are intact & one less floor to cover
-     *      /        \
-     *  f(n-2,k-2)  f(n-2,k-1)  ....
+     *          f(n-2,k-2)  f(n-2,k-1)  ....
      *
      * for each floor n <- 1 to N,
      *   num attempts floor n = 1 + max[f(n-1, k-1), f(n-1, k)]  ... include/exclude egg break & take the MAX of attempts as we'll have to ensure full coverage
@@ -77,7 +80,7 @@ public class MinEggDrops {
 
         for (int k = 2; k <= K; k++) {
             for (int n = 2; n <= N; n++) {
-                // to compute dp(k,n) we need to try each floor & compute minAttempts as we did in rec
+                // Now to compute dp(k,n) we need to try each floor & compute minAttempts as we did in recursion
                 dp[k][n] = Integer.MAX_VALUE;   // we will minimize, so init with max integer
                 for (int i = 1; i <= n; i++) {
                     // attempts for dropping from ith floor

@@ -18,8 +18,6 @@ public class SubsetSumDP {
         System.out.println(rec(A, 0, 11));  // total_weight/2
         System.out.println(dp(A));
 
-        //System.out.println(rec(new int[]{-3,7,2,1,3}, 0, 5));  // total_weight/2
-        //System.out.println(dp(new int[]{-3,7,2,1,3}));
         System.out.println(dp(new int[]{2,3,1}));
     }
 
@@ -103,5 +101,16 @@ public class SubsetSumDP {
         System.out.println("Partition 1 = " + inclPart + ", Partition 2 = " + exclPart);
         return dp[A.length][target];
     }
+
+    /**
+     * Subset Sum with negative values: s = [10, -3, 7, 2, 1, 3], ans =>  [7,2,1] & [10,-3,3]
+     * https://oj.interviewkickstart.com/view_top_submission/6555/37/79438/
+     *
+     * Adjust the above code to handle:
+     * # Compute sum_of_negatives & sum_of_positives separately.
+     * # Loop will run from sum_of_negatives to sum_of_positives
+     *   -> dp[][] won't be able to store -ve vals, so use a map instead - Map<Integer, Boolean> dp[]
+     *   -> if condition changes to if(sum - A.get(i-1) - sum_of_negatives >= 0){ ..}
+     */
 
 }
