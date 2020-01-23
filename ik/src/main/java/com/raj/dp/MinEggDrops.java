@@ -1,6 +1,6 @@
 package com.raj.dp;
 
-import java.util.Arrays;
+import com.raj.Util;
 
 public class MinEggDrops {
     /**
@@ -9,8 +9,10 @@ public class MinEggDrops {
      * https://www.geeksforgeeks.org/egg-dropping-puzzle-dp-11/
      */
     public static void main(String[] args) {
-        System.out.println(rec(20, 3));
-        System.out.println(dp(10, 3));
+        System.out.println(rec(6, 3));
+        System.out.println(dp(6, 3));
+        //System.out.println(rec(20, 3));
+        //System.out.println(dp(20, 3));
     }
 
     /**
@@ -26,7 +28,10 @@ public class MinEggDrops {
      * Binary search is ruled out as it cannot give us critical floor with optimal number of drops using only 2 eggs.
      * If we had infinite supply of eggs then binary search is the best method.
      *
-     * # We are left with trying all floors & computing what's the minimum attempts recursively.
+     * Also, if the problem was to find the minimum number of eggs(instead of given K eggs as constraint), then yes this
+     * approach will work - In worst case eg, for 100 floors, log2(100) = 6.99999 ~ 7 eggs to find the highest floor.
+     *
+     * # We are left with "trying each floor one at a time & computing what's the minimum attempts for it recursively".
      *                f(n,k)
      *              /        \
      *          break       no break
@@ -83,7 +88,7 @@ public class MinEggDrops {
                 }
             }
         }
-        System.out.println(Arrays.deepToString(dp));
+        Util.print2DArray(dp);
         return dp[K][N];
     }
 
