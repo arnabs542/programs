@@ -24,6 +24,10 @@ public class ActivitySelection {
     }
 
     /**
+     * https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
+     * The greedy choice is to always pick the next activity whose finish time is least among the remaining activities
+     * and the start time is more than or equal to the finish time of previously selected activity. We can sort the
+     * activities according to their finishing time so that we always consider the next activity as minimum finishing time activity.
      * 1) Sort the activities according to their finishing time
      * 2) Select the first activity from the sorted array and print it.
      * 3) Do following for remaining activities in the sorted array.
@@ -33,7 +37,7 @@ public class ActivitySelection {
     static List<Job> greedy(int[] start, int[] end) {
         List<Job> res = new ArrayList<>();
 
-        // sort by end times
+        // sort by finish times so as to maximize num tasks otherwise a long running task can hog b/w
         int n = start.length;
         Job[] jobs = new Job[n];
         for (int i = 0; i < n; i++) {
