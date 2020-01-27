@@ -31,12 +31,12 @@ public class WeightedJobSchedule {
                 new Job(6, 19, 100),
                 new Job(2, 100, 200)
         };
-        Job jobs2[] = new Job[]{
+        /*Job jobs2[] = new Job[]{
                 new Job(1, 3, 50),
                 new Job(2, 4, 10),
                 new Job(3, 5, 40),
                 new Job(3, 6, 70)
-        };
+        };*/
         System.out.println(rec(jobs1));
         System.out.println(dp(jobs1));
     }
@@ -69,7 +69,7 @@ public class WeightedJobSchedule {
      *                   200/        \0
      *             200 + f(0)         f(2)   ... max(100+20+50,70)
      *                50/        100/    \0
-     *               x          f(1)    f(1)   ... max(20+50,50)
+     *                 x        f(1)    f(1)   ... max(20+50,50)
      *                        20/      20/   \0
      *                       f(0)     f(0)    f(0)
      *                        |        |      |
@@ -93,6 +93,9 @@ public class WeightedJobSchedule {
         return Math.max(inclP, exclP);
     }
 
+    /**
+     * Find the latest job before the current job (in sorted array) that doesn't conflict with current job
+     */
     static int nextNonConflict(Job[] jobs, int i) {
         for (int j=i-1; j>=0; j--) {
             if (jobs[j].end <= jobs[i].start) return j;
@@ -121,7 +124,16 @@ public class WeightedJobSchedule {
      * {2, 100, 200}
      *          0  1  2  3  4  5  6  .. 19  .. 100  => End Time
      *          0  0  50 50 50 70 70    170    x -> 200 + T(2) = 200+50 = 250
-     * T[i] = for i <- 1 to n, max(jobs[i-1].profit + getNextJob(i-1), T[i+1])
+     *
+     * # Starting job 1 onwards, find profit by including / excluding this job.
+     * # Since, at each ith job, we look for a job which occurs before, we wud have pre-computed lower values of i.
+     *
+     * DP Formula =>
+     * base case:  T[0] = jobs[0].profit
+     * for i <- 1 to n,
+     *     T[i] = max(jobs[i].profit + binarySearchNextJob(i), T[i-1])
+     *
+     * Time = O(n.logn)
      */
     static int dp(Job[] jobs) {
         Arrays.sort(jobs, (a,b) -> (a.end-b.end));
@@ -148,7 +160,7 @@ public class WeightedJobSchedule {
         int s = 0;
         int e = i-1;
         while (s <= e) {
-            int m = s+(e-s)/2;
+            int m = s + (e-s)/2;
             if (jobs[m].end <= jobs[i].start) {
                 // what if m+1 element is also meeting the above condition?
                 if (jobs[m+1].end <= jobs[i].start) s = m+1;    // we need to reduce search space to m+1...i...e

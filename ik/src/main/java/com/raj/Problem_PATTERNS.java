@@ -27,6 +27,7 @@ public class Problem_PATTERNS {
      * @see com.raj.dp.SubsetSumDP - Subset Sum DP reduces recursive exponential time to polynomial time
      * @see com.raj.dp.LongestCommonSubsequence - Subset pattern strings
      * @see com.raj.dp.MinEggDrops - Subset Pattern Hard - Don't know where to start, try all possibilities
+     * @see com.raj.dp.greedy.WeightedJobSchedule - Subset Pattern Hard - Sort End times / Reverse iterate / Modified Binary Search
      * @see com.raj.dp.LevenshteinDistance - String Edit Distance
      * @see com.raj.dp.MaxSumPath - Grid / Matrix path traversal + Maximizing sum
      *
