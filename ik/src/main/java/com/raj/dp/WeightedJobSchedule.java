@@ -1,6 +1,8 @@
-package com.raj.dp.greedy;
+package com.raj.dp;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class WeightedJobSchedule {
     /**
@@ -31,17 +33,25 @@ public class WeightedJobSchedule {
                 new Job(6, 19, 100),
                 new Job(2, 100, 200)
         };
-        /*Job jobs2[] = new Job[]{
-                new Job(1, 3, 50),
-                new Job(2, 4, 10),
-                new Job(3, 5, 40),
-                new Job(3, 6, 70)
-        };*/
-        System.out.println(rec(jobs1));
-        System.out.println(dp(jobs1));
+        Job jobs2[] = new Job[]{
+                new Job(3, 5, 20),
+                new Job(1, 2, 50),
+                new Job(6, 19, 300),
+                new Job(2, 100, 200)
+        };
+        System.out.println("==== Jobs 1 ====");
+        System.out.println("Max Profit rec = " + rec(jobs1) + "\n");
+        System.out.println("Max Profit DP = " + dp(jobs1) + "\n");
+        System.out.println("Max Profit DP sub-optimal = " + dp_suboptimal(jobs1) + "\n");  // easy solution but time limit exceeded on leetcode
+
+        System.out.println("==== Jobs 2 ====");
+        System.out.println("Max Profit rec = " + rec(jobs2) + "\n");
+        System.out.println("Max Profit DP = " + dp(jobs2) + "\n");
+        System.out.println("Max Profit DP sub-optimal = " + dp_suboptimal(jobs2));
     }
 
     static int rec(Job[] jobs) {
+        // sort jobs by end times
         Arrays.sort(jobs, (a,b) -> (a.end-b.end));
         return findMaxProfit(jobs, jobs.length-1);
     }
@@ -54,7 +64,6 @@ public class WeightedJobSchedule {
      * Sort jobs by increasing finish times.
      * {1, 2, 50}
      * {3, 5, 20}
-     * {4, 6, 10}
      * {6, 19, 100}
      * {2, 100, 200}
      *
@@ -119,14 +128,13 @@ public class WeightedJobSchedule {
      * Sort jobs by increasing finish times. We can optimize next job to schedule in logn time.
      * {1, 2, 50}
      * {3, 5, 20}
-     * {4, 6, 10}
      * {6, 19, 100}
      * {2, 100, 200}
-     *          0  1  2  3  4  5  6  .. 19  .. 100  => End Time
-     *          0  0  50 50 50 70 70    170    x -> 200 + T(2) = 200+50 = 250
+     *          0   1   2   3    => Job i
+     *          50  70  170 x -> max(200 + 50, 170) = 250
      *
      * # Starting job 1 onwards, find profit by including / excluding this job.
-     * # Since, at each ith job, we look for a job which occurs before, we wud have pre-computed lower values of i.
+     * # Since, we go from i=0->n, we wud have pre-computed values for lower i that is reqd for next ith job computation
      *
      * DP Formula =>
      * base case:  T[0] = jobs[0].profit
@@ -136,9 +144,10 @@ public class WeightedJobSchedule {
      * Time = O(n.logn)
      */
     static int dp(Job[] jobs) {
+        // sort jobs by end times
         Arrays.sort(jobs, (a,b) -> (a.end-b.end));
         int[] T = new int[jobs.length];
-        T[0] = jobs[0].profit;
+        T[0] = jobs[0].profit;  // start with selecting the first job
 
         for (int i = 1; i < jobs.length; i++) { // for each ith job, try to find the profit going backwards
             // include
@@ -149,12 +158,26 @@ public class WeightedJobSchedule {
             int exclP = T[i-1];
             T[i] = Math.max(inclP, exclP);
         }
-        System.out.println(Arrays.toString(T));
+        System.out.println("DP Table O(nlogn): " + Arrays.toString(T));
+
+        Set<Job> res = new HashSet<>();
+        int i = jobs.length-1;
+        int P = T[i];
+        while (i >= 0) {
+            int j = nextNonConflict(jobs, i);
+            if (j != -1 && (P-jobs[i].profit) == T[j]) {
+                res.add(jobs[i]); res.add(jobs[j]);
+                P -= jobs[i].profit;
+                i = j;
+            } else i--;
+        }
+        System.out.println("Jobs selected : " + res);
         return T[jobs.length-1];
     }
 
     /**
-     * As jobs array is sorted by end times, Binary Search for the job whose end time <= passed job[i].start time.
+     * Find a job which could be scheduled before this job i.
+     * As jobs array is sorted by end times, Binary Search for the job whose end time <= input job[i].start time
      */
     static int bSearchNextJob(Job[] jobs, int i) {
         int s = 0;
@@ -170,6 +193,39 @@ public class WeightedJobSchedule {
             }
         }
         return -1;
+    }
+
+    /**
+     * This uses LIS pattern - tries each job from 0..i in inner loop to maximize profit.
+     *
+     *    0   1   2    3   => job end times
+     *   50  70  170  250  => profit
+     *
+     * T[i] = max(T[i], jobs[i].profit+T[j]), for j=0..i AND jobs[j].end <= jobs[i].start
+     * Time = O(n^2)
+     *
+     * Can we find the job to schedule next in a more optimized way?
+     * That's what optimal solution above - dp(jobs) is about where it uses b-search to find the prev job.
+     */
+    static int dp_suboptimal(Job[] jobs) {
+        // sort by end times
+        Arrays.sort(jobs, (a,b) -> (a.end-b.end));
+        int[] T = new int[jobs.length];
+        T[0] = jobs[0].profit;  // start with selecting the first job
+
+        int maxProfit = 0;
+        for (int i = 1; i < jobs.length; i++) { // for each ith job, try to find the profit using 0...i jobs
+            T[i] = jobs[i].profit;
+            for (int j = 0; j < i; j++) {
+                // include ith job's profit & find max profit using jobs that end before ith job
+                if (jobs[j].end <= jobs[i].start) {
+                    T[i] = Math.max(T[i], jobs[i].profit + T[j]);
+                }
+            }
+            maxProfit = Math.max(maxProfit, T[i]);
+        }
+        System.out.println("DP Table sub-optimal : " + Arrays.toString(T));
+        return maxProfit;
     }
 
 }

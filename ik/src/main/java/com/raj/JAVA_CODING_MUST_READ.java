@@ -57,6 +57,10 @@ public class JAVA_CODING_MUST_READ {
         // Array copy - get an in place O(1) time & space array view of elems A[1,2,3]
         Arrays.copyOfRange(A, 1, 3+1);  // add +1 to endIdx
 
+        // Simple way to build a map of counts
+        Map<Character,Integer> map = new HashMap<>();
+        for (char c : "aabbcc".toCharArray()) map.put(c, map.getOrDefault(c,0) + 1);
+
         // ============ LOOP GOTCHAS ============
         // Use while loop when u want full control over incrementing/decrementing index
         // VERY IMPORTANT - ALWAYS INCR WHILE LOOP PTRS BEFORE USING IT, OTHERWISE YOU'LL GET INTO EXTREMELY COMPLEX DEBUGGING MESS

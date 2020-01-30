@@ -32,6 +32,8 @@ public class LongestSubsequence {
      *
      * A[]      30  22  9   33  21  50  41  60  15
      * LIS      1   1   1   2   2   3   3   4   2
+     *
+     * Time = O(n^2)
      */
     static int[] LIS(int[] A) {
         int[] dp = new int[A.length];
@@ -95,5 +97,10 @@ public class LongestSubsequence {
         }
         return max;
     }
+
+    /**
+     * Optimal Solution in O(nlogn):
+     * https://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+     */
 
 }
