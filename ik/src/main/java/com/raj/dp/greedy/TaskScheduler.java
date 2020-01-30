@@ -26,13 +26,15 @@ public class TaskScheduler {
     }
 
     /**
+     * THIS DOESN'T YIELD OPTIMIZED SCHEDULE !
+     * check greedy()
+     *
      * Let's do Greedy approach - start with the task with max number of occurrences & slot it out in res.
      * Create a tuple of (task,count)
      * Insert into MaxHeap.
      * Pop next max and schedule it in empty slot after cooldown intervals starting from left.
-     *
      */
-    static int _greedy(char[] tasks, int cd) {
+    static int _greedy_not_optimal(char[] tasks, int cd) {
         // get task freq
         int[] taskCounts = new int[256];
         for (char t : tasks) taskCounts[t]++;
