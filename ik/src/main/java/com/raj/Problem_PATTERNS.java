@@ -8,7 +8,7 @@ public class Problem_PATTERNS {
      * --- Legend ---
      * # Pattern: BruteForce >> SubOptimal >> Optimal Solution
      *
-     * [Sorting]
+     * [SORTING]
      * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect
      * @see com.raj.sorting.KNearestNeighbors
      *
@@ -36,5 +36,9 @@ public class Problem_PATTERNS {
      * @see com.raj.dp.LevenshteinDistance - String Edit Distance
      * @see com.raj.dp.MaxSumPath - Grid / Matrix path traversal + Maximizing sum
      *
+     * [GRAPH]
+     * @see com.raj.graphs.FindIslands - Connected components DFS
+     * @see com.raj.graphs.CourseSchedule - Topological Sort DFS
+     * @see com.raj.graphs.
      */
 }

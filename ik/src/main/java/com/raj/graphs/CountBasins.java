@@ -64,6 +64,8 @@ public class CountBasins {
      * Iter through each cell i,j. Find the lowest altitude neighbor (if this cell is lowest, move to next one).
      * Create an directed edge from cell -> sink
      * Then find num connected components & their sizes.
+     *
+     * Time / Space = O(n*m)
      */
     public static List<Integer> find_basins(List<List<Integer>> matrix) {
         Graph G = new Graph(matrix);
