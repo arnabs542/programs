@@ -11,9 +11,9 @@ public class DetectCyclesSimple {
      * N = 5, M = 7, edges = [[0,1],[0,3],[1,3],[1,2],[2,3],[4,0],[2,4]]
      * Output: true
      *
-     *     4 ->  0 ----> 1
-     *     |     \     /  \
-     *     |      v   v    v
+     *     4 --> 0 ----> 1
+     *     ^      \    /  \
+     *     |       v  v    v
      *     |        3 <---- 2
      *     |                 |
      *      -----------------
@@ -54,7 +54,7 @@ public class DetectCyclesSimple {
     static boolean dfs(int v) {
         visited[v] = 1;                     // mark visited
         for (int w : adjList[v]) {          // visit neighbors
-            if (visited[w] == 0) {
+            if (visited[w] == 0) {          // visit this neighbor, return true if dfs detects cycle
                 if (dfs(w)) return true;
             } else if (visited[w] == 1) {   // vertex in current recursion stack, cycle detected !!
                 return true;

@@ -146,10 +146,10 @@ public class CountBasins {
                 }
             }
             int[] counts = new int[rows*cols + 1];
-            for (int i = 0; i < basinCounts.length; i++) {   // then get counts only array, remember there may be dupe counts
+            for (int i = 0; i < basinCounts.length; i++) {   // then get counts only array
                 int cnt = basinCounts[i];
                 if (cnt != 0) {
-                    counts[basinCounts[i]]++;
+                    counts[basinCounts[i]]++;   // remember there may be dupe counts
                 }
             }
             System.out.println(Arrays.toString(counts));

@@ -1,7 +1,7 @@
 # Toughest things about graphs is to identify it's a graph problem. Once it's identified, there are only few things to apply:
   => BFS, DFS, Visited, Cycle
-  => Shortest / closest - BFS
-  => Connected / Longest / Path b/w nodes - DFS
+  => Finding Shortest / closest - BFS
+  => Finding Connected components / Longest / Path b/w nodes / detect cycles - DFS
 
 # Graph Representations:
   G(V,E) => Set of Vertices & Edges.
