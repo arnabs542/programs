@@ -12,8 +12,6 @@ import java.util.Queue;
 
 /**
  * Naive O(mn) implementation. Look at DijkstraHeap for a more elegant/ efficient implementaion of Dijkstra's algorithm.
- * <p>
- * Created by Sweta on 2/21/2015.
  */
 public class Dijkstra {
 

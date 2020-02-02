@@ -60,7 +60,7 @@ Hence, a simple operation like finding all neighbors of a vertex, might become O
     => No cycles - Yes
     => Odd length Cycles = Cross edge in the same layer - No
 
-# Topological sort is an ordering of vertices of a graph based on some constraint.
+# Topological sort is an ordering of vertices of a graph going left(u) to right(v).
     => Topo can't be done for graph with cycles.
     => In other words graph has to be a DAG (Undirected graphs too we can do topo sort provided there are no cycles)
     => Cycle detection becomes very important, where we fail fast instead of going into endless loop.
