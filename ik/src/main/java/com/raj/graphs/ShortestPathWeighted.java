@@ -50,7 +50,8 @@ public class ShortestPathWeighted {
      * # Only works for positive weights. For negative weights, use Bellman-Ford Algo w/ O(VE) which is more than Dijkstra's O(ElogV):
      *   - https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
      * # Algo:
-     *   - Init a MinPQ with all V & INF dist
+     *   - use a dist[] array to track vertex distance
+     *   - Init a MinPQ with src vertex, set dist[0] = 0
      *   - Push source V & 0 dist
      *   - loop until !PQ.empty
      *     - v = PQ.pop, mark visited
@@ -95,9 +96,6 @@ public class ShortestPathWeighted {
         public int findShortestPath(int src, int dest) {
             // init minPQ with all V & INF weight so that we can minimize it later
             PriorityQueue<E> pq = new PriorityQueue<>((a,b)-> a.wt-b.wt);
-            for (int i = 1; i < V; i++) {
-                pq.add(new E(i, Integer.MAX_VALUE));
-            }
             pq.add(new E(0,0)); // add src vertex
             dist[0] = 0;
 
@@ -106,25 +104,13 @@ public class ShortestPathWeighted {
                 E V = pq.remove();
                 int v = V.w;
 
-                /**
-                 * No decreaseKey present in Java. When we find a smaller distance for the node v. Then you simply don't
-                 * update the distance for the pair (dist_val, v) in the priority queue, but instead insert a new pair
-                 * (new_dist_val, v). Your priority queue now contains multiple pairs for v, but this is not a problem.
-                 * Since new_dist_val < dist_val, the pair (new_dist_val, v) will be popped earlier from the priority queue
-                 * than the pair (dist_val, v). Later, when you pop the pair (dist_val, v) you can recognize it as being
-                 * old by comparing dist_val to the current distance of v, i.e. if dist_val != dist_array[v],
-                 * you ignore the pair (dist_val, v).
-                 */
-                if (V.wt != dist[v]) continue;
-
                 for (E W : adjList[v]) {  // for each neighbor w
                     int w = W.w;
                     int newDist = dist[v] + W.wt;
                     if (newDist < dist[w]) {  // shorter dist found
                         dist[w] = newDist;
                         parent[w] = v;  // update parent
-                        // just insert a dupe w as decreaseKey operation lacking in java & remove incurs O(n) cost. Read comment above.
-                        pq.add(new E(w, newDist));
+                        pq.add(new E(w, newDist)); // just insert a dupe w as decreaseKey operation lacking in java & removing/adding incurs O(n) cost.
                     }
                 }
             }
