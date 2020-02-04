@@ -27,19 +27,19 @@ public class CheapestFlightKStops {
      * Output: 500
      */
     public static void main(String[] args) {
-        System.out.println(shortestPath(3, 0, 2, 1, new int[][] {
+        /*System.out.println(shortestPath(3, 0, 2, 1, new int[][] {
                 {0,1,100},
                 {1,2,100},
                 {0,2,500}
-        })); // happy case - $200 (0->1->2)
+        })); // happy case - $200 (0->1->2)*/
         System.out.println(shortestPath(4, 0, 3, 2, new int[][] {
-                {0,1,100},
-                {0,2,200},
-                {1,2,50},
-                {1,3,300},
-                {2,3,100}
+                {0,1,200},
+                {0,2,100},
+                {2,1,50},
+                {1,3,100},
+                {2,3,300}
         })); // slightly complex case where vertex 2 is considered 2 times - $250 (0->1->2->3)
-        System.out.println(shortestPath(3, 0, 2, 3, new int[][] {
+        /*System.out.println(shortestPath(3, 0, 2, 3, new int[][] {
                 {0,1,100},
                 {1,0,100}
         })); // cycles hence INF cost
@@ -57,7 +57,7 @@ public class CheapestFlightKStops {
         System.out.println(shortestPath(3, 0, 2, 0, new int[][] {
                 {0,1,100},
                 {1,2,100}
-        })); // no hops no path exists - INF cost
+        })); // no hops no path exists - INF cost*/
     }
 
     /**

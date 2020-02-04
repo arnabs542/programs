@@ -73,3 +73,4 @@ Hence, a simple operation like finding all neighbors of a vertex, might become O
        -> For each of it's neighbors, decrease in-degree count. Any new zero-degree vertex is added to Queue.
        -> Now this vertex state is 2, add it to result. Increment count of done vertices.
        -> If done vertex count isn't equal to num vertices, then it's a cycle.
+    => When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.
