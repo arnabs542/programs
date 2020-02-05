@@ -25,23 +25,29 @@ public class ShortestPathWeighted {
      * [2, 3, 06]
      *
      *            1
-     *       10/  |  \15
-     *        /   |   \
+     *      10 ^  |  \ 15
+     *        /   |   v
      *       0   5|    3
-     *        \   |   /
-     *       20\  |  /6
+     *        \   |   ^
+     *      20 v  v  / 6
      *            2
      * o/p : Path = 0->1->2->3, MinCost = 21
      *
      * # Can we apply simple BFS as it's shortest?
      *   No. Since there is weight for edges, a longer path can have a smaller cost.
-     * # Ok let's tweak BFS. Can we use Q to store vertices?
-     *   No. Pushing vertices based on hops won't work. We'll have to use a Priority Based Queue where we assign weights & push.
-     *   The top of the Q now has the min weight.
+     *   But skeleton of BFS will be used - start from a vertex / discover adj vertex / add to Q / capture vertex by polling Q
+     * # Ok let's tweak BFS. We use a Q in BFS. Can we use Q to store vertices here?
+     *   No. Pushing vertices based on hops won't work. We'll have to use a Priority Based Queue where we assign weights(priority value).
+     *   The top of the Q now has the min weight, which will pulled first later.
      * # Optimal Substructure?
      *   To solve, we need to solve all smaller sub-problems which is finding shortest path for each vertex.
      *   This only works if the weights are +ve. Negative weights defeats this property.
-     *
+     * # Cycles? Do we need to track it?
+     *   We can use visited arr. But even that isn't required as we can just disregard any vertex which is of longer
+     *   distance. Considering an already visited vertex will always result in a larger distance & also go backwards - why do that?
+     *   0 -> 1 -> 2 -> 3 (dest)    ... if weights are +ve, going back to 0 will have higher cost which we can disregard
+     *   |         |
+     *   <---------
      * DIJKSTRA ALGO:
      * # Basically a tweaked BFS using PQ - hence greedy as it capitalizes on the min weight top element.
      * # Also called Single Source Shortest Path algo, as it only computes for ONE pair of vertices.
@@ -49,9 +55,12 @@ public class ShortestPathWeighted {
      *   - https://www.geeksforgeeks.org/floyd-warshall-algorithm-dp-16/
      * # Only works for positive weights. For negative weights, use Bellman-Ford Algo w/ O(VE) which is more than Dijkstra's O(ElogV):
      *   - https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+     * # Handle Cycles with visited arr
+     *
      * # Algo:
-     *   - use a dist[] array to track vertex distance
-     *   - Init a MinPQ with src vertex, set dist[0] = 0
+     *   - use a dist[] array to track vertex distance as it can change later when we discover shorter weighted path unlike bfs (hence we didn't need it)
+     *   - Init a MinPQ as we need to process vertex with shortest distance
+     *   - Add src vertex to PQ, set dist[0] = 0
      *   - Push source V & 0 dist
      *   - loop until !PQ.empty
      *     - v = PQ.pop, mark visited
@@ -60,6 +69,7 @@ public class ShortestPathWeighted {
      *         - dist[w] = dist[v]+dist(v,w)
      *         - PQ.decreaseKey(w,dist[w])  //assign new priority as dist was minimized
      *         - parent[w] = v
+     *
      * # Time = O(BFS complexity * decreaseKey) = O((V+E)logV)
      *   -> Assuming we pre-built the heap in O(V) amortized cost & we are using Adjacency List (using matrix rep will increase to V^2)
      *   -> Can be further optimized to O(E+VlogV) using Fibonacci Heap as amortized cost for decrease key goes to E instead of ElogV

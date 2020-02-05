@@ -34,18 +34,18 @@
 # Hamiltonian Cycle problem & Travelling Salesman problem - NP Hard problems. No known polynomial time algo. It's mostly exponential time.
 # Eulerian Cycle : Go through each edge exactly once & come back to the starting vertex, then it's a Eulerian cycle,
 if not then it's an Eulerian Path (starts & ends at different vertices).
-    => Hamiltonian cycle is about visiting each vertex exactly once vs Eulerian which is about visiting vertex once.
-    => For a connected graph, it will always have an Eulerian cycle if -
-        -> It's undirected & has all Even degree vertices.
-        -> It's directed & in-degree = out-degree of all vertices.
-        -> We can find Eulerian cycle path by backtracking(when all edges aren't visited) & doing mini-walks from last V.
+  => Hamiltonian cycle is about visiting each vertex exactly once vs Eulerian which is about visiting vertex once.
+  => For a connected graph, it will always have an Eulerian cycle if -
+     -> It's undirected & has all Even degree vertices.
+     -> It's directed & in-degree = out-degree of all vertices.
+     -> We can find Eulerian cycle path by backtracking(when all edges aren't visited) & doing mini-walks from last V.
 
 # Number of odd degree vertices has to be even (can't be odd as Sum of degrees = 2|E| & odd+even = odd which contradicts it)
 
 # Number of vertices with odd degree:
-    => 0 - Eulerian Cycle
-    => 2 - Eulerian Path
-    => 4,6,8... - No Eulerian Cycle / Paths
+  => 0 - Eulerian Cycle
+  => 2 - Eulerian Path
+  => 4,6,8... - No Eulerian Cycle / Paths
 
 # Max number of edges in a Graph can be O(num_vertices^2). Graph representation largely depends upon how we store edges as they can be of order of C(n choose 2)=O(n^2) in worst case.
 Hence, a simple operation like finding all neighbors of a vertex, might become O(n*m)=>O(n^3) operation eg. edge list representation.
@@ -57,20 +57,43 @@ Hence, a simple operation like finding all neighbors of a vertex, might become O
 # For Graph problems, both DFS & BFS incurs O(m+n) runtime & O(n) space complexity for visited, where n=vertices & m=edges.
 
 # A graph is Bipartite, if we can split the vertices into 2 subsets such that edges go b/w 2 sets. Graph is Bipartite if -
-    => No cycles - Yes
-    => Odd length Cycles = Cross edge in the same layer - No
+  => No cycles - Yes
+  => Odd length Cycles = Cross edge in the same layer - No
 
 # Topological sort is an ordering of vertices of a graph going left(u) to right(v).
-    => Topo can't be done for graph with cycles.
-    => In other words graph has to be a DAG (Undirected graphs too we can do topo sort provided there are no cycles)
-    => Cycle detection becomes very important, where we fail fast instead of going into endless loop.
-    => Can be done using DFS. Maintain visited = 0 for unvisited, 1 for being visited, 2 for completely visited
-       -> Visit unvisited vertices in any order, mark them as 1 and dfs on it's neighbors
-       -> If a neighboring vertex state is 1, it means it's a loop, Abort!
-       -> Now this vertex state is 2, add it to result.
-    => Can be done using BFS (Kahn's algo). Use in-degrees for each vertex, maintain a count of done vertices.
-       -> Start with a zero degree vertex, add to Queue
-       -> For each of it's neighbors, decrease in-degree count. Any new zero-degree vertex is added to Queue.
-       -> Now this vertex state is 2, add it to result. Increment count of done vertices.
-       -> If done vertex count isn't equal to num vertices, then it's a cycle.
-    => When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.
+  => Topo can't be done for graph with cycles.
+  => In other words graph has to be a DAG (Undirected graphs too we can do topo sort provided there are no cycles)
+  => Cycle detection becomes very important, where we fail fast instead of going into endless loop.
+  => Can be done using DFS. Maintain visited = 0 for unvisited, 1 for being visited, 2 for completely visited
+     -> Visit unvisited vertices in any order, mark them as 1 and dfs on it's neighbors
+     -> If a neighboring vertex state is 1, it means it's a loop, Abort!
+     -> Now this vertex state is 2, add it to result.
+  => Can be done using BFS (Kahn's algo). Use in-degrees for each vertex, maintain a count of done vertices.
+     -> Start with a zero degree vertex, add to Queue
+     -> For each of it's neighbors, decrease in-degree count. Any new zero-degree vertex is added to Queue.
+     -> Now this vertex state is 2, add it to result. Increment count of done vertices.
+     -> If done vertex count isn't equal to num vertices, then it's a cycle.
+  => When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.
+
+# Shortest Path Algos: https://en.wikipedia.org/wiki/Shortest_path_problem
+  1. Topological sorting
+     -> Weighted DAG - solve the single-source shortest path problem in linear time, Θ(E + V)
+
+  2. Dijkstra's
+     -> solves the single-source shortest path problem with non-negative edge weight.
+     -> handles cycles by disregarding visited vertex as it'll have longer dist, works for both directed & undirected
+     -> O((V+E).logV), with Fib Heap its O(E+VlogV)
+
+  3. Bellman–Ford
+     -> solves the single-source problem if edge weights may be negative.
+     -> O(V.E)
+     -> no negative cycles meaning edge can be -ve but a cycle shudn't result in overall -ve cost, otherwise u cud go infinite times.
+     -> does edge relaxation with every other node in graph thereby arriving at shortest weighted path.
+     -> suits for distributed systems like routers(no need to know full graph), each can do edge relaxation with adj nodes independently and figure out shortest path to other nodes eventually after V-1 pass.
+     -> https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
+
+  4. A* search
+     -> solves for single pair shortest path using heuristics to try to speed up the search.
+
+  5. Floyd–Warshall
+     -> solves all pairs shortest paths.

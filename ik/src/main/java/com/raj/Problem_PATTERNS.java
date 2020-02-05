@@ -37,8 +37,13 @@ public class Problem_PATTERNS {
      * @see com.raj.dp.MaxSumPath - Grid / Matrix path traversal + Maximizing sum
      *
      * [GRAPH]
+     * @see com.raj.graphs.GuardDistance - BFS Shortest Path
      * @see com.raj.graphs.FindIslands - Connected components DFS
-     * @see com.raj.graphs.CourseSchedule - Topological Sort DFS
-     * @see com.raj.graphs.
+     * @see com.raj.graphs.CountBasins - Connected components DFS Tricky
+     * @see com.raj.graphs.BipartiteGraph - Divide into 2 partitions / Alternate Color Graph BFS or DFS
+     * @see com.raj.graphs.CourseSchedule - Simple Topological Sort DFS
+     *
+     * # When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.
+     * @see com.raj.graphs.LongestPathWeightedDAG - Topo Sort DFS + Longest Path (when)
      */
 }

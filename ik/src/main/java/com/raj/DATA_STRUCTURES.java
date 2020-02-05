@@ -15,7 +15,7 @@ public class DATA_STRUCTURES {
          * List - Arrays, LinkedList(Queue), Stack
          * Map - HashMap, LinkedHashMap, TreeMap
          * Set - HashSet, LinkedHashSet, TreeSet
-         * Heaps - PriorityQueue
+         * Heaps - PriorityQueue, Fibonacci Heaps (Constant time Insert + DecreaseKey)
          * Trees - BinaryTree, BST - PreOrder, InOrder, PostOrder
          * Graphs - BFS, DFS, Visited, Cycle detect
          * Trie - Compact Trie, Suffix Tree
