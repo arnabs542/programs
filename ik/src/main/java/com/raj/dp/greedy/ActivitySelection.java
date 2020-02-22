@@ -50,7 +50,7 @@ public class ActivitySelection {
         res.add(jobs[i]);
 
         for (int j = 1; j < n; j++) {
-            if (jobs[j].s > jobs[i].e) {
+            if (jobs[j].s >= jobs[i].e) {
                 res.add(jobs[j]);
                 i = j;
             }
