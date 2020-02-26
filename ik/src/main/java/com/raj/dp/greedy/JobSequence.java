@@ -31,7 +31,7 @@ public class JobSequence {
     /**
      * First we need some ordering of jobs. Let's sort it by profit as we'll try to solve it via Greedy approach.
      * Idea is to schedule most profitable job as late as possible so as to allow slot for the next profitable job.
-     * Scheduling it earlier won't help as all jobs are eligible to be scheduled at time t1, per problem.
+     * Scheduling it earlier won't help as all jobs are eligible to be scheduled at time t1, per problem & it may block some other's jobs scheduling.
      *
      * Sorted by Profit:
      * A,2,100
@@ -44,6 +44,8 @@ public class JobSequence {
      *                  A
      *               C
      *                     E
+     *
+     * Runtime = O(n*n)
      */
     static String[] schedule_greedy(Job[] jobs) {
         int n = Arrays.stream(jobs).max((a,b) -> a.deadline-b.deadline).get().deadline;
@@ -52,8 +54,8 @@ public class JobSequence {
         int maxProfit = 0;
         // sort by profit
         Arrays.sort(jobs, (a,b) -> b.profit-a.profit);
-        for (int i = 0; i < jobs.length; i++) {
-            for (int j = jobs[i].deadline; j > 0; j--) {
+        for (int i = 0; i < jobs.length; i++) {     // iter thru all jobs
+            for (int j = jobs[i].deadline; j > 0; j--) {    // find a free slot for this job
                 if (res[j].isEmpty()) {
                     res[j] = jobs[i].id;
                     maxProfit += jobs[i].profit;

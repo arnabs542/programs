@@ -21,18 +21,21 @@ public class ActivitySelection {
      */
     public static void main(String[] args) {
         System.out.println(greedy(new int[]{0, 3, 1, 5, 5, 8}, new int[]{6, 4, 2, 9, 7, 9}));
+        System.out.println(greedy(new int[]{0, 2, 4, 3}, new int[]{2, 4, 6, 5}));
     }
 
     /**
      * https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
      * The greedy choice is to always pick the next activity whose finish time is least among the remaining activities
      * and the start time is more than or equal to the finish time of previously selected activity. We can sort the
-     * activities according to their finishing time so that we always consider the next activity as minimum finishing time activity.
+     * activities according to their finishing time so that we always consider the next activity which will finish
+     * faster as time elapses.
      * 1) Sort the activities according to their finishing time
      * 2) Select the first activity from the sorted array and print it.
      * 3) Do following for remaining activities in the sorted array.
      *    a) If the start time of this activity is greater than or equal to the finish time of previously selected
      *       activity then select this activity and print it.
+     * TIme = O(nlogn)
      */
     static List<Job> greedy(int[] start, int[] end) {
         List<Job> res = new ArrayList<>();
@@ -48,7 +51,7 @@ public class ActivitySelection {
         // start with first job in sorted array
         int i = 0;
         res.add(jobs[i]);
-
+        // i -> last selected job, j -> new job under consideration
         for (int j = 1; j < n; j++) {
             if (jobs[j].s >= jobs[i].e) {
                 res.add(jobs[j]);

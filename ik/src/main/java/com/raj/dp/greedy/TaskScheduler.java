@@ -74,7 +74,8 @@ public class TaskScheduler {
      * # Create tuples of task,counts
      * # Put them into maxHeap to be able to extract highest priority tasks(more freq).
      * # loop until heap has tasks
-     *   -> loop until cooldown interval
+     *   -> loop until cooldown interval + 1
+     *      - eg. if cd=2, & A has the most freq, we prep say A _ _ , so that next cycle, if A>0 it's eligible to be picked up again if freq were still highest)
      *      - remove top task from heap, add it to result & also to cooldown list (to put them back in heap later)
      *      - add a '.' for idle, if heap becomes empty
      *   -> add back tasks from cooldown list with one less freq
@@ -92,19 +93,21 @@ public class TaskScheduler {
 
         // build max heap to track most freq task
         PriorityQueue<Task> pq = new PriorityQueue<>((a,b) -> {
-            int cmp = b.cnt-a.cnt;
-            return cmp == 0 ? a.id-b.id : cmp;  // if same freq, use natural ordering of task ids (default wud have been a.equals(b))
+            int cmp = b.cnt - a.cnt;
+            return cmp == 0 ? a.id - b.id : cmp;  // if same freq, use natural ordering of task ids (default wud have been a.equals(b))
         });
         for (int t = 0; t < 25; t++) {
             if (taskFreq[t] > 0) pq.add(new Task((char)(t+65), taskFreq[t]));
         }
+
         while (!pq.isEmpty()) {     // run until we got tasks left
-            List<Task> cooldownTasks = new ArrayList<>();
+
+            List<Task> cooldownTasks = new ArrayList<>();  // save to add back later with decr counts
 
             // schedule tasks for each cooldown interval
             for (int i = 0; i <= cd; i++) {
                 if (!pq.isEmpty()) {    // if we have a task to schedule for this cooldown interval
-                    Task task = pq.poll();
+                    Task task = pq.poll();    // removing task also makes sure, it doesn't get picked up again in this cycle
                     res.add(task.id);
                     task.cnt--;               // decr freq
                     if (task.cnt > 0) cooldownTasks.add(task);  // add newly scheduled task to cooldown

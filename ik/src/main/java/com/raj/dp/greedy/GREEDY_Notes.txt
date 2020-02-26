@@ -1,0 +1,5 @@
+https://www.geeksforgeeks.org/greedy-algorithms/
+
+# Kruskal's MST: https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+# Huffman Code: https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
+
