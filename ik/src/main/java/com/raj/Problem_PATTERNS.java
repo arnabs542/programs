@@ -12,6 +12,9 @@ public class Problem_PATTERNS {
      * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect
      * @see com.raj.sorting.KNearestNeighbors
      *
+     * [ARRAYS]
+     * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
+     *
      * [BST]
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
      *

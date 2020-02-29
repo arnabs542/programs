@@ -51,7 +51,7 @@ public class FileReaderHelper {
 
     public void readWords() {
 
-        File file = new File("E:\\workspace-intellij\\algos\\crackingcodinginterview\\resource\\full_list.txt"); //linux.words //Unabr.dict
+        File file = new File("linux.words");
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

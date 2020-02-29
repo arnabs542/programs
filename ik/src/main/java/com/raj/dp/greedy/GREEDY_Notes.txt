@@ -1,5 +1,7 @@
 https://www.geeksforgeeks.org/greedy-algorithms/
 
 # Kruskal's MST: https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+  -> Uses Disjoint Sets
 # Huffman Code: https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
+  -> If input is sorted, we can do a 2 Queue approach to reduce runtime from O(nlogn) to O(n) : https://www.geeksforgeeks.org/efficient-huffman-coding-for-sorted-input-greedy-algo-4/
 
