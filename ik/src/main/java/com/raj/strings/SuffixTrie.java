@@ -26,8 +26,8 @@ public class SuffixTrie {
      * Suffix Tree being Trie of all Suffixes can help with doing lookups of substrings
      * Clue is "finding substring" or when you are looking for something in middle - Suffix Tree may be used.
      *
-     * # Intuition
-     * Remember every substring is a string is a Prefix of a Suffix:
+     * # Intuition:
+     * Remember every substring of a string, is a Prefix of a Suffix of that string:
      * Say, suffixes of ABC => ABC, BC, C ...
      * -> If we build a Trie of all the above suffixes, we can find all substrings:
      *   - A & AB (which is a prefix of suffix ABC)
@@ -71,27 +71,27 @@ public class SuffixTrie {
      *   - Remember it's more powerful than Prefix Tree as it allows you to search any substr while Prefix allows only with starting char
      *   - Even Prefixes can be searched as well.
      *
-     * -> Finding the longest repeated substring
+     * -> Finding the longest repeated (common) substring in a string
      *   - Find the deepest internal node in the tree, where depth is measured by the number of characters traversed from the root.
      *   - The string spelled by the edges from the root to such a node is a longest repeated substring.
      *   - Simple DFS w/ some modification to track size of strSoFar length when number of childs is greater than 1 (which implies repetition)
      *   - https://en.wikipedia.org/wiki/Longest_repeated_substring_problem
      *
-     * -> Finding the most repeated substring
+     * -> Finding the most or 'at least k times' repeated substring
      *   - A variant of above, where we just track the DFS call that returns str w/ at least length 2 & has maximum number of '$'
-     *   - Another variant could be to return most repeated substring with length greater than k. Then we just modify length criteria in above.
+     *   - Another variant could be to return most repeated substring with length greater than n. Then we just modify length criteria in above.
      *
-     * -> Finding the longest common substring
+     * -> Finding the longest common substring b/w given strings
      *   - Same as longest repeated substring, just that u got 2 strings as argument
-     *   - Build a generalized Suffix Tree w/ all given strings
+     *   - Build a generalized Suffix Tree w/ all given strings. Use '$' & '#' to denote the end of strings respectively. Refer to SubstrSearch_Generalized_SuffixTree.jpg
      *   - Find the deepest internal nodes which have leaf nodes from all the strings in the subtree below it.
      *   - A node that gets both '$' & '#' from dfs & has longest length is the answer
      *   - Can be used for plagiarism detection - https://en.wikipedia.org/wiki/Longest_common_substring_problem
      *
      * -> Finding the longest palindrome in a string
-     *   - Similar to above, build a Suffix Tree using the string & it's reverse. Now we need to just find LCSubstring.
+     *   - Similar to above, build a Suffix Tree using the string & it's reverse. Now we need to just find longest common/repeated Substring.
      *   - Apply the same logic to find the deepest internal node that has both strings leaves ending in '$' & '#'.
-     *   - Edge case - what if the reverse str also exists in the string. Make sure the LCS is at the same index.
+     *   - Edge case - what if the reverse str also exists in the string. Make sure the LCS is at the same indices.
      *   - https://stackoverflow.com/questions/7043778/longest-palindrome-in-a-string-using-suffix-tree
      *   - Another solve is "expand around center" - com.raj.strings.LongestPalinSubstr
      *

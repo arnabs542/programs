@@ -21,7 +21,7 @@ public class EvalAllPossibleExpr {
      * [1+2+3, 1*2*3]
      */
     public static void main(String[] args) {
-        _permute("123", "", 0, 6, 0, 0);
+        _permute("123", "", 0, 6, 0, 0);  // level for debug
         System.out.println(res + "\n\n"); res.clear();
 
         permute("123", 0, "", 0, 6, 0, 0);
@@ -72,6 +72,9 @@ public class EvalAllPossibleExpr {
         }
     }
 
+    /**
+     * Optimal as it uses ptr instead of building strings everytime
+     */
     static void permute(String s, int i, String soFar, long valueSoFar, long target, long prev, int level) { // level is for debug print
         System.out.println(level + " -> " + soFar + " = " + valueSoFar);
 

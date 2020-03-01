@@ -24,7 +24,7 @@ public class BoggleSolver {
          * Also, once we found a word we remove it from the HashMap so as to avoid its duplicate match.
          * Now, consider a cell (i,j) as the first character when we are building our word. First move we can move to 8 directions.
          * For next move we only have 7 directions as one direction of the 8 possible direction will be the previous visited cell.
-         * So, from this point on we will be having 7 possible directions to visit for the current cell.
+         * So, from this point on we will be having 7 possible directions to visit for the current cell. So, 7 possible dirs for each of the mxn cells.
          * Runtime = O(max_length_of_string * ( dictionaryCount + m*n*(7^max_length_of_string) )
          *  where n denotes the number of strings in given array mat ,
          *  m denotes the length of a string of given array mat ,
@@ -83,7 +83,7 @@ public class BoggleSolver {
         if (node == null) return;
         if (node.isWord) {
             StringBuilder sb = new StringBuilder();
-            soFar.forEach(x -> sb.append(x));
+            soFar.forEach(sb::append);
             words.add(sb.toString()); // valid word found
             trie.removeStr(sb.toString());  // remove from trie to prune dfs branches later
         }

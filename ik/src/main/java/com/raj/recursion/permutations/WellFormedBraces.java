@@ -9,6 +9,18 @@ import java.util.Set;
  */
 public class WellFormedBraces {
 
+    /**
+     * Write a function to generate all possible n pairs of balanced parentheses.
+     *
+     * Examples:
+     * Input : n=1
+     * Output: {}
+     *
+     * Input : n=2
+     * Output:
+     * {}{}
+     * {{}}
+     */
     public static void main(String[] args) {
         System.out.println(Arrays.toString(find_all_well_formed_brackets(3)));
     }

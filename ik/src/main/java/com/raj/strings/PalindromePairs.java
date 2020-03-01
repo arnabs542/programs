@@ -103,6 +103,7 @@ public class PalindromePairs {
     }
 
     /**
+     * [HashMap approach]
      * We are doing full text matches in Trie above. We just need a constant time lookup which can also be done via hashmap
      * # "dog", "cat", "racee", "ma", "dam", "car", "god" --> put them in set
      * # Iterate thru each word in set, reverse it and go left to right one char at a time creating a prefix | suffix split for word

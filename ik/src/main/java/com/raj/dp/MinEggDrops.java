@@ -30,23 +30,24 @@ public class MinEggDrops {
      * If we had infinite supply of eggs then binary search is the best method.
      *
      * Also, if the problem was to find the minimum number of eggs(instead of given K eggs as constraint), then yes this
-     * approach will work - In worst case eg, for 100 floors, log2(100) = 6.99999 ~ 7 eggs to find the highest floor.
+     * approach will work - In worst case eg, for 100 floors, log2(100) = 6.99999 ~ 7 eggs to find the highest floor. But
+     * our objective is to find min attempts to find the highest floor from where egg doesn't break.
      *
-     * # We are left with "trying each floor one at a time & computing what's the minimum attempts for it recursively".
+     * # We are left with "trying every floor, one at a time & computing what's the minimum attempts for it recursively".
      *                f(n,k)
      *               /  |     \
      *              1   2 ..   n              ... we try each floor starting from 1,2...n
      *                      /       \
-     *                  break       no break  ... for each of the floor, 2 cases arise
-     *               f(n-1,k-1)     f(n-1,k)  ... as all eggs are intact & one less floor to cover
+     *                  break       no break  ... for ith floor, 2 cases arise
+     *               f(n-1,k-1)     f(n-i,k)  ... as all eggs are intact & we just need to cover n-i floors
      *              /        \
-     *          f(n-2,k-2)  f(n-2,k-1)  ....
+     *          f(n-2,k-2)  f(n-i',k-1)  ....
      *
      * for each floor n <- 1 to N,
      *   num attempts floor n = 1 + max[f(n-1, k-1), f(n-1, k)]  ... include/exclude egg break & take the MAX of attempts as we'll have to ensure full coverage
      * return min (all floor attempts)
      *
-     * Recurrence =>  min(min, max(f(n-1, k-1), f(n-1, k))) for floor 1...N
+     * Recurrence =>  min(min, max(f(n-1, k-1), f(n-i, k))) for floor i=1...N
      *
      * Time = O(bf ^ height of tree) = O(2^n)
      */
@@ -57,11 +58,11 @@ public class MinEggDrops {
 
         // recursive case
         int minAttempts = Integer.MAX_VALUE;
-        for (int i = 1; i <= N; i++) {        // we are dropping an egg from ith floor
-            int attempts = 1 + Math.max(      // add 1 for this attempt
+        for (int i = 1; i <= N; i++) {         // we are dropping an egg from ith floor
+            int attempts = 1 + Math.max(       // add 1 for this attempt, we want max as for this floor the attempts is the max(break,no_break) scenarios
                     rec(i-1, K-1),      // exclude this egg - egg breaks, so try i-1 lower floors
-                    rec(N-i, K));          // include this egg - egg doesn't break, so try higher n-i floors
-            minAttempts = Math.min(minAttempts, attempts);
+                    rec(N-i, K));          // include this egg - egg doesn't break, so (n-i) higher floors left to try
+            minAttempts = Math.min(minAttempts, attempts);  // we want to get min attempts from trying every floor separately
         }
         return minAttempts;
     }

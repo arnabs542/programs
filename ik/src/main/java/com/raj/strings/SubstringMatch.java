@@ -28,24 +28,6 @@ public class SubstringMatch {
     }
 
     /**
-     * Using Suffix Trie -  https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
-     * Building a Trie of Suffixes
-     * 1) Generate all suffixes of given text.
-     * 2) Consider all suffixes as individual words and build a trie.
-     *
-     * Let us consider an example text “banana$”. Following are all suffixes of “banana”
-     * banana$
-     * anana$
-     * nana$
-     * ana$
-     * na$
-     * a$
-     * $
-     *
-     * 3) Now Search the pattern in above suffix tree - O(m) w/ building tree as O(n) cost & space
-     */
-
-    /**
      * Rolling Hash Sliding Window - Rabin Karp Algo
      * # Compute Hash for substr using prime num & digits place significance (i* prime^0 + i* prime^1 + i* prime^2 ...)
      * # Iterate & keep calculating hash for window of size substr
@@ -57,7 +39,7 @@ public class SubstringMatch {
      *          => substr = (3*3^0)+(4*3^1)+(5*3^2) = 60
      *          => text(0..2) = 2+3*3+4*9 = 47, text(1..3) = (47-2)/3 + 5*9 = 60 (which is a match, we double confirm by iterating substr w/ matched text portion)
      * Runtime = hash is O(1), avg case = O(n) + O(m) = O(n)
-     *                         worst case = O(nm), if hash is poor & collisions cause each text's substr to match given substr
+     *                         worst case = O(nm), if hash is poor & collisions cause each of text's substr to match given substr
      */
     static int rabin_karp(String text, String substr) {
         int prime = 101;
@@ -82,12 +64,32 @@ public class SubstringMatch {
          * Other problems that can be solved using Rolling Hash Pattern:
          * -> Given two strings A and B, and a number X find if they have a common sequence of length X.
          *    eg. ABCD, XBCY, len = 2
+         *    - compute X length hashes & store in map, iter second & check if X length hash matches => O(n)
          * -> Given two strings, find out if one is a rotation of the other.
          *    eg. ABCD, DABC (compute hash of 2 letters & slide ?)
          * -> Keep two files on disk in sync, by copying only the deltas.
          */
 
     }
+
+    /**
+     * Using Suffix Trie -  https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
+     * Building a Trie of Suffixes
+     * 1) Generate all suffixes of given text.
+     * 2) Consider all suffixes as individual words and build a trie.
+     *
+     * Let us consider an example text “banana$”. Following are all suffixes of “banana”
+     * banana$
+     * anana$
+     * nana$
+     * ana$
+     * na$
+     * a$
+     * $
+     *
+     * 3) Now Search the pattern in above suffix tree - O(m) w/ building tree as O(n) cost & space
+     */
+
 
     /**
      * Other linear time algos: https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/

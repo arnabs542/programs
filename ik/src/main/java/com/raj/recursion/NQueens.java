@@ -41,6 +41,7 @@ public class NQueens {
      */
     public static void main(String[] args) {
         System.out.println(Arrays.deepToString(find_all_arrangements(4)));
+        _find_all_arrangements(4);
     }
 
     /**
@@ -67,6 +68,35 @@ public class NQueens {
                 dfs(A, row+1, res);
             }
         }
+    }
+
+    /**
+     * Simpler to understand
+     * # We place first Queen in a column(0..n) & start recursion for rest. If this rectree yields true, we have a solution.
+     * # In the recursion code:
+     *   - Base case: if we are done placing all queens or rows=4, return true
+     *   - Rec case: try placing in each of the n cols, and see if recursively placing others yields true, return true.
+     *     Else return false.
+     */
+    static void _find_all_arrangements(int n) {
+        int[] board = new int[n];   // instead of using 2D grid of booleans, we can represent just the queen's position by using 1D array A[row]=col
+        Arrays.fill(board, -1);
+        for (int col = 0; col < board.length; col++) {
+            board[0] = col; // make a choice & start recTree
+            if (place(board, 1)) System.out.println(Arrays.toString(board));
+            board[0] = -1;
+        }
+    }
+
+    static boolean place(int[] board, int row) {
+        if (row == 4) return true;  // all rows done
+        for (int col = 0; col < board.length; col++) {
+            if (isValid(board, row, col)) {
+                board[row] = col;
+                if (place(board, row+1)) return true;
+            }
+        }
+        return false;
     }
 
     /**

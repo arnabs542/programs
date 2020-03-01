@@ -12,6 +12,9 @@ import java.util.Stack;
  */
 public class Permute {
 
+    /**
+     * Print all permutations of an array
+     */
     public static void main(String[] args) {
         permute(new int[]{1,2,3}, 0, new Stack<>());  // no repetitions of elements in input array
         permute(new int[]{1,2,2}, 0, new Stack<>());  // repetitions yields dupe results
@@ -31,8 +34,8 @@ public class Permute {
      *  12,3  13,2  21,3  23,1  ...  n x n-1 (for each of prev n leaf, there are n-1 more leaf)
      *            => complexity = n!
      *
+     * O(n!) time complexity, O(n) extra space
      */
-    // O(n!) time complexity, O(n) extra space
     static void permute(int[] arr, int i, Stack<Integer> slate) {
         if (i == arr.length) {
             System.out.println(slate);
@@ -44,6 +47,7 @@ public class Permute {
             // arr - > 0...i-1 | i....n  , ignore until i-1 as it's done
             Util.swap(arr, i, j);   // swap & bring j to front
             slate.push(arr[i]);      // add to slate
+
             permute(arr, i+1, slate);    // now recurse on remaining which is i+1 th
 
             // revert

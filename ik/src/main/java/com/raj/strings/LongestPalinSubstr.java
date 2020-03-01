@@ -6,7 +6,7 @@ public class LongestPalinSubstr {
      * Find the Longest Palindromic Substring (contiguous chars)
      */
     public static void main(String[] args) {
-        System.out.println(bruteForce("abcbabcbcdddd"));
+        System.out.println(bruteForce("abcbabcbcdddd"));  //o/p = bcbabcb
         System.out.println("Longest Palin = " + quadratic("abcbabcbcdddd"));
     }
 

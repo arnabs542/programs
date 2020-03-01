@@ -2,7 +2,7 @@ package com.raj;
 
 import com.raj.dp.WeightedJobSchedule;
 
-public class Problem_PATTERNS {
+public class PROBLEM_PATTERNS {
 
     /**
      * --- Legend ---
@@ -10,19 +10,35 @@ public class Problem_PATTERNS {
      *
      * [SORTING]
      * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect
-     * @see com.raj.sorting.KNearestNeighbors
+     * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect
      *
      * [ARRAYS]
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
      *
-     * [BST]
+     * [STRING]
+     * @see com.raj.strings.PalindromePairs - Trie + Reverse lookup / Map + Reverse lookup
+     * @see com.raj.strings.SubstringMatch - Naive N^2 >> RabinKarp/RollingHash algo >> SuffixTrie
+     * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin
+     *
+     * [TREES]
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
+     *
+     * [RECURSION]
+     * @see com.raj.recursion.NQueens - Fundamentals
+     * @see com.raj.recursion.combinations.SubsetSum - include/exclude i (using ptrs)
+     * @see com.raj.recursion.permutations.EvalAllPossibleExpr - form incremental str & recurse on 2 options: '+' & '*'
+     * @see com.raj.recursion.permutations.Permute - use slate w/ swaps >> use ptrs
+     *
+     * [GREEDY]
+     * @see com.raj.dp.greedy.JobSequence
+     * @see com.raj.dp.greedy.ActivitySelection
+     * @see com.raj.dp.greedy.TaskScheduler
      *
      * [DP]
      * Types of problems:
      * 1> Fibonacci/Factorial/LIS - count ways, rod cut
-     * 2> Subset / Knapsack - subset sum
-     * 3> Grid / Matrix - max sum path
+     * 2> Subset/Knapsack - subset(include/exclude) sum
+     * 3> Grid/Matrix - max sum path
      * 4> Strings
      * @see com.raj.dp.CountWays - Simple counting
      * @see com.raj.dp.MinCoinChange - Counting + Minimizing change

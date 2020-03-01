@@ -26,9 +26,9 @@ public class Subsets {
      *
      *                      1234
      *                      /    \
-     *                  1,234      x,234      2 leaf  (2x branching factor)
+     *                  1,234      x,234       ...2 leaf  (2x branching factor)
      *               /    \         /   \
-     *            12,34  1,34     2,34  x,34   4 leaf
+     *            12,34  1,34     2,34  x,34   ...4 leaf
      *
      * => 2^n leaf nodes, which will print the nodes, hence that's our time complexity = O(n.2^n), n to print slate if printing does iterations
      * Time complexity of the above solution is exponential. The problem is in-fact NP-Complete (There is no known polynomial time solution for this problem)
