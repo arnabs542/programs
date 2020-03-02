@@ -138,8 +138,7 @@ public class LongestPathWeightedDAG {
                     if (dist[w.id] == Integer.MIN_VALUE) {
                         dist[w.id] = w.wt;
                         parent[w.id] = v;
-                    }
-                    else {
+                    } else {
                         long newDist = dist[v] + w.wt;
                         if (newDist > dist[w.id]) {
                             dist[w.id] = newDist;

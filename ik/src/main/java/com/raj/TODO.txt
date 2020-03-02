@@ -3,6 +3,5 @@
 
 # Segment Trees & RMQ : https://oj.interviewkickstart.com/view_editorial/5072/65/
 
-# Fill color like in MS Paint
 # Bipartite Graphs
 # Snake & Ladders Game

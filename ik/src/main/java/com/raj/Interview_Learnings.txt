@@ -1,6 +1,7 @@
 
 === FEW POINTS TO REMEMBER BEFORE AN INTERVIEW ===
 01. TIME THE INTERVIEW - Start a STOP WATCH.
+    -> Need time to write code, run, debug, test etc else you fail the interview.
 02. ASK FOR AN INPUT & OUTPUT FOR THE GIVEN QUESTION.
     -> This is bare minimum the interviewer should provide.
 03. Read the question few times.

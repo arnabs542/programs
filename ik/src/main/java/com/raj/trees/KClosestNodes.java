@@ -69,7 +69,7 @@ public class KClosestNodes {
      * # Once full, pop if the incoming node has lower diff.
      * # Stop when incoming node doesn't add to heap (means this & further nodes will be of greater diff)
      * Time = O(k + (n-k)log k) ...k to fill up heap. n-k nodes remain to traverse, each time we may add to heap at logk cost.
-     * Space = O(k + log n) ...k for heap & log n for BST search rec stack
+     * Space = O(k + height_of_tree) ...k for heap & height of tree for BST search rec stack
      */
     static List<Double> subOptimal(Node n, double T, int K) {
         List<Double> res = new ArrayList<>();

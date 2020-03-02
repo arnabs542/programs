@@ -174,7 +174,8 @@ public class BST {
     }
 
     /**
-     * O(log n) complexity as it keeps excluding half subtree at each node
+     * O(log n) complexity as it keeps excluding half subtree at each node, if balanced tree
+     * O(height_of_tree) is a better way to express as even for degenerate trees(linked list type), it will hold true
      */
     public boolean lookup(Node n, int data) {
         if (n == null) return false;
