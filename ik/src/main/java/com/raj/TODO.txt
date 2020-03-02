@@ -2,6 +2,3 @@
 # https://www.careercup.com/question?id=14804692
 
 # Segment Trees & RMQ : https://oj.interviewkickstart.com/view_editorial/5072/65/
-
-# Bipartite Graphs
-# Snake & Ladders Game
