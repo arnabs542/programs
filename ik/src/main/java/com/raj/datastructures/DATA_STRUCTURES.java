@@ -1,4 +1,4 @@
-package com.raj;
+package com.raj.datastructures;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

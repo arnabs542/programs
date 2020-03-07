@@ -31,3 +31,17 @@
     -> Negative test cases
        - Negative values, space, special chars etc
     -> One complex / big test case
+
+
+=== THINGS TO IMPROVE ===
+01. TIME MANAGEMENT
+    -> running short of time & the biggest issue so far, failing to run code/test thoroughly is costing points.
+    -> Practice with stopwatch.
+02. Fully ENGAGE with the interviewer
+    -> Answering Side Questions during interview in a manner that satisfies them completely.
+    -> eg. What can be said about ...?
+    -> Stating things to very minute detail - eg. complexity of BST - O(logn) vs correct O(height of tree)
+    -> Need to thoroughly understand/solve in head & focus w/ clear mind to be able to answer completely.
+03. Missing Base/Obvious Cases
+    -> For a recursive problem/tree, can't afford to miss Base cases.
+    -> eg. missed if n==null, return <> for tree problem, while everything else was correct.

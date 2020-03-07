@@ -25,12 +25,25 @@ public class DiameterTree {
         System.out.println("Diameter passing thru root = " + findDiameter(root));
         System.out.println("The diameter of given binary tree in O(n) : " + diameter(root));
 
+        maxSum(root); System.out.println("maxSum : " + max);  // simplest
+
         System.out.println("======================");
 
         // modify existing tree to make the right subtree's left & right child 10X far apart than earlier
         root.right.left = new Node(60); root.right.right = new Node(90);
         System.out.println("Diameter NOT passing thru root = " + findDiameter(root));
         System.out.println("The diameter of given binary tree in O(n) : " + diameter(root));
+
+        maxSum(root); System.out.println("maxSum : " + max);
+
+        System.out.println("======================");
+
+        root = new Node(-10); root.left = new Node(9); root.left.left = new Node(5);
+        root.left.right = new Node(-6); root.right = new Node(-20);
+        max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
+
+        root.left = new Node(-9); root.left.left = new Node(5);
+        max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
     }
 
     /**
@@ -93,6 +106,25 @@ public class DiameterTree {
         public Node(int d) {
             dist = d;
         }
+    }
+
+    /**
+     * Coupang: "Given a tree, find the max path sum, which originates from leaf & which may or may not pass through the root."
+     * Most elegant solution in O(n), using global ptr max (u can as well make it as a class variable and have the actual impl inside it)
+     *          -10
+     *        9     -20     (also try with -9)
+     *     5   -6
+     */
+    static int max = Integer.MIN_VALUE;
+    static int maxSum(Node n) {
+        if (n == null) return 0;
+        int left = maxSum(n.left);
+        int right = maxSum(n.right);
+        int max_of_subtrees = Math.max(left, right);  // max of left or right subtree
+        int max_incl_root = left + right + n.dist;    // max including this root node
+        //int max_at_node = Math.max(max_incl_root, max_of_subtrees);   // max at this node (this may not be a right answer as it may not be a full path)
+        max = Math.max(max, max_incl_root);   // update global max using full paths only (hence, had to comment above max)
+        return n.dist + max_of_subtrees;    // but return only the max_of_subtrees + this node's dist
     }
 
 }

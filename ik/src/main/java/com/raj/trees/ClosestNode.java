@@ -6,6 +6,11 @@ public class ClosestNode {
      Given a binary search tree and a target value T. The task is to find the node with minimum absolute
      difference with given target value T.
 
+                  9
+            4          17
+         3     6            22
+             5   7       20
+
      Input  :  T = 4
      Output :  4
 

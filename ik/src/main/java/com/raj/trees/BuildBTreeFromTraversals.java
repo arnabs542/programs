@@ -60,9 +60,10 @@ public class BuildBTreeFromTraversals {
         return root;
     }
 
-    static Map<Character,Integer> map = new HashMap<>();
+    static Map<Character,Integer> map = null;
     static int search(char[] I, int s, int e, char val) {   // O(n) ... can be made O(1) via a hashmap(char val -> idx) lookup
-        if (map != null) {
+        if (map == null) {
+            map = new HashMap<>();
             for (int i = 0; i < I.length; i++) {
                 map.put(I[i], i);
             }

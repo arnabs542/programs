@@ -1,0 +1,86 @@
+=== BEHAVIORAL INTERVIEWS ===
+# Interviewer is looking for red flags on these questions
+
+# Pattern of Likability:
+  - Curious
+  - Humility
+  - Hard Work
+  - Conscientiousness
+
+# S.T.A.R. Method:
+  - Answer most questions by:
+    * Situation - describe it
+    * Task - the task performed
+    * Action - you took
+    * Result - achievements / impact
+
+# Tell me about yourself:
+  - 1 min pitch w/ highlights
+  - Start w/ most recent projects & then go back
+  - End w/ what u are looking for
+
+# Recognizing Tone from "Tell me about X questions":
+  - A difficult situation / Weakness / Area of Improvement - Remain neutral, very subtle sell, describe lesson learnt
+  - A interesting/challenging project / strengths / tell me abt yourself - Sell yourself
+
+# Direct Questions:
+  - First answer the question than give too much details. Then add detail, if interviewer is interested.
+
+# Describe a challenging project:
+  - For each of ur company(maybe they are interested in particular company or domain) prepare:
+    * Most technically challenging project
+      - Rollups scratch
+      - Dedupe Storm
+      - Rollups revamp incremental
+      - Ads Item Store caching: Real time streaming+batch pipeline
+      - Composite Vector Embedding Data Pipeline
+      - SBA enhancements
+    * Most situationally challenging project
+      - Timeline changes, resource & time constraints, conflicting priorities
+      - Don't talk abt individuals
+    * Struggled & Lesson learnt
+      - Failed at first, then learnt/improvised & succeeded later
+
+# Why leave?
+  - Remain neutral about leaving, dnt talk abt bad people/managers/pay etc
+  - Go Positive abt future w/ new company: Talk about learning new things, strengths of new company, its scale, products you like etc
+
+# Why join us? research abt company & talk abt good points, projects u want to work with
+  - Refrain from saying better work life balance as it sends wrong signal abt you being lazy
+
+# Why should we hire you?
+  - Talk abt strengths
+  - What are they looking for?
+    * Are you curios: learn new things
+    * Accountable: ownership
+    * Good judgement
+
+# What is your weakness?
+  - Be neutral
+  - Don't convert a strength into weakness like "I work too hard" or "I'm detail oriented"
+  - Wasn't good at doing code reviews or some language/tech stack, but improved on it
+  - Not being a good public speaker, but improving
+  - Believe others too easily
+  - https://www.quora.com/How-do-I-answer-in-an-interview-when-asked-what-is-your-weakness
+
+# How did you resolve a conflict?
+  - Conflicts happen. Talk about method of handling conflict not about details of outcome.
+  - Discussion b/w parties, data gathering(pros & cons), consensus building, choose one that best fits the situation
+  - eg. Java vs Scala post Polymorph acquisition & merging of stacks
+
+# Where do you see yourself in 5 yrs?
+  - Talk abt what u want to learn, the impact u want to create
+  - Don't talk abt titles or moving into management, instead say learn more leadership & people management skills
+  - "Hard to say how it wud be 5 yrs down the line, but I'd Improve technical acumen & leadership skills, then wherever I'm, I'll be successful & serve the company in the best possible way"
+
+# Questions to ask:
+  - What is ur development/release process?
+  - How does ur typical day look like?
+  - What do u like abt this company / or don't like?
+
+
+=== DOUBTS ===
+# Should I include brief tenure from a smaller company in resume/linkedin?
+# Staying in IC role vs moving into management role?
+# Do I need to switch after a promotion happens?
+# What's the compensation range expectation from a switch?

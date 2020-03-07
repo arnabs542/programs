@@ -84,8 +84,8 @@ public class KClosestNodes {
         if (n == null) return;
         inorderPQ(n.left, T, K, pq);
         double diff = Math.abs(T-n.val);
-        if (pq.size() < K) pq.add(new E(n.val, diff));
-        else if (diff < pq.peek().diff) {
+        if (pq.size() < K) pq.add(new E(n.val, diff));   // PQ has space, just add
+        else if (diff < pq.peek().diff) {                // PQ is at limit, remove some
             pq.poll();
             pq.add(new E(n.val, diff));
         } else {    // if not adding to heap, it means no need to traverse further as other nodes are definitely higher than this (inorder traverse does a increasing sequence)
@@ -96,7 +96,7 @@ public class KClosestNodes {
 
     /**
      * Optimal: To reduce runtime further, we need to binary search while traversing itself to reach O(logn)
-     * Also, we need to bbe able to get before & next node to get k closest nodes in logn time as well.
+     * Also, we need to be able to get before & next node to get k closest nodes in logn time as well.
      * Basically, the crux of the problem now lies in getting predecessor & successor of a given node.
      * getPredecessor() & getSuccessor() should run in O(height of tree)
      * Time = O(klogn)   ... max k times getSuccessor() / getPredecessor()
