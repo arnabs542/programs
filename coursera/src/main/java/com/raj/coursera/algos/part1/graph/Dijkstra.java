@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Naive O(mn) implementation. Look at DijkstraHeap for a more elegant/ efficient implementaion of Dijkstra's algorithm.
+ * Naive O(mn) implementation. Look at DijkstraHeap for a more elegant/ efficient implementation of Dijkstra's algorithm.
  */
 public class Dijkstra {
 
@@ -20,12 +20,12 @@ public class Dijkstra {
     private Node[] graph;
 
     Dijkstra() {
-        Q = new LinkedList<Node>();
+        Q = new LinkedList<>();
     }
 
-    public static void runProgram() throws InterruptedException {
+    public static void runProgram() {
 
-        List<String> inputList = FileReaderHelper.read("E:\\workspace-intellij\\algos\\coursera\\resource\\dijkstraData.txt", false);
+        List<String> inputList = FileReaderHelper.read("dijkstraData.txt", false);
 
         Dijkstra dijkstra = new Dijkstra();
         dijkstra.createGraph(inputList);

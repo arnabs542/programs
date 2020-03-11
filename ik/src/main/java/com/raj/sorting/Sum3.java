@@ -12,8 +12,15 @@ public class Sum3 {
         System.out.println(Arrays.toString(findZeroSum(new int[]{-2, 2, 0, -2, 2})));
         System.out.println(Arrays.toString(findZeroSum(new int[]{10, 3, -4, 1, -6, 9})));
     }
-    /*
-     * Complete the function below.
+
+    /**
+     * Similar to 2 Sum problem where we find A + B = T,
+     * Here, we have to find A + B + C = 0 which also means A + B = -C
+     * So, we find a pair which adds upto -C.
+     * For each element i in arr, set target sum as -(arr[i])
+     * Using map, find it's pair which adds upto target sum above
+     *
+     * Time = O(n^2)
      */
     static String[] findZeroSum(int[] arr) {
         // Write your code here.
@@ -22,7 +29,7 @@ public class Sum3 {
         Set<String> res = new HashSet<>(); // eliminates dupes in res
         List<Integer> resTmp = new ArrayList<>();
         // Iterate and for each i, check if a pair adds upto -i in O(n) time using HashMap
-        // O(n^2) runtime, O(n^2) space
+        // O(n^2) runtime, O(n) space
         for (int i=0; i<arr.length; i++) {  // O(n)
             Map<Integer,Integer> map = new HashMap<>();
             int targetSum = -1*arr[i];

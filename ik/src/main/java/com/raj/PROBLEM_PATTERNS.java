@@ -21,7 +21,9 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin
      *
      * [TREES]
+     * @see com.raj.trees.ClosestNode - Minimize diff as we traverse
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
+     * @see com.raj.trees.DiameterTree - Maximize paths that originate & end in leaf
      *
      * [RECURSION]
      * @see com.raj.recursion.NQueens - Fundamentals

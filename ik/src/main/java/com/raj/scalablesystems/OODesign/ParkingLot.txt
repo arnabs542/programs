@@ -1,14 +1,33 @@
 === Parking Lot Design ===
 
 Classes:
+
+# ParkingSpace
+  - id
+  - floor
+  - type : Compact, Full, Access
+  - ticket_id
+
+# Ticket
+  - id
+  - license_plate_no
+
 # EntranceExitConsole
   - notifyNewCar()
-  - issueTicket()
+    * Camera registers an entering vehicle, can read license plate
+  - issueTicket():
+    * given car type, we can have 3 Queues for vacant spots - compact_queue, full_queue, vacant_queue
+    * now just input car type, license plate & poll a spot from corresponding queue - O(1), no search required
+    * assign a ticket_id & set it into ParkingSpace object
+    * Also, store this into occupied_spaces map of <Ticket.id,ParkingSpace.id>
   - openBarrier()
   - exit&pay()
+    * given ticket.id, remove it from occupied_spaces map & push it into it's vacant_queue type
+    * charge credit card & settle ticket
 1
 |
 *
 # ParkingLotManager
   - handleEntranceWorkflow()
   - handleExitWorkflow()
+

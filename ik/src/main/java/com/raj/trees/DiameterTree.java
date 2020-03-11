@@ -114,16 +114,33 @@ public class DiameterTree {
      *          -10
      *        9     -20     (also try with -9)
      *     5   -6
+     *
+     * Rec Seq:
+     * - go left, node 5 returns 5
+     * - node 9 has a choice to make:
+     *   - pick max of (5,-9) = 5
+     *   - try a path including this node 5,9,-6 = 8 => update in max as we have a full path here
+     * - node 9 returns max of left&right + it's value viz. 5+9
+     * - root node -10 has following choices:
+     *   - left=14,right=-20, it will return 14+ -10 back (which has no effect as rec terminates)
+     *   - path with left & right subtree including itself viz. 5,9,-10,-20 = -16 (updating max has no effect)
+     * - print global max
+     *
      */
     static int max = Integer.MIN_VALUE;
+
     static int maxSum(Node n) {
         if (n == null) return 0;
-        int left = maxSum(n.left);
-        int right = maxSum(n.right);
-        int max_of_subtrees = Math.max(left, right);  // max of left or right subtree
-        int max_incl_root = left + right + n.dist;    // max including this root node
+
+        int leftSum = maxSum(n.left);
+        int rightSum = maxSum(n.right);
+
+        int max_of_subtrees = Math.max(leftSum, rightSum);  // max of left or right subtree
+        int max_incl_root = leftSum + rightSum + n.dist;    // max including this root node
+
         //int max_at_node = Math.max(max_incl_root, max_of_subtrees);   // max at this node (this may not be a right answer as it may not be a full path)
         max = Math.max(max, max_incl_root);   // update global max using full paths only (hence, had to comment above max)
+
         return n.dist + max_of_subtrees;    // but return only the max_of_subtrees + this node's dist
     }
 

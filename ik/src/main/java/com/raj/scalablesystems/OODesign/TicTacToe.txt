@@ -17,53 +17,32 @@ Follow general REST API thought design guidelines
 
 =========================================
 
-# Classes:
+Classes:
 
-User - user playing history, logins, wins, scores etc
+# User - user playing history, logins, wins, scores etc
 
+# Board - int[][] grid, place(row,col), isGameOver()
 
+# Player - name, State{WIN,LOSE,DRAW,IN_PROGRESS} (composition)
 
-Board - int[][] grid, place(row,col), isGameOver()
-
-
-
-Player - name, State{WIN/LOSE/DRAW/IN_PROGRESS} (composition)
-
-
-
-Game - composition of a Board, 2 Players & State  (State pattern)
-
-Board b, Player A, Player B, int game_id, State state
-
-game_id = create_game(), State = play(row,col)
+# Game - composition of a Board, 2 Players & State  (State pattern)
+  - State - Finite States Enum {IN_PROGRESS,INVALID_MOVE,OVER}
+  - init():
+    Board b, Player A, Player B, int game_id, State state
+    game_id = create_game(), State = play(row,col)
 
 
-
-State - Finite States Enum {WIN / LOSE / OVER / DRAW / IN_PROGRESS / INVALID_MOVE}
-
-
-
-# REST API:
+# REST API(s):
 
 * Create Player
-
-POST /game/player/{name}  return player_id
-
-GET /game/{player_id}  return name, score
-
-
+POST /game/player/{name}  ... return player_id
+GET /game/{player_id}     ... return name, score
 
 * Create Game Session
-
-POST /game  return game_id
-
-GET /game/{game_id}  return board state, players, scores
-
-DELETE /game/{game_id}
-
-
+POST /game              ... return game_id
+GET /game/{game_id}     ... return board state, players, scores
+DELETE /game/{game_id}  ... remove game
 
 * Play Turn by a player
-
-PUT /game/{game_id}/{player_id}/{row}/{col}  return Game STATE & Player State
+PUT /game/{game_id}/{player_id}/{row}/{col}  ... compute & return Game STATE, plus Player State to be displayed on Client Browser Screen
 

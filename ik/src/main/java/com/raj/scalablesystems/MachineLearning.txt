@@ -5,8 +5,8 @@ Maverick Lin, Operations Research Undergrad. Former D1 Athlete.
 
 Some excerpts:
 
-Machine learning - The high level and most commonly accepted definition is: machine learning is the ability for computers to learn and act
-without being explicitly programmed.
+Machine learning - The high level and most commonly accepted definition is: machine learning is the ability for computers
+to learn and act without being explicitly programmed.
 
 Supervised learning is when you have knowledge of the input (X) and the output (Y), then you “supervise” the program in
 predicting the right outcome via trial and error.

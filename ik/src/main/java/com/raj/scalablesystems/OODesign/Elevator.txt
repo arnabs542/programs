@@ -5,15 +5,20 @@ Cur Floor : 4
 Manager   : 6,8,3,5,5,2 (order in which floors are requested)
 UP  Queue : 5,6,8  (Queue w/ some priority => MinHeap)
 DN  Queue : 3,2    (MaxHeap)
+=> Now, elevator will stop at floors 5,6,8
 
 # ElevatorManager (@OneToMany Elevator - can handle multiple elevators)
   - Elevator[] elevators
   - handleFloorRequest()
   - AssignmentStrategy
 
+* Pressing from inside or outside has the same effect, elevator stops. So we can treat it same.
+
 => Elevator manager can handle cases such as:
-* If Elevator is going UP & a lower floor is pressed from inside, it will assign request to DOWN Queue & continue moving UP
-* If Elevator is going UP & a lower floor summon is made from outside, it will assign request to DOWN Queue & continue moving UP
+* If Elevator is going UP & a higher floor requested than current, it will assign request to UP Queue & continue moving UP
+* If Elevator is going UP & a lower floor requested, it will assign request to DOWN Queue & continue moving UP
+* If Elevator is going UP & a lower floor requested, it will assign request to DOWN Queue & continue moving UP
+* Any button press from inside will assign to the UP or DN Queue of this elevator only.
 * Handles dupes of same floor request from inside or outside
 * If it has a pool of elevators, then can intelligently handle requests based on strategy
 * LoadBalance strategy will assign request in a round robin fashion(most easy)
@@ -25,16 +30,20 @@ DN  Queue : 3,2    (MaxHeap)
   -> Queue.size()
   -> It can assign some weight to each of these parameter, score for each elevator & then do optimal routing of request to the elevator's UP/DN Queue
 
-(Strategy Pattern assignment)
-# AssignmentStrategy {LoadBalance,Random,EnergySaveOptimalMode,QuickDispatch,PreferentialFloor}
+
+# Elevator Manager
+  - Elevators[]
+  - AssignmentStrategy {LoadBalance,Random,EnergySaveOptimalMode,QuickDispatch,PreferentialFloor} ... Strategy Pattern
+  - assign_floor_requests() using FIFO Queue & depending on strategy
+  - setElevatorStatus(elevator_id)
 
 # Direction {UP,DN}
 
 # Request
   - int Floor
-  - Direction (null if pressed from outside)
 
 # Elevator
+  - id
   - UPPriorityQueue
   - DNPriorityQueue
   - Direction
@@ -48,12 +57,11 @@ DN  Queue : 3,2    (MaxHeap)
   - callEmergency()
   - stop()
 
-
 REST APIs:
 GET /elevators                  ... list of all elevators
 POST /elevators/{id}            ... add an elevator
 PUT /elevators/{id}/{state}     ... take elevator out of order
 DELETE /elevators/{id}          ... remove an elevator
 
-PUT /elevators/request/{floor}/{direction}  ... outside summon
-PUT /elevators/request/{floor}              ... inside press
+PUT /elevators/request/{floor}/{direction}       ... outside summon, elevator manager assigns which elevator
+PUT /elevators/{id}/request/{floor}              ... inside press

@@ -107,6 +107,21 @@ public class JAVA_CODING_MUST_READ {
         });
         // class Point implements Comparable<Point> { public int compareTo(Point p){...} } --> same effect
 
+        /**
+         * Strong vs Weak Ref:https://www.geeksforgeeks.org/types-references-java/
+         * Weak Ref link stays even after object becomes eligible for garbage collection, until jvm decides to finally remove it under memory pressure
+         */
+
+        /**
+         * Static vs Dynamic Lib :
+         *  - Static is when the binary is bundled with prog & it directly has access to it in linking phase.
+         *  - Dynamic linking : Linux/Windows may have single copy at OS level for .dll,.so files & progs just provide address instead of the whole binary
+         *
+         * Static vs Dynamic Binding in Java: https://www.geeksforgeeks.org/static-vs-dynamic-binding-in-java/
+         *  - private,  final and static members (methods and variables) use static binding while for virtual methods (In Java methods are virtual by default) binding is done during run time based upon run time object.
+         *  - Static binding uses Type information for binding while Dynamic binding uses Objects to resolve binding.
+         *  - Overloaded methods are resolved (deciding which method to be called when there are multiple methods with same name) using static binding while overridden methods using dynamic binding, i.e, at run time.
+         */
     }
 
     /**
@@ -160,9 +175,7 @@ public class JAVA_CODING_MUST_READ {
         }
     }
 
-
     static void print(Object o) {
         System.out.println(o);
     }
-
 }
