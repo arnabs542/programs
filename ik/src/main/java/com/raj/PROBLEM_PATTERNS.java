@@ -43,6 +43,7 @@ public class PROBLEM_PATTERNS {
      * 3> Grid/Matrix - max sum path
      * 4> Strings
      * @see com.raj.dp.CountWays - Simple counting
+     * @see com.raj.dp.DiceThrowSum - Complex counting - notice dice,target & dice face loops - follows rec formula exactly
      * @see com.raj.dp.MinCoinChange - Counting + Minimizing change
      * @see com.raj.dp.RodCutMaxProfit - Rod cut
      * @see com.raj.dp.LongestSubsequence - 2 loops / Update counts trying each elemnt from 0...i in inner loop

@@ -37,10 +37,13 @@ public class BipartiteGraph {
 
         for (int i = 0; i < vertexColors.length; i++) { // takes care of disconnected graphs bipartiteness as well
             if (vertexColors[i] == -1) {    // vertex not colored, aka not visited
-                System.out.println("Bipartite ? " + isBipartite(G, i, vertexColors));
-                System.out.println("Colors=" + Arrays.toString(vertexColors));
+                if (!isBipartite(G, i, vertexColors)) {
+                    System.out.println("Graph isn't Bipartite, can't color/divide");
+                    System.exit(0);
+                }
             }
         }
+        System.out.println("Colors=" + Arrays.toString(vertexColors));
     }
 
     /**
