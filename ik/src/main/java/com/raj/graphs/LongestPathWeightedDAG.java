@@ -193,6 +193,8 @@ public class LongestPathWeightedDAG {
      * …………Do following for every adjacent vertex v of u
      * ………………if (dist[v] > dist[u] + weight(u, v))
      * ………………………dist[v] = dist[u] + weight(u, v)
+     *
+     * Note: Same algo can be applied for shortest path in weighted DAG as well.
      */
     static int[] find_longest_path(int dag_nodes, int[] dag_from, int[] dag_to, int[] dag_weight, int from_node, int to_node) {
         if (dag_nodes == 1) return new int[]{1};  // only one node present

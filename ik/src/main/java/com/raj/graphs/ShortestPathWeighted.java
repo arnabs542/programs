@@ -4,7 +4,8 @@ import java.util.*;
 
 public class ShortestPathWeighted {
     /**
-     * Given a DAG with weighted edges, find the shortest weighted path from a source vertex S to destination vertex D.
+     * Given a Graph with weighted edges, find the shortest weighted path from a source vertex S to destination vertex D.
+     * Graph may contain cycles.
      */
     public static void main(String[] args) {
         System.out.println(dijkstra(4, 0, 3, new int[][] {
@@ -74,6 +75,8 @@ public class ShortestPathWeighted {
      *   -> Assuming we pre-built the heap in O(V) amortized cost & we are using Adjacency List (using matrix rep will increase to V^2)
      *   -> Can be further optimized to O(E+VlogV) using Fibonacci Heap as amortized cost for decrease key goes to E instead of ElogV
      * # Space = O(BFS) = O(V+E)
+     *
+     * Note: If the graph is a DAG, we could just do a Topo Sort & arrive at O(V+E) runtime.
      */
     static int dijkstra(int V, int src, int dest, int[][] edges) {
         Graph G = new Graph(V, edges);

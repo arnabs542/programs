@@ -19,7 +19,10 @@ public class WordWrap {
      *
      * Note that we need to ignore the extra white spaces at the end of last line.
      * So, in the last line there will be 0 extra white spaces.
-     * Cost for this configuration = (10 - (3+1+4))^3 + (10 - 3)^3 + (0)^3 = 351
+     * Cost for this configuration (there is cost to extra spaces^3) => 350
+     * Line1: 10 - (3+1+4))^3   ... only 2 spaces at last
+     * Line2: + (10 - 3)^3
+     * Line3: + (0)^3           ... no spaces, zero cost
      *
      * Input 2:
      * words = [abc, cd, e, ijklm], limit = 6
@@ -63,14 +66,23 @@ public class WordWrap {
     static long min;
     static int comp;
 
+    /**
+     * Time = O(2^n) where n is length of list words.
+     * In the above explanation, we notice that for computing result(i), we iterate over all j, i<=j<=n-1, and make the recursive call to find result(j) for all valid j. So,
+     * T(i) = i + (summation over j=i+1 to n-1(T(j)))
+     * It’s similar to problem, Let’s say we have set of n elements and we want to find number of all subsets then that will be 2^n. (https://www.mathsisfun.com/activity/subsets.html)
+     * Similarly we are doing that here for a word to considered in a line or not.
+     * Space = O(n)
+     */
     public static void rec(List<String> words, int i, Stack<String> soFar, int limit) {
         comp ++;
 
         if (i >= words.size()) {
             long cost = 0;
-            for (int j = soFar.size()-1; j >= 0; j--) {
-                int left = j == soFar.size()-1 ? 0 : limit - soFar.get(j).length();
-                cost += Math.pow(left,3);
+            for (int j=0; j<soFar.size(); j++) {
+                if (j != soFar.size()-1) {
+                    cost += (long) Math.pow(limit - soFar.get(j).length(), 3);
+                }
             }
             System.out.println("soFar : " + soFar + ", cost = " + cost);
             min = Math.min(min, cost);

@@ -1,0 +1,44 @@
+# How does Lucene Search works?
+-> Goood video: https://www.youtube.com/watch?v=-f4eotVbuw4
+-> Lucene Search Algo is behind Solr, ElasticSearch technologies
+
+"Lucene creates a big index. The index contains word id, number of docs where the word is present, and the position of
+the word in those documents. So when you give a single word query it just searches the index (O(1) time complexity).
+Then the result is ranked using different algorithms. For multi-word query just take the intersection of the set of files
+where the words are present. Thus Lucene is very very fast."
+
+For Example:
+You want to build a search engine. The world consists of several documents containing words. When entering a textual
+query (several keywords) we would like to get a sorted list of documents in return - the ones that are most relevant to the query.
+
+Let's look at a sample corpus of five documents:
+My sister is coming for the holidays.
+The holidays are a chance for family meeting.
+Who did your sister meet?
+It takes an hour to make fudge.
+My sister makes awesome fudge.
+
+What does Lucene do? Lucene is a full text search library.
+Search has two principal stages: indexing and retrieval.
+
+During indexing, each document is broken into words, and the list of documents containing each word is stored in a list
+called the "postings list".
+
+The posting list for the word "My" is:
+My --> 1,5
+And the posting list for the word "fudge" is:
+fudge --> 4,5
+The index consists of all the posting lists for the words in the corpus.
+Indexing must be done before retrieval, and we can only retrieve documents that were indexed.
+
+Retrieval is the process starting with a query and ending with a ranked list of documents. Say the query is [my fudge].
+(The brackets denote the borders of the query). In order to find matches for the query, we break it into the individual
+words, and go to the posting lists. The full list of documents containing the keywords is [1,4,5]. Because document 5
+contains both words and documents 1 and 4 contain just a single word from the query, a possible ranking is: 5, 1, 4
+(document 5 appears first, then document 4, then document 1).
+
+In general, indexing is a batch, preprocessing stage, and retrieval is a quick online stage, but there are exceptions.
+
+This is the gist of Lucene. The rest of Lucene is (many important) specific bells and whistles for the indexing and retrieval processes.
+
+# Google Search - Crawling, Indexing, Search, PageRank: http://infolab.stanford.edu/~backrub/google.html

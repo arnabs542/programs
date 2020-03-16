@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * @author rshekh1
  */
-public class LargestAreaHistogram {
+public class AreaHistogram {
 
     public static void main(String[] args) {
         System.out.println(findMaxPossibleArea_BruteForce(new long[]{6,2,5,4,5,1,6}, 0 ,6));
