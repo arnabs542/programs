@@ -92,29 +92,23 @@ public class LRUCache {
     }
 
     public void set(int key, int value) {
-        try {
-            if (map.containsKey(key)) {  // if the key already exists, just remove the node from both DS and let the insert happen again at first position
-                queue.remove(map.get(key));
-                map.remove(key);
-            }
-            if (map.size() >= size) {   // if capacity exceeded, remove least recently used from both DS
-                QNode delQNode = queue.removeLast();
-                map.remove(delQNode.key);
-            }
-            // now add to the front and set value
-            QNode node = new QNode(key, value);
-            queue.addFirst(node);
-            map.put(key, node);
-        } catch (Exception e) {
-            System.out.println("Failed to insert: " + key + " -> " + value);
-            e.printStackTrace();
-            System.exit(-1);
-        } finally {
-            System.out.println();
-            System.out.print("Set " + key + " -> " + value + " : ");
-            System.out.println(queue);
-        }
 
+        if (map.containsKey(key)) {  // if the key already exists, just remove the node from both DS and let the insert happen again at first position
+            queue.remove(map.get(key));
+            map.remove(key);
+        }
+        if (map.size() >= size) {   // if capacity exceeded, remove least recently used from both DS
+            QNode delQNode = queue.removeLast();
+            map.remove(delQNode.key);
+        }
+        // now add to the front and set value
+        QNode node = new QNode(key, value);
+        queue.addFirst(node);
+        map.put(key, node);
+
+        System.out.println();
+        System.out.print("Set " + key + " -> " + value + " : ");
+        System.out.println(queue);
     }
 
     public static void main(String[] args) {

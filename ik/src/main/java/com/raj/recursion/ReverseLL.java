@@ -10,23 +10,38 @@ public class ReverseLL {
     static Node head;
 
     public static void main(String[] args) {
-        head = new Node("1");
+        head = new Node(1);
         final Node[] n = {head};
-        Arrays.stream("2 3 4 5".split(" ")).forEach(x -> {
+        Arrays.stream(new int[]{1,2,3,4,5}).forEach(x -> {
             n[0].next = new Node(x);
             n[0] = n[0].next;
         });
         print();
         Node p = head;
-        reverse(p);
+        reverse_rec(p);
         print();
+
+        head = reverse_iter(head);
+        print();
+    }
+
+    static Node reverse_iter(Node head) {
+        Node prev = null, curr = head, next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;  // remember curr has moved to next which is null, hence prev is our head now
+        return head;
     }
 
     /**
      * head
      *    a  -> b -> c -> d -> e -> null
      */
-    static void reverse(Node p) {
+    static void reverse_rec(Node p) {
 
         // Base case
         if (p.next == null) {
@@ -35,7 +50,7 @@ public class ReverseLL {
         }
 
         // dfs - reverse will keep going in until base case is met
-        reverse(p.next);
+        reverse_rec(p.next);
 
         // then re-link         null <- d <- e <- head
         Node q = p.next;
@@ -53,10 +68,10 @@ public class ReverseLL {
     }
 
     private static final class Node {
-        String val;
+        int val;
         Node next;
 
-        Node (String val) {
+        Node (int val) {
             this.val = val;
         }
 
