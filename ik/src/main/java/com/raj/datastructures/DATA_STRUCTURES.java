@@ -12,19 +12,54 @@ public class DATA_STRUCTURES {
 
         /**
          * https://www.geeksforgeeks.org/overview-of-data-structures-set-3-graph-trie-segment-tree-and-suffix-tree/#code11
-         * List - Arrays, LinkedList(Queue), Stack
-         * Map - HashMap, LinkedHashMap, TreeMap
-         * Set - HashSet, LinkedHashSet, TreeSet
-         * Heaps - PriorityQueue, Fibonacci Heaps (Constant time Insert + DecreaseKey)
-         * Trees - BinaryTree, BST - PreOrder, InOrder, PostOrder
-         * Graphs - BFS, DFS, Visited, Cycle detect
-         * Trie - Compact Trie, Suffix Tree
-         * Segment Trees - RMQ
-         * Skip List - https://www.geeksforgeeks.org/skip-list/ - express lane hierarachy index over LL - O(logn) - used in highly scalable concurrent priority queues with less lock contention
          *
-         * Ordered Sets :
-         * TreeSet maintains sorted collection
-         * LinkedHashSet maintains insertion order
+         * # Arrays
+         *   -> Static allocation
+         *
+         * # ArrayList
+         *   -> Dynamic allocation
+         *
+         * # Stack
+         *   -> LIFO DS
+         *
+         * # Queue
+         *   -> LinkedList: Doubly ptrs
+         *   -> Skip List: https://www.geeksforgeeks.org/skip-list/ - express lane hierarachy index over LL - O(logn) - used in highly scalable concurrent priority queues with less lock contention
+         *   -> Deque(ArrayDeque): The advantage of ArrayDeque is ability to add/remove elements to the head as fast as to the tail.
+         *      In contrast, ArrayList will do it in O(n) time as it will have to move all the existing elements.
+         *      Thus use ArrayDeque when you need to add/remove both to head and tail. Plus, ArrayDeque has no ptrs overhead as its maintained as arraylist(better locality of ref)
+         *
+         * # Map
+         *   -> HashMap
+         *   -> LinkedHashMap: Map with Insertion ordering
+         *   -> TreeMap: Map sorted by key
+         *
+         * # Set
+         *   -> HashSet
+         *   -> LinkedHashSet
+         *   -> TreeSet
+         *
+         * # Heaps
+         *   -> PriorityQueue: Doesn't support deleting an element directly, it will incur O(n) to first find the element index, then deletion is O(log n)
+         *      Just maintain a "reverse map" in parallel with the heap array, e.g. a hash map from objects to heap array indices.
+         *      It's easy to update this map without adding asymptotic complexity to any of the heap operations.
+         *   -> Fibonacci Heaps (Constant time Insert + DecreaseKey)
+         *
+         * # Trees
+         *   -> BinaryTree
+         *   -> BST: PreOrder, InOrder, PostOrder
+         *
+         * # Graphs
+         *   -> BFS, DFS, Visited, Cycle detect, Topo
+         *
+         * # Trie
+         *   -> Compact Trie,
+         *   -> Suffix Tree
+         *
+         * # Segment Trees: RMQ
+         *
+         * == Other TidBits ===
+         * # Sometimes for Array/List question, storing a index map (element -> index) helps solve a lot of problems
          *
          * Big-O Cheat Sheet - Know Thy Complexities:
          * https://www.bigocheatsheet.com/
@@ -52,7 +87,7 @@ public class DATA_STRUCTURES {
          * Any other operation on Heap takes O(log n)
          */
 
-        // Build an LRU cache using linkedhashmap
+        // Build an LRU cache using linked hashmap
         int MAX_CACHE_SIZE = 10;
         LinkedHashMap<String,String> res = new LinkedHashMap<String,String>() {
             @Override   // Override protected method & define policy to evict entry when size exceeds

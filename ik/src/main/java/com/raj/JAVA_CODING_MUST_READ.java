@@ -15,6 +15,8 @@ public class JAVA_CODING_MUST_READ {
         int[] A = new int[] {1, 2, 3, 4, 5};  // Init array
         print(Arrays.toString(A));  // print an array
 
+        // Note: As arr indices start from i=0, when we compare it natural length/window size etc, we just need to add 1 to it for equal comparison
+
         int [][] B = new int[][] { {1,2}, {3,4} };  // Init 2D array
         print(Arrays.deepToString(B)); // print a 2D array
 

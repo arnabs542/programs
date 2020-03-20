@@ -7,6 +7,13 @@
   - Hard Work
   - Conscientiousness
 
+  - Showing Enthusiasm
+  - Passion to learn new things/tech
+  - Ownership
+  - Collaboration with Team
+  - Independent & wise decision-making despite ambiguity
+  - Extraordinarily candid/truthful with each other
+
 # S.T.A.R. Method:
   - Answer most questions by:
     * Situation - describe it
@@ -26,21 +33,80 @@
 # Direct Questions:
   - First answer the question than give too much details. Then add detail, if interviewer is interested.
 
-# Describe a challenging project:
-  - For each of ur company(maybe they are interested in particular company or domain) prepare:
-    * Most technically challenging project
-      - Rollups scratch
-      - Dedupe Storm
-      - Rollups revamp incremental
-      - Ads Item Store caching: Real time streaming+batch pipeline
-      - Composite Vector Embedding Data Pipeline
-      - SBA enhancements
-    * Most situationally challenging project
-      - Timeline changes, resource & time constraints, conflicting priorities
-      - Don't talk abt individuals
-    * Struggled & Lesson learnt
-      - Failed at first, then learnt/improvised & succeeded later
-      -
+# Describe CHALLENGING PROJECT(s):
+  [For each of ur company(maybe they are interested in particular company or domain) prepare few projects]
+  * Most technically challenging project
+    - Rollups scratch
+    - Dedupe Storm
+    - Rollups revamp incremental
+    - Ads Item Store caching: Real time streaming+batch pipeline
+    - Composite Vector Embedding Data Pipeline
+    - SBA enhancements
+  * Most situationally challenging project
+    - Timeline changes, resource & time constraints, conflicting priorities
+    - Don't talk abt individuals
+  * Struggled & Lesson learnt
+    - Failed at first, then learnt/improvised & succeeded later
+
+  * OWNERSHIP / SCRATCH DEV / SCALE
+    - ROLLUPS
+    - One man army until team was expanded
+    - Started with POC working with Distinguished Eng
+    - Built from scratch new Tier-1 service for pre-computing cacheable Search data / Publishing / Ranking Offers
+    - Event Driven Async Processing w/ Ingestion + Read facing services. 50ms SLA scaled upto 500K qps
+
+  * SITUATIONALLY CHALLENGING / PROACTIVE
+    - STORM DE-DUPE TOPO
+    - Lags were increasing over time as catalog+MP seller offers expanded
+    - Too many dupes(seller price uploads, Smart Pricing feeds) arising from same triggers(why trigger? business rules hence IRO call) from microservices
+    - Storm Distributed Grouping to club similar item level events into 5 mins/100 message + discard dupes
+    - Achieved over 25% processing speed in general & more than 2X processing in burst events.
+
+  * TECHNICALLY CHALLENGING / NEW DOMAIN + CODEBASE / IMPACT
+    - ADS ITEMSTORE
+    - Quickly Learnt Ads Domain + Landscape. Data analysis to understand the bottlenecks.
+    - After joining Sponsored Product Ads Team, was entrusted with the task to help optimize response times for Midas
+    serving API(s), especially when we were heading into Holidays and it was crucial for our serving layer to be as fast
+    as possible.
+    - The major challenges included how do we reduce latencies from dependencies(IRO was the most time taking) & solve
+    the exponential problem with Geo items whose availability was and based on zip codes. I was able to propose a solution
+    which was linear in terms of growth of items & zip code combination as well as prove it through POC that it will work.
+    Owned the solution E2E and collaborated with IRO, Supply Chain Teams to integrate & launch the solution in Prod well
+    before Holiday freeze period. Built jobs to compare the data accuracy, optimized the storm ingestion pipeline & built
+    pluggable read library for Blitzcrank to achieve:
+      1. Data Accuracy of Blitz item serving cache with IRO 99.9%+
+      2. Almost eliminated the need to call IRO, thereby cutting down the latency for Item Lookups by ~90% & Midas APIs by ~50%
+      3. During Holiday Stress Tests, this solution helped Midas hit stress test peaks TPS of ~30K as we were serving faster and with higher throughput
+      4. The platform is so robust & de-coupled such that our Midas APIs were working even when IRO had issues during stress tests due to Pricing service.
+      5. Socialized and guide Personalization & PBB teams towards a similar solution for their serving needs, leveraging our generic reusable Blitzcrank components.
+
+  * LEADING Team / MENTORING
+    - JEEVES Orchestrator for Ads Item Data
+    - After successful rollout of ItemStore project, more folks on Personalization/Display Ads etc were interested in using it.
+    - Worked with couple of folks from IDC, was fully accountable for delivery.
+    - Helped them ramp up, code reviews, get SRCR process to get endpoint outside WMT network, new capacity, assembly etc.
+
+  * LEAD / CROSS FUNCTIONAL / TIME & RESOURCE CONSTRAINTS / TIMELINE CHANGES / CONFLICTING PRIORITIES
+    - NEXTDAY Initiative
+    - Worked with multiple teams ranging from SupplyChain, Catalog, P13N, CBB & FE(Search/ItemPage)
+    - POC for issues, changes etc, Delivered E2E features sometimes working against time constraints/resource constraints
+    - Led 3 junior folks which were allocated for this initiative
+
+  * CURIOSITY / PASSION / HELPING TEAM / RESOURCE CONSTRAINTS
+    - COMPOSITE VECTOR(128 bit Query + 32 bit Taxonomy) EMBEDDING
+    - Worked with DataScience to implement, when the only contributor was OOO. Learnt Ruby codebase.
+    - Suggested improvements to do delta writes to C*
+    - A/B Test Framework enhancement to use config based weights
+    - Passion to learn & helping team in times of need
+    - You learn rapidly and eagerly
+    - You contribute effectively outside of your specialty
+
+  * LEAD / OWNERSHIP
+    - SEARCH BRAND AMPLIFIER
+    - Premium placement on top of Search Page that amplifies Brand w/ min $2 cost per click bids(performance)
+    - Working with Product & Manager to create Quarterly Plan
+    - Opportunity to go from 3M to 30M in profits.
+    - Launched Category Bidding / Negative Keywords / Relevancy Improvements(Product R2D2 Taxonomy Improvements) plus Hybrid Keyword+Category Bids.
 
 # Why leave?
   - Remain neutral about leaving, dnt talk abt bad people/managers/pay etc
@@ -79,9 +145,78 @@
   - How does ur typical day look like?
   - What do u like abt this company / or don't like?
 
+# How do you handle failures?
 
 === DOUBTS ===
 # Should I include brief tenure from a smaller company in resume/linkedin?
 # Staying in IC role vs moving into management role?
 # Do I need to switch after a promotion happens?
 # What's the compensation range expectation from a switch?
+
+=== Netflix Values ===
+https://jobs.netflix.com/culture
+# Judgment
+- You make wise decisions despite ambiguity
+- You identify root causes, and get beyond treating symptoms
+- You think strategically, and can articulate what you are, and are not, trying to do
+- You are good at using data to inform your intuition
+- You make decisions based on the long term, not near term
+
+# Communication
+- You are concise and articulate in speech and writing
+- You listen well and seek to understand before reacting
+- You maintain calm poise in stressful situations to draw out the clearest thinking
+- You adapt your communication style to work well with people from around the world who may not share your native language
+- You provide candid, helpful, timely feedback to colleagues
+
+# Curiosity
+- You learn rapidly and eagerly
+- You contribute effectively outside of your specialty
+- You make connections that others miss
+- You seek to understand our members around the world, and how we entertain them
+- You seek alternate perspectives
+
+# Courage
+- You say what you think, when it’s in the best interest of Netflix, even if it is uncomfortable
+- You make tough decisions without agonizing
+- You take smart risks and are open to possible failure
+- You question actions inconsistent with our values
+- You are able to be vulnerable, in search of truth
+
+# Passion
+- You inspire others with your thirst for excellence
+- You care intensely about our members and Netflix‘s success
+- You are tenacious and optimistic
+- You are quietly confident and openly humble
+
+# Selflessness
+- You seek what is best for Netflix, rather than what is best for yourself or your group
+- You are open-minded in search of great ideas
+- You make time to help colleagues
+- You share information openly and proactively
+
+# Innovation
+- You create new ideas that prove useful
+- You re-conceptualize issues to discover solutions to hard problems
+- You challenge prevailing assumptions, and suggest better approaches
+- You keep us nimble by minimizing complexity and finding time to simplify
+- You thrive on change
+
+# Inclusion
+- You collaborate effectively with people of diverse backgrounds and cultures
+- You nurture and embrace differing perspectives to make better decisions
+- You are curious about how our different backgrounds affect us at work, rather than pretending they don’t affect us
+- You recognize we all have biases, and work to grow past them
+- You intervene if someone else is being marginalized
+
+# Integrity
+- You are known for candor, authenticity, transparency, and being non-political
+- You only say things about fellow employees that you say to their face
+- You admit mistakes freely and openly
+- You treat people with respect regardless of their status or disagreement with you
+
+# Impact
+- You accomplish amazing amounts of important work
+- You demonstrate consistently strong performance so colleagues can rely upon you
+- You make your colleagues better
+- You focus on results over process

@@ -1,5 +1,7 @@
 package com.raj.linkedlist;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -11,17 +13,20 @@ public class FIFOMaxQueue {
      * remove()
      */
     public static void main(String[] args) {
-        /*LinkedList<Integer> linkedList = new LinkedList<>();
+
+        // Demonstrates how linkedList in java works
+        LinkedList<Integer> linkedList = new LinkedList<>();
         linkedList.addLast(1);  // same as add
         linkedList.addLast(2);
         linkedList.addLast(3);
         linkedList.addLast(4);
-        System.out.println(linkedList.getFirst());
-        System.out.println(linkedList.getLast());
-        Iterator<Integer> it = linkedList.descendingIterator();
+        System.out.println(linkedList.getFirst());  // get first in line
+        System.out.println(linkedList.getLast());   // get last in line
+        Iterator<Integer> it = linkedList.descendingIterator();  // traverse from last to first
         while (it.hasNext()) {
             System.out.print(it.next() + " ");
-        }*/
+        }
+        System.out.println(linkedList.removeFirst());  // removes the first in line (FIFO)
 
         add(1); System.out.println(max());
         add(2); System.out.println(max());
@@ -53,8 +58,8 @@ public class FIFOMaxQueue {
      *   Max = 5,3    | 5,4      | 5,4      | 4
      * # If the elem removed is the curr max, remove it from max queue as well.
      */
-    static LinkedList<Integer> queue = new LinkedList<>();
-    static LinkedList<Integer> maxTracker = new LinkedList<>();
+    static LinkedList<Integer> queue = new LinkedList<>();  // Always doubly in Java
+    static Deque<Integer> maxTracker = new ArrayDeque<>();  // LL has extra ptrs overhead & no locality of reference
 
     static void add(int n) {
         queue.add(n);
@@ -74,4 +79,41 @@ public class FIFOMaxQueue {
         return maxTracker.getFirst();
     }
 
+    /**
+     * Custom Doubly LinkedList impl:
+     *
+     * # add(int val):
+     *   Node newNode = new Node(val)
+     *      if head == null:
+     *         head = newNode
+     *         tail = head
+     *      else tail.next = newNode
+     *           newNode.prev = tail
+     *           tail = tail.next
+     *
+     * # Node removeFirst():
+     *      Node first = head
+     *      if (head == tail) tail = null
+     *      head = head.next
+     *      head.prev = null
+     *      return first
+     *
+     * # Node removeLast():
+     *      Node last = tail
+     *      if (head == tail) head = null
+     *      tail = tail.prev
+     *      tail.next = null
+     *      return last
+     *
+     * # Node reverse():
+     *   if head == null return null
+     *   if (head == tail) return head
+     *   Node curr = head, prev = null
+     *   while curr != null:
+     *      curr.prev = curr.next
+     *      curr.next = prev
+     *      prev = curr
+     *      curr = curr.prev
+     *
+     */
 }

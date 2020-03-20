@@ -1,0 +1,52 @@
+=== Walmart Labs ===
+>>> Major Initiatives - Catalog Tech:
+# Joined Walmart at the time when Pangaea was at it's inception stage. Worked for over more than 4 yrs building highly
+scalable & responsive Restful APIs & data ingestion pipelines for micro services such as Item Rollups / Item Read
+Orchestrator / Offer & Product that form the core back-end for the current Pangaea Platform. These microservices are
+able to handle peak loads of millions of transactions per minute with sub-second latencies. Worked on innovative
+pre-computational & real time algorithms to speed up search & lookup responses. The new platform has been a key enabler
+for scaling up our eCommerce Item Catalog from 2 MM to 200MM+ and Marketplace sellers from double digits numbers to more
+than 4 digits & continues to expand everyday.
+
+# Built Rollups service - an aggregation service built to pre-compute data and speed up IRO lookups - from scratch &
+completely owned and delivered business initiatives for initial few years. Also built a real time storm pipeline to
+dedupe messages across different incoming streams to enhance throughput.
+Got Patent for unique methodology / Awards / Exceeds ratings / Promo for ownership & quality deliverables.
+
+# As a Lead engineer, I led Item Rollups, Product & Offer store through major initiatives like Project Skywalker(bringing
+us a step closer towards unified item setup & catalog for Walmart, Jet, Hayneedle etc), Online Grocery, 2-Day Shipping etc.
+
+# Some other initiatives -
+ -> OfferStore 2.0 - Arhitected a design towards simplifying current system so as to relieve the bottlenecks seen during
+ peak ingestion / serving times. Came up with merged nsf/sf data models to achieve 50% lesser storage & writes, faster
+ reads, more maintainable code with huge reduction in number of API's, better tracking with Centralized Audit system &
+ faster ingestion processing with async flows.
+ -> Worked on NextGen Rollups processing framework which would incrementally merge states from incoming Kafka messages
+ and reduce the need for calling other microservices which slows down processing, thereby reducing lags.
+
+>>> Major Initiatives - Ads Tech (WPA):
+# Blitzcrank aka 'Ads ItemStore cache' - After joining WPA, was entrusted with the task to help optimize response times
+for Midas serving API(s), especially when we were heading into Holidays and it was crucial for our serving layer to be
+as fast as possible. The major challenges included how do we reduce latencies from dependencies(IRO was the most time
+taking) & solve the exponential problem with Geo items whose availability was and based on zip codes. I was able to
+propose a solve which was linear in terms of growth of items & zip code combination as well as prove it through POC that
+it will work. Owned the solution E2E and collaborated with IRO, Supply Chain Teams to integrate & launch the solution in
+Prod well before Holiday freeze period. Built jobs to compare the data accuracy, optimized the storm ingestion pipeline
+& built pluggable read library for Blitzcrank to achieve:
+1. Data Accuracy of Blitz item serving cache with IRO 99.9%+
+2. Almost eliminated the need to call IRO, thereby cutting down the latency for Item Lookups by ~90% & Midas APIs by ~50%
+3. During Holiday Stress Tests, this solution helped Midas hit stress test peaks TPS of ~30K as we were serving faster and with higher throughput
+4. The platform is so robust & de-coupled such that our Midas APIs were working even when IRO had issues during stress tests due to Pricing service.
+5. Socialized and guide Personalization & PBB teams towards a similar solution for their serving needs, leveraging our generic reusable Blitzcrank components.
+
+# Next Day WPA initiative - completely owned and drove E2E feature implementation for ND Ads. Enhanced Blitz caching to
+serve Next Day geo availability information. Proactively, resolved issues and fine tuned performance to beat the SLA requirements.
+# Display Ads API - built api to get ad item info for WMX Display Ads team using existing midas-Blitzcrank caches. This
+enabled Display Ads to show dynamic price & availability info for their Ads. This later evolved into a new service.
+# Optimized BuyBox Ads lookup by sourcing the Anchor Item data for all catalog items from PBB, Uber Hive tables into
+Cassandra. Also, made cache lookups async & faster by removing dependency on IRO calls.
+
+# Worked on Keyword service feature to lookup BuyBox Winning seller via using light weight Blitzcrank Item Seller lookup
+cache. This would help with increasing AdSpend by provide most accurate Ads without incurring any additional latency.
+
+# Working on enhancing Blitz caching solution for Grocery which would help us push more Ads modules on Online Grocery.

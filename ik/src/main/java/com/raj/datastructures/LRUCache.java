@@ -30,12 +30,20 @@ public class LRUCache {
      */
 
     /**
-     * Algo:
-     * Create a doubly linked list - O(1) deletion, of size 'n' which stores keys and maintains insert ordering
-     * Create a hashmap with key and value
-     * set operation - Add element to hashmap & to the front of the queue. If full delete the last one from list and map.
-     * get operation - return corresponding value from queue via lookup from map
+     * -> Also a very good Design Question
+     * -- With Cache always think of eviction policies ---
+     * min PQ to maintain last access time (for eviction) + HashMap for KV O(1) lookup w/ a ref going to PQ node?
+     * Time = O(log n) for most operations as heapify of PQ dominates (even for lookups, u'll need to increaseKey operation for updating lastAccess time)
+     *
+     * Optimal DS/Algo:
+     * Create a Doubly Linked List - O(1) deletion(Note: singly LL can't do O(1) deletions), of size 'n' which stores keys and maintains insert ordering
+     * Create a HashMap with key and value
+     * set() - Add element to HashMap & to the front of the queue. If full delete the last one from list and map.
+     * get() - return corresponding value from queue via lookup from map
      * Edge cases : Adding an existing key, then remove the node, re-insert at front but exclude it from capacity check
+     *
+     * Time = O(1) for get/set operations
+     * For scalable systems, doing evicts everytime for each put when capacity exceeds can be replaced by a periodic thread doing the evicts
      */
     private LinkedList<QNode> queue;    // Queue maintains access order + QNode stores the actual value
     private HashMap<Integer,QNode> map; // map stores the address of the QueueNode

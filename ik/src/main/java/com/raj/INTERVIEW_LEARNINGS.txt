@@ -45,3 +45,15 @@
 03. Missing Base/Obvious Cases
     -> For a recursive problem/tree, can't afford to miss Base cases.
     -> eg. missed if n==null, return <> for tree problem, while everything else was correct.
+04. Don't involve interviewers for guesswork like, will it work? Is this fine? Make decisions and move on.
+    -> Solving problems on your own without taking much hints is the key.
+
+=== HANDLING REJECTIONS ===
+01. https://www.youtube.com/watch?v=DBBSdh5cmtI
+    - All successful people have gone through rejections and improvised. They have failed 100 times before being successful.
+    - Make rejections part of yourself. Like in dating u may fail 100 times, but you just need one 'Yes', so goes for interviews.
+    - Failures are free & opportunity to improve slightly.
+    - You don't need 10 job offers, maybe 1-2 is fine.
+02. Most interviewers decide 'yes' or 'no' not just on your coding but also communication, approach, ability to take hints etc.
+    - Try to make an impact while speaking. If the interviewer is on your side, they will drop enough hints to get you through.
+    - If they are pissed with something, even if you ace, they'll put a -ve feedback on some ignorable flags.
