@@ -5,19 +5,20 @@ import java.util.Random;
 
 public class MineSweeper {
     /**
-     * createMineSweeper(int width, int height, int numberOfMines)
-     * play(int x, int y)
+     * board = createMineSweeper(int width, int height, int numberOfMines)
+     * solve(board)
+     * play(board, int x, int y) => print if game over else return the bomb count
      */
     public static void main(String[] args) {
         int[][] board = createMineSweeper(4, 3, 4);
         System.out.println("Board  => " + Arrays.deepToString(board));
 
+        solve(board);
+        System.out.println("Solved => " + Arrays.deepToString(board));
+
         System.out.println(play(board, 0,2));
         System.out.println(play(board, 1,2));
         System.out.println(play(board, 2,3));
-
-        solve(board);
-        System.out.println("Solved => " + Arrays.deepToString(board));
     }
 
     /**
@@ -43,6 +44,11 @@ public class MineSweeper {
         return board;
     }
 
+    /**
+     * # create a temp 1D arr with all cells
+     * # place all bombs from start of arr
+     * # shuffle array while reducing the random range as i + next_rand(i+1...n)
+     */
     static void placeMines(int[][] board, int numMines) {
         int h = board.length;
         int w = board[0].length;
@@ -57,7 +63,7 @@ public class MineSweeper {
         // shuffle array
         Random rand = new Random();
         for (int i=0; i<cells; i++) {
-            int r = i + rand.nextInt(cells-i);
+            int r = i + rand.nextInt(cells-i);  // bound is exclusive
             // swap
             int t = arr[i];
             arr[i] = arr[r];
@@ -70,9 +76,9 @@ public class MineSweeper {
         }
     }
 
-    static String play(int[][] board, int x, int y) {
-        if (board[x][y] == -1) return "Game Over!";
-        else return "Safe...";
+    static int play(int[][] board, int x, int y) {
+        if (board[x][y] == -1) System.out.print("Game Over! ");
+        return board[x][y];
     }
 
     static void solve(int[][] board) {
@@ -85,6 +91,7 @@ public class MineSweeper {
 
         for (int i=0; i<h; i++) {
             for (int j=0; j<w; j++) {
+                if (board[i][j] == -1) continue;  // if bomb, nothing to do
                 // get adj cells
                 int numBombs = 0;
                 for (int k=0; k<8; k++) {
