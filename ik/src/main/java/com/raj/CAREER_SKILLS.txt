@@ -108,6 +108,16 @@
     - Opportunity to go from 3M to 30M in profits.
     - Launched Category Bidding / Negative Keywords / Relevancy Improvements(Product R2D2 Taxonomy Improvements) plus Hybrid Keyword+Category Bids.
 
+  * CONFLICT
+    - Use of MySQL vs Cassandra for Caching. Data to show smaller data set cud be done by MySQL, used C* for more data heavy ops.
+    - Apache Flink use for real time streaming use, but agreed to use of Storm given timelines/expertise/adoption within team.
+    - CR conflict, back & forth, yielded to a certain way, but failed for an edge case in Prod. Learnt to stay course.
+    - Jeeves work w/ IDC junior team. She wasn't happy about doing anything other than coding like deploys, following processes etc.
+      Explained to her the importance of everything & learning these skills to independently own full SDLC later.
+
+  * REGRETS
+    - Category Bid vs Keyword could have been Hybrid from get go.
+
 # Why leave?
   - Remain neutral about leaving, dnt talk abt bad people/managers/pay etc
   - Go Positive abt future w/ new company: Talk about learning new things, strengths of new company, its scale, products you like etc
