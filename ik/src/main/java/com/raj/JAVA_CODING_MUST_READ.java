@@ -168,7 +168,7 @@ public class JAVA_CODING_MUST_READ {
          */
         @Override
         public int hashCode() {
-            return Objects.hash(dist);
+            return Objects.hash(pt, dist);
         }
 
         @Override

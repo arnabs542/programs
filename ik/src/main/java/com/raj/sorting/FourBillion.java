@@ -6,9 +6,9 @@ import java.util.List;
 public class FourBillion {
 
     /**
-     * You have been given an input file with four billion unsigned longs, provide an algorithm to generate an long which is not
-     * contained in the file. We are considering long as 32 bit unsigned longs. Assume you have 1 GiB memory. Follow up
-     * with what you would do if you have only 10 MiB of memory.
+     * You have been given an input file with four billion unsigned longs, find a long which is missing in the file.
+     * We are considering long as 32 bit unsigned longs. Assume you have 1 GiB memory.
+     * Follow up with what you would do if you have only 10 MiB of memory.
      */
     public static void main(String[] args) {
         List<Long> l = new ArrayList<>();
@@ -19,7 +19,8 @@ public class FourBillion {
 
     /**
      * Storing each long wud take 8 bytes in java, hence 4B longs wud take 32 GB, if they were unique !!
-     * But we know the range of longs(per problem) 32 bits. So they lie b/w 0 to 2^32 range. At max we have 2^32 or 2B longs(signed).
+     * But here we are considering longs to be 32 bits only(per problem).
+     * We know the range of longs is 32 bits. So they lie b/w 0 to 2^32 range. So at max we can have 2^32 or 2B longs(signed).
      * Storing them wud need 2^32 * 8 bytes = 16 GB, but we have 1 GB only.
      * Idea is to squeeze numbers in least amount of space.
      * We have 1GB memory available which is equivalent to 10^9 bytes = 8*10^9 bits.
@@ -39,7 +40,7 @@ public class FourBillion {
      */
     public static long find_integer(List<Long> arr) {
         long startM = Runtime.getRuntime().freeMemory();
-        int bitsPerBin = 32;
+        int bitsPerBin = 32;  // or could be byte as 8
         int bin_size = (int) (Math.pow(2,32)/bitsPerBin); // ALWAYS ENCLOSE BEFORE TYPECASTING, else it doesn't wrk
         int[] bins = new int[bin_size]; // int is 4 bytes = 32 bits, shard whole 2^32 range into 0-31,32-63,64-95... bit range
 

@@ -57,13 +57,13 @@ public class InterleavedStrings {
      *
      * A = "bcc", B = "bbca", C = "bbcbcac" => true
      *  B ->   ""  b  b  c  a
-     *
      *  A| ""   T  T  T  T  F
      *   v b    T  T  F  T  F
      *     c    F  T  T  T  T      j-1                 i-1
      *     c    F  F  T  F  T  => (A=bcc, B=bbc, F) + (A=bc, B=bbca, T)
      *                         => A's new char match C's, hence, we check if "bc","bbca" is T ?
      *                         => T
+     * Time = O(n^2)
      */
     static boolean dp(char[] A, char[] B, char[] C) {
         if (C.length != (A.length + B.length)) return false;

@@ -84,10 +84,9 @@ public class MineSweeper {
     static void solve(int[][] board) {
         int h = board.length;
         int w = board[0].length;
-        // 8 adjoining cells
-        // i,j -> i-1,j  i+1,j  i,j-1  i,j+1  i-1,j-1  i-1,j+1  i+1,j+1  i+1,j-1
-        int[] row_offset = new int[]{-1,1,0,0,-1,-1,1,1};
-        int[] col_offset = new int[]{0,0,-1,1,-1,1,1,-1};
+        // 8 adjoining cells of i,j => i-1,j-1  i-1,j  i-1,j+1  i,j-1  i,j+1  i+1,j-1  i+1,j  i+1,j+1
+        int[] row_offset = new int[]{-1,-1,-1, 0, 0, 1, 1, 1};
+        int[] col_offset = new int[]{-1, 0, 1,-1, 1,-1, 0, 1};
 
         for (int i=0; i<h; i++) {
             for (int j=0; j<w; j++) {
