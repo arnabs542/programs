@@ -136,7 +136,7 @@ public class DiameterTree {
         int rightSum = maxSum(n.right);
 
         int max_of_subtrees = Math.max(leftSum, rightSum);  // max of left or right subtree
-        int max_incl_root = leftSum + rightSum + n.dist;    // max including this root node
+        int max_incl_root = n.dist + leftSum + rightSum;    // max including this root node
 
         //int max_at_node = Math.max(max_incl_root, max_of_subtrees);   // max at this node (this may not be a right answer as it may not be a full path)
         max = Math.max(max, max_incl_root);   // update global max using full paths only (hence, had to comment above max)
