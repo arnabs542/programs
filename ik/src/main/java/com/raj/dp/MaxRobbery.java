@@ -14,6 +14,9 @@ public class MaxRobbery {
      * For example, if there are four houses with values [6, 1, 2, 7], the maximal stolen value is 13,
      * when the first and fourth houses are stolen.
      *
+     * # Basically, we have an option at each house, either steal this house (only if he hasn't the prev) or skip this.
+     * # [subset pattern] max(incl option, excl option)
+     *
      *  values =>   0  6  1  2  7
      * maxProfit=>  0  6  6  8  13
      *
@@ -32,7 +35,7 @@ public class MaxRobbery {
     }
 
     /**
-     * Space/Time Complexity: O(length(values))
+     * Space/Time = O(n)
      */
     static int maxStolenValue(int[] values) {
         int[] dp = new int[values.length+1];
@@ -40,7 +43,12 @@ public class MaxRobbery {
         dp[1] = values[0];
 
         for (int i=2; i<=values.length; i++) {
-            dp[i] = Math.max(dp[i-2] + values[i-1], dp[i-1]);
+            // incl = steal this house then take max loot from 2 house before
+            // excl = don't steal, then take max loot from prev house
+            dp[i] = Math.max(
+                    dp[i-2] + values[i-1],   // incl
+                    dp[i-1]                  // excl
+            );
         }
         return dp[values.length];
     }

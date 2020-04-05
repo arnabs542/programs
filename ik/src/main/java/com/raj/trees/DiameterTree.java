@@ -42,8 +42,12 @@ public class DiameterTree {
         root.left.right = new Node(-6); root.right = new Node(-20);
         max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
 
+        Pair res = maxSumPair(root);
+        System.out.println("maxSumPair : " + Math.max(res.incl, res.excl) + ", cmp = " + cmp);
+
         root.left = new Node(-9); root.left.left = new Node(5);
         max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
+
     }
 
     /**
@@ -106,6 +110,7 @@ public class DiameterTree {
         public Node(int d) {
             dist = d;
         }
+        public String toString() { return dist + ""; }
     }
 
     /**
@@ -115,10 +120,13 @@ public class DiameterTree {
      *        9     -20     (also try with -9)
      *     5   -6
      *
+     * o/p = 5+9-6 = 8
+     *
+     * [subset pattern - incl/excl node]
      * Rec Seq:
      * - go left, node 5 returns 5
      * - node 9 has a choice to make:
-     *   - pick max of (5,-9) = 5
+     *   - pick max of (5,-6) = 5
      *   - try a path including this node 5,9,-6 = 8 => update in max as we have a full path here
      * - node 9 returns max of left&right + it's value viz. 5+9
      * - root node -10 has following choices:
@@ -126,6 +134,7 @@ public class DiameterTree {
      *   - path with left & right subtree including itself viz. 5,9,-10,-20 = -16 (updating max has no effect)
      * - print global max
      *
+     * Time = O(n)
      */
     static int max = Integer.MIN_VALUE;
 
@@ -135,13 +144,51 @@ public class DiameterTree {
         int leftSum = maxSum(n.left);
         int rightSum = maxSum(n.right);
 
+        // excl node
         int max_of_subtrees = Math.max(leftSum, rightSum);  // max of left or right subtree
+        // incl node
         int max_incl_root = n.dist + leftSum + rightSum;    // max including this root node
 
         //int max_at_node = Math.max(max_incl_root, max_of_subtrees);   // max at this node (this may not be a right answer as it may not be a full path)
         max = Math.max(max, max_incl_root);   // update global max using full paths only (hence, had to comment above max)
 
         return n.dist + max_of_subtrees;    // but return only the max_of_subtrees + this node's dist
+    }
+
+    /**
+     * Another approach could be, if each node returns pair of incl/excl answers
+     * @see com.raj.trees.MaxSumNonAdjNodes - similar subset pattern
+     * # DFS until leaf nodes reached
+     * # Each node returns max sum incl/excl this node
+     *
+     * Time/Space = O(n)
+     */
+    static int cmp = 0;
+    static Pair maxSumPair(Node n) {
+        if (n == null) return new Pair(0,0);
+        cmp++;
+        // dfs until leaf & start building bottom up DP
+        Pair left_pr = maxSumPair(n.left);
+        Pair right_pr = maxSumPair(n.right);
+
+        // exclude this node - take max of left/right subtree answer
+        int excl = Math.max(Math.max(left_pr.incl, left_pr.excl),
+                Math.max(right_pr.incl, right_pr.excl));
+
+        // include this node
+        int incl = n.dist + ((n.left  == null ? 0 : n.left.dist ) + left_pr.excl) +
+                            ((n.right == null ? 0 : n.right.dist) + right_pr.excl);
+
+        return new Pair(incl, excl);
+    }
+
+    static class Pair {
+        int incl;
+        int excl;
+        Pair(int in, int ex) {
+            incl = in;
+            excl = ex;
+        }
     }
 
 }

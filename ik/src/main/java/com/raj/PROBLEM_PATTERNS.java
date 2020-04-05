@@ -24,7 +24,7 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.trees.ClosestNode - Minimize diff as we traverse
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
      * @see com.raj.trees.DiameterTree - Maximize paths that originate & end in leaf
-     * @see com.raj.trees.MaxSumNonAdjNodes - Similar pattern as diameter max paths above
+     * @see com.raj.trees.MaxSumNonAdjNodes - Similar pattern as diameter max paths above + DP Memo + n-ary trees dfs traverse
      *
      * [RECURSION]
      * @see com.raj.recursion.NQueens - Fundamentals
