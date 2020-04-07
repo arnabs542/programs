@@ -46,7 +46,7 @@ public class Tree {
         System.out.println();
     }
 
-    // Breadth first traverse - using queue to for FIFO
+    // Breadth first traverse - using queue for FIFO
     // Also called Level-Order traversal
     static void printBreadthFirst(Node root) {
         if (root == null) return;

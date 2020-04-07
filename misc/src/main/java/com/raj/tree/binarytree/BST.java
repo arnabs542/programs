@@ -98,11 +98,8 @@ public class BST {
         System.out.println("Print paths: ");
         bst1.printPaths(root1, 0, new int[10]);
 
-        System.out.println("Print max sum: " + bst1.maxSum2(root1));
-
-        BTreeMaxSum bTreeMaxSum = new BTreeMaxSum();
-        bTreeMaxSum.setRoot(root1);
-        System.out.println("Print max sum BTree: " + bTreeMaxSum.getMaxSum() + ", Max Sum node is " + bTreeMaxSum.getMaxSumNode());
+        bst1.maxSum(root1);
+        System.out.println("Print max sum: " + bst1.maxSum);
 
         BTreeHelper bTreeHelper = new BTreeHelper();
         int[] arr = bTreeHelper.getMaxSumPathArr(root1);
@@ -364,16 +361,13 @@ public class BST {
      * - init maxSum global var which stores max sum
      * - for a node, find sum as this node's data + sum of left subtree + sum of right subtree
      * - maxSum = max(sum, maxSum)
-     * O(n^2) soln
+     * O(n)
      */
-    public int maxSum2(Node n) {
-        maxSum3(n);
-        return maxSum;
-    }
-
-    private int maxSum3(Node n) {
+    private int maxSum(Node n) {
         if (n == null) return 0;
-        int sum = n.data + maxSum3(n.left) + maxSum3(n.right);  // this is the sum for this node
+        int leftSum = maxSum(n.left);
+        int rightSum = maxSum(n.right);
+        int sum = n.data + leftSum + rightSum;  // this is the sum for this node
         maxSum = Math.max(sum, maxSum);     // update maxSum before returning sum
         return sum;
     }

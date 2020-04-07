@@ -4,20 +4,25 @@ Consider a tree which is having only right ptrs 1->2->3->4->5, it can have worst
 but O(height) is a correct answer still as height is n here.
 
 # Can we re-construct a b-tree with inorder & preorder traversal sequences?
-    => Yes, inorder tells (left subtree) root (right subtree).
-    => Preorder tells root, left, right. Using preorder seq, find if a node lies in left or right.
+  -> Yes, inorder tells (left subtree) root (right subtree).
+  -> Preorder tells root, left, right. Using preorder seq, find if a node lies in left or right.
 
 # Inorder traversal of a Binary Search Tree yields a sorted sequence
 # BST can be re-constructed from
-    => Pre OR Post order (we know the root) using the fact that left node < root < right node
-    => Can't from Inorder as we don't know the root
+  -> Pre OR Post order (we know the root) using the fact that left node < root < right node
+  -> Can't from Inorder as we don't know the root
 
 # Passing object ptrs to a method is pass by value (meaning the reference is copied & passed over),
 so changing object vars will be permanent, but changing the object ptr won't be visible outside the method.
 https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
-    => This is important to remember otherwise unexpected things will happen like when we pass a prev Tree.Node ptr
-    and re-assign it in the helper method, it won't be visible. Hence, consider making them static if u need them to be
-    permanent or create a class for it.
+  -> This is important to remember otherwise unexpected things will happen like when we pass a prev Tree.Node ptr
+     and re-assign it in the helper method, it won't be visible. Hence, consider making them static if u need them to be
+     permanent or create a class for it.
 
+# Most problem rely on building up sub-solutions from leaf levels & final answer is achieved by doing something 
+  very trivial with left subtree,right subtree & root answers. 
+  -> Build up in bottom fashion by doing Post Order or DFS.
+  -> Use answers from left & right subtrees and keep building upwards.
+  -> Use a class if many dimensions needs to be returned for each recursive call to left/right.
 
 

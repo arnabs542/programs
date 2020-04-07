@@ -21,6 +21,14 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin
      *
      * [TREES]
+     * # Traversals:
+     * 1. Inorder - sorted order?
+     * 2. Preorder - process root first & then go down?
+     * 3. Postorder / DFS - process leaf first & then build upwards?
+     * 4. Levelorder / BFS - radiate outwards 1 level at a time? left to right order on each level?
+     * # Successor/Predecessor
+     * # Subset pattern - dfs, at each node, inlude & exclude this value & recurse, build soln bottom up
+     * @see com.raj.trees.LeftSideView - Level order traversal
      * @see com.raj.trees.ClosestNode - Minimize diff as we traverse
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
      * @see com.raj.trees.DiameterTree - Maximize paths that originate & end in leaf

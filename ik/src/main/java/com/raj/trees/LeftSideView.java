@@ -33,6 +33,23 @@ public class LeftSideView {
      *  Approach 2 - While doing dequeue, exploit the property that the size of the Q is the num of nodes at that level.
      */
     static void printLeftView(Tree.Node n) {
+        if (n == null) return;
+        Queue<Pair> queue = new LinkedList<>();
+        queue.add(new Pair(n, 0));
+        int curr_level = -1;
+        while (!queue.isEmpty()) {
+            Pair node_pair = queue.poll();
+            if (node_pair.level > curr_level) {
+                System.out.println(node_pair.node.val);
+                curr_level = node_pair.level;
+            }
+            if (node_pair.node.left != null) queue.add(new Pair(node_pair.node.left, node_pair.level+1));
+            if (node_pair.node.right != null) queue.add(new Pair(node_pair.node.right, node_pair.level+1));
+        }
+    }
+
+    // Approach 2
+    static void _printLeftView(Tree.Node n) {
         Queue<Tree.Node> queue = new LinkedList<>();
         queue.add(n);
         while (!queue.isEmpty()) {
@@ -47,6 +64,15 @@ public class LeftSideView {
                 if (cur.left != null) queue.add(cur.left);
                 if (cur.right != null) queue.add(cur.right);
             }
+        }
+    }
+
+    static class Pair {
+        Tree.Node node;
+        int level;
+        Pair(Tree.Node n, int l) {
+            node = n;
+            level = l;
         }
     }
 
