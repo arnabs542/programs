@@ -81,7 +81,6 @@ public class LongestSubstrTwoDistinctChars {
             while (countMap.size() <= k && ++right < s.length()) {  // always incr ptr before using it
                 if (countMap.containsKey(s.charAt(right))) countMap.put(s.charAt(right), countMap.get(s.charAt(right))+1);
                 else countMap.put(s.charAt(right), 1);
-
             }
             if (countMap.size() >= 2) maxLen = Math.max(maxLen, right-left-1);
 
