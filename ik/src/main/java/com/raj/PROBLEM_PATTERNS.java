@@ -5,6 +5,18 @@ import com.raj.dp.WeightedJobSchedule;
 public class PROBLEM_PATTERNS {
 
     /**
+     * Patterns by problem keywords:
+     * # Frequency - HashMap
+     * # Lookups - HashMap
+     * # Sorted Array - Binary Search
+     * # K Sorted Arrays - K-way Merge using Heap
+     * # Top 'K' - Anti-Heap
+     * # 'K' sized max subarray / Longest substring with 'K' - Sliding Window
+     * # Combinations or Permutations of a given set - Subset Pattern
+     * # Prefix Searches - Trie
+     * # Substring Searches - KMP/RabinKarp/SuffixTrie
+     * # DAG - Topo sort
+     *
      * Good Links:
      * https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
      *
@@ -25,9 +37,11 @@ public class PROBLEM_PATTERNS {
      *
      * [TREES]
      * # Traversals:
+     * DFS:
      * 1. Inorder - sorted order?
      * 2. Preorder - process root first & then go down?
-     * 3. Postorder / DFS - process leaf first & then build upwards?
+     * 3. Postorder - process leaf first & then build upwards?
+     * BFS:
      * 4. Levelorder / BFS - radiate outwards 1 level at a time? left to right order on each level?
      * # Successor/Predecessor
      * # Subset pattern - dfs, at each node, inlude & exclude this value & recurse, build soln bottom up

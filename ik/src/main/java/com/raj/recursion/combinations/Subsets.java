@@ -48,7 +48,7 @@ public class Subsets {
         printSubsets_ExtraMem(new ArrayList<>(rem.subList(1, rem.size())), _soFar);
     }
 
-    // O(n) extra space for the slate, we use the same slate [O(n)] (add/erase elems) for the DFS call stack till printing
+    // O(n) extra space for the slate, we use the same slate O(n) (add/erase elems) for the DFS call stack till printing
     static void printSubsets(List rem, List slate) {
         if (rem.isEmpty()) {
             System.out.println(slate);
@@ -65,7 +65,7 @@ public class Subsets {
     }
 
     // Same as above, except that it uses ptr to track array index. It stores all results, hence incurs O(2^n) space
-    static void getSubsets(List rem, int i, Stack slate, List result) {   // no extra space as we don't create copies, instead use the same slate (add/erase elems)
+    static void getSubsets(List rem, int i, Stack slate, List result) {   // O(n) slate extra space as we don't create copies, instead use the same slate (add/erase elems)
         if (i >= rem.size()) {
             result.add(new ArrayList<>(slate)); // adds extra space
             return;

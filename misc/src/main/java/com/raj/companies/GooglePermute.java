@@ -1,4 +1,4 @@
-package com.raj.permutation;
+package com.raj.companies;
 
 /**
  * Created by rshekh1 on 6/14/16.
