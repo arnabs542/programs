@@ -4,6 +4,7 @@ import com.raj.tree.Node;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @author: sraj1
@@ -49,7 +50,8 @@ public class BST {
         bst1.printPaths(root, 0, new int[10]);
 
         System.out.println("Print paths with sum: ");
-        bst1.printPathSum(root, 23, new int[10], 0);
+        //bst1.printPathSum(root, 23, new int[10], 0);
+        bst1.printPathSum1(root, new Stack<>(), 23);
 
         System.out.println("\nPrint size: " + bst1.size(root));
         System.out.println("Print height: " + bst1.height(root));
@@ -387,6 +389,24 @@ public class BST {
         }
         printPathSum(n.left, subSum, arr, depth + 1);
         printPathSum(n.right, subSum, arr, depth + 1);
+    }
+
+    public void printPathSum1(Node n, Stack<Integer> stack, int sum) {
+        if (n == null) return;
+
+        // process node
+        stack.add(n.data);  // add state
+        sum -= n.data;
+        if (sum == 0) {   // is the target sum reached?
+            for (int i : stack) {
+                System.out.print(i + " ");
+            }
+        }
+
+        // recurse
+        printPathSum1(n.left, stack, sum);
+        printPathSum1(n.right, stack, sum);
+        stack.pop();  // revert state
     }
 
     /**

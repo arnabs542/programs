@@ -97,6 +97,24 @@ public class Tree {
         stack.pop();
     }
 
+    static void printPathSum(Node n, Stack<Integer> stack, int sum) {
+        if (n == null) return;
+
+        // process node
+        stack.add(n.val);  // add state
+        sum -= n.val;
+        if (sum == 0) {   // is the target sum reached?
+            for (int i : stack) {
+                System.out.print(i + " ");
+            }
+        }
+
+        // recurse
+        printPathSum(n.left, stack, sum);
+        printPathSum(n.right, stack, sum);
+        stack.pop();  // revert state
+    }
+
     static class Result {
         int val;
         int count;
@@ -137,6 +155,10 @@ public class Tree {
         tree.root.right.left = new Node(6); tree.root.right.right = new Node(7);
         System.out.print("Depth First Traverse => "); printDepthFirst(tree.root);
         System.out.print("\nBreadth First Traverse => "); printBreadthFirst(tree.root);
+        System.out.println("\nPrint all paths : ");
+        printPaths(tree.root, new Stack<>());
+        System.out.println("Print Path Sum=8 :");
+        printPathSum(tree.root, new Stack<>(), 8);
 
         /**
          * A BST :  Left subtree <= Root < Right subtree
@@ -151,10 +173,7 @@ public class Tree {
         bst.root.right.left = new Node(15); bst.root.right.right = new Node(25);
         System.out.print("\nBST Inorder Traverse => "); printInorder(bst.root);
 
-        System.out.println("\nPrint all paths : ");
-        printAllPaths(tree.root);
-        //printPaths(tree.root, new Stack<>());
-        System.out.println("kth smallest node = " + kth_smallest_element(bst.root, 6    ));
+        System.out.println("\nkth smallest node = " + kth_smallest_element(bst.root, 6    ));
     }
 
 }
