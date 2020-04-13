@@ -50,3 +50,6 @@ Cassandra. Also, made cache lookups async & faster by removing dependency on IRO
 cache. This would help with increasing AdSpend by provide most accurate Ads without incurring any additional latency.
 
 # Working on enhancing Blitz caching solution for Grocery which would help us push more Ads modules on Online Grocery.
+
+# SBA Lead - Premium brand ads module on Search. Major initiatives like Category Bidding, Phrase & Broad Match. In-mem
+integer indexed based search using KMP substr match. $30M target from $5M - doing $60k/day.

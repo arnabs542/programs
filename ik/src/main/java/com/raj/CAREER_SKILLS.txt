@@ -17,7 +17,7 @@
 # S.T.A.R. Method:
   - Answer most questions by:
     * Situation - describe it
-    * Task - the task performed
+    * Task - the task performed by you (not by ur team)
     * Action - you took
     * Result - achievements / impact
 
@@ -40,13 +40,15 @@
     - Dedupe Storm
     - Rollups revamp incremental
     - Ads Item Store caching: Real time streaming+batch pipeline
-    - Composite Vector Embedding Data Pipeline
-    - SBA enhancements
+    - Composite Vector Embedding Data Pipeline + Vector similarity searches than string based hard rules
+    - SBA enhancements: Premium Search Placement that Brand targetted. CategoryBid + KeywordBid Hybrid approach.
   * Most situationally challenging project
     - Timeline changes, resource & time constraints, conflicting priorities
     - Don't talk abt individuals
   * Struggled & Lesson learnt
     - Failed at first, then learnt/improvised & succeeded later
+    - CategoryBid + KeywordBid Hybrid approach: Initially did separate logic but later merged after realizing it will
+      come at cost of elegance & also the business push came later to have hybrid campaigns.
 
   * OWNERSHIP / SCRATCH DEV / SCALE
     - ROLLUPS
@@ -107,16 +109,39 @@
     - Working with Product & Manager to create Quarterly Plan
     - Opportunity to go from 3M to 30M in profits.
     - Launched Category Bidding / Negative Keywords / Relevancy Improvements(Product R2D2 Taxonomy Improvements) plus Hybrid Keyword+Category Bids.
+    - First project went with C* storage for Tier1 service along with Memcache instead of others using Couchbase+Oracle.
 
-  * CONFLICT
+  * TECH CONFLICT
     - Use of MySQL vs Cassandra for Caching. Data to show smaller data set cud be done by MySQL, used C* for more data heavy ops.
     - Apache Flink use for real time streaming use, but agreed to use of Storm given timelines/expertise/adoption within team.
     - CR conflict, back & forth, yielded to a certain way, but failed for an edge case in Prod. Learnt to stay course.
     - Jeeves work w/ IDC junior team. She wasn't happy about doing anything other than coding like deploys, following processes etc.
       Explained to her the importance of everything & learning these skills to independently own full SDLC later.
+    - CR conflict: parallelstream vs async futures vs threadpool, used data to guide the decision
 
-  * REGRETS
+  * RISK / MISTAKE / FAIL / IMPROVE
+    - Using NoSQL secondary indexing on NSF cluster for some analytics came in expensive & caused issues. Improvised by
+      using Spark MR to do offline/reporting & for real time used Solr indexes.
+
+  * REGRETS / CUSTOMER FEEDBACK
     - Category Bid vs Keyword could have been Hybrid from get go.
+    - Lag w/ Search Page seller & ItemPage BB winner. Tickets, reduced cache refresh push based than time.
+    - Obsess over customer, anticipate needs & drive innovations/decisions based on feedback.
+
+# Here are some examples of behavioral-based questions: [STAR method, use of data driven decisions & KPI metrics to measure success]
+  * Tell me about a time when you were faced with a problem that had a number of possible solutions. What was the problem and how did you determine the course of action? What was the outcome of that choice?
+    - Research, asking right questions to right people, seeking diverse opinions, learning in depth about options that u overlooked(or considered in-feasible)
+    - Data driven decisions, theoretical validation, POC, scaled down 1 node stage deploy with simulated customer load, metrics to prove.
+    - Sync with team/boss & move forward, dn't wait any longer if you are right. [Leaders are right]
+  * When did you take a risk, make a mistake, or fail? How did you respond, and how did you grow from that experience?
+    - Research, ask right question, learn how to use data & think best for customer.
+  * Describe a time you took the lead on a project.
+  * What did you do when you needed to motivate a group of individuals or promote collaboration on a particular project?
+  * How have you leveraged data to develop a strategy?
+  * How wud u empower someone who is lacking accountability?
+    - Conversation, remove underlying obstacle for this behavior.
+  * A process that u wanted to remove?
+    - Too many meetings, use of slack saves time for many, create channel for collaborate, discuss on confluence etc.
 
 # Why leave?
   - Remain neutral about leaving, dnt talk abt bad people/managers/pay etc
@@ -141,7 +166,7 @@
   - https://www.quora.com/How-do-I-answer-in-an-interview-when-asked-what-is-your-weakness
 
 # How did you resolve a conflict?
-  - Conflicts happen. Talk about method of handling conflict not about details of outcome.
+  - Conflicts happen. Talk about method of handling conflict not about details of outcome. Keep asking the right questions.
   - Discussion b/w parties, data gathering(pros & cons), consensus building, choose one that best fits the situation
   - eg. Java vs Scala post Polymorph acquisition & merging of stacks
 

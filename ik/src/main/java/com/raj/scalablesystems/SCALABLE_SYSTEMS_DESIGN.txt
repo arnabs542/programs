@@ -24,6 +24,13 @@ https://llimllib.github.io/bloomfilter-tutorial/
 >> Choose the right way of Client side connection with server
 https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-events-c43ba96df7c1
 
+=> How do web browser communicate over internet?
+   - Type URL, browser lookup ISP provided DNS, IP routing over multiple gateways/routers, socket connect, TCP/IP communication - connect/handshake/ack,
+   - Send request using HTTP GET,POST,PUT w/ headers content-type to webserver. Can be encrypted.
+   - Webserver responds with 200 OK & response body sent as chunks via TCP. Webservices may use CDNs for media content.
+   - Browser renders response which in turn can fire client ajax style TCP requests to render dynamic content async.
+   - Browser uses cookies/memory/disk to cache/page/store meta info.
+
 => TCP vs UDP:
  -> TCP characteristics:
     - is a connection-oriented protocol, w/ ACKs
