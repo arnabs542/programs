@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class TaskScheduler {
+public class TaskSchedulerCoolDown {
     /**
      * Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters
      * represent different tasks. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.
@@ -26,7 +26,7 @@ public class TaskScheduler {
     }
 
     /**
-     * THIS DOESN'T YIELD OPTIMIZED SCHEDULE !
+     * WRONG - THIS DOESN'T YIELD OPTIMIZED SCHEDULE !
      * check greedy()
      *
      * Let's do Greedy approach - start with the task with max number of occurrences & slot it out in res.
@@ -94,15 +94,15 @@ public class TaskScheduler {
         // build max heap to track most freq task
         PriorityQueue<Task> pq = new PriorityQueue<>((a,b) -> {
             int cmp = b.cnt - a.cnt;
-            return cmp == 0 ? a.id - b.id : cmp;  // if same freq, use natural ordering of task ids (default wud have been a.equals(b))
+            return cmp == 0 ? a.id - b.id : cmp;  // if same freq, use natural ordering of task ids (default behavior anyways)
         });
         for (int t = 0; t < 25; t++) {
-            if (taskFreq[t] > 0) pq.add(new Task((char)(t+65), taskFreq[t]));
+            if (taskFreq[t] > 0) pq.add(new Task((char)(t + 'A'), taskFreq[t]));
         }
 
         while (!pq.isEmpty()) {     // run until we got tasks left
 
-            List<Task> cooldownTasks = new ArrayList<>();  // save to add back later with decr counts
+            List<Task> cooldownTasks = new ArrayList<>();  // save tasks to add back later with decr counts
 
             // schedule tasks for each cooldown interval
             for (int i = 0; i <= cd; i++) {
@@ -111,7 +111,7 @@ public class TaskScheduler {
                     res.add(task.id);
                     task.cnt--;               // decr freq
                     if (task.cnt > 0) cooldownTasks.add(task);  // add newly scheduled task to cooldown
-                } else {    // otherwise idle time
+                } else if (!cooldownTasks.isEmpty()) {  // otherwise idle time if there are tasks left for next scheduling
                     res.add('_');
                 }
             }
@@ -119,9 +119,6 @@ public class TaskScheduler {
             // add back cooldown tasks to heap for next scheduling iter
             pq.addAll(cooldownTasks);
         }
-        // boundary case - the last scheduled interval may have '_' which can be removed eg. AB_ => AB
-        int i = res.size();
-        while (res.get(--i) == '_') res.remove(i);
 
         // print final schedule
         System.out.println(res);

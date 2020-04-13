@@ -11,11 +11,11 @@ public class PROBLEM_PATTERNS {
      * # Sorted Array - Binary Search
      * # K Sorted Arrays - K-way Merge using Heap
      * # Top 'K' - Anti-Heap
-     * # 'K' sized max subarray / Longest substring with 'K' - Sliding Window
+     * # 'K' sized max subarray/Longest substring with 'K' - Sliding Window
      * # Combinations or Permutations of a given set - Subset Pattern
      * # Prefix Searches - Trie
      * # Substring Searches - KMP/RabinKarp/SuffixTrie
-     * # DAG - Topo sort
+     * # DAG/Acyclic Graph Ordering - Topological sort
      *
      * Good Links:
      * https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
@@ -60,7 +60,7 @@ public class PROBLEM_PATTERNS {
      * [GREEDY]
      * @see com.raj.dp.greedy.JobSequence
      * @see com.raj.dp.greedy.ActivitySelection
-     * @see com.raj.dp.greedy.TaskScheduler
+     * @see com.raj.dp.greedy.TaskSchedulerCoolDown - Greedily schedule most freq task for cooldown / Max Heap / Cooldown Tasks / Idle condition
      *
      * [DP]
      * Types of problems:
