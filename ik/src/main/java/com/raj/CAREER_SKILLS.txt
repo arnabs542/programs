@@ -132,7 +132,7 @@
   * Tell me about a time when you were faced with a problem that had a number of possible solutions. What was the problem and how did you determine the course of action? What was the outcome of that choice?
     - Research, asking right questions to right people, seeking diverse opinions, learning in depth about options that u overlooked(or considered in-feasible)
     - Data driven decisions, theoretical validation, POC, scaled down 1 node stage deploy with simulated customer load, metrics to prove.
-    - Sync with team/boss & move forward, dn't wait any longer if you are right. [Leaders are right]
+    - Sync with team/boss & move forward, don't wait any longer if you are right. [Leaders are right]
   * When did you take a risk, make a mistake, or fail? How did you respond, and how did you grow from that experience?
     - Research, ask right question, learn how to use data & think best for customer.
   * Describe a time you took the lead on a project.

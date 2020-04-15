@@ -10,7 +10,7 @@
  => with repetition - n^k
  => without repetition - n * n-1 * n-2 ....n-k
 
-# Combination => order doesn't matter (subset problem)
+# Combination => order doesn't matter & set can have lesser elements (subset problem)
  => Choose k combinations out of n => C(n,k) = n! / k! (n-k!)
 
 # Print all permutations of abc

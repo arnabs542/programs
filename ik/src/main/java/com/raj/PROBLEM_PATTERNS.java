@@ -34,6 +34,9 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.strings.PalindromePairs - Trie + Reverse lookup / Map + Reverse lookup
      * @see com.raj.strings.SubstringMatch - Naive N^2 >> RabinKarp/RollingHash algo >> SuffixTrie
      * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin
+     * @see com.raj.strings.RegExPatternMatch - Recur include or skip a char for special char >> DP
+     * @see com.raj.strings.MinimumWindowSubstr - Expand/Contract Sliding Window pattern
+     * @see com.raj.strings.LongestPalinSubstr - Expand around center
      *
      * [TREES]
      * # Traversals:
@@ -54,8 +57,10 @@ public class PROBLEM_PATTERNS {
      * [RECURSION]
      * @see com.raj.recursion.NQueens - Fundamentals
      * @see com.raj.recursion.combinations.SubsetSum - include/exclude i (using ptrs)
+     * @see com.raj.recursion.combinations.SubsetChangeCase - similar to above
      * @see com.raj.recursion.permutations.EvalAllPossibleExpr - form incremental str & recurse on 2 options: '+' & '*'
      * @see com.raj.recursion.permutations.Permute - use slate w/ swaps >> use ptrs
+     * @see com.raj.recursion.permutations.DecodeMessages - Permute pattern
      *
      * [GREEDY]
      * @see com.raj.dp.greedy.JobSequence

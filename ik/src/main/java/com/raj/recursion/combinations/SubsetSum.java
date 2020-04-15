@@ -7,6 +7,9 @@ import java.util.Stack;
  */
 public class SubsetSum {
 
+    /**
+     * Find the number of subset that add up to given T.
+     */
     public static void main(String[] args) {
         System.out.println(subsetSum(new int[] {1,2,3,4,5}, 0, 5, new Stack()));
     }

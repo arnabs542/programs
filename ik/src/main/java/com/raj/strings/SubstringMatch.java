@@ -66,8 +66,8 @@ public class SubstringMatch {
          *    eg. ABCD, XBCY, len = 2
          *    - compute X length hashes & store in map, iter second & check if X length hash matches => O(n)
          * -> Given two strings, find out if one is a rotation of the other.
-         *    eg. ABCD, DABC (compute hash of 2 letters & slide ?)
-         * -> Keep two files on disk in sync, by copying only the deltas.
+         *    eg. ABCD, DABC (Compute hashes, swap chars to front & recompute hash & compare - O(n))
+         * -> Keep two files on disk in sync, assuming append only writes, by copying only the deltas.
          */
 
     }
@@ -87,7 +87,7 @@ public class SubstringMatch {
      * a$
      * $
      *
-     * 3) Now Search the pattern in above suffix tree - O(m) w/ building tree as O(n) cost & space
+     * 3) Now Search the pattern in above suffix tree - O(m) w/ building tree as O(n) cost & space using Ukonnen's algo
      */
 
 
@@ -113,7 +113,6 @@ public class SubstringMatch {
      * as a binary search tree, but with up to three children rather than the binary tree's limit of two.
      *    => https://www.geeksforgeeks.org/ternary-search-tree/
      *    => https://en.wikipedia.org/wiki/Ternary_search_tree
-     *    => https://www.geeksforgeeks.org/ternary-search-tree/
      *    => Common applications for ternary search trees include spell-checking and auto-completion.
      *    => Ternary search trees are more space efficient compared to standard prefix trees, at the cost of speed -
      *       -> BST like complexity ie. O(logn) w/ base 3 & O(n) space cost to build.

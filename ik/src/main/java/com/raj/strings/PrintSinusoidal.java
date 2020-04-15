@@ -5,9 +5,9 @@ public class PrintSinusoidal {
     /**
      * Also called "SnakeString". For example, the phrase "Google Worked" should be printed as follows
      * (where ~ is the word separator):
-     *     o     ~         k
+     *     o     ~      k
      *   o  g  e  W   r   e
-     * G     l        o       d
+     * G     l      o       d
      */
     public static void main(String[] args) {
         String s = "GOOGLE WORKED!!";
