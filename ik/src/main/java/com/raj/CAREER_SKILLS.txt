@@ -36,9 +36,9 @@
 # Describe CHALLENGING PROJECT(s):
   [For each of ur company(maybe they are interested in particular company or domain) prepare few projects]
   * Most technically challenging project
-    - Rollups scratch
-    - Dedupe Storm
+    - Rollups scratch: trigger based then moved to incremental
     - Rollups revamp incremental
+    - Dedupe Storm
     - Ads Item Store caching: Real time streaming+batch pipeline
     - Composite Vector Embedding Data Pipeline + Vector similarity searches than string based hard rules
     - SBA enhancements: Premium Search Placement that Brand targetted. CategoryBid + KeywordBid Hybrid approach.
@@ -109,7 +109,7 @@
     - Working with Product & Manager to create Quarterly Plan
     - Opportunity to go from 3M to 30M in profits.
     - Launched Category Bidding / Negative Keywords / Relevancy Improvements(Product R2D2 Taxonomy Improvements) plus Hybrid Keyword+Category Bids.
-    - First project went with C* storage for Tier1 service along with Memcache instead of others using Couchbase+Oracle.
+    - Rollups: First project went with C* storage for Tier1 service along with Memcache instead of others using Couchbase+Oracle.
 
   * TECH CONFLICT
     - Use of MySQL vs Cassandra for Caching. Data to show smaller data set cud be done by MySQL, used C* for more data heavy ops.

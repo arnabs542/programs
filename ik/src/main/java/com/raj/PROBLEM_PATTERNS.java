@@ -1,6 +1,7 @@
 package com.raj;
 
 import com.raj.dp.WeightedJobSchedule;
+import com.raj.graphs.topo.CourseSchedule;
 
 public class PROBLEM_PATTERNS {
 
@@ -94,7 +95,7 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.graphs.FindIslands - Connected components DFS
      * @see com.raj.graphs.CountBasins - Connected components DFS Tricky
      * @see com.raj.graphs.BipartiteGraph - Divide into 2 partitions / Alternate Color Graph BFS or DFS
-     * @see com.raj.graphs.CourseSchedule - Simple Topological Sort DFS
+     * @see CourseSchedule - Simple Topological Sort DFS
      *
      * @see com.raj.graphs.ShortestPathWeighted - Dijkstra's Shortest Path in Weighted graph w/ cycles
      * # When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.

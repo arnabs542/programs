@@ -13,6 +13,18 @@ char = 2 byte = 0 to 65K  (1 byte for most common chars)
 byte = 8 bits = 2^8 (-128 to 127)
 int = 4 byte = +-2B
 long = 8 byte = +- 19 digits
+float = 4 bytes = 6 to 7 decimal point precision  (numbers represented as 1 bit for sign, 23 bits for mantissa, 8 bits for exponent eg. 1.23 * (10^)34)
+double = 8 bytes = 15 to 16 decimal precision
+
+>> Computing # servers: (How many servers for 1M reads/sec ? - Storage, CPU, I/O)
+  => A commodity server (12 cores) can handle 100 concurrent threads / processes (after that it degrades)
+  => Say Read or Write takes 100 ms, so 10 reads/sec per process = 100 threads x 10 reads = 1000 reads/sec
+  => If we need 1M reads/sec = 1000 servers
+  => Also, check I/O throughput. Say, each read takes 10KB data. A typical server supports 1 GB/sec = 100K reads/sec
+
+>> How to represent very large numbers bigger than primitives MAX_VALUE?
+  => Use BigInteger which basically stores each digit in int[]
+  => For add/substract/multiply etc using carry overs & sign
 
 >> Base64 encode/decode: https://en.wikipedia.org/wiki/Base64
  -> Uses chars A-Z,a-z,0-9,+,/ = 64 chars
@@ -79,11 +91,18 @@ Http 2 is the next version of http protocol(http 1.1 is the most commonly used c
   => Symmetric - Same public key b/w 2 parties is used to encrypt message
   => Asymmetric - Each party has a private & public key. Public key is shared with another party. Message are encrypted using the public key but can only be decrypted by private key.
 
->> Computing # servers: (How many servers for 1M reads/sec ? - Storage, CPU, I/O)
-  => A commodity server (12 cores) can handle 100 concurrent threads / processes (after that it degrades)
-  => Say Read or Write takes 100 ms, so 10 reads/sec per process = 100 threads x 10 reads = 1000 reads/sec
-  => If we need 1M reads/sec = 1000 servers
-  => Also, check I/O throughput. Say, each read takes 10KB data. A typical server supports 1 GB/sec = 100K reads/sec
+>> HTTP vs HTTPS : https://www.youtube.com/watch?v=hExRDVZHhig
+  => "Hyper Text Transfer Protocol" - Former most widely used format of data exchange over web. Data is sent in clear
+  text & susceptible to hacks, especially if it has sensitive data.
+  => Secure HTTP - Data is encrypted & transferred over web which is impossible to hack. HTTPS secures data using one of the 2 protocols:
+     1. SSL (Secure Socket Layer) - Uses public key encryption to secure data.
+        Steps: Web browser connects to website & asks identify itself.
+        Website sends a copy of it's SSL certificate. Browser authenticates the identity of website from CA & sends trusted OK msg to webserver.
+        Webserver responds with an ACK so that ssl session can proceed. Encrypted data can now be exchanged over internet.
+     2. TLS (Transport Layer Security) - SSL Successor & Latest industry standard cryptographic protocol.
+        Based on SSL specs which Auths server, client & encrypts data. Most websites use HTTPS by default else Google
+        flags them as "not secure" & penalizes them in search rankings.
+  => More details in com.raj.scalablesystems.browserinternet.Browser_Communication
 
 ========
 

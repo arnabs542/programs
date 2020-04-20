@@ -1,15 +1,14 @@
 package com.raj.concurrency;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteLock {
     /**
-     * # Reentrant ReadWrite Lock: https://www.codejava.net/java-core/concurrency/java-readwritelock-and-reentrantreadwritelock-example
-     * - Multiple threads can read the data at the same time, as long as there’s no thread is updating the data.
-     * - Only one thread can update the data at a time, causing other threads (both readers and writers) block until the write lock is released.
-     * - If a thread attempts to update the data while other threads are reading, the write thread also blocks until the read lock is released.
+     *
+     *
+     *
+     *
      *
      * Reader's Writers Problem:
      * https://www.geeksforgeeks.org/readers-writers-problem-set-1-introduction-and-readers-preference-solution/
@@ -26,28 +25,27 @@ public class ReadWriteLock {
      */
     public static void main(String args[] ) throws Exception {
         Shared1 shared = new Shared1();
-        final AtomicInteger cnt = new AtomicInteger(25);
 
         // 2 threads accessing the same method
         Thread T1_a = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method1();
+            for (int i = 0; i < 5; i++) shared.method1();     // terminate after some i
         }, "T1_a");
         Thread T1_b = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method1();
+            for (int i = 0; i < 5; i++) shared.method1();
         }, "T1_b");
 
         Thread T2_a = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method2();
+            for (int i = 0; i < 5; i++) shared.method2();
         }, "T2_a");
         Thread T2_b = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method2();
+            for (int i = 0; i < 5; i++) shared.method2();
         }, "T2_b");
 
         Thread T3_a = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method3();
+            for (int i = 0; i < 5; i++) shared.method3();
         }, "T3_a");
         Thread T3_b = new Thread(() -> {
-            while (cnt.decrementAndGet() > 0) shared.method3();
+            for (int i = 0; i < 5; i++) shared.method3();
         }, "T3_b");
 
         // start thread in random order
@@ -71,16 +69,29 @@ public class ReadWriteLock {
 
         ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         Lock lock = readWriteLock.writeLock();
+        /**
+         * Doesn't wrk with either AtomicInteger or Volatile as still there are dirty reads for state(3 steps internally for setting value)
+         * synchroized method for get & set State var still doesn't wrk
+         */
+        // AtomicInteger STATE = new AtomicInteger(1);
         int STATE = 1;
 
         public Shared() {}
 
+        public synchronized int getState() {
+            return STATE;
+        }
+
+        public synchronized void setState(int val) {
+            STATE = val;
+        }
+
         public void method1() {
             while (true) {
-                if (STATE == 1) {
+                if (getState() == 1) {
                     lock.lock();
                     System.out.print("1 ");
-                    STATE = 2;
+                    setState(2);
                     lock.unlock();
                 }
             }
@@ -88,10 +99,10 @@ public class ReadWriteLock {
 
         public void method2() {
             while (true) {
-                if (STATE == 2) {
+                if (getState() == 2) {
                     lock.lock();
                     System.out.print("2 ");
-                    STATE = 3;
+                    setState(3);
                     lock.unlock();
                 }
             }
@@ -99,10 +110,10 @@ public class ReadWriteLock {
 
         public void method3() {
             while (true) {
-                if (STATE == 3) {
+                if (getState() == 3) {
                     lock.lock();
                     System.out.print("3 ");
-                    STATE = 1;
+                    setState(1);
                     lock.unlock();
                 }
             }
