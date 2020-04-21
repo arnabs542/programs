@@ -2,7 +2,7 @@ package com.raj.graphs.topo;
 
 import java.util.*;
 
-public class DependecyResolver {
+public class DependencyResolver {
     /**
      * Given a lib dependency u -> v, print how we can optimize by building in parallel
      *
@@ -60,7 +60,7 @@ public class DependecyResolver {
         // Approach 1 : DFS
         System.out.println(optimizeDependencyDFS(new String[][] {
                 {"a","b"}, {"a","c"},
-                {"b",""}, {"c",""}
+                {"b","c"}, {"c",""}
         }));
         System.out.println(optimizeDependencyDFS(new String[][] {
                 {"a","b"}, {"a","c"},
@@ -77,7 +77,7 @@ public class DependecyResolver {
         System.out.println("==== Using Kahn's Indegree ====");
         System.out.println(optimizeDependencyBFS_Kahns(new String[][] {
                 {"a","b"}, {"a","c"},
-                {"b",""}, {"c",""}
+                {"b","c"}, {"c",""}
         }));
         System.out.println(optimizeDependencyBFS_Kahns(new String[][] {
                 {"a","b"}, {"a","c"},
@@ -95,6 +95,7 @@ public class DependecyResolver {
     static Map<String,Set<String>> adjMap;
     static Map<String,Integer> visitedByLvl;
 
+    // Slightly complex
     static List<Collection<String>> optimizeDependencyDFS(String[][] edges) {
         adjMap = new HashMap<>();
         visitedByLvl = new HashMap<>();
@@ -106,7 +107,7 @@ public class DependecyResolver {
         }
 
         for (String v : adjMap.keySet()) {
-            dfs(v);
+            dfs(v);     // just dfs & mark visited after
         }
 
         System.out.println("Adjacency Map => " + adjMap + ", Visited by lvl map => " + visitedByLvl);
@@ -131,10 +132,10 @@ public class DependecyResolver {
         int lvl = 0;  // compute max lvl
         for (String w : adjMap.get(v)) {   // explore childs
             dfs(w);
-            lvl = Math.max(visitedByLvl.get(w), lvl);  // a->b->c  a->b  , we take max lvl
+            lvl = Math.max(visitedByLvl.get(w), lvl);  // a->b->c  a->c  , we take max lvl for a(1,2) = 2
         }
         visitedByLvl.put(v, lvl+1);   // set lvl for v
-        maxLvl = Math.max(maxLvl, lvl+1);
+        maxLvl = Math.max(maxLvl, lvl+1);  // for printing later
     }
 
     /**
@@ -149,7 +150,7 @@ public class DependecyResolver {
      *
      * Add leaf tuple(v,0) nodes to Q.
      * iter Q:
-     *   pop v. Add to nodesByLvl(0,{v}).
+     *   pop v. Add to nodesByLvl(lvl,{v}).
      *   reduce in-degree of childs
      *   if they become 0, add to Q
      */
@@ -159,6 +160,7 @@ public class DependecyResolver {
         for (String[] edge : edges) {
             String u = edge[0];
             String v = edge[1];
+            // add dependency in reverse a->b becomes b->a
             if (!adjMap.containsKey(v)) adjMap.put(v, new HashSet<>());
             if (!v.isEmpty()) {
                 adjMap.get(v).add(u);
@@ -173,19 +175,18 @@ public class DependecyResolver {
         for (String v : inDegree.keySet()) {
             if (inDegree.get(v) == 0) Q.add(new Pair(v,0));
         }
-        System.out.println(Q);
         // compute node lvl map
         Map<Integer,Set<String>> mapByLvl = new HashMap<>();
-        int maxLvl = 0;
         while (!Q.isEmpty()) {
+
+            // process node
             Pair pr = Q.poll();
 
             // add to lvl map this node
             if (!mapByLvl.containsKey(pr.lvl)) mapByLvl.put(pr.lvl, new HashSet<>());
             mapByLvl.get(pr.lvl).add(pr.v);
-            maxLvl = Math.max(maxLvl, pr.lvl);
 
-            // update indegrees of neighbors & add newly found 0 degreed nodes
+            // reduce indegrees of neighbors & add newly found 0 degreed nodes
             if (adjMap.get(pr.v) == null) continue;
             for (String w : adjMap.get(pr.v)) {
                 int deg = inDegree.get(w);
@@ -195,7 +196,7 @@ public class DependecyResolver {
             }
         }
 
-        System.out.println(mapByLvl);
+        System.out.println("mapByLvl => " + mapByLvl);
         // parse map to desired output
         List<Collection<String>> res = new ArrayList<>();
         int lvl = 0;
