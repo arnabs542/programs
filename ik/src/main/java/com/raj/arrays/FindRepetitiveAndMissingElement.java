@@ -36,7 +36,7 @@ public class FindRepetitiveAndMissingElement {
 
     /**
      * Idea is to use cyclic sort technique.
-     * Given we have nums from 1..n, we can leverage that info to iterate once ans swap numbers to their respective pos
+     * Given we have nums from 1..n, we can leverage that info to iterate once and swap numbers to their respective pos
      * Input:[3 1 2 5 3]
      *
      * after linear pass =>
@@ -47,14 +47,17 @@ public class FindRepetitiveAndMissingElement {
      */
     public List<Integer> cyclic_sort(int[] A) {
         Integer[] res = new Integer[2];
+        int swapCnt = 0;
         for (int i = 0; i < A.length; i++) {
-            if (i+1 != A[i]) {  // swap
+            while (i+1 != A[i] && A[i] != A[A[i]-1]) {  // swap until num is at its desired index, also take care of cycle
                 int t1 = A[i];
                 int t2 = A[i]-1;
                 A[i] = A[t2];
                 A[t2] = t1;
+                swapCnt++;
             }
         }
+        System.out.println(Arrays.toString(A) + ", swapCnt = " + swapCnt);
         for (int i = 0; i < A.length; i++) {
             if (i>0 && A[i-1] == A[i]) res[0] = A[i];  // dupe
             if (A[i] != (i+1)) res[1] = i+1;  // missing

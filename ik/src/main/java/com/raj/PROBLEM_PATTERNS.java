@@ -25,8 +25,8 @@ public class PROBLEM_PATTERNS {
      * # Pattern: BruteForce >> SubOptimal >> Optimal Solution
      *
      * [SORTING]
-     * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect
-     * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect
+     * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect(Modified BSearch)
+     * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect(Modified BSearch)
      *
      * [ARRAYS]
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
