@@ -48,7 +48,7 @@ public class LongestPalinSubstr {
      * # Check if left & right ptrs match, keep updating max
      * # Above wud wrk for odd lengths, for even length just fix left & right adjacent
      * # Keep 2 loops for each odd & even lengths for simplicity
-     * Runtime = O(n)
+     * Runtime = O(n^2)
      */
     static String quadratic(String s) {
         if (s.isEmpty() || s.length() == 1) return s;

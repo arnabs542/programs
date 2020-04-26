@@ -67,6 +67,7 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.dp.greedy.JobSequence
      * @see com.raj.dp.greedy.ActivitySelection
      * @see com.raj.dp.greedy.TaskSchedulerCoolDown - Greedily schedule most freq task for cooldown / Max Heap / Cooldown Tasks / Idle condition
+     * @see com.raj.dp.greedy.MaxSeatingAwkwardness - Greedily pick max and slot it in a GG pattern
      *
      * [DP]
      * Types of problems:

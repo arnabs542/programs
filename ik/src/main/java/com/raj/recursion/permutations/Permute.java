@@ -36,9 +36,9 @@ public class Permute {
      *
      * O(n!) time complexity, O(n) extra space
      */
-    static void permute(int[] arr, int i, Stack<Integer> slate) {
+    static void permute(int[] arr, int i, Stack<Integer> slate) {   // NOTE: we don't need slate as arr represents the state
         if (i == arr.length) {
-            System.out.println(slate);
+            System.out.println(slate + " = " + Arrays.toString(arr));  // arr is same as slate
             return;
         }
 

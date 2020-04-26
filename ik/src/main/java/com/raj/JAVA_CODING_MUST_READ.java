@@ -177,6 +177,14 @@ public class JAVA_CODING_MUST_READ {
         }
     }
 
+    // Comparator Usage - Collections.sort(aCollection, new SortByDist());
+    static class SortByDist implements Comparator<Point> {  // make sure Point impleme nts equals/hashcode for use in HashMap/Set
+        @Override
+        public int compare(Point a, Point b) {
+            return Double.compare(a.dist, b.dist);
+        }
+    }
+
     static void print(Object o) {
         System.out.println(o);
     }

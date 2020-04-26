@@ -41,7 +41,7 @@
     - Dedupe Storm
     - Ads Item Store caching: Real time streaming+batch pipeline
     - Composite Vector Embedding Data Pipeline + Vector similarity searches than string based hard rules
-    - SBA enhancements: Premium Search Placement that Brand targetted. CategoryBid + KeywordBid Hybrid approach.
+    - SBA enhancements: Premium Search Placement that Brand targeted. CategoryBid + KeywordBid Hybrid approach.
   * Most situationally challenging project
     - Timeline changes, resource & time constraints, conflicting priorities
     - Don't talk abt individuals
@@ -157,7 +157,7 @@
     * Accountable: ownership
     * Good judgement
 
-# What is your weakness?
+# What is your WEAKNESS?
   - Be neutral
   - Don't convert a strength into weakness like "I work too hard" or "I'm detail oriented"
   - Wasn't good at doing code reviews or some language/tech stack, but improved on it
