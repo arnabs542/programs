@@ -25,6 +25,7 @@ public class PROBLEM_PATTERNS {
      * # Pattern: BruteForce >> SubOptimal >> Optimal Solution
      *
      * [SORTING]
+     * @see com.raj.sorting.BalancedPartition - Equal Sum Partition / Sort / Left & Right Ptrs expand on some conditions
      * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect(Modified BSearch)
      * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect(Modified BSearch)
      *
