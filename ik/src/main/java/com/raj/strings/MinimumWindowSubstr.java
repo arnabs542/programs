@@ -23,6 +23,10 @@ public class MinimumWindowSubstr {
      *
      * Input => "accbbababac", {a,b,c}
      * o/p   =>         "bac"
+     *
+     * Another variant of the problem: Short Permutation in a Long String
+     * https://leetcode.com/articles/short-permutation-in-a-long-string/
+     *
      */
     public static void main(String[] args) {
         System.out.println(brute("helloworld", new char[]{'l','r','w'}));

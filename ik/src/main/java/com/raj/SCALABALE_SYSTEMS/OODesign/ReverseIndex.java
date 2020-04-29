@@ -1,4 +1,4 @@
-package com.raj.scalablesystems.OODesign;
+package com.raj.SCALABALE_SYSTEMS.OODesign;
 
 import java.util.*;
 

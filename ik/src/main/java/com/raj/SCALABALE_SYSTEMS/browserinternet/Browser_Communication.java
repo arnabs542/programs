@@ -1,4 +1,4 @@
-package com.raj.scalablesystems.browserinternet;
+package com.raj.SCALABALE_SYSTEMS.browserinternet;
 
 public class Browser_Communication {
  /**

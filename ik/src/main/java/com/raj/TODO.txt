@@ -1,4 +1,0 @@
-# https://stackoverflow.com/questions/7153659/find-an-integer-not-among-four-billion-given-ones/30234536
-# https://www.careercup.com/question?id=14804692
-
-# Segment Trees & RMQ : https://oj.interviewkickstart.com/view_editorial/5072/65/

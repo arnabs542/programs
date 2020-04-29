@@ -32,8 +32,7 @@ public class Anagram {
             char[] arr = s.toCharArray();
             Arrays.sort(arr);
             String sortedString = new String(arr);
-            if (map.get(sortedString) == null) map.put(sortedString, new ArrayList<>());
-            map.get(sortedString).add(s);
+            map.computeIfAbsent(sortedString, k -> new ArrayList<>()).add(s);
         }
         System.out.println(map);
         return null;

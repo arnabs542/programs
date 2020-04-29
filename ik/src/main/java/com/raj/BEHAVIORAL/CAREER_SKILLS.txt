@@ -1,0 +1,382 @@
+=== BEHAVIORAL INTERVIEWS ===
+
+# Interviewer is looking for RED FLAGS on behavioral questions
+
+# Answer Questions by S.T.A.R. Method:
+  - If Question is Direct, answer it concisely, then add details
+    * Situation - describe it
+    * Task - the task performed & your responsibilities (not by ur team)
+    * Action - steps you took
+    * Result - achievements / impact
+
+# Tell me about yourself:
+  - 1 min pitch w/ highlights
+  - Start w/ "I am a PSE @WalmartLabs. Currently working with Advertising Technology Group."
+  - Describe most recent projects & then go chronologically back
+  - End w/ what u are looking for
+
+# Recognizing Tone from "Tell me about X questions":
+  - A difficult situation / Weakness / Area of Improvement - Remain neutral, very subtle sell, describe lesson learnt
+  - A interesting/challenging project / strengths / tell me abt yourself - Sell yourself
+
+# BEHAVIORAL PATTERNS of Likability: (Shows these in your answers)
+  * Curious + Enthusiastic + Passionate to learn/solve problems
+  * Honest + Diligent
+  * Dedication + Determination + Hard/Smart Working
+  * Ownership
+  * Trustworthy
+  * Humble & Patient
+  * Flexible + Adaptable to changes
+  * Collaboration with Team + Open/Truthful with each other
+  * Independent & wise decision-making despite ambiguity
+
+# Strength & Weaknesses:
+  * https://www.indeed.com/career-advice/interviewing/interview-question-what-are-your-strengths-and-weaknesses
+  * https://novoresume.com/career-blog/what-are-your-strengths-and-weaknesses-interview-questions
+  * Be slightly neutral
+  * Don't convert a strength into weakness like "I work too hard" or "I'm detail oriented"
+
+# STRENGTHS
+  * Ownership & Dedication
+  * Passionate abt new Tech/Domain & Quick Learner
+  * Honest, Humble & Flexible
+  * Self motivated & Positive in pressing situations
+  * Tech Stack
+    "Building WebServices & Scalable Distributed Systems"
+  * Tech leadership
+    "With more than 14 years of experience in internet scale systems, I’ve exceeded my OKRs & KPIs every quarter and have been
+    promoted twice in the past five years. I look back at those successes and know that I wouldn’t have reached them if
+    I hadn’t learnt new skills, built and led teams composed of highly skilled and diverse individuals. I’m proud of my
+    ability to get cross-functional groups on the same page. I’ve regularly honed my leadership skills through 360 reviews
+    and candid sessions with my team, and I know continuing to build my leadership skills is something I want from my next role."
+  * Team Collaboration skills
+    "I’m very collaborative and have always preferred to work in groups. I work well to inspire diverse team members and work side by side with them to achieve the project goals."
+  * Attentive & Listening to others
+    "Empathetic person who is skilled at relating to people and understanding their needs. Regularly see this reflected in my peer and management feedback"
+  * Good Problem Solver / Good Communicator / Conflict Resolver
+    "I think one of my greatest strengths is as a problem solver. I have the ability to see a situation from different
+    perspectives and I can get my work done even in the face of difficult obstacles. My communication skills are top-notch.
+    I feel just as comfortable presenting solutions to senior management as I do mediate a conflict between junior team members."
+  * Strong work ethic
+    "When I commit to a deadline, I do whatever it takes to deliver. For example, last week we had a report due and got
+    some data back late from our team in IDC. I pulled an all-nighter to finish the job query because I had committed for a timely delivery."
+  * Taking initiatives & risks
+    "Throughout my career I've taken calculated risks & not been afraid of failures. I keep improvising on lessons learnt"
+
+# WEAKNESS
+[Tech]
+  * Code reviews
+    Wasn't good at doing CR or Scala/ML/ELK tech stack, took online classes & learnt
+  * Scala Functional Prog / ML / DS
+    Wasn't good at BigData & DS concepts, took courses & did some projects
+  * Not too detail-oriented
+    Early on, was doing things just to get by, learnt the importance of deep diving even if knowledge isn't needed right away
+[WLB]
+  * Between work & personal life priorities, I keep choosing work or take work too seriously
+  * Struggle to prioritize when backlogged with a lot of work & many new tasks/distractions keep coming in
+    "When new projects come across my plate, I sometimes jump right into those projects and halt work on the projects I had in progress. Having to jump between tasks, so many times throughout the day hinders my productivity and prevents me from delivering my best work. I have been using a to-do reminders to help me manage my tasks and my time, which has helped me become more aware of prioritization."
+  * Wasn't good at multitasking but doing better w/ assigning priority, time slotting & delegation
+[Soft Skills]
+  * Self critical
+    "A pattern I’ve noticed throughout my career is that I often feel I could have done more, even if objectively, I did well.
+    Earlier in my career, this led to burnout and negative self-talk.
+    One solution I’ve implemented over the last three years is to actively pause and celebrate my achievements.
+    Not only has this helped my own self-esteem, but it has also helped me genuinely appreciate and recognize my contrib & impact"
+  * Somewhat Shy, Not adept at public speaking / presentation skills
+    "From high school and into my early professional career, it prevented me from speaking up.
+    Did mentorship w/ leaders, toastmasters & learned practical skills around leading discussions and sharing diverse perspectives.
+    Now, in group settings, I always start conversations with the quieter folks. I know exactly how they feel, and people can be amazing once they start talking."
+  * Difficulty asking help from others / Take on too much responsibility / Wanting to control too many aspects of a situation
+    "I default to believing that I can solve any problem on my own. This works well in some situations, but in many cases,
+    I need the help of others to overcome factors beyond my control. In my earliest design project I was looking into components that had a lot of moving parts.
+    It wasn’t until after the delivery that I realized how narrowly I had pulled it off. I was trying to manage everything
+    from the E2E design down to the tiniest details. I did a lot of self-reflection afterward.
+    Since then, I’ve been training myself to take a step back before diving into problem-solving mode and identify people or groups that can be help to me.”
+  * Procrastinator - delaying things to last minute in fear of failures
+    "It was creating last minute stress for myself. When I was working for AMZ several years ago, I was on a group project
+    where I could see how my putting things off to the last minute created stress for everyone else. It was a wake-up call.
+    I started creating daily to-dos that hold me accountable to my work, and I broke the habit. It was hard at first,
+    but using the Agile/Scrum process was a real breakthrough in my workflow and mindset."
+  * Disorganized - used TODOs
+  * Not optimistic always & losing hope sometimes after many tries - learn to be patient
+[PEOPLE SKILLS]
+  * Believe others too easily, too honest, not too sophisticated
+  * Too caring to others and their needs than my own needs first
+  * Not very strict about anything or any situation
+  * Not good at keeping secrets
+  * Bringing emotions into thinking/decision sometimes
+
+# Tell me about a time when you performed WELL under STRESS / PRESSURE / DEADLINE ?
+  * My coworker had a family emergency and needed to miss work for some time, and their super-important project was left unfinished
+  * My supervisor instructed me to take on the project, and with no leniency on the deadline. I had an on-going project deliverable also.
+  * Took the problem head on & Put in extra hours + weekends to understand code & achieve the deadline learning new things on the way
+  * My supervisor appreciated my attitude and drive & later attributed this factor for my exceeds ratings in annual appraisal.
+  * In an another instance as TL for a project deliverable, challenged team members to work overtime. As a reward promised two days of extra PTO time & free Happy Hour.
+  * eg. [IC] Vector pipeline project, Adrian was OOO.
+  * eg. [TL] ND site work, OfferStore revamp, Azure migration
+
+# Tell me about a time you had a CONFLICT at work & RESOLUTION ?
+  [Conflicts happen. Talk about method of handling conflict not about details of outcome]
+  * There was a disagreement with a coworker which originated from a miscommunication.
+  * To keep our work environment professional and positive, we had to discuss it and make amends.
+  * I sat down with them one day during lunch, paid for their meal, and took initiative by apologizing for my part in the whole mess. They also apologized for slacking off.
+  * Now, we work together well and are help each other in times of need.
+  [More Deep Dive on Resolution]
+  * Address the root cause of the conflict, be humble, accept any shortcomings on ur part
+  * Keep asking the right questions
+  * Discuss b/w conflicting parties
+  * Data gathering(pros & cons), consensus building, choose one that best fits the situation/deadline
+  * eg. Java vs Scala post Polymorph acquisition & merging of stacks
+
+# Tell me about a time you had a DIRECT CONFRONTATION / ANGER with team member ?
+  [STAR]
+  * Our new manager had a single design approach that wasn't working for everyone and members of our team were getting
+  frustrated and felt they were being micro-managed. I suggested that I sit down one-on-one with our manager, having heard
+  the frustrations of the team. I avoided us all sitting down because I didn't want her to feel ganged up on and become defensive.
+  After talking, we decided that they would let team members know their door was open if they needed help & would let them
+  be in charge of the strategy they used to meet their goals. We also started doing monthly Sprint retro meetings & have
+  supervisor too join in to what worked well & what didn't work/concerns devs had & talk about how do we address them.
+  [Deep Dive on resolution strategy]
+  * Invited the team member out for coffee to talk about what happened and how I could help. My approach focused on
+  "how can we fix this in the future" rather than on the many ways the co-worker messed up. I was glad I took the time
+  to chill out since it turned out my co-worker was dealing with serious personal health issues and unforgiving deadlines
+  from several other projects.
+  * I always try to avoid CONFRONTATION, in both my personal and professional life. This caused me to compromise sometimes
+  on the quality of my work or what I needed to complete a project just to keep the peace. This became a real problem when
+  I became a team leader. One of the most critical aspects of leading people is telling them what they need to hear and
+  not what they want to hear. I recognized this weakness and had been actively working to voice my opinions constructively
+  and helpfully for the betterment of the team.
+  * I don’t think ANGER is an appropriate workplace emotion. I have dealt with situations that I found frustrating;
+  for example, I had a coworker who was very confrontational in her written and oral communication. I felt like I was
+  constantly being criticized for things beyond my control. I sat down with her and talked about ways that we could improve
+  our communication. After having that calm, productive conversation, our relationship as co-workers improved greatly,
+  and we actually became collaborators on a number of successful projects.
+  * ANGER to me means loss of control. I don't lose control. When I get stressed, I step back, take a deep breath,
+  thoughtfully think through the situation and then begin to formulate a plan of action. For instance, when I am given
+  multiple projects to complete in a short amount of time, I come up with a strategy for how to complete the work in a
+  steady, methodical manner that will not overwhelm me.
+
+# What Do People Most Often CRITICIZE About You?
+  I had a supervisor many years ago tell me that I was too critical of other people’s work. I took that to heart and made
+  sure from that point forward that my analysis and suggestions were always supportive and helpful rather than critical.
+  More recently, people have praised my ability to give thoughtful and useful feedback.
+
+# Tell me about a MISTAKE / REGRETS / DONE DIFFERENTLY at work ?
+  * We rolled out a new feature release to Prod and things weren't working as expected, impressions were down for some of modules
+  * I was actually the one who discovered my mistake first. When I did, I was able to figure out how it happened and what needed to be done about it.
+  * With a plan in hand, I talked to my supervisor and asked that I be responsible for fixing the mistake
+  * Informed consumers of service about the issue, revenue impact & ETA of fix w/ formal apology through email
+  * Fortunately, this was caught soon enough that very limited impact occurred. I fixed it before given ETA.
+  * I learned to pay close attention to the verification, testing all scenarios & importance of E2E regression tests which were minimal & revamped it.
+  * Added Regression scenario based testing step to Jenkins build & fail build if it didn't pass.
+  * Customers & my supervisor appreciated the effort to being forthcoming & make the situation right in timely manner.
+  * eg. (Early days, deploy systems not mature enough + human error)
+    + Deploy with default 2GB RAM on XL boxes, worked with OneOps to fix this by creating P2 Support ticket.
+    + Restart service without selecting % deploy which defaulted to 100%, got it addressed w/ high DC availability reasoning.
+    + Relax CL level for C* reads to Local_One on nsf to solve load issues, but later had issues with Consistency. Should have asked for more capacity than cut corners.
+
+  * Things didn't go expected after a release due to shortcomings in the understanding of some tech/domain.
+  * Took a step back, worked on a plan to upgrade skills, increase your knowledge base, document learnings,
+  * Took workshop to modify counterproductive behaviors & seek advice from mentors
+  * Now I won't make those mistakes again.
+
+# Tell me about a FAILED GOAL / HANDLE FAILURES ?
+  [how you handle disappointment and failure - you set a huge goal, didn't achieve it, took responsibility and learned from the experience]
+  * I was working on a start-up where our goal was to create better way to upload online video content.
+  * We polled our audience and tried many different ideas, but after a year we had to move on. However, I learned so much from the process.
+  * I developed numerous skills and realized I'm incredibly good at shifting direction when something isn't working. I realized I don't let defeats discourage me for long.
+
+# Tell me about a time you made a UNPOPULAR DECISION / PROCESS and explain how you handled it?
+  [We have to make difficult decisions that aren't popular with all team members]
+  * Saw issues during new deploys so setup a dev process to get 2 CR approvals before merging commits otherwise can't merge
+  * Also added mandatory Mgr CRQ approval w/ details about change - rollback, version, DC, deploy time, customer impact etc
+  * Developers disliked it as it slowed down the code pushes & deploy cycle
+  * Presented data from last 1 year where most site facing or revenue impacting issues were encountered during new deploys & was crucial to tradeoff some time to get NoOp releases.
+
+# Tell me about a time where you were able to MOTIVATE TEAM MEMBER / CO-WORKER NOT DELIVERING?
+  * I noticed that one of new team member was having a hard time meeting their Sprint task deadlines.
+  * I suggested we find time over the next day or two and I would show them some practices I was using that I found highly effective.
+  * Understood their situation, mostly it looked like they were overwhelmed with new domain & new language & tech stack.
+  * Mentored them, gave them extensive 1:1 knowledge session from High Level to code level, shared notes, links, tools and it worked! After a a month or so, they were consistently hitting story timelines.
+
+  * Follow up with my coworker by email or Slack, and if that didn’t work I’d check in with him personally. If the
+  problem grew to a point where it was going to be detrimental to the project, I’d ask a supervisor for an assist.
+
+# Tell me about how you SET GOALS / MEASURE SUCCESS ?
+  [Discuss an ambitious goal you set for yourself and how you came up with a plan for to achieve it & how you measure success]
+  * Wanted to learn new language/tech stack. Created schedule to spend 4 hrs/week to achieve it.
+  * Set KPI as building a small website on AWS using it.
+  * Discussed w/ manager to even set it as my personal OKR & sought their advice to achieve it.
+  * Researched online materials to study & after few weeks of disciplined efforts, I was able to knock off this as a new skill.
+  * My supervisor gave me a project later to use my recent learning.
+
+# Where do you see yourself in 5 yrs?
+  * Talk abt what u want to learn, the impact u want to create
+  * Don't talk abt titles or moving into management, instead say learn more leadership & people management skills
+  * "Hard to say how it wud be 5 yrs down the line, but I'd Improve technical acumen & leadership skills, then wherever I'm, I'll be successful & serve the company in the best possible way"
+
+# Why leave?
+  * Remain neutral about leaving, dnt talk abt bad people/managers/pay etc
+  * Go Positive abt future w/ new company: Talk about learning new things, strengths of new company, its scale, products you like etc
+
+# Why join us? research abt company & talk abt good points, projects u want to work with
+  * Refrain from saying better work life balance as it sends wrong signal abt you being lazy
+
+# Why should we hire you?
+  * Talk abt strengths
+  * What are they looking for?
+    - Are you curios: learn new things
+    - Accountable: ownership
+    - Good judgement
+
+# Follow up Questions to ask:
+  * Describe culture, team, what u do, current challenges, tech stack?
+  * What is ur development/release process?
+  * How does ur typical day look like?
+  * What do u like abt this company / or don't like?
+
+[Answer using STAR method, use of data driven decisions & KPI metrics to measure success]
+# Tell me about a time when you were faced with a problem that had a number of possible solutions. What was the problem and how did you determine the course of action? What was the outcome of that choice?
+  * Research, asking right questions to right people, seeking diverse opinions, learning in depth about options that u overlooked(or considered in-feasible)
+  * Data driven decisions, theoretical validation, POC, scaled down 1 node stage deploy with simulated customer load, metrics to prove.
+  * Sync with team/boss & move forward, don't wait any longer if you are right. [Leaders are right]
+
+# When did you take a risk, make a mistake, or fail? How did you respond, and how did you grow from that experience?
+  * Research, ask right question, learn how to use data & think best for customer.
+
+# Describe a time you took the lead on a project.
+  * Revamp of Offer Service where
+
+# What did you do when you needed to motivate a group of individuals or promote collaboration on a particular project?
+  * How have you leveraged data to develop a strategy?
+  * How wud u empower someone who is lacking accountability?
+    - Conversation, remove underlying obstacle for this behavior.
+  * A process that u wanted to remove?
+    - Too many meetings, use of slack saves time for many, create channel for collaborate, discuss on confluence etc.
+
+
+=== Amazon Principles ===
+https://www.amazon.jobs/en/principles
+
+# Customer Obsession
+Leaders start with the customer and work backwards. They work vigorously to earn and keep customer trust.
+
+# Ownership
+Leaders are owners. They think long term and don’t sacrifice long-term value for short-term results. They act on behalf
+of the entire company, beyond just their own team. They never say “that’s not my job."
+
+# Invent and Simplify
+Leaders expect and require innovation and invention from their teams and always find ways to simplify. They are
+externally aware, look for new ideas from everywhere, and are not limited by “not invented here." As we do new things,
+we accept that we may be misunderstood for long periods of time.
+
+# Are Right, A Lot
+Leaders are right a lot. They have strong judgment and good instincts. They seek diverse perspectives and work to disconfirm their beliefs.
+
+# Learn and Be Curious
+Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.
+
+# Hire and Develop the Best
+Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent, and willingly move
+them throughout the organization. Leaders develop leaders and take seriously their role in coaching others.
+
+# Insist on the Highest Standards
+Leaders have relentlessly high standards — many people may think these standards are unreasonably high. Leaders are
+continually raising the bar and drive their teams to deliver high quality products, services, and processes. Leaders
+ensure that the root cause of defects are addressed.
+
+# Think Big
+Leaders create and communicate a bold direction that inspires results. They think differently and look around corners
+for ways to serve customers.
+
+# Bias for Action
+Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking.
+
+# Frugality
+Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points
+for growing headcount, budget size, or fixed expense.
+
+# Earn Trust
+Leaders listen attentively, speak candidly, and treat others respectfully. They are vocally self-critical, even when
+doing so is awkward or embarrassing. They benchmark themselves and their teams against the best.
+
+# Dive Deep
+Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and
+anecdote differ. No task is beneath them.
+
+# Have Backbone; Disagree and Commit
+Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or
+exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a
+decision is determined, they commit wholly.
+
+# Deliver Results
+Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion.
+Despite setbacks, they rise to the occasion and never settle.
+
+=== Netflix Values ===
+https://jobs.netflix.com/culture
+# Judgment
+- You make wise decisions despite ambiguity
+- You identify root causes, and get beyond treating symptoms
+- You think strategically, and can articulate what you are, and are not, trying to do
+- You are good at using data to inform your intuition
+- You make decisions based on the long term, not near term
+
+# Communication
+- You are concise and articulate in speech and writing
+- You listen well and seek to understand before reacting
+- You maintain calm poise in stressful situations to draw out the clearest thinking
+- You adapt your communication style to work well with people from around the world who may not share your native language
+- You provide candid, helpful, timely feedback to colleagues
+
+# Curiosity
+- You learn rapidly and eagerly
+- You contribute effectively outside of your specialty
+- You make connections that others miss
+- You seek to understand our members around the world, and how we entertain them
+- You seek alternate perspectives
+
+# Courage
+- You say what you think, when it’s in the best interest of Netflix, even if it is uncomfortable
+- You make tough decisions without agonizing
+- You take smart risks and are open to possible failure
+- You question actions inconsistent with our values
+- You are able to be vulnerable, in search of truth
+
+# Passion
+- You inspire others with your thirst for excellence
+- You care intensely about our members and Netflix‘s success
+- You are tenacious and optimistic
+- You are quietly confident and openly humble
+
+# Selflessness
+- You seek what is best for Netflix, rather than what is best for yourself or your group
+- You are open-minded in search of great ideas
+- You make time to help colleagues
+- You share information openly and proactively
+
+# Innovation
+- You create new ideas that prove useful
+- You re-conceptualize issues to discover solutions to hard problems
+- You challenge prevailing assumptions, and suggest better approaches
+- You keep us nimble by minimizing complexity and finding time to simplify
+- You thrive on change
+
+# Inclusion
+- You collaborate effectively with people of diverse backgrounds and cultures
+- You nurture and embrace differing perspectives to make better decisions
+- You are curious about how our different backgrounds affect us at work, rather than pretending they don’t affect us
+- You recognize we all have biases, and work to grow past them
+- You intervene if someone else is being marginalized
+
+# Integrity
+- You are known for candor, authenticity, transparency, and being non-political
+- You only say things about fellow employees that you say to their face
+- You admit mistakes freely and openly
+- You treat people with respect regardless of their status or disagreement with you
+
+# Impact
+- You accomplish amazing amounts of important work
+- You demonstrate consistently strong performance so colleagues can rely upon you
+- You make your colleagues better
+- You focus on results over process

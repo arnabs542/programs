@@ -100,5 +100,7 @@ public class BASICS {
  * implements the work-stealing algorithm, where idle threads try to “steal” work from busy threads. This allows to
  * spread the calculations between different threads and make progress while using fewer threads than it would require
  * with a usual thread pool.
+ *
+ * # Cyclic Barrier vs CountDownLatch: https://www.baeldung.com/java-cyclicbarrier-countdownlatch
  */
 }

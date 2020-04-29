@@ -1,0 +1,158 @@
+=== CHALLENGING PROJECT(s) ===
+ * For each of ur company(maybe they are interested in particular company or domain) prepare few projects]
+
+# Most technically CHALLENGING project
+  * ROLLUPS scratch -> trigger based -> Revamp to incremental -> Patent BB Ranking Idea
+  * ROLLUPS Dedupe Storm
+  * ROLLUPS Audit POC using ES/Solr - tracks each trigger req/response, search, reports -> C* Spark
+  * IRO Orchestrator -> scatter & gather with 10+ microservices, Sprint, Camel, Hystrix, Async CompletableFutures
+  * ADS ITEM STORE caching: Real time streaming + lambda(incr+full refreshes) batch pipeline
+  * Composite VECTOR Embedding(128bit title,32 bit tax) Data Pipeline + Vector similarity searches than string based hard rules
+  * SBA enhancements: Premium Search Placement that Brand targeted. CategoryBid + KeywordBid Hybrid approach. 10M -> 30M growth.
+  * SBA use 2nd stage vector similarity for relevancy after 1st stage Solr filtering
+  * Keyword Match optimizations - Store String once in-memory, use distributed sharding
+
+# Struggled & Lesson learnt
+  * Failed at first, then learnt/improvised & succeeded later
+  * CategoryBid + KeywordBid Hybrid approach: Initially did separate logic but later merged after realizing it will
+    come at cost of elegance & also the business push came later to have hybrid campaigns
+
+# OWNERSHIP / SCRATCH DEV / SCALE
+  * ROLLUPS
+  * One man army until team was expanded
+  * Started with POC working with Distinguished Eng
+  * Built from scratch new Tier-1 service for pre-computing cacheable Search data / Publishing / Ranking Offers
+  * Event Driven Async Processing w/ Ingestion + Read facing services. 50ms SLA scaled upto 500K qp
+
+# SITUATIONALLY CHALLENGING / PROACTIVE
+  [Timeline changes, resource & time constraints, conflicting priorities, don't talk about individuals]
+  * STORM DE-DUPE TOPO
+  * Lags were increasing over time as catalog+MP seller offers expanded
+  * Too many dupes(seller price uploads, Smart Pricing feeds) arising from same triggers(why trigger? business rules hence IRO call) from microservices
+  * Storm Distributed Grouping to club similar item level events into 5 mins/100 message + discard dupes
+  * Achieved over 25% processing speed in general & more than 2X processing in burst events
+
+# TECHNICALLY CHALLENGING / NEW DOMAIN + CODEBASE / IMPACT
+  * ADS ITEMSTORE
+  - Quickly Learnt Ads Domain + Landscape. Data analysis to understand the bottlenecks.
+  - After joining Sponsored Product Ads Team, was entrusted with the task to help optimize response times for Midas
+  serving API(s), especially when we were heading into Holidays and it was crucial for our serving layer to be as fast
+  as possible.
+  - The major challenges included how do we reduce latencies from dependencies(IRO was the most time taking) & solve
+  the exponential problem with Geo items whose availability was and based on zip codes. I was able to propose a solution
+  which was linear in terms of growth of items & zip code combination as well as prove it through POC that it will work.
+  Owned the solution E2E and collaborated with IRO, Supply Chain Teams to integrate & launch the solution in Prod well
+  before Holiday freeze period. Built jobs to compare the data accuracy, optimized the storm ingestion pipeline & built
+  pluggable read library for Blitzcrank to achieve:
+    1. Data Accuracy of Blitz item serving cache with IRO 99.9%+
+    2. Almost eliminated the need to call IRO, thereby cutting down the latency for Item Lookups by ~90% & Midas APIs by ~50%
+    3. During Holiday Stress Tests, this solution helped Midas hit stress test peaks TPS of ~30K as we were serving faster and with higher throughput
+    4. The platform is so robust & de-coupled such that our Midas APIs were working even when IRO had issues during stress tests due to Pricing service.
+    5. Socialized and guide Personalization & PBB teams towards a similar solution for their serving needs, leveraging our generic reusable Blitzcrank components
+
+# LEADING Team / MENTORING
+  * OfferStore Revamp (code rewrite, tech stack change, remove design bottlenecks)
+    - KTLO + managing junior team members + some weekend work + free lunches
+    - Requirements: Project Plan ahead of time working with PO/TPM, Create Epic & Acceptance criteria
+    - High Level Design
+    - Follow Agile/Scrum/2-Weeks Sprints
+    - Create Task backlog, JIRA Stories, Unit+Integration Tests,
+    - Deploy to STG -> UAT -> Fix bugs on priority
+    - Prod 1 node -> 1 cloud let it soak -> Roll out to 1 DC -> All DC
+    - Happy Hour thereafter to celebrate
+
+  * JEEVES Orchestrator for Ads Item Data
+    - After successful rollout of ItemStore project, more folks on Personalization/Display Ads etc were interested in using it.
+    - Worked with couple of folks from IDC, was fully accountable for delivery.
+    - Helped them ramp up, code reviews, get SRCR process to get endpoint outside WMT network, new capacity, assembly etc
+
+* LEAD / CROSS FUNCTIONAL / TIME & RESOURCE CONSTRAINTS / TIMELINE CHANGES / CONFLICTING PRIORITIES
+  - NEXTDAY Initiative
+  - Worked with multiple teams ranging from SupplyChain, Catalog, P13N, CBB & FE(Search/ItemPage)
+  - POC for issues, changes etc, Delivered E2E features sometimes working against time constraints/resource constraints
+  - Led 3 junior folks which were allocated for this initiativ
+* CURIOSITY / PASSION / HELPING TEAM / RESOURCE CONSTRAINTS
+  - COMPOSITE VECTOR(128 bit Query + 32 bit Taxonomy) EMBEDDING
+  - Worked with DataScience to implement, when the only contributor was OOO. Learnt Ruby codebase.
+  - Suggested improvements to do delta writes to C*
+  - A/B Test Framework enhancement to use config based weights
+  - Passion to learn & helping team in times of need
+  - You learn rapidly and eagerly
+  - You contribute effectively outside of your specialt
+* LEAD / OWNERSHIP
+  - SEARCH BRAND AMPLIFIER
+  - Premium placement on top of Search Page that amplifies Brand w/ min $2 cost per click bids(performance)
+  - Working with Product & Manager to create Quarterly Plan
+  - Opportunity to go from 3M to 30M in profits.
+  - Launched Category Bidding / Negative Keywords / Relevancy Improvements(Product R2D2 Taxonomy Improvements) plus Hybrid Keyword+Category Bids.
+  - Rollups: First project went with C* storage for Tier1 service along with Memcache instead of others using Couchbase+Oracle
+* TECH CONFLICT
+  - Use of MySQL vs Cassandra for Caching. Data to show smaller data set cud be done by MySQL, used C* for more data heavy ops.
+  - Apache Flink use for real time streaming use, but agreed to use of Storm given timelines/expertise/adoption within team.
+  - CR conflict, back & forth, yielded to a certain way, but failed for an edge case in Prod. Learnt to stay course.
+  - Jeeves work w/ IDC junior team. She wasn't happy about doing anything other than coding like deploys, following processes etc.
+    Explained to her the importance of everything & learning these skills to independently own full SDLC later.
+  - CR conflict: parallelstream vs async futures vs threadpool, used data to guide the decisio
+* RISK / MISTAKE / FAIL / IMPROVE
+  - Using NoSQL secondary indexing on NSF cluster for some analytics came in expensive & caused issues. Improvised by
+    using Spark MR to do offline/reporting & for real time used Solr indexes
+* REGRETS / CUSTOMER FEEDBACK
+  - Category Bid vs Keyword could have been Hybrid from get go.
+  - Lag w/ Search Page seller & ItemPage BB winner. Tickets, reduced cache refresh push based than time.
+  - Obsess over customer, anticipate needs & drive innovations/decisions based on feedback.
+
+=== Walmart Labs ===
+>>> Major Initiatives - Catalog Tech:
+# Joined Walmart at the time when Pangaea was at it's inception stage. Worked for over more than 4 yrs building highly
+scalable & responsive Restful APIs & data ingestion pipelines for micro services such as Item Rollups / Item Read
+Orchestrator / Offer & Product that form the core back-end for the current Pangaea Platform. These microservices are
+able to handle peak loads of millions of transactions per minute with sub-second latencies. Worked on innovative
+pre-computational & real time algorithms to speed up search & lookup responses. The new platform has been a key enabler
+for scaling up our eCommerce Item Catalog from 2 MM to 200MM+ and Marketplace sellers from double digits numbers to more
+than 4 digits & continues to expand everyday.
+
+# Built Rollups service - an aggregation service built to pre-compute data and speed up IRO lookups - from scratch &
+completely owned and delivered business initiatives for initial few years. Also built a real time storm pipeline to
+dedupe messages across different incoming streams to enhance throughput.
+Got Patent for unique methodology / Awards / Exceeds ratings / Promo for ownership & quality deliverables.
+
+# As a Lead engineer, I led Item Rollups, Product & Offer store through major initiatives like Project Skywalker(bringing
+us a step closer towards unified item setup & catalog for Walmart, Jet, Hayneedle etc), Online Grocery, 2-Day Shipping etc.
+
+# Some other initiatives -
+ -> OfferStore 2.0 - Arhitected a design towards simplifying current system so as to relieve the bottlenecks seen during
+ peak ingestion / serving times. Came up with merged nsf/sf data models to achieve 50% lesser storage & writes, faster
+ reads, more maintainable code with huge reduction in number of API's, better tracking with Centralized Audit system &
+ faster ingestion processing with async flows.
+ -> Worked on NextGen Rollups processing framework which would incrementally merge states from incoming Kafka messages
+ and reduce the need for calling other microservices which slows down processing, thereby reducing lags.
+
+>>> Major Initiatives - Ads Tech (WPA):
+# Blitzcrank aka 'Ads ItemStore cache' - After joining WPA, was entrusted with the task to help optimize response times
+for Midas serving API(s), especially when we were heading into Holidays and it was crucial for our serving layer to be
+as fast as possible. The major challenges included how do we reduce latencies from dependencies(IRO was the most time
+taking) & solve the exponential problem with Geo items whose availability was and based on zip codes. I was able to
+propose a solve which was linear in terms of growth of items & zip code combination as well as prove it through POC that
+it will work. Owned the solution E2E and collaborated with IRO, Supply Chain Teams to integrate & launch the solution in
+Prod well before Holiday freeze period. Built jobs to compare the data accuracy, optimized the storm ingestion pipeline
+& built pluggable read library for Blitzcrank to achieve:
+1. Data Accuracy of Blitz item serving cache with IRO 99.9%+
+2. Almost eliminated the need to call IRO, thereby cutting down the latency for Item Lookups by ~90% & Midas APIs by ~50%
+3. During Holiday Stress Tests, this solution helped Midas hit stress test peaks TPS of ~30K as we were serving faster and with higher throughput
+4. The platform is so robust & de-coupled such that our Midas APIs were working even when IRO had issues during stress tests due to Pricing service.
+5. Socialized and guide Personalization & PBB teams towards a similar solution for their serving needs, leveraging our generic reusable Blitzcrank components.
+
+# Next Day WPA initiative - completely owned and drove E2E feature implementation for ND Ads. Enhanced Blitz caching to
+serve Next Day geo availability information. Proactively, resolved issues and fine tuned performance to beat the SLA requirements.
+# Display Ads API - built api to get ad item info for WMX Display Ads team using existing midas-Blitzcrank caches. This
+enabled Display Ads to show dynamic price & availability info for their Ads. This later evolved into a new service.
+# Optimized BuyBox Ads lookup by sourcing the Anchor Item data for all catalog items from PBB, Uber Hive tables into
+Cassandra. Also, made cache lookups async & faster by removing dependency on IRO calls.
+
+# Worked on Keyword service feature to lookup BuyBox Winning seller via using light weight Blitzcrank Item Seller lookup
+cache. This would help with increasing AdSpend by provide most accurate Ads without incurring any additional latency.
+
+# Working on enhancing Blitz caching solution for Grocery which would help us push more Ads modules on Online Grocery.
+
+# SBA Lead - Premium brand ads module on Search. Major initiatives like Category Bidding, Phrase & Broad Match. In-mem
+integer indexed based search using KMP substr match. $30M target from $5M - doing $60k/day.
