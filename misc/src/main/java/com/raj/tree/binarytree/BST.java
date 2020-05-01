@@ -18,15 +18,13 @@ public class BST {
 
     public static void main(String[] args) {
 
-        /*
-               10
-              /  \
-             5    20
-            / \   /
-           2  8  15
-
+        /**
+         *       10
+         *      /  \
+         *     5    20
+         *    / \   /
+         *   2  8  15
          */
-
         BST bst1 = new BST();
         bst1.insert(10);
         bst1.insert(20);
@@ -55,6 +53,7 @@ public class BST {
 
         System.out.println("\nPrint size: " + bst1.size(root));
         System.out.println("Print height: " + bst1.height(root));
+        System.out.println("Print min height: " + bst1.minheight(root));
         System.out.println("Print sum: " + bst1.sum(root));
 
         System.out.println("isBST? " + bst1.isBST(root, Integer.MIN_VALUE));
@@ -82,14 +81,13 @@ public class BST {
         System.out.println("LCABST of 2,8 -> " + bst1.LCABST(root, 2, 8));
         System.out.println("LCA of 2,8 -> " + bst1.LCAAnyBTree(root, 2, 8));
 
-        /*
-              -10
-             /  \
-            5    20
-           / \   /
-          2  8  -15
-
-        */
+        /**
+         *       -10
+         *      /  \
+         *     5    20
+         *    / \   /
+         *   2  8  -15
+         */
         Node n1 = new Node(-10);
         Node root1 = n1;
         n1.left = new Node(5);
@@ -235,6 +233,11 @@ public class BST {
     public int height(Node n) {
         if (n == null) return 0;
         return 1 + Math.max(height(n.left), height(n.right));
+    }
+
+    public int minheight(Node n) {
+        if (n == null) return 0;
+        return 1 + Math.min(height(n.left), height(n.right));
     }
 
     /**

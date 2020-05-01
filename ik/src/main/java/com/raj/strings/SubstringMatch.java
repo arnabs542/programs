@@ -10,7 +10,7 @@ public class SubstringMatch {
     public static void main(String[] args) {
         System.out.println(bruteForce("abcdbcam", "bca"));
         System.out.println(rabin_karp("abcdbcam", "bca"));
-        KMP();
+        System.out.println(KMP("abcdbcam", "bca"));
     }
 
     /**
@@ -61,7 +61,7 @@ public class SubstringMatch {
         return -1;
 
         /**
-         * Other problems that can be solved using Rolling Hash Pattern:
+         * Other problems that can be solved using Rolling Hash substrtern:
          * -> Given two strings A and B, and a number X find if they have a common sequence of length X.
          *    eg. ABCD, XBCY, len = 2
          *    - compute X length hashes & store in map, iter second & check if X length hash matches => O(n)
@@ -73,7 +73,7 @@ public class SubstringMatch {
     }
 
     /**
-     * Using Suffix Trie -  https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
+     * Using Suffix Trie -  https://www.geeksforgeeks.org/substrtern-searching-using-trie-suffixes/
      * Building a Trie of Suffixes
      * 1) Generate all suffixes of given text.
      * 2) Consider all suffixes as individual words and build a trie.
@@ -87,13 +87,13 @@ public class SubstringMatch {
      * a$
      * $
      *
-     * 3) Now Search the pattern in above suffix tree - O(m) w/ building tree as O(n) cost & space using Ukonnen's algo
+     * 3) Now Search the substrtern in above suffix tree - O(m) w/ building tree as O(n) cost & space using Ukonnen's algo
      */
 
 
     /**
-     * Other linear time algos: https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
-     * 1) Preprocess Pattern: KMP Algorithm, Rabin Karp Algorithm, Finite Automata, Boyer Moore Algorithm.
+     * Other linear time algos: https://www.geeksforgeeks.org/substrtern-searching-using-trie-suffixes/
+     * 1) Preprocess substrtern: KMP Algorithm, Rabin Karp Algorithm, Finite Automata, Boyer Moore Algorithm.
      * 2) Preprocess Text: Suffix Trie
      *    => Optimization - Compact Suffix Tree
      *    => For more details refer to SuffixTrie.java
@@ -105,7 +105,7 @@ public class SubstringMatch {
      *       -> eg. try searching "orld" in Google. It shows "world". It means it also searches suffixes.
      * 4) Search in a huge file size of gigs, break it into smaller chunks, push into shards memory, apply linear time algos in parallel
      * 5) Lucene search (Inverted Index)
-     *    => for use in distributed scale (uses inverse map of pattern -> {list of docs}) ... O(1) lookup
+     *    => for use in distributed scale (uses inverse map of substrtern -> {list of docs}) ... O(1) lookup
      *    => Shard it by start chars a,b,c etc. Fire parallel & distributed queries.
      *    => "the hello world" -> remove stopwords, fire hello & world parallely to 'h' & 'w' shards
      *
@@ -132,17 +132,74 @@ public class SubstringMatch {
      *
      */
 
-     static void KMP() {
-         /**
-          *          0 1 2 3 4
-          * String = A A A A B
-          * Substr = A A B
-          * When the mismatch happens at 2, there is no reason to reset back the substr to 0 as we know prev chars had matched.
-          * So the idea is to reuse what computation we did earlier. We reset back substr to 1 and continue matching.
-          * We'll need to pre-process substr to know where to rest in case of a mismatch
-          * Runtime = O(n+m)  .. as we only reset back substr by 1 instead of all the way back
-          */
+    static int KMP(String text, String substr) {
+        /**
+         * https://www.geeksforgeeks.org/kmp-algorithm-for-substrtern-searching/
+         *          0 1 2 3 4
+         * String = A A A A B
+         * Substr = A A B
+         * When the mismatch happens at 2, there is no reason to reset back the substr to 0 as we know prev chars had matched.
+         * So the idea is to reuse what computation we did earlier. We reset back substr to 1 and continue matching.
+         * We'll need to pre-process substr to know where to rest in case of a mismatch
+         * Runtime = O(n+m)  .. as we only reset back substr by 1 instead of all the way back
+         *
+         * Preprocess substr first - lps indicates longest proper prefix which is also suffix
+         */
 
-     }
+        int M = substr.length();
+        int N = text.length();
+
+        // create lps[] that will hold the longest prefix suffix values for substrtern
+        int lps[] = new int[M];
+        int j = 0; // index for substr[]
+
+        // Preprocess the substrtern (calculate lps[] array)
+        computeLPSArray(substr, M, lps);
+        
+        int i = 0; // index for txt[]
+        while (i < N) {
+            if (substr.charAt(j) == text.charAt(i)) {
+                j++;
+                i++;
+            }
+            if (j == M) {
+                return i-j;
+            } else if (i < N && substr.charAt(j) != text.charAt(i)) { // mismatch after j matches
+                // Do not match lps[0..lps[j-1]] characters, they will match anyway
+                if (j != 0) j = lps[j - 1];  // step a char back
+                else i = i + 1;  // no more stepping back, move forward
+            }
+        }
+        return -1;    
+    }
+
+    static void computeLPSArray(String substr, int M, int lps[]) {
+        // length of the previous longest prefix suffix
+        int len = 0;
+        int i = 1;
+        lps[0] = 0; // lps[0] is always 0
+
+        // the loop calculates lps[i] for i = 1 to M-1
+        while (i < M) {
+            if (substr.charAt(i) == substr.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else // (substr[i] != substr[len])
+            {
+                // This is tricky. Consider the example. AAACAAAA and i = 7. The idea is similar to search step.
+                if (len != 0) {
+                    len = lps[len - 1];
+                    // Also, note that we do not increment i here
+                }
+                else // if (len == 0)
+                {
+                    lps[i] = len;
+                    i++;
+                }
+            }
+        }
+    }
 
 }

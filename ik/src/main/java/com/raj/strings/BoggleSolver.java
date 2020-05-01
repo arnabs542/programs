@@ -25,17 +25,19 @@ public class BoggleSolver {
          * Now, consider a cell (i,j) as the first character when we are building our word. First move we can move to 8 directions.
          * For next move we only have 7 directions as one direction of the 8 possible direction will be the previous visited cell.
          * So, from this point on we will be having 7 possible directions to visit for the current cell. So, 7 possible dirs for each of the mxn cells.
-         * Runtime = O(max_length_of_string * ( dictionaryCount + m*n*(7^max_length_of_string) )
-         *  where n denotes the number of strings in given array mat ,
-         *  m denotes the length of a string of given array mat ,
+         * Runtime = O(max_length_of_string * m * n * (7^max_length_of_string))    ... assuming we terminate dfs after max dict word
+         *  where n denotes the number of strings in given array mat,
+         *  m denotes the length of a string of given array mat,
          *  max_length_of_string is the maximum length of the dictionary word and dictionaryCount denotes the number of words in dictionary.
          * Aux space = O(dictionaryCount * max_length_of_string) + O(n*m)
          */
     }
 
     /**
+     * Optimal:
      * We will iterate over all cells of the matrix mat and for each cell we will do a DFS traversal as the first character of the word,
-     * But this time we will be using our trie to guide so as we only land on valid neighbours and increase the chance of finding the dictionary word.
+     * But this time we will be using our trie to guide our dfs & we will only visit that neighbour that assures that
+     * the word with the current prefix exists in the dictionary. Using this we will prune a lot of branches in our word building traversal.
      * Every time we find a word we simply remove it from the trie. This will ensure that the trie does not give dupes
      * for previously found words & hence it will prune some more DFS branches.
      *
@@ -66,14 +68,14 @@ public class BoggleSolver {
         for (int i = 0; i < grid.G.length; i++) {
             for (int j = 0; j < grid.G[0].length; j++) {
                 char c = grid.G[i][j];
-                grid.G[i][j] = '$';  // mark visited
+                grid.G[i][j] = '$';  // mark visited by reusing the grid (no extra space for visited)
                 List<String> words = new ArrayList<>();
                 Stack<Character> stack = new Stack<>();
-                stack.add(c);
+                stack.add(c);       // add char
                 dfs(grid, trie, trie.root.childs.get(c), stack, words, new Util.Point(i,j));
                 res.addAll(words);
-                grid.G[i][j] = c;  // mark unvisited
-                stack.pop();
+                grid.G[i][j] = c;  // revert visited flag
+                stack.pop();     // revert char
             }
         }
         return new ArrayList<>(res);
