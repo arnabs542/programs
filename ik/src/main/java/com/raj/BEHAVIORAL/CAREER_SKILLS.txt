@@ -106,6 +106,16 @@
   * Not good at keeping secrets
   * Bringing emotions into thinking/decision sometimes
 
+# What's your leadership style?
+  * "Lead by example & open communication" - I like taking lead on projects, but I also like to stay involved and inspire
+  my team by showing that I’m working hands-on to help them, too. For example, we had an emergency situation where a our
+  Ad revenue was zero due to tech issue. To break chaos, I quickly setup call to break down areas of work each one available
+  can work on(delegation), informed clients about the outage & some ETA, got on the phone with the infra folks myself to find out
+  more information for my team while they worked at granular level. Stopped non-critical usecases to run in degraded but available
+  mode to make the issue less costly while we came up with a permanent solution. When my team saw me working hard to fix this,
+  it made them realize the importance of the issue and work hard as well. Taking more time to communicate effectively at
+  the beginning of the task, and delegating properly, both end up saving time.
+
 # Tell me about a time when you performed WELL under STRESS / PRESSURE / DEADLINE ?
   * My coworker had a family emergency and needed to miss work for some time, and their super-important project was left unfinished
   * My supervisor instructed me to take on the project, and with no leniency on the deadline. I had an on-going project deliverable also.
@@ -128,7 +138,7 @@
   * Data gathering(pros & cons), consensus building, choose one that best fits the situation/deadline
   * eg. Java vs Scala post Polymorph acquisition & merging of stacks
 
-# Tell me about a time you had a DIRECT CONFRONTATION / ANGER with team member ?
+# Tell me about a time you had a DIRECT CONFRONTATION / ANGER with team member / RESOLVE DISAGREEMENT within team ?
   [STAR]
   * Our new manager had a single design approach that wasn't working for everyone and members of our team were getting
   frustrated and felt they were being micro-managed. I suggested that I sit down one-on-one with our manager, having heard
@@ -155,6 +165,13 @@
   thoughtfully think through the situation and then begin to formulate a plan of action. For instance, when I am given
   multiple projects to complete in a short amount of time, I come up with a strategy for how to complete the work in a
   steady, methodical manner that will not overwhelm me.
+  [Handle disagreements on your team]
+  * My goal is to facilitate discussion and help my team find compromise when there is a disagreement.
+  * In my role, two of my team members had different approaches to completing their part of the project.
+  * I let each side explain what their thought process was and what benefits they saw in their method.
+  * I encouraged respectful discussion and positive commentary.
+  * After each side outlined their arguments, I helped them brainstorm the ways in which both arguments could become a combined solution.
+  * This process enabled these team members work together and see each other’s perspectives. It also helped them remember that they both were working toward the same goal and should collaborate on the best way to complete their tasks.
 
 # What Do People Most Often CRITICIZE About You?
   I had a supervisor many years ago tell me that I was too critical of other people’s work. I took that to heart and made
@@ -202,15 +219,40 @@
   * Follow up with my coworker by email or Slack, and if that didn’t work I’d check in with him personally. If the
   problem grew to a point where it was going to be detrimental to the project, I’d ask a supervisor for an assist.
 
-# Tell me about how you SET GOALS / MEASURE SUCCESS ?
+# Tell me about how you SET GOALS / MEASURE SUCCESS / PROJECT STAY ON SCHEDULE ?
   [Discuss an ambitious goal you set for yourself and how you came up with a plan for to achieve it & how you measure success]
   * Wanted to learn new language/tech stack. Created schedule to spend 4 hrs/week to achieve it.
   * Set KPI as building a small website on AWS using it.
   * Discussed w/ manager to even set it as my personal OKR & sought their advice to achieve it.
   * Researched online materials to study & after few weeks of disciplined efforts, I was able to knock off this as a new skill.
   * My supervisor gave me a project later to use my recent learning.
+  [SMART Method - Used it for personal goal management]
+  * Specific - Short term & narrow scope
+  * Measurable - How are u tracking success?
+  * Attainable - within a certain time-frame
+  * Relevant - goals shud align with ur values/long term goals/company goals
+  * Time-Based - End date w/ checkpoints
+  [TEAM Project]
+  * When my team is assigned a collaborative project, I always begin by discussing the project’s objective and purpose.
+  * Then, I assign each team member individual tasks and deadlines. I find that when the team knows the goals of the overall project, they can better see how their role impacts the project’s success.
+  * When we work on a project, I hold full team meetings to allow individual team members to share their progress. I try to celebrate the team’s hard work to keep them motivated.
+  * I also check with each team member to see their progress, address any risks or deadline issues and provide additional clarity.  Checking in outside of the group meeting can make team members feel more comfortable sharing if they need extra help.
+  * I find that the process of remaining available to my team and encouraging their success allows them to stay focused and feel supported.
 
-# Where do you see yourself in 5 yrs?
+# Tell me about a OVERCOME A LEADERSHIP CHALLENGE ?
+  * During one of my team’s recent projects, we were approaching the deadline but were not making the progress we needed to meet our goal.
+  * Many team members were feeling overwhelmed, and the pressure was affecting their work quality. I took on a number of tasks and worked alongside them to meet the deadline.
+  * My team felt supported knowing I was taking on additional responsibilities so they did not have to compromise the quality of their work.
+  * We completed the project on time.
+  * In retrospect, I realized that our timeline and workload were not realistic. In the future, I will spend more time analyzing the initial planning process and discussing realistic expectations. I want to make sure my team stays motivated, so spending more time before beginning the project can help me better delegate tasks.
+
+# What's your PROJECT MANAGEMENT STYLE ?
+  * Waterfall / Traditional - One big bang start to end approach, steps are dependent like requirenemnts -> design -> impl -> test -> UAT -> stage -> prod
+  * Agile / Iterative - Small sprints to deliver incremental features w/ product prioritization or backlog with acceptance criteria, plan, daily scrum, deploy & retro.
+    - Basic viable product ready sooner than wait months for a big bang delivery. Then iterate & improve product. Feedback to customer + active engagements.
+    - Re-priority / refactor possible if requirements change (can be a drawback)
+
+# Where do you SEE yourself in 5 YEARS?
   * Talk abt what u want to learn, the impact u want to create
   * Don't talk abt titles or moving into management, instead say learn more leadership & people management skills
   * "Hard to say how it wud be 5 yrs down the line, but I'd Improve technical acumen & leadership skills, then wherever I'm, I'll be successful & serve the company in the best possible way"
@@ -231,9 +273,11 @@
 
 # Follow up Questions to ask:
   * Describe culture, team, what u do, current challenges, tech stack?
-  * What is ur development/release process?
+  * What are u looking for in this role? What wud u want to see in an ideal candidate?
+  * Is this role for a specific level or is it flexible? How is the leveling decided?
   * How does ur typical day look like?
   * What do u like abt this company / or don't like?
+  * What is ur development/release process?
 
 [Answer using STAR method, use of data driven decisions & KPI metrics to measure success]
 # Tell me about a time when you were faced with a problem that had a number of possible solutions. What was the problem and how did you determine the course of action? What was the outcome of that choice?

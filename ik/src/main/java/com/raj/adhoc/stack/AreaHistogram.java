@@ -1,4 +1,4 @@
-package com.raj.adhoc;
+package com.raj.adhoc.stack;
 
 import java.util.Stack;
 
@@ -7,18 +7,18 @@ import java.util.Stack;
  */
 public class AreaHistogram {
 
-    public static void main(String[] args) {
-        System.out.println(findMaxPossibleArea_BruteForce(new long[]{6,2,5,4,5,1,6}, 0 ,6));
-        System.out.println(findMaxPossibleArea(new long[]{6,2,5,4,5,1,6}, 0 ,6));
-    }
-
     /**
-     * *********************** PROBLEM DESCRIPTION ***************************
      * Find the largest rectangular area possible in a given histogram, where
      * the largest rectangle can be made of a number of contiguous bars.
      * For simplicity, assume that all bars have same width and the width is 1 unit.
      * You will be given an array arr of height of bars of size n.
      */
+    public static void main(String[] args) {
+        System.out.println(findMaxPossibleArea_BruteForce(new long[]{6,2,5,4,5,1,6}, 0 ,6));
+        System.out.println(findMaxPossibleArea(new long[]{6,2,5,4,5,1,6}, 0 ,6));
+
+        //System.out.println(maxArea(new long[]{6,2,5,4,5,1,6}));
+    }
 
     /**
      * Brute Force - O(n^2) - idea is to compute area using bars where the max area wud be the min height of bar * num_bars for each i=0 to n bars
@@ -94,15 +94,57 @@ public class AreaHistogram {
         // now the current top represents our left bound
         long area_with_top;
         if (stack.isEmpty()) {  // left bound is l when stack is empty
-            area_with_top = A[top] * 1l * (i-l);
+            area_with_top = A[top] * (i-l);
             System.out.println("  area_with_top = " + A[top] + "*(" + i + "-" + l + ") = " + area_with_top);
         } else {    // left bound is new stack top, deduct -1 for i being one bar forward for right bound
-            area_with_top = A[top] * 1l * ((i-1) - stack.peek());
+            area_with_top = A[top] * ((i-1) - stack.peek());
             System.out.println("  area_with_top = " + A[top] + "*(" + i + "-1-" + stack.peek() + ") = " + area_with_top);
         }
         System.out.println("  area_with_top = " + area_with_top);
         return area_with_top;
     }
+
+    /*static long maxArea(long[] A) {
+        int len = A.length;
+        long max = 0;
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < len; i++) {
+            long top = stack.isEmpty() ? 0 : A[stack.peek()];
+            // push until greater or equal height
+            if (A[i] >= top) stack.push(i);
+            else {  // pop if a lesser height seen & compute area
+                long area = 0;
+                if (A[i] < top) area = popAndComputeArea(stack, A, i);
+                max = Math.max(area, max);   // update global max
+                // now push bar
+                stack.push(i);
+            }
+        }
+
+        // empty stack
+        if (!stack.isEmpty()) {
+            long area = popAndComputeArea(stack, A, -1);
+            max = Math.max(area, max);
+        }
+
+        return max;
+    }
+
+    static long popAndComputeArea(Stack<Integer> stack, long[] A, int i) {
+        long local_max = 0;
+        long cur = (i == -1) ? 0 : A[i];
+        long barHeight = A[stack.peek()];
+        while (!stack.isEmpty() && cur < A[stack.peek()]) {  // cull until height of cur is greater or equal
+            int barIdx = stack.pop();
+            long area = stack.isEmpty() ? (i - barIdx) * barHeight : (i - barIdx - 1) * barHeight;
+            local_max = Math.max(local_max, area);
+            barHeight = A[barIdx];
+        }
+        System.out.println(local_max);
+
+        return local_max;
+    }*/
 
 }
 

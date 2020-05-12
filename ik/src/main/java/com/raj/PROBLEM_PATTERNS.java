@@ -28,9 +28,16 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.sorting.BalancedPartition - Equal Sum Partition / Sort / Left & Right Ptrs expand on some conditions
      * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect(Modified BSearch)
      * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect(Modified BSearch)
+     * @see com.raj.sorting.Sum3 - A+B+C=T >> HashMap >> Sort + 2-Pointer technique
      *
      * [ARRAYS]
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
+     *
+     * [STACK]
+     * Use Stack to keep elements of interest only / Pop when answer is available
+     * @see com.raj.adhoc.stack.NextGreaterElement
+     * @see com.raj.adhoc.stack.StockSpan
+     * @see com.raj.adhoc.stack.AreaHistogram
      *
      * [STRING]
      * @see com.raj.strings.PalindromePairs - Trie + Reverse lookup / Map + Reverse lookup

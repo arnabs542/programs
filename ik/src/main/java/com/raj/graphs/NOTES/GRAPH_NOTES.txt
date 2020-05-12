@@ -98,3 +98,30 @@ Hence, a simple operation like finding all neighbors of a vertex, might become O
 
   5. Floyd–Warshall
      -> solves all pairs shortest paths.
+
+# Path Finding Algos:
+  - For unweighted graphs, both BFS & DFS shortest path has O(bf^depth) runtime. But DFS has O(depth) vs BFS's O(bf^depth).
+  - BFS is usually preferred mostly but comes at the expense of huge memory (last level will have O(b^d) nodes in worst case)
+  - To optimize, we can use Bidirectional Search to reduce both time & space to O(b^(d/2)) as we explore from both source & dest simultaneously.
+  - Or use a combination of DFS & BFS - Iterative Deepening DFS - https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/
+    - In every call, DFS is restricted from going beyond given depth. So basically we do DFS in a BFS fashion.
+  - For weighted graphs use Dijkstra's algo. A* works better where it picks node based on heuristics (cost to this node from src + approx cost to dest)
+  - A* is thus a special case of Dijkstra's where we use heuristics(x) apart from node weight. A* performance hence depends on heuristics.
+
+# A* Search: https://www.geeksforgeeks.org/a-search-algorithm/
+  - A* Search algos, unlike other path finding algos, has “brains” to guide approx optimal path in a grid w/ obstacles.
+  - Uses heuristics(exact which requires expensive precomputation or faster approx technique like Manhattan / Diagonal / Euclidean dist).
+  - Maps, Robotics & Games use this algo to find the approx shortest path very efficiently.
+
+# So when to use DFS over A*, when to use Dijkstra over A* to find the shortest paths?
+1) One Source and One Destination -
+→ Use A* Search Algorithm (For Unweighted as well as Weighted Graphs)
+
+2) One Source, All Destination –
+→ Use BFS (For Unweighted Graphs)
+→ Use Dijkstra (For Weighted Graphs without negative weights)
+→ Use Bellman Ford (For Weighted Graphs with negative weights)
+
+3) Between every pair of nodes-
+→ Floyd-Warshall
+→ Johnson’s Algorithm

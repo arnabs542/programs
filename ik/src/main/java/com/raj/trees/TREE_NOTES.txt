@@ -25,4 +25,6 @@ https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-v
   -> Use answers from left & right subtrees and keep building upwards.
   -> Use a class if many dimensions needs to be returned for each recursive call to left/right.
 
+# Traverse tree using stack - sometimes a problem can only be solved optimally using this technique. So brush up on it.
+  -> Push in reverse order of how u wud want them to be printed
 

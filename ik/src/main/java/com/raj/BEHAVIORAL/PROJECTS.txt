@@ -11,6 +11,7 @@
   * SBA enhancements: Premium Search Placement that Brand targeted. CategoryBid + KeywordBid Hybrid approach. 10M -> 30M growth.
   * SBA use 2nd stage vector similarity for relevancy after 1st stage Solr filtering
   * Keyword Match optimizations - Store String once in-memory, use distributed sharding
+  * Moving our services to Azure Cloud
 
 # Struggled & Lesson learnt
   * Failed at first, then learnt/improvised & succeeded later

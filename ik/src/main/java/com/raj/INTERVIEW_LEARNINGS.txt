@@ -8,6 +8,8 @@
 04. Think which pattern / topic this problem belongs to.
 05. Take the given example, try to work out the logic.
     -> Sometimes, taking a simpler example other than the given, may be easier to solve.
+    -> Don't create a test example with special case(like increasing seq, but do use them come up with logic)
+    -> Validate it with a bigger example test.
 06. Come out with naive / brute force solution. Talk about it's complexity.
     -> It will either use loops.
     -> Or recursion, if loops aren't very obvious.
@@ -15,12 +17,14 @@
 08. Optimize on naive brute force, discuss approach & complexity.
 09. ASK FOR HINTS if stuck or coming up with Optimized Solution is a problem. Use paper to run through examples again.
 10. Try a completely different approach if still stuck.
-11. WRITE CODE
+11. WRITE MODULAR CODE w/ Good Variable Names
     -> Start writing code after 20 mins, regardless of the most optimized solution.
     -> If problem is Hard, Brute Force may still get you through sometimes.
     -> If optimized version's skeleton is clear, write TBD functions & complete.
-12. WALK-THROUGH CODE with an example.
+12. WALK-THROUGH CODE with a simpler example.
 13. DEBUG - Find bugs during code walk through & fix promptly.
+    -> Try edge cases to fix trivial bugs.
+    -> Think what if scenarios like block never executes then counter won't incr etc.
 14. WRITE TEST CASES
     -> Happy paths
        - Input test case given & couple of variations of it
