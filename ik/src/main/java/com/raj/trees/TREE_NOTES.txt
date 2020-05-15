@@ -28,3 +28,11 @@ https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-v
 # Traverse tree using stack - sometimes a problem can only be solved optimally using this technique. So brush up on it.
   -> Push in reverse order of how u wud want them to be printed
 
+# Balancing Trees: (guaranteed O(logn) searches)
+ * AVL - https://www.youtube.com/watch?v=msU79oNPRJc&feature=youtu.be
+   + Strictly balanced, hence searches are faster
+   - More costs to rotations to re-balance recursively
+ * Red-Black Trees - https://www.youtube.com/watch?v=UaLIHuR1t8Q
+   + More suited for too many insert/deletes
+   - Not perfectly balanced
+   - Preferred choice for DS in C++ & Java(TreeMap and TreeSet)

@@ -244,7 +244,7 @@ Based on search criteria -
 # TEMPLATE For Solving SYSTEM DESIGN PROBLEMS
 1. Requirements
 2. Solve as single server, then scale out
-3. Capacity Estimation
+3. Capacity Estimation (after detailed design?)
 4. API Design
 5. DB Schema
 6. High Level Architecture Diagram
