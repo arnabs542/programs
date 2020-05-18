@@ -30,6 +30,6 @@
 
 # Fault Tolerance
 (Persistent State)
+  => Write-ahead logging for durable writes - Keep saving data into commit log (along w/ RAM) & do batch flushes to Disk every few seconds
   => Keep taking backups of RAM into Disk (or take incremental backups)
-  => Keep saving data into commit log (along w/ RAM) & do batch flushes to Disk every few seconds
   => The data can be reconstructed into RAM in case of failures

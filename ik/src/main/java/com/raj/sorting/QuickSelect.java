@@ -19,6 +19,7 @@ public class QuickSelect {
 
     public static void main(String[] args) {
         System.out.println(findKthSmallest(new int[]{3,2,1,4,8,7,5,6}, 4-1)); // 4th smallest, adjust for array index starting at 0
+        System.out.println(findKthLargest(new int[]{4,6,2,8,6,5}, 4-1));
         System.out.println("Median = " + findMedian(new int[]{3,2,1,4,8,7,5,6}));
         System.out.println("K nearest points to origin = " + findKNearestPoints(null, null, 3));
     }
@@ -47,15 +48,19 @@ public class QuickSelect {
 
     // k is the exact array index where the pivot will lie, so 4th smallest means 3rd index
     static int findKthSmallest(int [] A, int k) {
-        return quickSelect(A, k, 0, A.length-1);
+        return quickSelect_ksmallest(A, k, 0, A.length-1);
     }
 
     /**
      * Find the kth smallest number, given an unsorted array
      * Hoare's QuickSelect Algo - k times quick sort with reducing array partition every iteration
      * => O(n) avg case
+     *
+     * Note:
+     * - pivot is sawpped to front, so start with +1
+     * - swap pivot with boundary elem after partitioning
      */
-    static int quickSelect(int[] A, int k, int start, int end) {
+    static int quickSelect_ksmallest(int[] A, int k, int start, int end) {
         // base case - 0 or 1 elem array, nothing to do
         if (start >= end) {
             return A[k];
@@ -80,8 +85,26 @@ public class QuickSelect {
             return A[smaller];
         }
         // else recurse on the partition that is of interest (dropping the other half that's of no use)
-        else if (k < smaller) return quickSelect(A, k, start, smaller-1);
-        else return quickSelect(A, k, smaller+1, end);
+        else if (k < smaller) return quickSelect_ksmallest(A, k, start, smaller-1);
+        else return quickSelect_ksmallest(A, k, smaller+1, end);
+    }
+
+    static int findKthLargest(int [] A, int k) {
+        return quickSelect_klargest(A, k, 0, A.length-1);
+    }
+
+    // instead of smallest we find kth largest element
+    static int quickSelect_klargest(int[] A, int k, int start, int end) {
+        if (start >= end) return A[k];  // base case
+        int pivot = A[start];   // first elem as pivot, greater | pivot | lesser
+        int bigger = start, smaller = start+1; // smaller travels right
+        for (; smaller <= end; smaller++) {
+            if (A[smaller] >= pivot) swap(A, smaller, ++bigger);
+        }
+        swap(A, start, bigger);
+        if (bigger == k) return A[k];
+        else if (k < bigger) return quickSelect_klargest(A, k, start, bigger-1);
+        else return quickSelect_klargest(A, k, bigger+1, end);
     }
 
 }

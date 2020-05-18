@@ -34,7 +34,7 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
      *
      * [STACK]
-     * Use Stack to keep elements of interest only / Pop when answer is available
+     * Use Stack to keep elements of interest only / Pop backwards when cond met
      * @see com.raj.adhoc.stack.NextGreaterElement
      * @see com.raj.adhoc.stack.StockSpan
      * @see com.raj.adhoc.stack.AreaHistogram
