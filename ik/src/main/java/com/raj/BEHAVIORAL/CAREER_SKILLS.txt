@@ -274,6 +274,8 @@
 # Follow up Questions to ask:
   * Describe culture, team, what u do, current challenges, tech stack?
   * What are u looking for in this role? What wud u want to see in an ideal candidate?
+  * Can you tell me more about the day-to-day responsibilities of this job?
+  * What are the biggest opportunities/challenges facing the company/department right now?
   * Is this role for a specific level or is it flexible? How is the leveling decided?
   * How does ur typical day look like?
   * What do u like abt this company / or don't like?

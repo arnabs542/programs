@@ -1,4 +1,4 @@
-package com.raj.SCALABALE_SYSTEMS;
+package com.raj.SCALABALE_SYSTEMS.browserinternet_security;
 
 public class Authentication_Authorization {
 /**
@@ -32,7 +32,7 @@ public class Authentication_Authorization {
  * - Mostly an extension of above where a agent on app server talks to SSO server using SAML or Kerberos to authenticate & authorize
  * - An access token is generated which is then used to grant access to services.
  *
- * OAuth2 + Json Web Token (JWT)
+ * Example impl of SSO: OAuth2 + Json Web Token (JWT)
  * - Instead of building your own Auth service, use OAuth to delegate it to Google,FB etc
  * - Once authenticated, use signed JWT tokens for further communication
  * - JWT is structured & specification driven
@@ -41,7 +41,7 @@ public class Authentication_Authorization {
  *      - HMAC stands for Hash based Message Authentication Code & is used to verify integrity of message(not tampered by someone)
  *      - Can be used by any crypto hash fn like SHA-1/256/512, MD5
  *      - Bob & Alice want to communicate. They share a secret key K.
- *      - Bob generates a HMAC-SHA1 hash using (key K & message M). Sends it over to Alice with message M & hash HMAC.
+ *      - Bob generates a HMAC-SHA1 hash using (key K & message M - hash(concatenated K+M)). Sends it over to Alice with message M & hash HMAC.
  *      - Alice recalculates HMAC hash using (M,K) & verifies if the hashes match. This way she gets accurate message & knows it comes from Bob as he has key K.
  *   -> Public/Private key signing algo like RSA Asymmetric Encryption: https://www.youtube.com/watch?v=AQDCe585Lnc
  *      - Alice & Bob want to communicate. They both generate Public & Private keys using RSA.

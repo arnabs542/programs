@@ -1,5 +1,6 @@
 package com.raj;
 
+import com.raj.adhoc.stack.StockSpan_MostWaterContainer;
 import com.raj.dp.WeightedJobSchedule;
 import com.raj.graphs.topo.CourseSchedule;
 
@@ -32,11 +33,12 @@ public class PROBLEM_PATTERNS {
      *
      * [ARRAYS]
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
+     * @see com.raj.adhoc.TrapRainWater - bars have width, precompute max left & right bounds, & add up water over each bar
      *
      * [STACK]
      * Use Stack to keep elements of interest only / Pop backwards when cond met
      * @see com.raj.adhoc.stack.NextGreaterElement
-     * @see com.raj.adhoc.stack.StockSpan
+     * @see StockSpan_MostWaterContainer - differs from TrapRainWater as the bar have 0 width, so area can be computed straightaway
      * @see com.raj.adhoc.stack.AreaHistogram
      *
      * [STRING]

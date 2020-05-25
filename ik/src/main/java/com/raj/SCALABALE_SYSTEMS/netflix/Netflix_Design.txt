@@ -22,11 +22,18 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   - Kafka will send data to open connect CDNs, else they'll be cached in CDN Edge Server at time of play.
 
 * Recommendation
-  -> Carousel: Inspired by User's Playback History
-     - Content based filtering ML models - by genre, by actor, by language etc
-  -> Carousel: Other's of similar interests also watched
+ https://youtu.be/Eeg1DEeWUjA
+ Hybrid design involving both Content based & Collaborative filtering
+ Following recommendations can be made which are rendered as separate carousels:
+  -> [Personalized recommendation]
+     - Inspired by User's Playback History & personal preferences
+  -> [Content based recommendation] Content based filtering ML models - by genre, by actor, by language etc
+     - Features of the movies itself, find similarities b/w movies
+     - For instance, if user A and B have watched a bunch of same videos, it’s highly likely that user A will like videos liked by B. Of course, there are many ways to define what “similar” means here. It could be two users have liked same videos, it could also mean that they share the same location.
+  -> [Collaborative recommendation] Other's of similar interests also watched
      - Collaborative Filtering ML models - Match users of similar interests and predict
-  -> Sponsored Module
+  -> [Knowledge based recommendation] - deterministic based on knowledge graph models
+  -> Sponsored Module - Paid for by advertisers but still relevant to user by targeting
   -> Trending Content module
   -> Use clicks, views info from App to train models & precompute recco modules (offline for each use) or live compute in runtime
   -> Schema DB+Cache: user_id, pre-computed json module with movie_ids

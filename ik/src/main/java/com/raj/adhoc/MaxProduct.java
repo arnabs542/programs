@@ -14,7 +14,6 @@ public class MaxProduct {
     }
 
     static int[] findMaxProduct(int[] arr) {
-        // Write your code here
         // use a min heap to track top 3
         int[] max = new int[arr.length];
         PriorityQueue<Integer> minHeap = new PriorityQueue<>((a,b) -> a-b);

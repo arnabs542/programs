@@ -1,4 +1,4 @@
-package com.raj.SCALABALE_SYSTEMS.browserinternet;
+package com.raj.SCALABALE_SYSTEMS.browserinternet_security;
 
 public class Browser_Communication {
  /**
@@ -18,5 +18,7 @@ public class Browser_Communication {
   *      Based on SSL specs which Auths server, client & encrypts data. Most websites use HTTPS by default else Google
   *      flags them as "not secure" & penalizes them in search rankings.
   *
+  * @see Security for more details about SSL/TLS communication or refer to below link:
+  * https://www.cloudflare.com/learning/ssl/how-does-ssl-work/
   */
 }
