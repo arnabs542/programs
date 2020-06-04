@@ -71,13 +71,13 @@ public class Subsets {
             return;
         }
 
-        // exclude i
-        getSubsets(rem, i+1, slate, result);  // subList doesn't create array copy but just creates a view
-
         // include i
         slate.push(rem.get(i));  // mutate slate by adding i
         getSubsets(rem, i+1, slate, result);
         slate.pop();  // reset back to original slate, remember each frame wud have reverted state as well
+
+        // exclude i
+        getSubsets(rem, i+1, slate, result);  // subList doesn't create array copy but just creates a view
     }
 
 }

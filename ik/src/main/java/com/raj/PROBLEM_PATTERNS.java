@@ -19,8 +19,11 @@ public class PROBLEM_PATTERNS {
      * # Substring Searches - KMP/RabinKarp/SuffixTrie
      * # DAG/Acyclic Graph Ordering - Topological sort
      *
-     * Good Links:
+     * [Good Links]
+     * 14 Patterns -
      * https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
+     * Leetcode Problems by Patterns -
+     * https://leetcode.com/discuss/career/448285/list-of-questions-sorted-by-common-patterns
      *
      * --- Legend ---
      * # Pattern: BruteForce >> SubOptimal >> Optimal Solution

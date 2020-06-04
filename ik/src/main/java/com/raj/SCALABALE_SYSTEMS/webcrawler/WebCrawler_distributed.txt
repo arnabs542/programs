@@ -1,0 +1,56 @@
+=== Design a Web Crawler ===
+
+The HEAD method is used to ask only for information about a document, not for the document itself. HEAD is much faster
+than GET, as a much smaller amount of data is transferred. It's often used by clients who use caching, to see if the
+document has changed since it was last accessed. If it was not, then the local copy can be reused, otherwise the updated
+version must be retrieved with a GET. The metainformation contained in the HTTP headers in response to a HEAD request
+should be identical to the information sent in response to a GET request. This method can be used for obtaining
+metainformation about the resource identified by the request URI without transferring the data itself. This method is
+often used for testing hypertext links for validity, accessibility, and recent modification.
+
+The goal of both stemming and lemmatization is to reduce inflectional forms and sometimes derivationally related forms
+of a word to a common base form.
+
+
+=== Distributed web crawler [FB] ===
+Download wikipedia.com on a pool of hosts, only once.
+https://en.wikipedia.org/wiki/Peer-to-peer
+# A pool of machine is provided, no redundant page downloads
+# Leader election ? Master slave design is prone to single point of failures.
+# P2P masterless sharing architecture
+# An agent is downloaded on each of the nodes. Agent software has the "brains" to co-ordinate & download pages.
+# Peer discovery subroutine discovers peers, can use the overlay n/w topology info or can use pre-seeded list of ips/ip ranges.
+# Nodes communicate to each other every X secs to update progress, eg using Gossip protocol etc.
+# Consistent hashing(Distributed hash table) is used to divy up hash ranges for each node.
+# At time T0, each node starts downloading content from wiki.com
+# Each node maintains a Queue of urls to download. It has a crawler thread to push eligible urls to download Queue.
+# Crawler just follows hyperlinks starting from wiki.com, determines if the url hash is within it's hash range ownership.
+# If yes, it pushes into it's work Queue, else, it determines which peer has this ownership from DHT and sends this url to that node.
+# Use BFS to crawl in a level wise fashion, keep a visited set of urls to avoid cycles.
+# A pool of threads which is num_cores/2 (normal priority - we don't want to overwhelm machines & can be used for load sharing) deque from download queue.
+# Download worker arranges the files into logical path into the nodes filesystem as folder. It indexes url->folder path in RAM + commit log(durability) for faster read access later.
+# If a peer becomes unavailable or no heartbeat is received for more than 5 mins, each node has their fault tolerance logic to recover from peer failures.
+# Failure Detection + Recovery logic can be:
+  - Few nodes discover that heartbeat from a peer wasn't seen, they initiate take over of the hash range that the failed peer owned.
+  - They send the Timestamp + append hash_range to all nodes. Race conditions/Ties are broken using earlier timestamp.
+  - Add a random stagger to sending of the heartbeat / recovery messages to avoid too many concurrency issues.
+  - Another strategy could be to create a secondary hash range apart from primary. Or much better, we say the ownership of a failed hash range goes to next peer in the logical circular range hash.
+# With this P2P we achieve independence from micromanaging nodes as they are self capable of communicating and doing things on their own.
+# Initially the n/w downloads may be slower as there could be too many urls that each node will not find in it's hash range. But after a while it will realize it's full potential & download pages as there will be a lot of pending urls in their Queue.
+# Also, Queue on each node might contain dupes from multiple nodes sending over urls, we can use a to_be_download set to not push if the Queue already contains it.
+# Once a peer empties the work Queue, it sets it's status as READY_TO_SERVE.
+# Read Flow: Can serve partial requests while crawling is going on or send 503 until crawling completes.
+  - A peer node gets the read request from a particular wiki url. It acts as co-ordinator, finds the peer which has the hash range of the url, and send the request.
+  - Once the page is gotten, it discovers the hyperlinks and fires async parallel requests to peers having it's hash
+  - It gathers all content for the page and sends it back.
+  - For media content like images/video/audio etc, instead of saving it on their nodes, we could save just the url & push the binary content to CDNs for faster rendering directly on client browser.
+  - Also maintain a hot LRU cache on each server for faster hot reads.
+
+
+      Peer1 --- Peer2 --- Peer3 ..... PeerN
+Hash: (0-100)   (101-200)  ...
+      communicates w/ each peer
+      -------->
+      ------------------->
+      -----------------------......>
+

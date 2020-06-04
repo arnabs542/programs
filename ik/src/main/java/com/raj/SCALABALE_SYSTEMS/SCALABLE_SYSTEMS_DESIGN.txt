@@ -11,6 +11,7 @@
 boolean = ~1 byte
 char = 2 byte = 0 to 65K  (1 byte for most common chars)
 byte = 8 bits = 2^8 (-128 to 127)
+short = 2 bytes = +-32K
 int = 4 byte = +-2B
 long = 8 byte = +- 19 digits
 float = 4 bytes = 6 to 7 decimal point precision  (numbers represented as 1 bit for sign, 23 bits for mantissa, 8 bits for exponent eg. 1.23 * (10^)34)
@@ -24,7 +25,7 @@ double = 8 bytes = 15 to 16 decimal precision
 
 >> How to represent very large numbers bigger than primitives MAX_VALUE?
   => Use BigInteger which basically stores each digit in int[]
-  => For add/substract/multiply etc using carry overs & sign
+  => For add/subtract/multiply etc using carry overs & sign
 
 >> Base64 encode/decode: https://en.wikipedia.org/wiki/Base64
  -> Uses chars A-Z,a-z,0-9,+,/ = 64 chars
@@ -32,6 +33,9 @@ double = 8 bytes = 15 to 16 decimal precision
 
 >> Bloom filters: A DS to tell rapidly and memory-efficiently, whether an element is present in a set.
 https://llimllib.github.io/bloomfilter-tutorial/
+ -> k-way hash(murmur)
+ -> Akamai Technologies, a content delivery provider, use Bloom filters to prevent "one-hit-wonders" from being stored in its disk caches.
+ -> BigTable impl like Cassandra uses LWT in-mem Bloom filter to avoid doing costly SSD lookups if a row doesn't exist
 
 >> Choose the right way of Client side connection with server
 https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-events-c43ba96df7c1
@@ -68,11 +72,12 @@ https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-
            -> https://www.quora.com/What-is-the-best-way-to-push-real-time-data-to-a-mobile-app-from-a-backend
 
 => https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
-   -> Go and gRPC have become a popular choice for microservices of late. gRPC is an efficient over the wire
+      https://en.wikipedia.org/wiki/Protocol_Buffers [RPC over wire with predefined extensible schema]
+   -> GO and gRPC have become a popular choice for microservices of late. gRPC is an efficient over the wire
       communication protocol. Built on top of http/2 and protobuf (in theory other serialization protocols can also be
       supported), this is supposed to be faster, with lesser network overhead and an efficient protocol. Protobufs are
       language and platform neutral systems used to serialize data, meaning that these communications can be efficiently serialized and communicated in an effective manner.
-      Good for IoTs.
+      Good for IoTs. Think XML, but smaller & faster.
 
       Comparing Use Cases For REST, GraphQL, Webhooks, and gRPC
       REST: A stateless architecture for data transfer that is dependent on hypermedia. REST can tie together a wide range of resources that might be requested in a variety of formats for different purposes. REST is fundamentally concerned with stateless resource management, so it’s best used in such situations. Systems requiring rapid iteration and standardized HTTP verbiage will find REST best suited for their purposes.
@@ -123,12 +128,20 @@ relieving the application of this responsibility.
 
 =======
 
-# CAP Theorem:
+# CAP Theorem: https://en.wikipedia.org/wiki/CAP_theorem
 When we design a distributed system, trading off among CAP (consistency, availability, and partition tolerance) is almost the first thing we want to consider.
 
-1.Consistency: all nodes see the same data at the same time
-2.Availability: a guarantee that every request receives a response about whether it succeeded or failed
+1.Consistency: all nodes see the same data at the same time, every read receives the most recent write or an error
+2.Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write
 3.Partition tolerance: system continues to operate despite arbitrary message loss or failure of part of the system
+Partition tolerance, in this context, means the ability of a data processing system to continue processing data even if a network partition causes communication errors
+
+When a network partition failure happens should we decide to -
+1. Cancel the operation and thus decrease the availability but ensure CONSISTENCY
+2. Proceed with the operation and thus provide AVAILABILITY but risk inconsistency
+
+CAP is frequently misunderstood as if one has to choose to abandon one of the three guarantees at all times.
+In fact, the choice is really between consistency and availability only when a network partition or failure happens; at all other times, no trade-off has to be made.
 
 In a distributed context, the choice is between CP and AP. Unfortunately, CA is just a joke, because single point of failure is a red flag in the real distributed systems world.
 To ensure consistency, there are some popular protocols to consider: 2PC, eventual consistency (vector clock + RWN), Paxos, In-Sync Replica, etc.
@@ -160,6 +173,7 @@ To ensure consistency, there are some popular protocols to consider: 2PC, eventu
 
 # Real Time Streaming
   => Apply when looking for near real time aggregations / batch counts / insights / trends etc
+  => Use ElasticSearch(ELK) as persistent/index store for doing quick aggregations etc
 
 =======
 # Concerns to address while designing scalable systems:
@@ -242,21 +256,22 @@ Based on search criteria -
 =======
 
 # TEMPLATE For Solving SYSTEM DESIGN PROBLEMS
-1. Requirements
+1. Requirements (Read/Write QPS)
 2. Solve as single server, then scale out
-3. Capacity Estimation (after detailed design?)
-4. API Design
+3. Capacity Estimation (app,db,cache for 5 yrs)
+4. Microservices / Rest API Design
 5. DB Schema
 6. High Level Architecture Diagram
 7. Detailed Design
+  - Masterless
   - Sharding
   - Replication
   - Caching
-  - Rate Limiting
+  - Rate Limiting / DDOS Prevention (API Gateway - Cloudflare)
 8. Load Balancing / Router / Aggregator
 9. CDN (cache + blob storage) - Static images/videos/javascript caching on geographically distributed servers
                                 to reduce web page load latency. Also called Edge server as it sits at Edge of a n/w
-10. Security / Auth - Login service, DB (userId, passwd) + cache (userId, token).
+10. Security / Auth - Login service, DB (userId, pwd_hash) + cache (userId, token).
                      Set token in session / cookie to validate subsequent client requests.
                      OAuth ?
 11. Monitoring
@@ -291,7 +306,8 @@ Based on search criteria -
 =======
 
 # LSM Trees (Log Structured Merge Trees)
-  => Multi leveled trees L0 (smaller, in-memory), L1(merged from L1, stored on disk)
+  => Multi leveled trees L0 (smaller, in-memory, sorted)
+  => When L0 exceeds mem thresholds, merge sort with L1 sorted data (stored on disk). Bigger L2 is created from L1
   => eg. BigTable, Cassandra, HBase, RocksDB
 
 # What is NGINX?

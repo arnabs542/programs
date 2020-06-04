@@ -42,8 +42,8 @@ public class PopularNumbers {
         if (s > e) return -1;
         int m = s + (e-s)/2;
         if (T == A[m]) {
-            int idx = find_left_idx(A, s, m-1, T);
-            if (idx != -1) return idx;  // found a more distant left idx
+            int idx = find_left_idx(A, s, m-1, T);   // keep searching for leftmost bound
+            if (idx != -1) return idx;  // didn't find in left half
             else return m;  // this was the leftmost
         }
         else if (T < A[m]) return find_left_idx(A, s, m-1, T);

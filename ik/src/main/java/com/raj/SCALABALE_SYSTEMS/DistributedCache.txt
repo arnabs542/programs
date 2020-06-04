@@ -9,9 +9,9 @@
   ListNode stores key & value (key is required for deletion from map when queue is full)
 
   MAP(key -> Node)                  Queue (key,value)
-  k1 -> Node(k1,v1)  ...link...>    Node(k1,v1)
-  k2 -> Node(k2,v2)                 Node(k1,v1) -> Node(k2,v2)
-  k3 -> Node(k3,v3)                 Node(k1,v1) -> Node(k2,v2) -> Node(k3,v3)
+  k1 -> Node(k1,v1)  <...link...    k1
+  k2 -> Node(k2,v2)                 k1 -> k2
+  k3 -> Node(k3,v3)                 k1 -> k2 -> k3
   ....
   Above set operations are trivial
   * Now say, size=3, hence queue is full

@@ -11,6 +11,8 @@ public class JAVA_CODING_MUST_READ {
 
         // Write complete classes, not just methods in interviews for completeness
 
+        // Big O Runtime O(n) means the upper bound on the runtime.
+
         // =========== Array Gotchas =========
         int[] A = new int[] {1, 2, 3, 4, 5};  // Init array
         print(Arrays.toString(A));  // print an array

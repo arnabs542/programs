@@ -40,14 +40,14 @@ public class NQueens {
      * Note - This can't be solved via DP as for that to work, input shouldn't be changed. Here, board is being changed every time & there may not be an overlapping sub-problem.
      */
     public static void main(String[] args) {
-        System.out.println(Arrays.deepToString(find_all_arrangements(4)));
-        _find_all_arrangements(4);
+        System.out.println(Arrays.deepToString(_find_all_arrangements(4)));
+        find_all_arrangements(4);
     }
 
     /**
      * T(n) = n*T(n-1) + O(n^2) which translates to O(N!) time complexity in average.
      */
-    static String[][] find_all_arrangements(int n) {
+    static String[][] _find_all_arrangements(int n) {
         int[] A = new int[n];   // instead of using 2D grid of booleans, we can represent just the queen's position by using 1D array A[row]=col
         Arrays.fill(A, -1);
         List<String[]> res = new ArrayList<>();
@@ -77,22 +77,34 @@ public class NQueens {
      *   - Base case: if we are done placing all queens or rows=4, return true
      *   - Rec case: try placing in each of the n cols, and see if recursively placing others yields true, return true.
      *     Else return false.
+     *
+     * Time = Exponential O(N^N) but precisely,
+     * We make N choices for placing in each col of first row
+     *        1      2  3  4
+     *       //\\  //\\
+     * And they each make remaining N-1 and then N-1 so complexity is O(N!)
      */
-    static void _find_all_arrangements(int n) {
+    static int cmp = 0;
+    static void find_all_arrangements(int n) {
         int[] board = new int[n];   // instead of using 2D grid of booleans, we can represent just the queen's position by using 1D array A[row]=col
         Arrays.fill(board, -1);
         for (int col = 0; col < board.length; col++) {
             board[0] = col; // make a choice & start recTree
-            if (place(board, 1)) System.out.println(Arrays.toString(board));
+            if (place(board, 1)) {
+                System.out.println(Arrays.toString(board) + ", cmp = " + cmp);
+                //cmp = 0;
+            }
             board[0] = -1;
         }
     }
 
     static boolean place(int[] board, int row) {
-        if (row == 4) return true;  // all rows done
+        cmp++;
+        if (row == board.length) return true;  // all rows done
         for (int col = 0; col < board.length; col++) {
             if (isValid(board, row, col)) {
                 board[row] = col;
+                // done placing queen for this row, move to next one
                 if (place(board, row+1)) return true;
             }
         }

@@ -57,7 +57,7 @@ public class PalindromePartition {
      */
     static ArrayList<ArrayList<String>> res = new ArrayList<>();
 
-    private static void partition(String a, int start, ArrayList<String> curPartitions) {
+    private static void partition(String a, int start, ArrayList<String> curPartitions) {  // use a stack instead for simplicity
         if (start == a.length()) {
             res.add(new ArrayList<>(curPartitions));
             return;

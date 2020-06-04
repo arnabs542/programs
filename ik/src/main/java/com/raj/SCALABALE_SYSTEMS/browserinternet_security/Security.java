@@ -61,7 +61,7 @@ public class Security {
   * - During the TLS handshake, the two parties generate session keys, and the session keys encrypt and decrypt all communications after the TLS handshake
   * - Different session keys are used to encrypt communications in each new session
   * - TLS ensures that the party on the server side, or the website the user is interacting with, is actually who they claim to be
-  * - TLS also ensures that data has not been altered, since a message authentication code (MAC) is included with transmissions
+  * - TLS also ensures that data has not been altered, since a message authentication code (HMAC) is included with transmissions
   * - With TLS, both HTTP data that users send to a website (by clicking, filling out forms, etc.) and the HTTP data that websites send to users is encrypted. Encrypted data has to be decrypted by the recipient using a key.
   *
   * The TLS handshake
@@ -105,7 +105,7 @@ public class Security {
   * To prevent: (add as hidden field to form, never as cookie)
   * 1. A non-predictable, random token is generated using a secure function. This value is then provided to the client to return. The token is often generated per-session; a per-request token is more robust, if possible.
   * 2. Encryption based Token: A token is generated based on the user’s session id and a timestamp using a key only available on the server. The token is valid for a limited time period and limited number of requests or even single usage. The client then includes this value on future requests.
-  * 3. HMAC Token: Using key K, generate HMAC(session ID + timestamp) and append the same timestamp value to it which results in your CSRF token. at the server, re-generate the token & compare.
+  * 3. HMAC Token: Using key K, generate HMAC(session ID + timestamp) and append the same timestamp value to it which results in your CSRF token. At the server, re-generate the token & compare.
   *
   */
 }

@@ -5,7 +5,7 @@
 Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Hashing) => Cache + DB
 
 * User Account - Create / Login
-  - user_id, email, passwd
+  - user_id, email, pwd_hash
   - cache + DB
   - multi-profiles in same account
   - billing
@@ -15,10 +15,10 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   NewMovie => Read in Chunks => Parallel Transcoding into diff formats => (DB+Cache) & Kafka => AmazonS3 & OpenConnect CDNs
 
   - Ingest new movies, each movie is transcoded into different format
-  - ((movie_id,format),part_num),blobs
+  - ((movie_id,format),part_num),s3_blob_uri
   - break movie into 1 mins chunks which is sorted by part # and stored in sorted order
   - Save part num info for a movie in zookeeper (we can use S3 for blob storage)
-  - May create hot spots on shard if CDN fails. We can modify schema to - (movie_id,format,partNum),bytes_chunk
+  - May create hot spots on shard if CDN fails. We can modify schema to - (movie_id,format,partNum),s3_bytes_chunk_uri
   - Kafka will send data to open connect CDNs, else they'll be cached in CDN Edge Server at time of play.
 
 * Recommendation
@@ -28,13 +28,13 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   -> [Personalized recommendation]
      - Inspired by User's Playback History & personal preferences
   -> [Content based recommendation] Content based filtering ML models - by genre, by actor, by language etc
-     - Features of the movies itself, find similarities b/w movies
-     - For instance, if user A and B have watched a bunch of same videos, it’s highly likely that user A will like videos liked by B. Of course, there are many ways to define what “similar” means here. It could be two users have liked same videos, it could also mean that they share the same location.
+     - Features of the movies itself like Sci-Fi, Artist, Year, Country of origin, find similarities b/w movies
   -> [Collaborative recommendation] Other's of similar interests also watched
      - Collaborative Filtering ML models - Match users of similar interests and predict
+     - For instance, if user A and B have watched a bunch of same videos, it’s highly likely that user A will like videos liked by B. Of course, there are many ways to define what “similar” means here. It could be two users have liked same videos, it could also mean that they share the same location.
   -> [Knowledge based recommendation] - deterministic based on knowledge graph models
-  -> Sponsored Module - Paid for by advertisers but still relevant to user by targeting
-  -> Trending Content module
+  -> Sponsored Module - Paid for by advertisers but still relevant to user by targeting customer segments
+  -> Trending Content module -  based on recent trends
   -> Use clicks, views info from App to train models & precompute recco modules (offline for each use) or live compute in runtime
   -> Schema DB+Cache: user_id, pre-computed json module with movie_ids
   -> Fallback - give static response so that modules load in case of failures
@@ -46,7 +46,7 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   -> Renders Playback module
      - While streaming from App, it will buffer upto 5 mins content. If slow internet, it will downgrade bit format. This logic lives on the App side and is real time.
   -> Save & retrieve user's last state - user_id, state json (movie_id, part_num or episode seen)
-  -> Send state info every few secs from App via http to AWS servers
+  -> Send state info every few secs from App via http to AWS servers so that logging into a diff device can continue playing from where we left
 
 # Deployment:
 -> Cache static movie content in CDNs. Netflix has it's own CDN n/w called OpenConnect throughout the globe.

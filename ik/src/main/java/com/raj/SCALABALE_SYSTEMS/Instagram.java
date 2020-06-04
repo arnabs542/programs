@@ -45,7 +45,7 @@ public class Instagram {
  Components/Microservices:
  -- RESTful APIs --
 
- * Login / Registration service - user_id, email_id, first name, last name, encrypted pwd
+ * Login / Registration service - user_id, email_id, first name, last name, hashed+salted pwd
  - user_id generated : uuid+firstname+ts
  other approaches: id generation service - DB sequence, pull based range based ids
  - We'll authenticate on login, user_id+token in cache for further validations
@@ -53,9 +53,9 @@ public class Instagram {
  * Photo Upload Service:
  - upload(user_id,<blob> photo)
  Distributed KV Store
- DB Schema: user_id(PK), ts(Clustering Key), photo_url ---> Amazon S3, HDFS
+ DB Schema: user_id(PK), ts(Clustering Key), photo_url ---> Amazon S3, GCS, HBase
  - Shard in user_id (Cons - hot-spotting on popular users)
- - For celebrity we can have their data cached so that hot-spotting cpould be avoided.
+ - For celebrity we can have their data cached so that hot-spotting could be avoided.
  - Map Reduce to update or Kafka -> Streaming Storm -> Cache
  - Photos upload can be made visible through use of LongPoll/WebSocket connections
 
@@ -77,12 +77,7 @@ public class Instagram {
  - Replication: Shard replicas (3)
  - Caching: Write/Read Through Cache, LRU eviction policy
  - CDNs Geo-located around globe for faster retrieval of media
-
- *
- *
- *
- *
- *
+ - Monitoring & Alerting
  *
  */
 }

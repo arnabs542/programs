@@ -35,6 +35,11 @@
     -> Negative test cases
        - Negative values, space, special chars etc
     -> One complex / big test case
+    -> Out of box cases
+       - Integer overflow when incrementing?
+       - Concurrent thread access? Synchronize DS
+       - Perf test case? Run with millions sized input. High throughput? Cache or pre-compute?
+       - Code coverage? write tests to cover all code paths
 
 
 === THINGS TO IMPROVE ===

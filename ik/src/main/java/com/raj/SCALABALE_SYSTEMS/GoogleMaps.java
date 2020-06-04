@@ -22,7 +22,7 @@ public class GoogleMaps {
  * # Map Service
  *   - Stores maps by blocks
  *   - Caches heavily as map contents don't change frequently & build can be done nightly by MR jobs
- *   - DB: block_id, diag_lat_long, block_size, blob
+ *   - DB: block_id, diag_lat_long, block_size, blob_uri
  *   - Graph DB: block_id -> addresses edges & vertices , lookups by vertices
  *   - Precompute all pairs shortest paths using Dijkstra's/A* within a block and store top N options. Can be done only for most freq visited vertices. The last mile can be done in real time.
  *   - DB: (src,dest) -> top N paths graphs  ... use A* with some heuristics like time of day etc
@@ -39,5 +39,12 @@ public class GoogleMaps {
  *   - Get updates from weather, traffic, govt sites, highway patrol etc
  *   - It periodically computes a weight based on above per vertex which is returned to Map service to be used as heuristics
  *   - The heuristics is done on block level
+ *
+ * # Nearby Places
+ *   - Given a lat,long point, finds the nearby places of interest
+ *   - Figure out the origin block, and given the input radius + num places to get, find nearby blocks
+ *   - Fire parallel calls to block service & combine results.
+ *   - Use trained ML models to do ranking by distance, reviews & return top N place URLs.
+ *   - Place URL is downloaded from CDNs which may contain static images, videos etc.
  */
 }
