@@ -10,10 +10,10 @@ import static com.raj.Util.swap;
 import static com.raj.sorting.KNearestNeighbors.Point;
 
 /**
- * Hoare's Algorithm tweaks the QuickSort algo to achieve a O(n) - avg case algo
+ * Hoare's Algorithm(Kth Order Statistics) tweaks the QuickSort algo to achieve a O(n) - avg case algo
  * for finding the kth smallest element
  */
-public class QuickSelect {
+public class QuickSelectKthSmallest_Median {
 
     private static Random random = new Random();
 

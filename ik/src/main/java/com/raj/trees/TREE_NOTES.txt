@@ -36,3 +36,18 @@ https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-v
    + More suited for too many insert/deletes
    - Not perfectly balanced
    - Preferred choice for DS in C++ & Java(TreeMap and TreeSet)
+
+# Other Trees:
+ * B-Tree - https://stackoverflow.com/questions/870218/what-are-the-differences-between-b-trees-and-b-trees
+   + Keys and records both are stored in the internal as well as leaf nodes.
+   + Searches faster for keys which are near to root
+   - Sequential access might be difficult
+ * B+ Tree - https://www.javatpoint.com/b-plus-tree
+   + Balanced Tree w/ data always at leaf levels
+   + The internal nodes (keys to access records) of the B+ tree are stored in the main memory whereas, leaf nodes are stored in the secondary memory.
+   + Choice for RDBMS Indexes - https://www.essentialsql.com/what-is-a-database-index/
+   + Leaf nodes of a B+ tree are linked together in the form of a singly linked lists to make the search/range queries more efficient
+ * Ternary Search Trees - Used in place of Tries to store strings w/ space tradeoff
+   + Tries use 26 ptrs for each node, TST has space advantage as it has 3 ptrs (<, =, >)
+   + O(length_of_word + depth of tree) searches
+   + Suited for "Near Neighbor Lookups" like Spell checks, Auto-complete, Nearest Neighbor etc

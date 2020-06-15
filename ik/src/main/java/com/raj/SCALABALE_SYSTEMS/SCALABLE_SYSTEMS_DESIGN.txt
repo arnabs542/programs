@@ -258,7 +258,7 @@ Based on search criteria -
 # TEMPLATE For Solving SYSTEM DESIGN PROBLEMS
 1. Requirements (Read/Write QPS)
 2. Solve as single server, then scale out
-3. Capacity Estimation (app,db,cache for 5 yrs)
+3. Capacity Estimation (app,db,cache for 5 yrs, compression)
 4. Microservices / Rest API Design
 5. DB Schema
 6. High Level Architecture Diagram

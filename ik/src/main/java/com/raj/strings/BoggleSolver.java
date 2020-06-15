@@ -54,7 +54,9 @@ public class BoggleSolver {
      * dictionary = [ “aaaaaaaaab” , “aaaaaaaaac”, “aaaaaaaaad”]
      * As it is evident that the letter ‘b’,’c’ and ‘d’ and being shielded by the cover of ‘x’ layer.
      * Hence unfortunately total time complexity still be O(n*m*7^(max_length_of_string)) + O(dictionaryCount*max_length_of_string), but this is only in worst case.
-     * In average and ideal cases this approach performs much better.
+     * In average and ideal cases this approach performs much better => O(n * m * max_length_dict_word)
+     *
+     * Leetcode - Concise/Efficient Solution: https://leetcode.com/problems/word-search-ii/discuss/59780/Java-15ms-Easiest-Solution-(100.00)
      */
     public static List<String> boggle_solver(List<String> dictionary, List<String> mat) {
         Set<String> res = new HashSet<>();

@@ -83,6 +83,17 @@ public class SerializeDeserializeBTree {
         preOrderPrint(n.right);
     }
 
+    /**
+     * Approach 3: Level Order traversal can be used as well using Queue
+     * Ser => 20 8 24 4 12 -1 30 -1 -1 10 14 28 -1  (Queue state) => write to string => file
+     * Deser => Read str, split by " " => nodeArr[] => Queue.add(new Node(nodeArr[0]))
+     * until Queue has elements:
+     *   pop Q node
+     *   take 2 elems from nodeArr & assign them as left & right nodes respectively
+     *   push left/right nodes into Q
+     *
+     */
+
     private static class Node {
         Node left, right;
         int val;

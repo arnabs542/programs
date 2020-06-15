@@ -26,6 +26,7 @@ public class DiameterTree {
         System.out.println("The diameter of given binary tree in O(n) : " + diameter(root));
 
         maxSum(root); System.out.println("maxSum : " + max);  // simplest
+        System.out.println("maxDiameter : " + maxDiameter(root).maxAtNode);
 
         System.out.println("======================");
 
@@ -33,6 +34,8 @@ public class DiameterTree {
         root.right.left = new Node(60); root.right.right = new Node(90);
         System.out.println("Diameter NOT passing thru root = " + findDiameter(root));
         System.out.println("The diameter of given binary tree in O(n) : " + diameter(root));
+
+        System.out.println("maxDiameter : " + maxDiameter(root).maxAtNode);
 
         maxSum(root); System.out.println("maxSum : " + max);
 
@@ -42,11 +45,11 @@ public class DiameterTree {
         root.left.right = new Node(-6); root.right = new Node(-20);
         max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
 
-        Pair res = maxSumPair(root);
-        System.out.println("maxSumPair : " + Math.max(res.incl, res.excl) + ", cmp = " + cmp);
+        System.out.println("maxDiameter : " + maxDiameter(root).maxAtNode);
 
         root.left = new Node(-9); root.left.left = new Node(5);
         max = Integer.MIN_VALUE; maxSum(root); System.out.println("maxSum : " + max);
+        System.out.println("maxDiameter : " + maxDiameter(root).maxAtNode);
 
     }
 
@@ -144,50 +147,49 @@ public class DiameterTree {
         int leftSum = maxSum(n.left);
         int rightSum = maxSum(n.right);
 
-        // excl node
-        int max_of_subtrees = Math.max(leftSum, rightSum);  // max of left or right subtree
-        // incl node
-        int max_incl_root = n.dist + leftSum + rightSum;    // max including this root node
+        // what's the max at this node (full path with this node)
+        int max_incl_root = n.dist + leftSum + rightSum;
 
-        //int max_at_node = Math.max(max_incl_root, max_of_subtrees);   // max at this node (this may not be a right answer as it may not be a full path)
-        max = Math.max(max, max_incl_root);   // update global max using full paths only (hence, had to comment above max)
+        // update global max
+        max = Math.max(max, max_incl_root);
 
-        return n.dist + max_of_subtrees;    // but return only the max_of_subtrees + this node's dist
+        // running max of left or right (not yet full path, but used later)
+        int runningMaxLeftOrRight = n.dist + Math.max(leftSum, rightSum);
+
+        return runningMaxLeftOrRight;    // return running max for summing up later
     }
 
     /**
-     * Another approach could be, if each node returns pair of incl/excl answers
+     * Another approach could be, if each node returns tuple of running sum & max at the node & doesn't use global ptrs
      * @see com.raj.trees.MaxSumNonAdjNodes - similar subset pattern
      * # DFS until leaf nodes reached
      * # Each node returns max sum incl/excl this node
      *
      * Time/Space = O(n)
      */
-    static int cmp = 0;
-    static Pair maxSumPair(Node n) {
-        if (n == null) return new Pair(0,0);
-        cmp++;
-        // dfs until leaf & start building bottom up DP
-        Pair left_pr = maxSumPair(n.left);
-        Pair right_pr = maxSumPair(n.right);
+    static Tuple maxDiameter(Node n) {
+        if (n == null) return new Tuple(0,0);
 
-        // exclude this node - take max of left/right subtree answer
-        int excl = Math.max(Math.max(left_pr.incl, left_pr.excl),
-                Math.max(right_pr.incl, right_pr.excl));
+        // dfs & get left & right answers
+        Tuple leftTuple = maxDiameter(n.left);
+        Tuple rightTuple = maxDiameter(n.right);
 
-        // include this node
-        int incl = n.dist + ((n.left  == null ? 0 : n.left.dist ) + left_pr.excl) +
-                            ((n.right == null ? 0 : n.right.dist) + right_pr.excl);
+        // options with subtree - left/right subtree max or a new subtree with this node
+        int subtreeMax = Math.max(Math.max(leftTuple.maxAtNode, rightTuple.maxAtNode), n.dist + leftTuple.runningMaxSum + rightTuple.runningMaxSum);
 
-        return new Pair(incl, excl);
+        // options for max left/right to build upwards
+        int maxLeftOrRight = n.dist + Math.max(leftTuple.runningMaxSum, rightTuple.runningMaxSum);
+
+        // build answer for this node
+        return new Tuple(maxLeftOrRight, subtreeMax);
     }
 
-    static class Pair {
-        int incl;
-        int excl;
-        Pair(int in, int ex) {
-            incl = in;
-            excl = ex;
+    static class Tuple {
+        int runningMaxSum; // to be used for max computations when given node is included
+        int maxAtNode;     // choose from L subtree, R subtree, n.val + runningMaxSum of either L or R
+        Tuple(int r, int m) {
+            runningMaxSum = r;
+            maxAtNode = m;
         }
     }
 

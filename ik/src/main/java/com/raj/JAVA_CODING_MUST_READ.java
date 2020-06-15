@@ -67,7 +67,8 @@ public class JAVA_CODING_MUST_READ {
 
         // Simple way to add to map if not exists & update if the value exists
         Map<String,Set<String>> mapSet = new HashMap<>();
-        mapSet.computeIfAbsent("key", k -> new HashSet<>()).add("a value");
+        mapSet.putIfAbsent("key", new HashSet<>());
+        mapSet.get("key").add("new value");
 
         // ============ LOOP GOTCHAS ============
         // Use while loop when u want full control over incrementing/decrementing index

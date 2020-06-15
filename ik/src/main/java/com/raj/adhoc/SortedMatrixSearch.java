@@ -27,7 +27,7 @@ public class SortedMatrixSearch {
 
     /**
      * Idea is to Binary Search the 2D grid
-     * start from rightmost element
+     * start from rightmost element in first row
      * x == A[row][col] return true
      * x < A[row][col] go left where elems are lesser, ie. col--
      * x > A[row][col] go down where elems are greater, ie. row++

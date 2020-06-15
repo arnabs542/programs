@@ -235,9 +235,14 @@ public class BST {
         return 1 + Math.max(height(n.left), height(n.right));
     }
 
-    public int minheight(Node n) {
+    public int minheight(Node n) {  // doing BFS traversal will hit shortest height first - better runtime for heavily skewed trees
         if (n == null) return 0;
         return 1 + Math.min(height(n.left), height(n.right));
+    }
+
+    public int maxDepth(Node root) {  // need to explore all childs
+        if(root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 
     /**
@@ -400,7 +405,7 @@ public class BST {
         // process node
         stack.add(n.data);  // add state
         sum -= n.data;
-        if (sum == 0) {   // is the target sum reached?
+        if (sum == 0 && n.left == null && n.right == null) {   // is the target sum reached at this leaf node?
             for (int i : stack) {
                 System.out.print(i + " ");
             }
@@ -556,7 +561,7 @@ public class BST {
 
         if (n == null) return null;
 
-        // If either n1 or n2 matches with root, LCA is root
+        // If either a or b matches with root, LCA is root (as we go down, we check this first)
         if (n.data == a || n.data == b) return n;
 
         // Look for keys in left and right subtrees, if a or b is present in them, then we wud get answer as non-null

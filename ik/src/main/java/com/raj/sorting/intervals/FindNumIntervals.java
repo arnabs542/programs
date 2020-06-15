@@ -1,4 +1,4 @@
-package com.raj.binarysearch;
+package com.raj.sorting.intervals;
 
 public class FindNumIntervals {
 
@@ -26,6 +26,7 @@ public class FindNumIntervals {
 
     /**
      * Approach 1: https://www.geeksforgeeks.org/count-the-number-of-intervals-in-which-a-given-value-lies/
+     * [Runtime efficient at cost of space, think abt ranges going into billions, we'll need billion array size]
      * Use a frequency array that keeps track of how many of the given intervals an element lies in.
      *
      * For every interval [L, R], put freq[L] as freq[L] + 1 and freq[R+1] as freq[R + 1] – 1 indicating start and end of the interval.
@@ -35,6 +36,7 @@ public class FindNumIntervals {
      * Required count of intervals is then given by freq[V].
      *
      * Approach 2: IK Glenn Stroz
+     * [Space efficient]
      * First we'll pre-process the intervals.
      * # Sort the intervals by start => (1,5), (2,4), (12,15)
      * # Compute num interval at each start / end points.
@@ -46,8 +48,9 @@ public class FindNumIntervals {
      * # Here we are excluding the endIdx eg. (4,1) but it lies in 2 intervals, for convenience.
      * # We can consider the prev IntervalCount and see if the count is decreasing, then we just add 1 to count.
      * # Now for a given number, binary search and find the closest IntervalCount and determine count
+     *
+     * @see IntervalBuckets - for space efficient soln based on Approach 2 IK Glenn Stroz
      */
-    // Approach 1
     static int findNumIntervals(Interval[] intervals, int num) {
         //Arrays.sort(intervals, (a,b) -> a.x-b.x);
         // Variables to store overall minimum and maximum of the intervals

@@ -96,8 +96,8 @@ public class BuildBTreeFromTraversals {
      *
      * pre[]  = {1, 2, 4, 8, 9, 5, 3, 6, 7}
      *           r  L
-     * post[] = {8, 9, 4, 5, 2, 6, 7, 3, 1}
-     *            .... L ....|  ... R ...r
+     * post[] = {8, 9, 4, 5, 2, 6, 7, 3,  1}
+     *            ..... L ....| ... R ...|r
      */
     static int i = 0; // tracks preorder index, need it as global as it needs to be increment b/w recursive calls & backtracking will cause incr val to be lost
     static Node buildBTree_pre_post(int[] pre, int s, int e, int[] post) {
@@ -125,7 +125,7 @@ public class BuildBTreeFromTraversals {
         return root;
     }
 
-    static int findBound(int[] post, int n, int s, int e) {
+    static int findBound(int[] post, int n, int s, int e) { // Store Node -> Idx in map to optimize lookups to O(1)
         for (int j = s; j <= e; j++) {
             if (post[j] == n) return j;
         }

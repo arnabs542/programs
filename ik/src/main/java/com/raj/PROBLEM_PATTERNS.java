@@ -3,6 +3,7 @@ package com.raj;
 import com.raj.adhoc.stack.StockSpan_MostWaterContainer;
 import com.raj.dp.WeightedJobSchedule;
 import com.raj.graphs.topo.CourseSchedule;
+import com.raj.sorting.intervals.IntervalBuckets;
 
 public class PROBLEM_PATTERNS {
 
@@ -34,6 +35,10 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect(Modified BSearch)
      * @see com.raj.sorting.Sum3 - A+B+C=T >> HashMap >> Sort + 2-Pointer technique
      *
+     * [INTERVALS]
+     * @see IntervalBuckets - Sort by start / Pre-compute sorted buckets map / 1st pass - mark +,- bucket at start,end+1 / 2nd pass - accumulate final buckets / Modified BSearch
+     * @see com.raj.sorting.intervals.NonOverlapIntervals - Maximize selected tasks / Greedy Activity selection / Sort by end times
+     *
      * [ARRAYS]
      * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
      * @see com.raj.adhoc.TrapRainWater - bars have width, precompute max left & right bounds, & add up water over each bar
@@ -62,6 +67,7 @@ public class PROBLEM_PATTERNS {
      * 4. Levelorder / BFS - radiate outwards 1 level at a time? left to right order on each level?
      * # Successor/Predecessor
      * # Subset pattern - dfs, at each node, inlude & exclude this value & recurse, build soln bottom up
+     * @see com.raj.tree.binarytree.BST - Basics - Mirror tree / Path Sum
      * @see com.raj.trees.LeftSideView - Level order traversal
      * @see com.raj.trees.ClosestNode - Minimize diff as we traverse
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor

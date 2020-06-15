@@ -67,6 +67,25 @@ public class LeftSideView {
         }
     }
 
+    /**
+     * Print right side view
+     */
+    public void rightSideView(Tree.Node root) {
+        // reverse level traversal
+        Queue<Tree.Node> queue = new LinkedList();
+        if (root == null) return;
+        queue.add(root);
+        while (queue.size() != 0) {
+            int size = queue.size();
+            for (int i=0; i<size; i++) {
+                Tree.Node cur = queue.poll();
+                if (i == 0) System.out.println(cur.val);    // 1st element at start of each level is our rightmost child
+                if (cur.right != null) queue.offer(cur.right);  // enqueue right node first
+                if (cur.left != null) queue.offer(cur.left);
+            }
+        }
+    }
+
     static class Pair {
         Tree.Node node;
         int level;

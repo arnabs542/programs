@@ -26,8 +26,8 @@ public class StreamingMedian {
         System.out.println(Arrays.toString(findMedian(new int[]{2, 4, 7, 1, 5, 3})));
     }
 
+    // nlogn
     static int[] findMedian(int[] arr) {
-        // Write your code here
         // .... maxH | minH ....
         //       avg of top if even,
         //       else either max(maxH.size>minH.size) or min is median
