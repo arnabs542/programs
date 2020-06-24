@@ -1,4 +1,4 @@
-package com.raj.adhoc;
+package com.raj.slidingwindow;
 
 import javafx.util.Pair;
 
@@ -99,11 +99,18 @@ public class SubArraySum {
             sum += A[i];
             int diff = sum - T;
             if (map.containsKey(diff)) {
-                return new Pair(map.get(diff)+1, i);
+                return new Pair(map.get(diff)+1, i);  // for min window length, use min ptr to minimize
             }
             map.put(sum, i);
         }
         return null;
     }
+
+    /**
+     * Follow up:
+     * O(nlogn) soln without using extra space? https://leetcode.com/problems/minimum-size-subarray-sum/discuss/59103/Two-AC-solutions-in-Java-with-time-complexity-of-N-and-NLogN-with-explanation
+     * If arr has +ve elems only, the cumulative sum is strictly increasing. Update the original arr with cumulative sum.
+     * We can exploit the above sorted cumulative sum property to do binarySearch for each curSum + T in arr.
+     */
 
 }

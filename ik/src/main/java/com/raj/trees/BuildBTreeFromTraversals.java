@@ -16,6 +16,9 @@ public class BuildBTreeFromTraversals {
      * Even if three of them (Pre, Post and Level) are given, the tree can not be constructed.
      *
      * https://www.geeksforgeeks.org/construct-tree-from-given-inorder-and-preorder-traversal/
+     *
+     * Another simpler variant:
+     * https://leetcode.com/problems/maximum-binary-tree/ (use reverse idx of num -> idx) for linear soln.
      */
     public static void main(String[] args) {
         char I[] = { 'D', 'B', 'E', 'A', 'F', 'C' };    // inorder

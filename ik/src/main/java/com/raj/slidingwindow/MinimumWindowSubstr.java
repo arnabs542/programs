@@ -1,4 +1,4 @@
-package com.raj.strings;
+package com.raj.slidingwindow;
 
 import java.util.HashMap;
 import java.util.HashSet;

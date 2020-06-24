@@ -39,7 +39,7 @@ public class BTreeMaxSum {
 
     private int calcMaxSum(Node node) {
         if (node == null) return 0;
-        int sum = node.data + calcMaxSum(node.left) + calcMaxSum(node.right);
+        int sum = node.val + calcMaxSum(node.left) + calcMaxSum(node.right);
         int prevMaxSum = maxSum;
         maxSum = Math.max(sum, maxSum);
         if (prevMaxSum != maxSum) maxSumNode = node;

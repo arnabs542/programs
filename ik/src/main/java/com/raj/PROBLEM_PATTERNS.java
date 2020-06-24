@@ -3,6 +3,8 @@ package com.raj;
 import com.raj.adhoc.stack.StockSpan_MostWaterContainer;
 import com.raj.dp.WeightedJobSchedule;
 import com.raj.graphs.topo.CourseSchedule;
+import com.raj.slidingwindow.MinimumWindowSubstr;
+import com.raj.slidingwindow.SubArraySum;
 import com.raj.sorting.intervals.IntervalBuckets;
 
 public class PROBLEM_PATTERNS {
@@ -40,8 +42,12 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.sorting.intervals.NonOverlapIntervals - Maximize selected tasks / Greedy Activity selection / Sort by end times
      *
      * [ARRAYS]
-     * @see com.raj.adhoc.SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo
      * @see com.raj.adhoc.TrapRainWater - bars have width, precompute max left & right bounds, & add up water over each bar
+     *
+     * [SLIDING WINDOW]
+     * @see SubArraySum - 2 loops >> Expand/Contract algo >> Expand/Map algo >> Map Prev seen sum & look for curSum-T in map
+     * @see MinimumWindowSubstr - Expand/Contract Sliding Window pattern
+     * @see com.raj.linkedlist.SlidingWindowMax - Use Deque(remove elems smaller on left) to track window's max in constant time
      *
      * [STACK]
      * Use Stack to keep elements of interest only / Pop backwards when cond met
@@ -54,7 +60,6 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.strings.SubstringMatch - Naive N^2 >> RabinKarp/RollingHash algo >> SuffixTrie
      * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin
      * @see com.raj.strings.RegExPatternMatch - Recur include or skip a char for special char >> DP
-     * @see com.raj.strings.MinimumWindowSubstr - Expand/Contract Sliding Window pattern
      * @see com.raj.strings.LongestPalinSubstr - Expand around center
      *
      * [TREES]
@@ -69,6 +74,12 @@ public class PROBLEM_PATTERNS {
      * # Subset pattern - dfs, at each node, inlude & exclude this value & recurse, build soln bottom up
      * @see com.raj.tree.binarytree.BST - Basics - Mirror tree / Path Sum
      * @see com.raj.trees.LeftSideView - Level order traversal
+     *
+     * # Building trees from traversals
+     * @see com.raj.trees.BuildBTreeFromTraversals - Constructing tree from traversals
+     * @see com.raj.trees.SerializeDeserializeBTree
+     * @see com.raj.trees.SubtreeOfAnother
+     *
      * @see com.raj.trees.ClosestNode - Minimize diff as we traverse
      * @see com.raj.trees.KClosestNodes - K Closest Nodes in BST: Inorder K Smallest >> Inorder k-sized Heap >> Inorder Successor/Predecessor
      * @see com.raj.trees.DiameterTree - Maximize paths that originate & end in leaf

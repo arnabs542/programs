@@ -6,7 +6,7 @@ package com.raj.tree;
  */
 public class Node {
 
-    public int data;
+    public int val;
     public Node left, right;
     public Node parent;
     public Node nextRight;
@@ -17,12 +17,12 @@ public class Node {
 
     }
 
-    public Node(int data) {
-        this.data = data;
+    public Node(int val) {
+        this.val = val;
     }
 
-    public Node(int data, Node left, Node right, Node parent, boolean visited) {
-        this.data = data;
+    public Node(int val, Node left, Node right, Node parent, boolean visited) {
+        this.val = val;
         this.left = left;
         this.right = right;
         this.parent = parent;
@@ -31,12 +31,6 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
-                "data=" + data +
-                /*", left=" + left +
-                ", right=" + right +
-                ", parent=" + parent +
-                ", isVisited=" + isVisited + */
-                '}';
+        return val + "";
     }
 }

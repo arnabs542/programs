@@ -45,7 +45,7 @@ public class BTreeHelper {
     private void calcMaxSumPath(Node node, int[] A, int depth) {
         if (node == null) return;
 
-        A[depth] = node.data;
+        A[depth] = node.val;
         if (node.left == null && node.right == null) {
             int sum = 0;
             for (int i = 0; i <= depth; i++) {

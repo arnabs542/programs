@@ -62,11 +62,11 @@ public class SlidingWindowMax {
             // Resize Deque
             // case 1: window sizing - remove trailing elem which are no more part of window
             // window sizing will happen once we see window elems i>=w
-            if (i >= w && deque.peekFirst() < i+1-w) deque.removeFirst();
+            if (i >= w && deque.getFirst() < i+1-w) deque.removeFirst();
 
             // case 2: element sizing - if new elem greater than left, remove them, as they are of no importance
             // if equal, it means its a dupe, no need to remove it
-            while (!deque.isEmpty() && arr[i] > arr[deque.peekLast()]) deque.removeLast();
+            while (!deque.isEmpty() && arr[i] > arr[deque.getLast()]) deque.removeLast();
 
             // now we can add to last
             deque.addLast(i);
