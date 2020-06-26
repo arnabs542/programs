@@ -1,19 +1,107 @@
 package com.raj.graphs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CloneGraph {
 
     /**
      * Clone an undirected graph
+     * Given a reference of a node in a connected undirected graph.
+     * Return a deep copy (clone) of the graph.
+     *
+     * Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+     * Output: [[2,4],[1,3],[2,4],[1,3]]
+     * Explanation: There are 4 nodes in the graph.
+     * 1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+     * 2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+     * 3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+     * 4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
      */
     public static void main(String[] args) {
+        Graph graph = new Graph(new int[][]{{2,4},{1,3},{2,4},{1,3}});
+        graph.print();
+        Node cloneGraph = graph.clone(graph.nodes.get(1));
+    }
+
+    /**
+     * Clone grap nodes in DFS manner
+     * Graph may have cycles, but we need to still attach childs even if they are part of cycle
+     * Use map of cloned nodes to track already cloned nodes and return if we again look for it
+     */
+    static class Graph {
+        Map<Integer,Node> nodes = new HashMap<>();
+
+        Graph(int[][] adjList) {
+            for (int i = 0; i < adjList.length; i++) {
+                int v = i+1;
+                if (!nodes.containsKey(v)) {
+                    Node n = new Node(v);
+                    nodes.put(v, n);
+                }
+                Node n = nodes.get(v);
+                for (int w : adjList[i]) {
+                    Node child = null;
+                    if (!nodes.containsKey(w)) nodes.put(w,new Node(w));
+                    n.childs.add(nodes.get(w));
+                }
+            }
+        }
+
+        Map<Integer,Node> clonedNodes = new HashMap<>();
+        Node clone(Node n) {
+            if (n == null) return null;
+            if (clonedNodes.containsKey(n.val)) return clonedNodes.get(n.val);
+            Node clone = new Node(n.val);
+            clonedNodes.put(n.val,clone);
+            for (Node child : n.childs) {
+                clone.childs.add(clone(child));
+            }
+            return clone;
+        }
+
+        void print() {
+            for (Integer v : nodes.keySet()) {
+                System.out.println(nodes.get(v));
+            }
+        }
+
+    }
+
+    static class Node {
+        int val;
+        List<Node> childs = new ArrayList<>();
+        Node(int _v) {
+            val = _v;
+        }
+
+        @Override
+        public String toString() {
+            String childsStr = "";
+            for (Node c : childs) childsStr += c.val + " ";
+            return val + " => " + childsStr;
+        }
+    }
+
+    /*public static void main(String[] args) {
         Graph graph = new Graph(new int[][]{
                 {1,2},{1,3},{2,3},{2,4},{3,4},{5,6}
         });
         graph.print();
         Graph clonedGraph = graph.cloneGraph();
         clonedGraph.print();
+    }
+
+    static class GraphDFS {
+        Map<Integer,Node> adjMap = new HashMap<>();
+        GraphDFS(int[][] adjList) {
+            for (int i = 0; i < adjList.length; i++) {
+                int v = i+1;
+
+            }
+        }
     }
 
     static class Graph {
@@ -46,10 +134,10 @@ public class CloneGraph {
             _u.childs.add(_v);
         }
 
-        /**
-         * Traverse Graph and create a clone node
-         * Mark visited
-         */
+        *//**
+     * Traverse Graph and create a clone node
+     * Mark visited
+     *//*
         Set<Integer> visited;
         Graph cloneGraph() {
             visited = new HashSet<>();
@@ -114,6 +202,6 @@ public class CloneGraph {
         public String toString() {
             return id + "";
         }
-    }
+    }*/
 
 }

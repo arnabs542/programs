@@ -53,4 +53,27 @@ public class MaxRobbery {
         return dp[values.length];
     }
 
+    static int _maxStolenValue(int[] values) {
+        int[] dp = new int[values.length];
+        dp[0] = values[0];
+        for (int i=1; i<values.length; i++) {
+            int alt = values[i];
+            if (i-2 >= 0) {
+                alt = values[i] + dp[i-2];
+            }
+            dp[i] = Math.max(dp[i-1], alt);
+        }
+        return dp[values.length-1];
+    }
+
+    /**
+     * What if the houses were in a circle?
+     * Suppose there are n houses, since house 0 and n - 1 are now neighbors, we cannot rob them together and thus the
+     * solution is now the maximum of
+     * Rob houses 0 to n - 2;
+     * Rob houses 1 to n - 1.
+     *
+     * max(maxStolenValue(Arrays.copyOfRange(A,0,n-2)), maxStolenValue(Arrays.copyOfRange(A,1,n-1))
+     */
+
 }

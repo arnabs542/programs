@@ -31,6 +31,7 @@ public class BalancedPartition {
      * # Add to left if A[i] < A[j] & leftSum is less than rightSum
      * # Add to right if A[j] < A[i]
      * # Return true if i & j meet
+     * O(nlogn)
      */
     static boolean balancedSplitExists(int[] arr) {
         // sort

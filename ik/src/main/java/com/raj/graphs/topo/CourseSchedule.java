@@ -164,7 +164,7 @@ public class CourseSchedule {
                     queue.add(w);
                 }
             }
-            cnt ++;
+            cnt ++;  // process exactly n vertices, else cycle
         }
         // check for cycles as topo sort can only happen for a DAG
         if (cnt != n) {

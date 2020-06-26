@@ -99,7 +99,7 @@ public class MinimumHeightTree {
         }
 
         while (n > 2) {  // nodes<=2, it means we have an answer
-            List<Integer> newLeafs = new ArrayList<>();
+            List<Integer> newLeafs = new ArrayList<>();  // or just use a Q and stop when n <= 2
             for (int v : leafs) {
                 n--;
                 for (int w : graph.adjList[v]) {   // for its neighbors, reduce degree by removing leaf node

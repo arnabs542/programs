@@ -48,6 +48,12 @@ public class WordBreakCount {
      * In each call you are calling the recursive function with length 1,2....n-1(in worst case).
      * To do the work of length n you are recursively doing the work of all the strings of length n-1, n-2, ..... 1.
      * So T(n) is the time complexity of your current call, you are internally doing a work of sum of T(n-1),T(n-2)....T(1)
+     *
+     * T(N) = T(N-1) + T(N-2) + ... + T(0)
+     * T(N-1) = T(N-2) + ... + T(0)
+     * T(N) - T(N-1) = T(N-1)
+     * T(N) = 2*T(N-1)
+     * O(2^N)
      */
     static int rec(Set<String> dict, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
@@ -76,7 +82,10 @@ public class WordBreakCount {
      * May not be correct as per IK, its O(n^3) as we require n for each substring lookup from dict (a substring's hashcode has to be prepared for hashset lookup which is n)
      * dp(n states) x num of substrings x n dict lookup = O(n^3)
      *
-     * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/ (it will not proceed if a char doesn't match, hence avoiding all substr matches)
+     * O(n^2) with Trie DP - https://oj.interviewkickstart.com/view_top_submission/5747/211/69735/
+     * - it will not proceed if a char doesn't match, hence avoiding all substr matches
+     * - it only advances 1 char and can use bool isWord to determine if the chars_leading_upto_here is a word => O(L) total time for say "cat"
+     * - while in map.contains(chars_leading_upto_here) wud entail ~O(L*L) time as it has to compute hash for all chars everytime we do .contains
      */
     static int dp(Set<String> dict, int[] dpTable, String text, int i) {
         if (i == text.length()) return 1; // reached end, we found 1 combination
@@ -87,7 +96,7 @@ public class WordBreakCount {
         int count = 0;
         for (int j = i; j < text.length(); j++) {
             soFar += text.charAt(j);
-            if (dict.contains(soFar)) {             // found a valid word
+            if (dict.contains(soFar)) {             // found a valid word  (using Trie for dict words reduces runtime from n^2 to n)
                 count += dp(dict, dpTable, text, j+1);    // recurse on remaining
             }
         }

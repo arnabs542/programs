@@ -18,7 +18,7 @@ public class PROBLEM_PATTERNS {
      * # Top 'K' - Anti-Heap
      * # 'K' sized max subarray/Longest substring with 'K' - Sliding Window
      * # Combinations or Permutations of a given set - Subset Pattern
-     * # Prefix Searches - Trie
+     * # Prefix Searches/Dictionary - Trie
      * # Substring Searches - KMP/RabinKarp/SuffixTrie
      * # DAG/Acyclic Graph Ordering - Topological sort
      *
@@ -56,6 +56,7 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.adhoc.stack.AreaHistogram
      *
      * [STRING]
+     * @see com.raj.dp.WordBreakCount - Rec >> DP Memo >> Use Trie for Dict words always reduces runtime
      * @see com.raj.strings.PalindromePairs - Trie + Reverse lookup / Map + Reverse lookup
      * @see com.raj.strings.SubstringMatch - Naive N^2 >> RabinKarp/RollingHash algo >> SuffixTrie
      * @see com.raj.strings.SuffixTrie - Most Repeated substr / Longest Common substr / Longest Common Palin

@@ -291,7 +291,7 @@
   * Research, ask right question, learn how to use data & think best for customer.
 
 # Describe a time you took the lead on a project.
-  * Revamp of Offer Service where
+  * Revamp of Offer Service, NextDay/ SBA initiatives, Azure Cloud WCNP Migration
 
 # What did you do when you needed to motivate a group of individuals or promote collaboration on a particular project?
   * How have you leveraged data to develop a strategy?

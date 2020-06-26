@@ -31,7 +31,7 @@ public class LongestSubsequence {
      * The longest increasing sub-sequence is {9,21,41,60}
      *
      * A[]      30  22  9   33  21  50  41  60  15
-     * LIS      1   1   1   2   2   3   3   4   2
+     * LIS      1   1   1   2   2   3   3   4   2    (length of LIS ending at i)
      *
      * Time = O(n^2)
      */
