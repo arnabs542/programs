@@ -1,11 +1,18 @@
 ==== Designing Scalable Systems ====
 
+# LINKS:
+https://github.com/donnemartin/system-design-primer
+
 # Remember Basics
 1M Bytes = 1Mb
 1M Kb / 1B Bytes = 1Gb
 1B Kb / 1T Bytes = 1Tb
 
 1 day has approx 100,000 sec
+2.5 million seconds per month
+1 request per second = 2.5 million requests per month
+40 requests per second = 100 million requests per month
+400 requests per second = 1 billion requests per month
 
 >> Java Primitives sizes:
 boolean = ~1 byte
@@ -275,6 +282,8 @@ Based on search criteria -
                      Set token in session / cookie to validate subsequent client requests.
                      OAuth ?
 11. Monitoring
+
+Note: State you would 1) Benchmark/Load Test, 2) Profile for bottlenecks 3) address bottlenecks while evaluating alternatives and trade-offs, and 4) repeat to arrive at the optimal design.
 
 =======
 

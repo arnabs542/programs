@@ -39,6 +39,7 @@ public class StringTransformation {
                         "cacbacc",
                         "qtbbacc"
                 }, "bcebaac", "cabbacc")));
+        System.out.println(transform("cat","cog", new HashSet<>(Arrays.asList("bat", "bot", "bog", "cog"))));
     }
 
     /**
@@ -123,6 +124,8 @@ public class StringTransformation {
         return neigh;
     }
 
+
+
     // builds string transforms using prev ptrs
     static String[] buildWordPath(Vertex v) {
         List<String> res = new ArrayList<>();
@@ -147,6 +150,38 @@ public class StringTransformation {
 
         public String toString() {
             return word;
+        }
+    }
+
+    /**
+     * Simpler DFS solution
+     */
+    static List<String> transform(String src, String target, Set<String> dict) {
+        Stack<String> seq = new Stack<>();
+        seq.push(src);
+        List<String> res = new ArrayList<>();
+        transformUtil(target.toCharArray(), seq, res, dict);
+        return res;
+    }
+
+    static void transformUtil(char[] target, Stack<String> seq, List<String> res, Set<String> dict) {
+        String top = seq.peek();
+        if (String.valueOf(top).equals(String.valueOf(target))) { // ? = cog
+            res.addAll(seq);
+            return;
+        }
+        char[] cur = top.toCharArray();
+        for (int i = 0; i < cur.length; i++) {
+            char origChar = cur[i];
+            for (int j = 0; j < 26; j++) {
+                cur[i] = (char) ('a' + j);
+                if (dict.contains(new String(cur)) && !seq.contains(new String(cur))) {
+                    seq.add(new String(cur));
+                    transformUtil(target, seq, res, dict);
+                    seq.pop();
+                }
+            }
+            cur[i] = origChar;
         }
     }
 

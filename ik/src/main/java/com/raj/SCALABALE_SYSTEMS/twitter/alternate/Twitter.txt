@@ -23,3 +23,6 @@ Estimates:
   -> Or better do a "z-score" for each topic using formula = (x - mean)/(standard deviation)
   -> Another optimization could be to use a Circular Ring Buffer with a finite sliding window of say 1yr for each HashTag.
   -> Local Maximum from a MinHeap from each server sent into a Global MinHeap with 10 count => gives you top 10 trends
+
+
+* https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/twitter/README.md

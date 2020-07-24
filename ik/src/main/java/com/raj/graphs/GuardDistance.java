@@ -67,7 +67,7 @@ public class GuardDistance {
             Cell cell = q.remove();
             // for each neighbor which isn't wall, +1 dist & add to Q
             if (cell.j-1 >= 0) {
-                addToQueueIfUnvisitedOpen(grid, distGrid, q, cell.i, cell.j, cell.i, cell.j-1);
+                addToQueueIfUnvisitedOpen(grid, distGrid, q, cell.i, cell.j, cell.i, cell.j-1);  // use row,col offset
             }
             if (cell.j+1 < N) {
                 addToQueueIfUnvisitedOpen(grid, distGrid, q, cell.i, cell.j, cell.i, cell.j+1);

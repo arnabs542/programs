@@ -9,9 +9,11 @@
   * ADS ITEM STORE caching: Real time streaming + lambda(incr+full refreshes) batch pipeline
   * Composite VECTOR Embedding(128bit title,32 bit tax) Data Pipeline + Vector similarity searches than string based hard rules
   * SBA enhancements: Premium Search Placement that Brand targeted. CategoryBid + KeywordBid Hybrid approach. 10M -> 30M growth.
-  * SBA use 2nd stage vector similarity for relevancy after 1st stage Solr filtering
+  * SBA use 2nd stage vector similarity for relevancy after 1st stage Solr filtering instead of exact match. Also expand this to campaign creation time.
   * Keyword Match optimizations - Store String once in-memory, use distributed sharding
   * Moving our services to Azure Cloud
+  * OfferListing - generic entity which expands offer meta tagged w/ store & online items across tenants (combining digital+physical+multi-tenant)
+  * Incremental Offline Jobs Design
 
 # Struggled & Lesson learnt
   * Failed at first, then learnt/improvised & succeeded later
@@ -24,6 +26,7 @@
   * Started with POC working with Distinguished Eng
   * Built from scratch new Tier-1 service for pre-computing cacheable Search data / Publishing / Ranking Offers
   * Event Driven Async Processing w/ Ingestion + Read facing services. 50ms SLA scaled upto 500K qp
+  * API launch caused sudden surge, before getting capacity had to eliminate bottlenecks. Cached Solr docs(save on deser+data transfer, use ids from there)
 
 # SITUATIONALLY CHALLENGING / PROACTIVE
   [Timeline changes, resource & time constraints, conflicting priorities, don't talk about individuals]
@@ -32,6 +35,13 @@
   * Too many dupes(seller price uploads, Smart Pricing feeds) arising from same triggers(why trigger? business rules hence IRO call) from microservices
   * Storm Distributed Grouping to club similar item level events into 5 mins/100 message + discard dupes
   * Achieved over 25% processing speed in general & more than 2X processing in burst events
+
+# DEEP DIVE / TECHNICALLY CHALLENGING BUG
+  * Inconsistencies in DB, some writes were not appearing. Looked into CL = R+W Quorum > RF
+  * Ran Spark Job, setup cron to show rows updated/created vs rows written (add instrumentation) to identify which flow was causing it
+  * Worked with DBAs to repair cluster ie. read rows at ALL Quorum
+  * Add write timestamp (one of the flow some used long millis instead of micros that wud mean updates wudn't happen from this flow)
+  * Analyzed Execution Context of writes in STG, Some nodes in the cluster had their system clocks off, wrote cron to check times, plus get it fixed
 
 # TECHNICALLY CHALLENGING / NEW DOMAIN + CODEBASE / IMPACT
   * ADS ITEMSTORE
@@ -50,6 +60,7 @@
     3. During Holiday Stress Tests, this solution helped Midas hit stress test peaks TPS of ~30K as we were serving faster and with higher throughput
     4. The platform is so robust & de-coupled such that our Midas APIs were working even when IRO had issues during stress tests due to Pricing service.
     5. Socialized and guide Personalization & PBB teams towards a similar solution for their serving needs, leveraging our generic reusable Blitzcrank components
+  * Hazelcast Rollups in-memory distributed grid computing / shard by ids
 
 # LEADING Team / MENTORING
   * OfferStore Revamp (code rewrite, tech stack change, remove design bottlenecks)
@@ -79,7 +90,7 @@
   - A/B Test Framework enhancement to use config based weights
   - Passion to learn & helping team in times of need
   - You learn rapidly and eagerly
-  - You contribute effectively outside of your specialt
+  - You contribute effectively outside of your specialty
 * LEAD / OWNERSHIP
   - SEARCH BRAND AMPLIFIER
   - Premium placement on top of Search Page that amplifies Brand w/ min $2 cost per click bids(performance)
@@ -93,7 +104,7 @@
   - CR conflict, back & forth, yielded to a certain way, but failed for an edge case in Prod. Learnt to stay course.
   - Jeeves work w/ IDC junior team. She wasn't happy about doing anything other than coding like deploys, following processes etc.
     Explained to her the importance of everything & learning these skills to independently own full SDLC later.
-  - CR conflict: parallelstream vs async futures vs threadpool, used data to guide the decisio
+  - CR conflict: parallelstream vs async futures vs threadpool, used data to guide the decision
 * RISK / MISTAKE / FAIL / IMPROVE
   - Using NoSQL secondary indexing on NSF cluster for some analytics came in expensive & caused issues. Improvised by
     using Spark MR to do offline/reporting & for real time used Solr indexes

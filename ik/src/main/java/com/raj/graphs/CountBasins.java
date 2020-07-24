@@ -66,6 +66,8 @@ public class CountBasins {
      * Then find num connected components & their sizes.
      *
      * Time / Space = O(n*m)
+     *
+     * Approach 2: Similar to graph coloring, identify local minima cells, assign colors(incrementing), then BFS from there
      */
     public static List<Integer> find_basins(List<List<Integer>> matrix) {
         Graph G = new Graph(matrix);
