@@ -73,7 +73,7 @@ public class DiceThrowSum {
      *        1 0 1 1 1 1 1 1 1
      *        2 0 0 1 2 3 4 5 6
      * Follows the above rec formula:
-     * dp[dices][target] = sum of dp[dices-1][target-k] ... for all k=1 to 6 provided k<=target
+     * dp[dices][target] = sum of dp[dices-1][target-k] ... for all k=1 to 6 provided k<=target. Why? Roll 1 Dice u get 1...6 & find pre-computed answer dp[dices-1][target-k]
      *
      * Time/Space = O(target * dices)   ... we can ignore dices faces 1...6 as it is constant
      */

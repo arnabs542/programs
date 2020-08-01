@@ -43,7 +43,7 @@ public class MinCoinChange {
      *            /|\   /|\   /|\
      *
      * Depth of recursion = A/kmin coin which is ~A
-     * Time  = (num coins) ^ A/minCoin ... O(k^A)
+     * Time  = (num coins) ^ A/minCoin ... O(k^A)  ie. branching_factor ^ depth_rec_tree
      * Space = depth of recursion ie. A/minCoin ... O(A)
      *
      * With memoization ? In this case it may be better than DP as it may end up solving lesser subproblems & memoizing

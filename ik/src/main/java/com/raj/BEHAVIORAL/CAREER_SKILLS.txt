@@ -301,6 +301,44 @@
   * A process that u wanted to remove?
     - Too many meetings, use of slack saves time for many, create channel for collaborate, discuss on confluence etc.
 
+=== Googliness ===
+Googliness means: https://meiert.com/en/blog/googliness/
+
+# Doing the right thing.
+That obviously includes not doing anything that harms someone else, or that puts somebody at a disadvantage.
+
+# Striving for excellence.
+Mediocrity is not googley. At Google, unsurprisingly, you find the desire for excellence right at the core, reflected by the goal to “do one thing really, really well.”
+
+# Keeping an eye on the goals.
+Googliness means being focused, and striking a balance between short-term and long-term objectives.
+
+# Being proactive.
+Google’s Code of Conduct says “if something is broken, fix it.” But being proactive also means anticipating moves ahead of time so to take action preemptively. And, of course, being proactive also applies to the business itself—how can we go further, what can we do to get there? Seen from another angle, then, what being proactive doesn’t mean is waiting (beyond reason) for others to make something happen.
+
+# Going the extra mile.
+This is mostly found in the detail. It’s my favorite googley skill. Take the following example: Someone emails you for a project change. Such updates may normally be filed through a request management system. One response: asking the requester to file the request through said system. Another, more googley response: filing the request himself, and sending the requester a status update at the earliest convenience. The difference this makes is huge, yet it’s easily overlooked.
+
+# Doing something nice for others, with no strings attached.
+Being googley means thinking about and doing something for others, and not necessarily expecting something in return.
+
+# Being friendly and approachable.
+Google is famous for being friendly and open; it’s googley to be friendly and open. This account dates back before my time but I believe Googlers were at some point explicitly encouraged to just join co-workers they didn’t know for lunch, to talk to and get to know them. That certainly rings googley. Similarly, the most successful managers at Google maintain “open door” policies; it’s googley to be that approachable.
+
+# Valuing users and colleagues.
+It’s googley (and something Google “knows to be true”) to put the user first, and similarly to help a co-worker. It’s not googley to let either down.
+
+# Rewarding great performance.
+Hard work, though not listed here, is googley. But hard work, and good work as mentioned, should also be rewarded. Rewards can (and do at Google) take many forms: endorsing notes to managers, kudos, shout-outs in meetings, monetary rewards, &c.
+
+# Being humble, and letting go of the ego (at least sometimes).
+It’s okay to talk about achievements, but it’s not googley to boast (which can be a fine line). Being googley means thinking of the users, the company, the team, and then oneself. That’s accompanied by the belief that everything else, including rewards and promotions, will follow.
+
+# Being transparent, honest, and fair.
+Non-transparency, dishonesty, unfairness, also secrecy are inherently ungoogley.
+
+# Having a sense of humor.
+It’s not googley to oppose play. (Notice the number of and great efforts behind Google’s hoaxes, jokes, and easter eggs in this regard.)
 
 === Amazon Principles ===
 https://www.amazon.jobs/en/principles

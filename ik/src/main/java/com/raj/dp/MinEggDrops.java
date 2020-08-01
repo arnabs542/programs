@@ -49,6 +49,8 @@ public class MinEggDrops {
      *
      * Recurrence =>  min(min, max(f(n-1, k-1), f(n-i, k))) for floor i=1...N
      *
+     * Note: Remember we need to mimimize the number of drops in the worst case, so we take the higher (max) of these two situations, and select the floor which yields the minimum number of drops.
+     *
      * Time = O(bf ^ height of tree) = O(2^n)
      */
     static int rec(int N, int K) {
