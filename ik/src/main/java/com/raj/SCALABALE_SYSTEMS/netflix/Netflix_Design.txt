@@ -19,7 +19,13 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   - break movie into 1 mins chunks which is sorted by part # and stored in sorted order
   - Save part num info for a movie in zookeeper (we can use S3 for blob storage)
   - May create hot spots on shard if CDN fails. We can modify schema to - (movie_id,format,partNum),s3_bytes_chunk_uri
-  - Kafka will send data to open connect CDNs, else they'll be cached in CDN Edge Server at time of play.
+  - Kafka will preferably PUSH data to open connect CDNs, else they'll be cached in CDN Edge Server at time of play.
+  - Server-side: In a typical configuration, a hardware encoder takes audio-video input, encodes it as H.264 video and AAC audio, and outputs it in an MPEG-2 Transport Stream
+    the stream is then broken into a series of short media files (.ts possibly 10s) by a software stream segmenter.
+    The segmenter also creates and maintains an index(.m3u8) file containing a list of the media files.
+    Both the media fils and the index files are published on the web server.
+    Client-side: client reads the index, then requests the listed media files in order and displays them without any pauses or gaps between segments.
+
 
 * Recommendation
  https://youtu.be/Eeg1DEeWUjA
@@ -40,16 +46,26 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   -> Fallback - give static response so that modules load in case of failures
 
 * Search
+  -> While ingesting movie, sent meta content to Search Service to Index on Title, Genre, Year etc
   -> Inverted Index - Lucene Based Search Solution like ES / Solr etc
+
+* Trends
+  -> As requests for movie playback come, playback service can send those signals to trending service to analyze trends per geo location as well as globally
+  -> Aggregate on last 1 hour trends (movie_id,play_count) into Kafka -> DB -> Hive
+  -> Run Spark MR jobs to create hourly/daily trends
 
 * Playback Service
   -> Renders Playback module
-     - While streaming from App, it will buffer upto 5 mins content. If slow internet, it will downgrade bit format. This logic lives on the App side and is real time.
+     - While streaming from App, it will buffer upto 30 secs content. If slow internet, it will downgrade bit format. This logic lives on the App side and is real time.
   -> Save & retrieve user's last state - user_id, state json (movie_id, part_num or episode seen)
   -> Send state info every few secs from App via http to AWS servers so that logging into a diff device can continue playing from where we left
+  -> User sends request for "play". AppServers retrieves state to resume(if any) movie from cache/db & chunks info from ZK (movie_id,parts_uris)
+  -> Sends back to user Client which then connects to CDNs to retrieve movie parts
+  -> Connection to App & CDNs can be a duplex,websocket(alive) connection
 
 # Deployment:
 -> Cache static movie content in CDNs. Netflix has it's own CDN n/w called OpenConnect throughout the globe.
--> All streaming content is delivered via OpenConnect(after u hit "play"),
+-> All streaming content is delivered via OpenConnect(after u hit "play")
 -> Everything else is from AWS servers(netflix deployed services) around globe, i.e. before u hit "play"
    including all of the logic of the application interface, the content discovery and selection experience, recommendation algorithms etc.
+

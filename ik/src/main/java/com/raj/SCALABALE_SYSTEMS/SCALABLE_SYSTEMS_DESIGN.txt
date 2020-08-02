@@ -2,6 +2,8 @@
 
 # LINKS:
 https://github.com/donnemartin/system-design-primer
+ - https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
+ - Scaling to millions of users on AWS: https://www.youtube.com/watch?v=kKjm4ehYiMs
 
 # Remember Basics
 1M Bytes = 1Mb
@@ -53,6 +55,9 @@ https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-
    - Webserver responds with 200 OK & response body sent as chunks via TCP. Webservices may use CDNs for media content.
    - Browser renders response which in turn can fire client ajax style TCP requests to render dynamic content async.
    - Browser uses cookies/memory/disk to cache/page/store meta info.
+
+=> DNS explained
+   - Browser checks local cache for domain name -> IP translation. Then checks ISP's DNS servers cache. Then goes to Root DNS servers (sharded by A-Z domain start names globally)
 
 => TCP vs UDP:
  -> TCP characteristics:
@@ -176,6 +181,10 @@ To ensure consistency, there are some popular protocols to consider: 2PC, eventu
 5. Supports strong ACID, with horizontal scaling, replication, sharding etc & SQL support
    => RocksDB(embedded KV store) storage engine based - CockroachDB, Rocksandra, MongoRocks, MyRocks (FB uses it)
 
+[Spatial DB]
+6. Optimized for storing and querying data that represents objects defined in a geometric space. Most spatial databases allow the representation of simple geometric objects such as points, lines, polygons & 3D objects too.
+Spatial Query include: Distance, Area, Intersect, Equals, Disjoint, Contains, Overlap etc
+eg. GeoHash, Quadtree, kd-tree, R+ tree etc
 =======
 
 # Real Time Streaming
@@ -260,6 +269,16 @@ Based on search criteria -
      Note all shards replicas are also active-active
      + Shards availability
 
+# Scaling SQL DBs:
+  - Primary & Secondary write replicas (synced via Master/Slave replication)
+  - Add multiple read relicas for each of the primary & secondary write replicas (AWS Aurora supports upto 15 read replicas)
+
+# Add CDN for static content
+  - AWS Cloudfront CDN backed by S3 object storage
+  - Can cache both static & dynamic content(TTL, query string -> page content)
+
+# After making all tiers scaled up, add Autoscaling for Peak load performance
+
 =======
 
 # TEMPLATE For Solving SYSTEM DESIGN PROBLEMS
@@ -267,17 +286,27 @@ Based on search criteria -
 2. Solve as single server, then scale out
 3. Capacity Estimation (app,db,cache for 5 yrs, compression)
 4. Microservices / Rest API Design
-5. DB Schema
+5. DB Schema - combination of SQL / NoSQL / Graph / Spatial DB
 6. High Level Architecture Diagram
 7. Detailed Design
   - Masterless
-  - Sharding
+  - Sharding / SQL Federation
   - Replication
   - Caching
   - Rate Limiting / DDOS Prevention (API Gateway - Cloudflare)
+
+  CLIENT App/Device/Browser --[http/websocket]--> Reverse Proxy --> API Webhook Gateway/Orchestrator --> AUTH --> UserAccount Service
+                     |                            [or L7 App LB]        |
+                     v                                                  v
+                    CDN                                               LB -> Service A -> Cache/DB/ObjectStore
+  (can pull data from Service/Cache/DB or Service can push it for every write)
+
 8. Load Balancing / Router / Aggregator
+   API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls,
+   including traffic management, CORS support, authorization and access control, throttling, monitoring, and API version management.
 9. CDN (cache + blob storage) - Static images/videos/javascript caching on geographically distributed servers
-                                to reduce web page load latency. Also called Edge server as it sits at Edge of a n/w
+                                to reduce web page load latency. Also called Edge server as it sits at Edge of a n/w. Browser calls DNS -> CDN, loads static media & JS content.
+                                Further communication can happen directly w/ Client -> CDN -> AppServer
 10. Security / Auth - Login service, DB (userId, pwd_hash) + cache (userId, token).
                      Set token in session / cookie to validate subsequent client requests.
                      OAuth ?
@@ -319,10 +348,32 @@ Note: State you would 1) Benchmark/Load Test, 2) Profile for bottlenecks 3) addr
   => When L0 exceeds mem thresholds, merge sort with L1 sorted data (stored on disk). Bigger L2 is created from L1
   => eg. BigTable, Cassandra, HBase, RocksDB
 
-# What is NGINX?
-Nginx is a all in one web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.
+# Types of LB:
+L3 - Network Layer LB
+L7 - App Layer LB, does content based routing looking into headers etc, health checks, session stickiness, support for containers, websocket(persistent TCP conn b/w client & server) & HTTP/2
 
+# Reverse Proxy
+A forward proxy is the intermediary that the client puts forward between itself and any server. The reverse proxy is at the other end – something the server puts forward between itself and any client.
+Reverse proxy, like varnish, NGINX, HAProxy etc centralizes internal services and provides unified interfaces to the public.
+For example, www.example.com/index and www.example.com/sports appear to come from the same domain, but in fact they are from different micro services behind the reverse proxy.
+Reverse proxy could also help with caching and load balancing apart from doing routing.
+ => eg. NGINX : all in one web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.
+    It's a reverse proxy & has more features to route/parse/secure/auth/cache incoming traffic.
+    It's more than a LB - which just does distribution of load.
 
+# LB vs Reverse Proxy:
+A reverse proxy accepts a request from a client, forwards it to a server that can fulfill it, and returns the server's response to the client.
+A load balancer distributes incoming client requests among a group of servers, in each case returning the response from the selected server to the appropriate client.
+
+# Control Plane vs Data Plane:
+Data plane refers to all the functions and processes that forward packets/frames from one interface to another. Control plane refers to all the functions and processes that determine which path to use.
+Examples of control plane managers: AWS Elastic Container Service, AWS Elastic Kubernetes Service
+
+# Serverless Architecture
+Build and run applications and services without having to manage infrastructure. Your application still runs on servers,
+but all the server management is done by AWS. You no longer have to provision, scale, and maintain servers to run your
+applications, databases, and storage systems. eg. AWS Lambda, AWS Fargate(containers)
+You can build FE using Angular, React to talk to AWS API Gateway
 
 
 

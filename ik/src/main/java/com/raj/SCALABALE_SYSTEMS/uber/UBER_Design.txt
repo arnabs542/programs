@@ -47,6 +47,7 @@ Also update another table - grid_id, driver_id list => for available drivers wit
 update_driver_loc(driver_id, location)
 reserve_driver(driver_id, trip_id) --> removes from available driver list
 
+Alternate: Search by location: geo-search with spatial indexing on Spatial DB like Quadtree,GeoHash etc
 
 # Demand Service - riders looking for rides
 

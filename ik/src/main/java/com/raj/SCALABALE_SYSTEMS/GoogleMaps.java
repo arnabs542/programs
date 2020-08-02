@@ -18,12 +18,13 @@ public class GoogleMaps {
  *   - Lucene Search can work, but a faster solution entails precomputing each term->list of addresses. Shard can be on term.
  *   - As we type more terms, results are fetched from shards and intersected yielding finer results
  *   - LRU Cache on shards, co-ordinator node scatter & gathers
+ *   - Alternate : search by location: geo-search with spatial indexing on Spatial DB like Quadtree,GeoHash etc
  *
  * # Map Service
  *   - Stores maps by blocks
  *   - Caches heavily as map contents don't change frequently & build can be done nightly by MR jobs
  *   - DB: block_id, diag_lat_long, block_size, blob_uri
- *   - Graph DB: block_id -> addresses edges & vertices , lookups by vertices
+ *   - Graph DB: block_id -> addresses edges & vertices, lookups by vertices
  *   - Precompute all pairs shortest paths using Dijkstra's/A* within a block and store top N options. Can be done only for most freq visited vertices. The last mile can be done in real time.
  *   - DB: (src,dest) -> top N paths graphs  ... use A* with some heuristics like time of day etc
  *
