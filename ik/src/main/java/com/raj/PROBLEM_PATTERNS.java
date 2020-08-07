@@ -27,15 +27,17 @@ public class PROBLEM_PATTERNS {
      * https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
      * Leetcode Problems by Patterns -
      * https://leetcode.com/discuss/career/448285/list-of-questions-sorted-by-common-patterns
+     * https://seanprashad.com/leetcode-patterns/
      *
      * --- Legend ---
      * # Pattern: BruteForce >> SubOptimal >> Optimal Solution
      *
      * [SORTING]
      * @see com.raj.sorting.BalancedPartition - Equal Sum Partition / Sort / Left & Right Ptrs expand on some conditions
-     * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> QuickSelect(Modified BSearch)
+     * @see com.raj.binarysearch.KClosestElements - K Smallest/Nearest/Largest elements: Sort >> Anti-Heap >> Modified BSearch
      * @see com.raj.sorting.KNearestNeighbors - SelectionSort >> Anti-Heap >> QuickSelect(Modified BSearch)
      * @see com.raj.sorting.Sum3 - A+B+C=T >> HashMap >> Sort + 2-Pointer technique
+     * @see com.raj.arrays.FindRepetitiveAndMissingElement - Cyclic sort / Sorted array w/ numbers in a given range
      *
      * [INTERVALS]
      * @see IntervalBuckets - Sort by start / Pre-compute sorted buckets map / 1st pass - mark +,- bucket at start,end+1 / 2nd pass - accumulate final buckets / Modified BSearch
@@ -66,15 +68,16 @@ public class PROBLEM_PATTERNS {
      * [TREES]
      * # Traversals:
      * DFS:
-     * 1. Inorder - sorted order?
-     * 2. Preorder - process root first & then go down?
-     * 3. Postorder - process leaf first & then build upwards?
+     * 1. Inorder - sorted order
+     * 2. Preorder - process root first & then go down
+     * 3. Postorder - process leaf first & then build upwards
      * BFS:
-     * 4. Levelorder / BFS - radiate outwards 1 level at a time? left to right order on each level?
+     * 4. Levelorder / BFS - radiate outwards 1 level at a time. left to right order on each level.
      * # Successor/Predecessor
-     * # Subset pattern - dfs, at each node, inlude & exclude this value & recurse, build soln bottom up
+     * # Subset pattern - dfs, at each node, include & exclude this value & recurse, build soln bottom up
      * @see com.raj.tree.binarytree.BST - Basics - Mirror tree / Path Sum
      * @see com.raj.trees.LeftSideView - Level order traversal
+     * @see com.raj.trees.ZigZagTraverse - Level order / Track level change / use descendingIterator to print in reverse
      *
      * # Building trees from traversals
      * @see com.raj.trees.BuildBTreeFromTraversals - Constructing tree from traversals

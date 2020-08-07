@@ -67,7 +67,7 @@ public class Read4K {
         byte[] read(int n) {  // exclusive as in array indexes
             if (n <= 0) return null;
             byte[] res = new byte[n];
-            int  i = 0;
+            int i = 0;
 
             while (i < n) {
 
@@ -90,5 +90,26 @@ public class Read4K {
         }
 
     }
+
+    /**
+     * Design:
+     *
+     * EOF = false
+     * buff[]
+     * buff_ptr
+     *
+     * read(n) ->
+     * # n<=0 || EOF ret null
+     * # create res arraylist
+     * # n-= copy(buff,res,n)  --> copy until n bytes from buffer into res, return num bytes copied
+     * # n > 0 ? buff = read4k()  --> maybe its EOF, or still less than n bytes
+     *           buff == null ? EOF = true
+     *           n-= copy(buff,res,n)
+     *           ret res.toArray
+     *
+     * copy(buff,res,n):
+     *   while(n-- > 0 && buff_ptr < buff.length) res.add(buff[buff_ptr++])
+     *   ret n
+     */
 
 }

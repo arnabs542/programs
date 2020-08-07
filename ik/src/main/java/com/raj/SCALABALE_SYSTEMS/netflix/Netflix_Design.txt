@@ -61,7 +61,7 @@ Zone LB (Tier1) => Elastic LB (Tier2) => Microservices => Router (Consistent Has
   -> Send state info every few secs from App via http to AWS servers so that logging into a diff device can continue playing from where we left
   -> User sends request for "play". AppServers retrieves state to resume(if any) movie from cache/db & chunks info from ZK (movie_id,parts_uris)
   -> Sends back to user Client which then connects to CDNs to retrieve movie parts
-  -> Connection to App & CDNs can be a duplex,websocket(alive) connection
+  -> Connection to App & CDNs can be a duplex,websocket(alive) connection or UDP(less guarantees, low latency, data loss is ok)
 
 # Deployment:
 -> Cache static movie content in CDNs. Netflix has it's own CDN n/w called OpenConnect throughout the globe.

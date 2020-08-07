@@ -40,7 +40,13 @@
        - Concurrent thread access? Synchronize DS
        - Perf test case? Run with millions sized input. High throughput? Cache or pre-compute?
        - Code coverage? write tests to cover all code paths
-
+15. TO SUM UP
+    -> Don't jump into code,
+    -> Ask clarifying questions,
+    -> Explain ur approach & thought process (they are looking for this - how u think),
+    -> Write brute force & optimal brief pseudo code, explain tradeoffs & time-complexity & ask if u can write code
+    -> Write code, test it yourself to find bugs (very important)
+    -> Write more tests
 
 === THINGS TO IMPROVE ===
 01. TIME MANAGEMENT

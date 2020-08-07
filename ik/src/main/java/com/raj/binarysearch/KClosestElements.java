@@ -17,6 +17,7 @@ public class KClosestElements {
 
     /**
      * Brute: Iterate and find the closest element first & then go left/right until k is exhausted.
+     * Or use a K sized max heap with diff as priority & insert into heap if A[i] < top. Finally we have K min diff elems.
      * But we need to make use of sorted array.
      * Optimal: Since A[] is sorted, use a modified binarySearch for the closest element & then go left/right.
      */
@@ -52,12 +53,10 @@ public class KClosestElements {
     static List<Double> getClosestK(double[] A, double T, int idx, int K) {
         List<Double> res = new ArrayList<>();
         res.add(A[idx]); K--; // add the closest element first
-        int LIdx = idx-1, RIdx = idx+1;
-        while(K > 0) {
-            double LDiff = (LIdx >= 0) ? T-A[LIdx] : Integer.MAX_VALUE;
-            double RDiff = (RIdx < A.length) ? A[RIdx]-T : Integer.MAX_VALUE;
-            if (LDiff < RDiff) res.add(A[LIdx--]);
-            else res.add(A[RIdx++]);
+        int left = idx-1, right = idx+1;
+        while(K > 0 && idx-1 >= 0 && idx+1 < A.length) {
+            if (Math.abs(T-A[left]) <= Math.abs(T-A[right])) res.add(A[left--]);
+            else res.add(A[right++]);
             K--;
         }
         return res;

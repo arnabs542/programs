@@ -42,8 +42,8 @@ public class BalancedPartition {
         int leftSum = arr[i], rightSum = arr[j];
         while (i<j) {
             if (leftSum < rightSum && arr[i] < arr[j]) leftSum += arr[++i];  // expand left - first set
-            else if (arr[j] > arr[i]) rightSum += arr[--j];    // expand right - second set
-            else return false;  //can't expand as condititon didn't meet, return false
+            else if (arr[j] > arr[i]) rightSum += arr[--j];    // expand right - second set only if its smaller than right
+            else return false;  //can't expand as condition didn't meet, return false
         }
         return true;
     }

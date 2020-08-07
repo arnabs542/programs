@@ -34,7 +34,7 @@ public class KNearestNeighbors {
         if (pts.length == 0 || k < 1) return Collections.emptyList();
         PriorityQueue<Point> pq = new PriorityQueue<>((a, b) -> Double.compare(b.dist,a.dist)); // max heap
         for (Point p : pts) {   // O(n)
-            double dist = getDist(x,y,p.x, p.y);
+            double dist = getDist(x, y, p.x, p.y);
             Point newPoint = new Point(p.x, p.y);
             newPoint.dist = dist;
 
@@ -61,7 +61,7 @@ public class KNearestNeighbors {
      * The algorithm is similar to QuickSort. The difference is, instead of recurring for both sides (after finding pivot),
      * it recurs only for the part that contains the k-th smallest element. The logic is simple, if index of partitioned
      * element is more than k, then we recur for left part. If index is same as k, we have found the k-th smallest
-     * element and we return. If index is less than k, then we recur for right part. This reduces the expected
+     * element and we return left elems until k. If index is less than k, then we recur for right part. This reduces the expected
      * complexity from O(n log n) to O(n), with a worst case of O(n^2).
      */
     static Point[] findKNearestPoints(Point[] points, Point origin, int k) {

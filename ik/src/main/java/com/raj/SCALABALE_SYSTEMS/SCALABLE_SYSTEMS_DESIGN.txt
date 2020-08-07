@@ -4,6 +4,7 @@
 https://github.com/donnemartin/system-design-primer
  - https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
  - Scaling to millions of users on AWS: https://www.youtube.com/watch?v=kKjm4ehYiMs
+ - ES bottom up: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 
 # Remember Basics
 1M Bytes = 1Mb
@@ -74,7 +75,13 @@ https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-
     - it’s faster and needs fewer resources
     - the packets don’t necessarily arrive in order
     - it allows missing packets. The sender is unable to know whether a packet has been received
-    - better suited for applications that need fast, efficient transmission, such as games.
+    - better suited for applications that need fast, efficient transmission, such as multiplayer games, IPTV, Video streaming
+
+=> RPC : client causes a procedure to execute on a different address space, usually a remote server. The procedure is
+coded as if it were a local procedure call, abstracting away the details of how to communicate with the server from the client program.
+Remote calls are usually slower and less reliable than local calls so it is helpful to distinguish RPC calls from local calls.
+Popular RPC frameworks include Protobuf, Thrift, and Avro.
+Popular RPC frameworks include Protobuf, Thrift, and Avro.
 
 => Polling - Client polls looking for new content at regular intervals (Short & Long Poll)
 => Server Sent Event (SSE) - Server pushes new content to Client as it is available (Client subscribes to server events)
@@ -163,9 +170,11 @@ To ensure consistency, there are some popular protocols to consider: 2PC, eventu
 # DB Patterns:
 [SQL Rigid Schema]
 0. RDBMS: Row-oriented Store,
+   => When: Structured/relational data, need complex joins, transactions
    => MySQL, Oracle, Amazon RDS
 
 [NoSQL Schema-less]
+0. When: Semi-structured data/flexible schema, non-relational data, no need for joins, very data intensive workload
 1. KV Store: Achieve an O(1) read/write performance on a fast and expensive media (like memory or SSD), instead of a traditional O(logn) read/write
    => Redis/Memcache (Redis supports data persistence while memcache does not).
    => Riak (supports secondary indexes with Solr, also has a Time Series optimized DB)
@@ -180,6 +189,7 @@ To ensure consistency, there are some popular protocols to consider: 2PC, eventu
 [Hybrid]
 5. Supports strong ACID, with horizontal scaling, replication, sharding etc & SQL support
    => RocksDB(embedded KV store) storage engine based - CockroachDB, Rocksandra, MongoRocks, MyRocks (FB uses it)
+   => Google Spanner DB
 
 [Spatial DB]
 6. Optimized for storing and querying data that represents objects defined in a geometric space. Most spatial databases allow the representation of simple geometric objects such as points, lines, polygons & 3D objects too.
@@ -272,6 +282,10 @@ Based on search criteria -
 # Scaling SQL DBs:
   - Primary & Secondary write replicas (synced via Master/Slave replication)
   - Add multiple read relicas for each of the primary & secondary write replicas (AWS Aurora supports upto 15 read replicas)
+  - Performance Tuning:
+    - Add indices for columns queried with Select,Group By,Order By, Join
+    - Break up a table by putting hot spots in a separate table to help keep it in memory.
+    - Denormalize & move some tables to NoSQL
 
 # Add CDN for static content
   - AWS Cloudfront CDN backed by S3 object storage

@@ -21,6 +21,7 @@ public class IntervalBuckets {
      * 5       1,2
      * 6       1,2
      * 8       1,2,3
+     * 10      1,2,3
      * 13      0
      * 16      4
      * 25      4,5
@@ -100,7 +101,6 @@ public class IntervalBuckets {
         // second scan - accumulate buckets into an array for easier BSearch
         RangeBucket[] rangeBucketsArr = rangeBuckets.values().toArray(new RangeBucket[0]);
         for (int i = 0; i < rangeBucketsArr.length; i++) {
-            int key = rangeBucketsArr[i].end;
             Set<Integer> buckets = rangeBucketsArr[i].buckets;
             Set<Integer> accumulatedBuckets = new HashSet<>();
             // get prev bucket state copy
