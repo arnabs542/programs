@@ -17,6 +17,8 @@ public class InfectionMinTime {
      1 | 0 | 1 | 2 | 1
      1 | 0 | 0 | 2 | 1 
      Covid patients at positions {0,0}, {0, 3}, {1, 3} and {2, 3} will infect cells at {0, 1}, {1, 0}, {0, 4}, {1, 2}, {1, 4}, {2, 4} during 1st unit time. And, during 2nd unit time, covid patient at {1, 0} got infected and will infect cell at {2, 0}. Hence, total 2 unit of time is required to infect all cells. 
+
+     Edge case: what if grid is mostly infected and few healthy patient exist - how does that affect minTime ? BFS wud terminate even before traversing whole grid
      */
 
     public static void main(String[] args) {
@@ -84,7 +86,7 @@ public class InfectionMinTime {
                     healthyPatients--;
                 }
             }
-            if (healthyPatients == 0) {
+            if (healthyPatients == 0) { // not reqd to track healthyPatients, if we check if no patient were infected in this iteration, then just exit
                 minTime++;
                 return minTime;
             } else {
