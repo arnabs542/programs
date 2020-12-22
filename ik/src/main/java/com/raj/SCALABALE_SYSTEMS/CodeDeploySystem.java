@@ -2,7 +2,7 @@ package com.raj.SCALABALE_SYSTEMS;
 
 public class CodeDeploySystem {
 /**
- * Build a sclable code build & deploy system
+ * Build a scalable code build & deploy system
  * https://www.youtube.com/watch?v=q0KGYwNbf-0
  *
  * == Requirements:

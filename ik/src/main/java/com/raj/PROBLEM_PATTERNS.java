@@ -136,5 +136,20 @@ public class PROBLEM_PATTERNS {
      * @see com.raj.graphs.ShortestPathWeighted - Dijkstra's Shortest Path in Weighted graph w/ cycles
      * # When a problem refers a DAG, first thing to try is Topological Sort, then do what u need to find like - shortest path, schedule etc in second pass.
      * @see com.raj.graphs.LongestPathWeightedDAG - Topo Sort DFS + Longest Path + Track Parent
+     * @see com.raj.graphs.InfectionMinTime -
+     *
+     *
+     *
+     * Phone Screen:
+     * Given a matrix of dimension RxC where each cell in the matrix can have values 0, 1 or 2 which has the following meaning:
+     * 0 : Empty cell
+     * 1 : Healthy Patient
+     * 2 : Covid Patient
+     * We have to determine what is the minimum time required to spread disease. A covid patient at index [i,j] can infect other at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (up, down, left and right) in unit time. 
+     *
+     * Edge cases: Did they track healthyPatient count so that if majority ppl are sick already, time might be much lesser than required to fully traverse the grid via BFS.
      */
+
+
+
 }

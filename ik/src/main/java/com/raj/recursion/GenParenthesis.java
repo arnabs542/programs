@@ -15,7 +15,7 @@ public class GenParenthesis {
      * @see com.raj.recursion.permutations.WellFormedBraces
      */
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(find_all_well_formed_brackets(3)));
+        System.out.println(Arrays.toString(find_all_well_formed_brackets(4)));
     }
 
     static String[] find_all_well_formed_brackets(int n) {

@@ -22,7 +22,8 @@ public class LetterCombinationPhoneNumber {
      *       /
      *  (adg,adh,adi)
      *
-     * O(bf = 3 ^ max_depth = 3) = O(3^3)
+     * O(bf = 3 ^ max_depth = 3) = O(3^3) = O(num_max_chars_for_digit ^ n)
+     * O(4^n) worst case
      */
     private HashMap<String, String> map = new HashMap<>();
     private List<String> result = Lists.newArrayList();
